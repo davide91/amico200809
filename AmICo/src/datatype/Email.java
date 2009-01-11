@@ -1,7 +1,7 @@
 package datatype;
 
 
-//perchè non mi ascolti mai???
+
 import java.util.regex.*;
 
 public class Email {
