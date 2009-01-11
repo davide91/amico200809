@@ -5,7 +5,7 @@ package datatype;
 
 /**
  * @author bruno
- * l'autore è un demente
+ * 
  */
 public class CodiceFiscale {
 
