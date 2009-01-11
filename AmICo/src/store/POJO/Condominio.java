@@ -5,6 +5,7 @@ import java.util.Set;
 
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
+import datatype.PersoneConStessoIndirizzo;
 import datatype.Preferenze;
 import enumeration.StatoCondominio;
 
@@ -18,7 +19,7 @@ public class Condominio {
 	private Set<Cassa> cassa = new HashSet<Cassa>();
 	private Set<TabellaMillesimale> tabelleMillesimali = new HashSet<TabellaMillesimale>(); 
 	private Set<Bilancio> bilanci = new HashSet<Bilancio>();
-	private Set<UnitaImmobiliare> UnitaImmobiliari = new HashSet<UnitaImmobiliare>();
+	private Set<UnitaImmobiliare> unitaImmobiliari = new HashSet<UnitaImmobiliare>();
 	
 	/* ANCHE 
 	 * persona (in persona, persona giuridica e persona fisica)
@@ -59,10 +60,93 @@ public class Condominio {
 		return result;
 	}
 	
+	public void CreaCondominio()
+	{
+		
+	}
+	
+	public void modificaDati(DatiCondominio dCond)
+	{
+		datiCond = dCond;
+	}
+	
+	public void inserisciPersona(Persona p)
+	{
+		
+	}
+	
+	public void inserisciUnitàImmobiliare(UnitaImmobiliare uImm)
+	{
+		unitaImmobiliari.add(uImm);
+	}
+	
+	public void eliminaUnitàImmobiliare(UnitaImmobiliare uImm)
+	{
+		unitaImmobiliari.remove(uImm);
+	}
+	
+	public void inserisciTabellaMillesimale(TabellaMillesimale tab)
+	{
+		tabelleMillesimali.add(tab);
+	}
+	
+	public void inserisciBilancio(Bilancio b)
+	{
+		bilanci.add(b);
+	}
+	
+	public Bilanci recuperaBilanci()
+	{
+		return bilanci;
+	}
+	
+	public Bilanci recuperaBilanciInEsercizio()
+	{
+		for (Bilancio b : bilanci) {
+			if(b.isInEsercizio())
+				//aggiungi alla lista di quelli da restituire
+		}
+	}
+	
+	public Cassa recuperaCassa()
+	{
+		
+	}
+	
+	public DatiCondominio recuperaDatiCondominio()
+	{
+		
+	}
+	
+	public Persone recuperaCondomini()
+	{
+		
+	}
+	
+	public UnitàImmobiliari recuperaUnitàImmobiliari()
+	{
+		
+	}
+	
+	public TabelleMillesimali recuperaTabelleMillesimali()
+	{
+		
+	}
+	
+	public Pagamenti recuperaPagamenti()
+	{
+		
+	}
+	
+	public void modificaPreferenze(Preferenze pref)
+	{
+		
+	}
+	
 	public long getId() {
 		return id;
 	}
-
+	
 	public void setId(long id) {
 		this.id = id;
 	}
