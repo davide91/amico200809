@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="src/store/lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/asm.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/cglib-2.1.3.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/h2.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/jta.jar"/>
+	<classpathentry kind="lib" path="src/store/lib/log4j-1.2.11.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
