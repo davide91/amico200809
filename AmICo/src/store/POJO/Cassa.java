@@ -14,8 +14,10 @@ import datatype.Euro;
  */
 public class Cassa {
 	
+	private long id;
 	private Euro saldo;
 	private Set<MovimentoCassa> movimentiDiCassa = new HashSet<MovimentoCassa>();
+	private Condominio condominio;
 	
 	public Cassa()
 	{
@@ -41,6 +43,22 @@ public class Cassa {
 
 	public void setMovimentiDiCassa(Set<MovimentoCassa> movimentiDiCassa) {
 		this.movimentiDiCassa = movimentiDiCassa;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Condominio getCondominio() {
+		return condominio;
+	}
+
+	public void setCondominio(Condominio condominio) {
+		this.condominio = condominio;
 	}
 	
 	

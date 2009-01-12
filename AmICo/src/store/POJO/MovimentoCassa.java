@@ -9,7 +9,11 @@ package store.POJO;
  */
 public class MovimentoCassa {
 
+	private long id;
 	private DatiMovimentoCassa dati;
+	private Pagamento relativoAPagamento;
+	private Cassa cassa;
+	private VoceBilancio relativoAVoce;
 	
 	public MovimentoCassa()
 	{

@@ -9,4 +9,5 @@ package store.POJO;
  */
 public class Proprieta {
 
+	private long id;
 }
