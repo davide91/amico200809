@@ -9,4 +9,8 @@ package store.POJO;
  */
 public class Persona {
 
+	public Persona()
+	{
+		
+	}
 }
