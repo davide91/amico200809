@@ -14,6 +14,7 @@ import datatype.DatiUnitaImmobiliare;
  */
 public class UnitaImmobiliare {
 	
+	private long id;
 	private DatiUnitaImmobiliare datiUnitàImmobiliare;
 	
 	private Set<Proprieta> quoteDiPossesso = new HashSet<Proprieta>();

@@ -16,11 +16,53 @@ import enumeration.StatoBilancio;
  */
 public class Bilancio {
 
+	private long id;
 	private DatiBilancio dati;
-	
 	private Set<VoceBilancio> voci = new HashSet<VoceBilancio>(); 
-	//manca piano pagamenti
-	
+	private Set<Pagamento> pagamenti = new HashSet<Pagamento>();
+	private Set<PianoPagamenti> pianoPagamenti = new HashSet<PianoPagamenti>();
+	private Condominio condominio;
+		
+	public DatiBilancio getDati() {
+		return dati;
+	}
+
+	public void setDati(DatiBilancio dati) {
+		this.dati = dati;
+	}
+
+	public Set<VoceBilancio> getVoci() {
+		return voci;
+	}
+
+	public void setVoci(Set<VoceBilancio> voci) {
+		this.voci = voci;
+	}
+
+	public Set<Pagamento> getPagamenti() {
+		return pagamenti;
+	}
+
+	public void setPagamenti(Set<Pagamento> pagamenti) {
+		this.pagamenti = pagamenti;
+	}
+
+	public Set<PianoPagamenti> getPianoPagamenti() {
+		return pianoPagamenti;
+	}
+
+	public void setPianoPagamenti(Set<PianoPagamenti> pianoPagamenti) {
+		this.pianoPagamenti = pianoPagamenti;
+	}
+
+	public Condominio getCondominio() {
+		return condominio;
+	}
+
+	public void setCondominio(Condominio condominio) {
+		this.condominio = condominio;
+	}
+
 	public Bilancio()
 	{
 		
@@ -78,7 +120,7 @@ public class Bilancio {
 	
 	public VociBilancio vociNonContabilizzate()
 	{
-		
+		//return voci;
 	}
 	
 	public boolean terminabile()
@@ -94,6 +136,14 @@ public class Bilancio {
 	public Euri moreUnità()
 	{
 		
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	

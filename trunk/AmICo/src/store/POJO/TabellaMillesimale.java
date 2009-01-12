@@ -11,6 +11,7 @@ import datatype.DatiCondominio;
  */
 public class TabellaMillesimale {
 
+	private long id;
 	private DatiTabellaMillesimale dati;
 	
 	public TabellaMillesimale()

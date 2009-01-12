@@ -9,9 +9,11 @@ package store.POJO;
  */
 public class VoceBilancio {
 
+	private long id;
 	private DatiVoceBialncio dati;
 	private Data dataContabilitazione;
-	//manca il link a movimento cassa
+	private MovimentoCassa contabilizzata;
+	
 	
 	
 	public VoceBilancio()
