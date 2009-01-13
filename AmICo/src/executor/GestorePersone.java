@@ -8,6 +8,7 @@ import boundary.InserirePersona;
 import datatype.DatiPersona;
 import datatype.EsitoControlloDatiPersona;
 import enumeration.StatiGestorePersone;
+import store.TuttePersone;
 import store.POJO.Persona;
 
 /**
@@ -41,11 +42,25 @@ public class GestorePersone {
 	public void inserisciDatiPersona(DatiPersona datiP){
 		datiPersona=datiP;
 		IP.ammissibile(personaGiaInserita(datiP));
+		state=StatiGestorePersone.attesaConfermaInserimento;
 		
 	}
 	
+	public void procedi(Boolean procedere) {
+		switch (state) {
+		case attesaConfermaInserimento: 
+			if (procedere){
+				
+				
+			}	
+			break;
+
+		default:
+			break;
+		}
+	}
 	
-	public EsitoControlloDatiPersona personaGiaInserita(DatiPersona datiP) {
+	private EsitoControlloDatiPersona personaGiaInserita(DatiPersona datiP) {
 		return new EsitoControlloDatiPersona();
 	}
 	
