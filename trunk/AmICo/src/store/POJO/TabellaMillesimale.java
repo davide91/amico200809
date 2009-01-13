@@ -3,7 +3,7 @@
  */
 package store.POJO;
 
-import datatype.DatiCondominio;
+import datatype.DatiTabellaMillesimale;
 
 /**
  * @author bruno
@@ -29,7 +29,7 @@ public class TabellaMillesimale {
 		dati = DTM;
 	}
 	
-	public void creaTabellaProprietàGenerale(Reali millesimi)
+	public void creaTabellaProprietàGenerale(float millesimi)
 	{
 		dati.setMillesimi(millesimi);
 	}
@@ -45,5 +45,13 @@ public class TabellaMillesimale {
 
 	public void setDati(DatiTabellaMillesimale dati) {
 		this.dati = dati;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

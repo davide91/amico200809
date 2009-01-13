@@ -3,7 +3,7 @@
  */
 package store.POJO;
 
-import datatype.DatiPersonaFisica;
+import datatype.DatiPianoPagamenti;
 
 /**
  * @author bruno

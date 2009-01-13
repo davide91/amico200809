@@ -3,6 +3,8 @@
  */
 package store.POJO;
 
+import datatype.DatiMovimentoCassa;
+
 /**
  * @author bruno
  *
@@ -20,12 +22,12 @@ public class MovimentoCassa {
 		
 	}
 	
-	public MovimentoCassa(DatiMovimetoCassa datiMC)
+	public MovimentoCassa(DatiMovimentoCassa datiMC)
 	{
 		dati = datiMC;
 	}
 	
-	public void creaMovimentoCassa(DatiMovimetoCassa datiMC)
+	public void creaMovimentoCassa(DatiMovimentoCassa datiMC)
 	{
 		dati = datiMC;
 	}
@@ -41,5 +43,37 @@ public class MovimentoCassa {
 
 	public void setDati(DatiMovimentoCassa dati) {
 		this.dati = dati;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Pagamento getRelativoAPagamento() {
+		return relativoAPagamento;
+	}
+
+	public void setRelativoAPagamento(Pagamento relativoAPagamento) {
+		this.relativoAPagamento = relativoAPagamento;
+	}
+
+	public Cassa getCassa() {
+		return cassa;
+	}
+
+	public void setCassa(Cassa cassa) {
+		this.cassa = cassa;
+	}
+
+	public VoceBilancio getRelativoAVoce() {
+		return relativoAVoce;
+	}
+
+	public void setRelativoAVoce(VoceBilancio relativoAVoce) {
+		this.relativoAVoce = relativoAVoce;
 	}
 }
