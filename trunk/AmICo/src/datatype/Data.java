@@ -6,6 +6,8 @@ package datatype;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
 /**
  * @author bruno
  *
@@ -16,8 +18,6 @@ public class Data {
 	
 	public Data()
 	{
-	
-		
 		
 	}
 	
