@@ -3,7 +3,11 @@
  */
 package store;
 
+import java.util.List;
+
 import org.hibernate.Session;
+
+import datatype.list.Condomini;
 
 import store.POJO.Condominio;
 import store.util.HibernateUtil;
@@ -14,6 +18,8 @@ import store.util.HibernateUtil;
  */
 public class TuttiCondomini {
 
+	private static Condomini CONDOMINI = new Condomini();
+	
 	public TuttiCondomini()
 	{
 		
@@ -21,8 +27,7 @@ public class TuttiCondomini {
 	
 	public void inizializza()
 	{
-		
-		
+		//carico da DB tutti i condomini...		
 	}
 	
 	public Condomini recuperaCondomini()
@@ -35,7 +40,7 @@ public class TuttiCondomini {
 		// Il linguaggio qui utilizzato è HQL, non compatibile con SQL benchè
 		// molto simile per favorire l'accettazione del tool Hibernate agli
 		// esperti di DB relazionali.l
-		List Cond = session.createQuery("from Condomini").list();
+		List<Condominio> Cond = session.createQuery("from Condomini").list();
 		session.getTransaction().commit();
 
 		Condomini ret = new Condomini();
