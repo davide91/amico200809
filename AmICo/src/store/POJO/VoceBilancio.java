@@ -3,6 +3,9 @@
  */
 package store.POJO;
 
+import datatype.Data;
+import datatype.DatiVoceBilancio;
+
 /**
  * @author bruno
  *
@@ -10,7 +13,7 @@ package store.POJO;
 public class VoceBilancio {
 
 	private long id;
-	private DatiVoceBialncio dati;
+	private DatiVoceBilancio dati;
 	private Data dataContabilitazione;
 	private MovimentoCassa contabilizzata;
 	
@@ -36,11 +39,11 @@ public class VoceBilancio {
 		
 	}
 
-	public DatiVoceBialncio getDati() {
+	public DatiVoceBilancio getDati() {
 		return dati;
 	}
 
-	public void setDati(DatiVoceBialncio dati) {
+	public void setDati(DatiVoceBilancio dati) {
 		this.dati = dati;
 	}
 
@@ -50,5 +53,21 @@ public class VoceBilancio {
 
 	public void setDataContabilitazione(Data dataContabilitazione) {
 		this.dataContabilitazione = dataContabilitazione;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public MovimentoCassa getContabilizzata() {
+		return contabilizzata;
+	}
+
+	public void setContabilizzata(MovimentoCassa contabilizzata) {
+		this.contabilizzata = contabilizzata;
 	}
 }

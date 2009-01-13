@@ -3,6 +3,8 @@
  */
 package store.POJO;
 
+import datatype.DatiPianoPagamenti;
+
 /**
  * @author bruno
  *

@@ -5,8 +5,14 @@ package store.POJO;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import org.hibernate.type.OrderedSetType;
 
 import datatype.DatiUnitaImmobiliare;
+import datatype.liste.Persone;
+import datatype.liste.QuoteProprietà;
 
 /**
  * @author bruno
@@ -17,7 +23,7 @@ public class UnitaImmobiliare {
 	private long id;
 	private DatiUnitaImmobiliare datiUnitàImmobiliare;
 	
-	private Set<Proprieta> quoteDiPossesso = new HashSet<Proprieta>();
+	private SortedSet<Proprieta> quoteDiPossesso = new TreeSet<Proprieta>();
 	
 	public UnitaImmobiliare()
 	{
@@ -34,14 +40,38 @@ public class UnitaImmobiliare {
 		datiUnitàImmobiliare = dui;
 	}
 	
-	private seqProprietà recuperaProprietà()
+	private QuoteProprietà recuperaProprietà()
+	{
+		return null;
+	}
+	
+	private void modificaProprietà(Persone p, float r)
 	{
 		
 	}
-	
-	private void modificaProprietà(persone p, Reali r)
-	{
-		
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public DatiUnitaImmobiliare getDatiUnitàImmobiliare() {
+		return datiUnitàImmobiliare;
+	}
+
+	public void setDatiUnitàImmobiliare(DatiUnitaImmobiliare datiUnitàImmobiliare) {
+		this.datiUnitàImmobiliare = datiUnitàImmobiliare;
+	}
+
+	public SortedSet<Proprieta> getQuoteDiPossesso() {
+		return quoteDiPossesso;
+	}
+
+	public void setQuoteDiPossesso(SortedSet<Proprieta> quoteDiPossesso) {
+		this.quoteDiPossesso = quoteDiPossesso;
 	}
 
 }

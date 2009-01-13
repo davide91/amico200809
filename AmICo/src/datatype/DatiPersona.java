@@ -9,9 +9,9 @@ package datatype;
  */
 public class DatiPersona {
 
-	private String tel;
-	private Email mail;
-	private String fax;
+	protected String tel;
+	protected Email mail;
+	protected String fax;
 	
 	public DatiPersona()
 	{
@@ -25,7 +25,7 @@ public class DatiPersona {
 		this.fax = fax;
 	}
 	
-	public EsitoControlloDatiPersona controlla()
+	public EsitoControlloDati controlla()
 	{
 		return null;
 	}

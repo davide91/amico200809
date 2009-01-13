@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import datatype.DatiBilancio;
-import datatype.DatiCondominio;
+import datatype.liste.Euri;
+import datatype.liste.PianiPagamenti;
+import datatype.liste.VociBilancio;
 import enumeration.StatoBilancio;
 
 /**
@@ -100,7 +102,7 @@ public class Bilancio {
 	
 	public void terminaEsercizio()
 	{
-		dati.setStato(StatoBilancio.)
+		dati.setStato(StatoBilancio.consuntivo);
 	}
 	
 	public void inserisciPianoPagamenti(PianoPagamenti pp)
@@ -110,32 +112,32 @@ public class Bilancio {
 	
 	public VociBilancio recuperaVociBilancio()
 	{
-		
+		return null;
 	}
 	
 	public PianiPagamenti recuperaPianiPagamenti()
 	{
-		
+		return null;
 	}
 	
 	public VociBilancio vociNonContabilizzate()
 	{
-		//return voci;
+		return null;
 	}
 	
 	public boolean terminabile()
 	{
-		
+		return false;
 	}
 	
 	public Euri saldoUnità()
 	{
-		
+		return null;
 	}
 	
 	public Euri moreUnità()
 	{
-		
+		return null;
 	}
 
 	public long getId() {
@@ -145,8 +147,4 @@ public class Bilancio {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	
-	
-	
 }

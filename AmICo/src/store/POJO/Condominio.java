@@ -7,6 +7,11 @@ import datatype.DatiCondominio;
 import datatype.Indirizzo;
 import datatype.PersoneConStessoIndirizzo;
 import datatype.Preferenze;
+import datatype.liste.Bilanci;
+import datatype.liste.Pagamenti;
+import datatype.liste.Persone;
+import datatype.liste.TabelleMillesimali;
+import datatype.liste.UnitàImmobiliari;
 import enumeration.StatoCondominio;
 
 public class Condominio {
@@ -16,11 +21,11 @@ public class Condominio {
 	private Preferenze preferenze;
 	private StatoCondominio statoCondominio;
 
-	private Set<Cassa> cassa = new HashSet<Cassa>();
-	private Set<TabellaMillesimale> tabelleMillesimali = new HashSet<TabellaMillesimale>(); 
-	private Set<Bilancio> bilanci = new HashSet<Bilancio>();
-	private Set<UnitaImmobiliare> unitaImmobiliari = new HashSet<UnitaImmobiliare>();
-	
+	protected Set<Cassa> cassa = new HashSet<Cassa>();
+	protected Set<TabellaMillesimale> tabelleMillesimali = new HashSet<TabellaMillesimale>(); 
+	protected Set<Bilancio> bilanci = new HashSet<Bilancio>();
+	protected Set<UnitaImmobiliare> unitaImmobiliari = new HashSet<UnitaImmobiliare>();
+
 	/* ANCHE 
 	 * persona (in persona, persona giuridica e persona fisica)
 	 * */
@@ -97,45 +102,48 @@ public class Condominio {
 	
 	public Bilanci recuperaBilanci()
 	{
-		return bilanci;
+		return null;
 	}
 	
 	public Bilanci recuperaBilanciInEsercizio()
 	{
+		/*Bilanci bil = new Bilanci();
 		for (Bilancio b : bilanci) {
 			if(b.isInEsercizio())
+				
 				//aggiungi alla lista di quelli da restituire
-		}
+		}*/
+		return null;
 	}
 	
 	public Cassa recuperaCassa()
 	{
-		
+		return null;
 	}
 	
 	public DatiCondominio recuperaDatiCondominio()
 	{
-		
+		return null;
 	}
 	
 	public Persone recuperaCondomini()
 	{
-		
+		return null;
 	}
 	
 	public UnitàImmobiliari recuperaUnitàImmobiliari()
 	{
-		
+		return null;
 	}
 	
 	public TabelleMillesimali recuperaTabelleMillesimali()
 	{
-		
+		return null;
 	}
 	
 	public Pagamenti recuperaPagamenti()
 	{
-		
+		return null;
 	}
 	
 	public void modificaPreferenze(Preferenze pref)
@@ -173,5 +181,37 @@ public class Condominio {
 
 	public void setStatoCondominio(StatoCondominio statoCondominio) {
 		this.statoCondominio = statoCondominio;
+	}
+
+	public Set<Cassa> getCassa() {
+		return cassa;
+	}
+
+	public void setCassa(Set<Cassa> cassa) {
+		this.cassa = cassa;
+	}
+
+	public Set<TabellaMillesimale> getTabelleMillesimali() {
+		return tabelleMillesimali;
+	}
+
+	public void setTabelleMillesimali(Set<TabellaMillesimale> tabelleMillesimali) {
+		this.tabelleMillesimali = tabelleMillesimali;
+	}
+
+	public Set<Bilancio> getBilanci() {
+		return bilanci;
+	}
+
+	public void setBilanci(Set<Bilancio> bilanci) {
+		this.bilanci = bilanci;
+	}
+
+	public Set<UnitaImmobiliare> getUnitaImmobiliari() {
+		return unitaImmobiliari;
+	}
+
+	public void setUnitaImmobiliari(Set<UnitaImmobiliare> unitaImmobiliari) {
+		this.unitaImmobiliari = unitaImmobiliari;
 	}
 }

@@ -3,6 +3,8 @@
  */
 package store.POJO;
 
+import datatype.DatiPagamento;
+
 /**
  * @author bruno
  *
@@ -11,7 +13,6 @@ public class Pagamento {
 
 	private long id;
 	private DatiPagamento datiPagamento;
-//	private Bilancio bilancio;
 	private MovimentoCassa pagato;
 	private PianoPagamenti pagamenti;
 	private Persona eseguitoDa;

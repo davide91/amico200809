@@ -27,10 +27,20 @@ public class DatiPersonaGiuridica extends DatiPersona {
 	}
 
 	@Override
-	public EsitoControlloDatiPersona controlla()
-	{
-		//definire il metodo in base a specifiche
-		return null;
+	public EsitoControlloDati controlla()
+	{	//definire il metodo in base a specifiche
+		boolean codOK = pIva.controlla();
+		boolean mailOK = mail.controllaEMail();
+		
+		if(codOK && mailOK)
+			return new DatiCorretti();
+		else
+		{
+			DatiErrati err = new DatiErrati();
+			if(!codOK) err.aggiungiCampo("Partita IVA Errata");
+			if(!mailOK) err.aggiungiCampo("Indirizzo Mail Errato");
+			return err;
+		}
 	}
 	
 	public PartitaIva getPIva() {

@@ -11,6 +11,12 @@
 			<generator class="native"/>
 		</id>
 		
+		<component name="NomeDataType" class="Classe">
+ 			<property name="NomeCampo1"/>
+ 			...
+		 	<property name="NomeCampoN"/>
+		</component>
+
 	
 
 	</class>

@@ -31,10 +31,20 @@ public class DatiPersonaFisica extends DatiPersona{
 	}
 	
 	@Override
-	public EsitoControlloDatiPersona controlla()
-	{
-		//definire il metodo in base a specifiche
-		return null;
+	public EsitoControlloDati controlla()
+	{	//definire il metodo in base a specifiche
+		boolean codOK = cF.controlla();
+		boolean mailOK = mail.controllaEMail();
+		
+		if(codOK && mailOK)
+			return new DatiCorretti();
+		else
+		{
+			DatiErrati err = new DatiErrati();
+			if(!codOK) err.aggiungiCampo("Codice Fiscale Errato");
+			if(!mailOK) err.aggiungiCampo("Indirizzo Mail Errato");
+			return err;
+		}
 	}
 
 	public CodiceFiscale getCF() {

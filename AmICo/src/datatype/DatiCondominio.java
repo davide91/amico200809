@@ -9,6 +9,11 @@ package datatype;
  */
 public class DatiCondominio {
 
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
 	private String id;
 	private Indirizzo indirizzo;
 	
