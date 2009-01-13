@@ -4,14 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import datatype.DatiCondominio;
-import datatype.Indirizzo;
-import datatype.PersoneConStessoIndirizzo;
 import datatype.Preferenze;
-import datatype.liste.Bilanci;
-import datatype.liste.Pagamenti;
-import datatype.liste.Persone;
-import datatype.liste.TabelleMillesimali;
-import datatype.liste.UnitàImmobiliari;
+import datatype.list.Bilanci;
+import datatype.list.Pagamenti;
+import datatype.list.Persone;
+import datatype.list.TabelleMillesimali;
+import datatype.list.UnitàImmobiliari;
 import enumeration.StatoCondominio;
 
 public class Condominio {

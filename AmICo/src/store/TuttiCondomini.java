@@ -18,7 +18,7 @@ import store.util.HibernateUtil;
  */
 public class TuttiCondomini {
 
-	private static Condomini CONDOMINI = new Condomini();
+	public static Condomini CONDOMINI = new Condomini();
 	
 	public TuttiCondomini()
 	{

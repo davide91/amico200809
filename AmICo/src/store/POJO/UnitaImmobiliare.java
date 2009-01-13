@@ -23,6 +23,7 @@ public class UnitaImmobiliare {
 	private long id;
 	private DatiUnitaImmobiliare datiUnitàImmobiliare;
 	
+	private Condominio condominio
 	private SortedSet<Proprieta> quoteDiPossesso = new TreeSet<Proprieta>();
 	
 	public UnitaImmobiliare()

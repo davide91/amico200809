@@ -17,7 +17,7 @@ import datatype.list.PersoneGiuridiche;
  */
 public class TuttePersone {
 
-	private static Persone PERSONE = new Persone();
+	public static Persone PERSONE = new Persone();
 	
 	public TuttePersone()
 	{
