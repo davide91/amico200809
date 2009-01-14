@@ -13,6 +13,7 @@ public class TabellaMillesimale {
 
 	private long id;
 	private DatiTabellaMillesimale dati;
+	private Condominio condominio;
 	
 	public TabellaMillesimale()
 	{

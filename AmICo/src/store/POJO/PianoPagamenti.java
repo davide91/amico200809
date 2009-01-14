@@ -3,6 +3,9 @@
  */
 package store.POJO;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import datatype.DatiPianoPagamenti;
 
 /**
@@ -12,6 +15,8 @@ import datatype.DatiPianoPagamenti;
 public class PianoPagamenti {
 
 	protected DatiPianoPagamenti dati;
+	protected SortedSet<Pagamento> pagamenti = new TreeSet<Pagamento>();
+	protected Bilancio bilancio;
 	
 	public PianoPagamenti()
 	{

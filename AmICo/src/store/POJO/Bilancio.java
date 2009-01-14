@@ -5,6 +5,8 @@ package store.POJO;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import datatype.DatiBilancio;
 import datatype.list.Euri;
@@ -20,10 +22,11 @@ public class Bilancio {
 
 	private long id;
 	private DatiBilancio dati;
-	private Set<VoceBilancio> voci = new HashSet<VoceBilancio>(); 
+
+	private SortedSet<VoceBilancio> voci = new TreeSet<VoceBilancio>(); 
 	private Set<Pagamento> pagamenti = new HashSet<Pagamento>();
 	private Set<PianoPagamenti> pianoPagamenti = new HashSet<PianoPagamenti>();
-//	private Condominio condominio;
+	private Condominio condominio;
 		
 	public Bilancio()
 	{
@@ -137,11 +140,11 @@ public class Bilancio {
 		this.dati = dati;
 	}
 
-	public Set<VoceBilancio> getVoci() {
+	public SortedSet<VoceBilancio> getVoci() {
 		return voci;
 	}
 
-	public void setVoci(Set<VoceBilancio> voci) {
+	public void setVoci(SortedSet<VoceBilancio> voci) {
 		this.voci = voci;
 	}
 
@@ -161,14 +164,14 @@ public class Bilancio {
 		this.pianoPagamenti = pianoPagamenti;
 	}
 
-/*	public Condominio getCondominio() {
+	public Condominio getCondominio() {
 		return condominio;
 	}
 
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
 	}
-*/
+
 	public long getId() {
 		return id;
 	}

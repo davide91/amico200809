@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="store.POJO">
+
+	<class name="VoceBilancio" table="VOCE_BILANCIO">
+	
+		<id name="id" column="VOCE_BIL_ID">
+			<generator class="native"/>
+		</id>
+	
+		<component name="dati" class="datatype.DatiVoceBilancio">
+			<property name="titolo"/>
+			<property name="tipo" type="store.convertitori.HibTipoVoce"/> 
+			<property name="descrizione"/>
+			<component name="importo" class="datatype.Euro">
+				<property name="euro"/>
+			</component>	
+			<property name="dataPrevista" type="date"/>
+		</component>	
+		<property name="dataContabilitazione" type="date"/>	
+			
+		<!-- inverse end -->
+		<many-to-one name="bilancio"
+		 	class="Bilancio"
+		 	column="BILANCIO_ID"/>
+		 	
+		<many-to-one name="contabilizzata"
+			column="RELATIVO_A_VOCE"
+			unique="true"
+			not-null="false"/> 
+	
+	</class>
+</hibernate-mapping>

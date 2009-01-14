@@ -11,6 +11,8 @@ import datatype.DatiPianoPagamenti;
  */
 public class PianoPagamentiStraordinario extends PianoPagamenti{
 
+	private TabellaMillesimale ripartizione;
+	
 	public PianoPagamentiStraordinario()
 	{
 		
