@@ -28,5 +28,4 @@ public class Euro {
 	public void setEuro(Float euro) {
 		this.euro = euro;
 	}
-	
 }

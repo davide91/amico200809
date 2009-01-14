@@ -29,6 +29,28 @@ public class PersonaGiuridica extends Persona{
 		dati = dpg;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof PersonaGiuridica))
+	   return false;
+	 final PersonaGiuridica o = (PersonaGiuridica) other;
+	 if (!o.getDati().equals(this.getDati()))
+	   return false;
+	 if (!o.getPersonaDiRiferimento().equals(this.getPersonaDiRiferimento()))
+	   return false;
+	 return true;
+	}
+
+	@Override
+	public int hashCode() {
+	 int result;
+	 result = this.getDati().hashCode();
+	 result = 29 * result + this.getPersonaDiRiferimento().hashCode();
+	 return result;
+	}
+	
 	public DatiPersonaGiuridica getDati() {
 		return dati;
 	}

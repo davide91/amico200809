@@ -3,6 +3,8 @@
  */
 package store.POJO;
 
+import javax.print.attribute.standard.MediaSize.Other;
+
 import datatype.Data;
 import datatype.DatiVoceBilancio;
 
@@ -39,6 +41,32 @@ public class VoceBilancio {
 		
 	}
 
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof VoceBilancio))
+	   return false;
+	 final VoceBilancio o = (VoceBilancio) other;
+	 if (!o.getContabilizzata().equals(getContabilizzata()))
+	   return false;
+	 if (!o.getDataContabilitazione().equals(getDataContabilitazione()))
+	   return false;
+	 if(!o.getDati().equals(getDati()))
+		return false;
+	 return true;
+	}
+
+	@Override
+	public int hashCode() {
+	 int result;
+	 result = getContabilizzata().hashCode();
+	 result = 29 * result + this.getDataContabilitazione().hashCode();
+	 result = 29 * result + this.getDati().hashCode();
+	 return result;
+	}
+
+	
 	public DatiVoceBilancio getDati() {
 		return dati;
 	}
