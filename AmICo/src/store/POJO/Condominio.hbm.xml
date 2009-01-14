@@ -11,26 +11,51 @@
 			<generator class="native"/>
 		</id>
 		
+		<component name="datiCond" class="datatype.DatiCondominio">
+			<property name="id"/>		
+			<component name="indirizzo" class="datatype.Indirizzo">
+				<property name="via"/>
+				<property name="interno"/>
+				<property name="comune"/>
+				<property name="provincia"/>
+				<property name="cap"/>
+			</component>	
+		</component>	
 		
+		<component name="preferenze" class="datatype.Preferenze">
+			<property name="interessiMora"/>
+			<property name="ritardoAmmesso"/>
+			<component name="sogliaMinimaCassa" class="datatype.Euro">
+				<property name="euro"/>
+			</component>
+		</component>
 		
+		<property name="interessiMora"/>  <!-- STATO CONDOMINIO -->
 		
-		<set name="unitaImmobiliari" cascade="all-delete-orphan,save-update">
-  			<key column="CONDOMINIO_ID"/>
-  			<one-to-many class="UnitaImmobiliare"/>
+		<set name="cassa" cascade="all">
+ 			<key column="CASSA_ID"/>
+			<one-to-many class="Cassa"/>
 		</set>
 		
+		<set name="tabelleMillesimali" cascade="all">
+ 			<key column="TABELLA_ID"/>
+			<one-to-many class="TabellaMillesimale"/>
+		</set>
 		
+		<set name="bilanci" cascade="all">
+ 			<key column="BILANCIO_ID"/>
+			<one-to-many class="Bilancio"/>
+		</set>
 		
-		<component name="NomeDataType" class="Classe">
- 			<property name="NomeCampo1"/>
- 			...
-		 	<property name="NomeCampoN"/>
-		</component>
-
-	
-	
-	
-
+		<set name="unitaImmobiliari" cascade="all">
+ 			<key column="UNITA_ID"/>
+			<one-to-many class="UnitaImmobiliari"/>
+		</set>
+		
+		<set name="condomini" cascade="all">
+ 			<key column="PERSONA_ID"/>
+			<one-to-many class="Persona"/>
+		</set>
 	</class>
 
 </hibernate-mapping>

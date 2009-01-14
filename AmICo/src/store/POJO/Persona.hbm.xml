@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="store.POJO">
+
+	<class name="Persona" table="PERSONA">
+    <id name="id" column="PERSONA_ID">
+        <generator class="native"/>
+    </id>
+    
+   
+    <joined-subclass name="PersonaFisica" table="PERSONA_FISICA">
+        <key column="PERSONA_ID"/>
+        <component name="dati" class="datatype.DatiPersonaFisica">
+			<property name="tel"/>
+			<component name="mail" class="datatype.Email">
+				<property name="email"/>
+			</component>	
+			<property name="fax"/>
+			<component name="cf" class="datatype.CodiceFiscale">
+				<property name="codiceFis"/>
+			</component>	
+			<property name="nome"/>
+			<property name="cognome"/>
+			<property name="cell"/>
+			<component name="domicilio" class="datatype.Indirizzo">
+				<property name="via"/>
+				<property name="interno"/>
+				<property name="comune"/>
+				<property name="provincia"/>
+				<property name="cap"/>
+			</component>	
+		</component>	
+    </joined-subclass>
+    
+  
+    <joined-subclass name="PersonaGiuridica" table="PERSONA_GIURIDICA">
+        <key column="PERSONA_ID"/>
+        <component name="dati" class="datatype.DatiPersonaFisica">
+			<property name="tel"/>
+			<component name="mail" class="datatype.Email">
+				<property name="email"/>
+			</component>	
+			<property name="fax"/>
+			<component name="pIva" class="datatype.PartitaIva">
+				<property name="partIva"/>
+			</component>	
+			<property name="ragioneSociale"/>
+			<component name="indFiscale" class="datatype.Indirizzo">
+				<property name="via"/>
+				<property name="interno"/>
+				<property name="comune"/>
+				<property name="provincia"/>
+				<property name="cap"/>
+			</component>	
+        </component>	
+        
+        <many-to-one name="personaDiRiferimento"
+			column="PERSONA_RIFERIMENTO"
+			unique="true"
+			not-null="false"/>
+    </joined-subclass>
+    
+	</class>
+</hibernate-mapping>

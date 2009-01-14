@@ -9,7 +9,7 @@ package datatype;
  */
 public class DatiPersonaFisica extends DatiPersona{
 
-	private CodiceFiscale cF;
+	private CodiceFiscale cf;
 	private String nome;
 	private String cognome;
 	private String cell;
@@ -23,7 +23,7 @@ public class DatiPersonaFisica extends DatiPersona{
 	public DatiPersonaFisica(CodiceFiscale cf, String nome, String cogn, String cell,Indirizzo dom, String tel, Email mail, String fax)
 	{
 		super(tel,mail,fax);
-		this.cF = cf;
+		this.cf = cf;
 		this.nome = nome;
 		this.cognome = cogn;
 		this.cell = cell;
@@ -33,7 +33,7 @@ public class DatiPersonaFisica extends DatiPersona{
 	@Override
 	public EsitoControlloDati controlla()
 	{	//definire il metodo in base a specifiche
-		boolean codOK = cF.controlla();
+		boolean codOK = cf.controlla();
 		boolean mailOK = mail.controllaEMail();
 		
 		if(codOK && mailOK)
@@ -48,11 +48,11 @@ public class DatiPersonaFisica extends DatiPersona{
 	}
 
 	public CodiceFiscale getCF() {
-		return cF;
+		return cf;
 	}
 
 	public void setCF(CodiceFiscale cf) {
-		cF = cf;
+		cf = cf;
 	}
 
 	public String getNome() {

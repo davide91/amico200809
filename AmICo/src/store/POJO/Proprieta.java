@@ -31,9 +31,7 @@ public class Proprieta {
 
 	@Override
 	public int hashCode() {
-	 int result;
-	 result = this.getQuota();
-	 return result;
+		return (int) (29 * this.getQuota());
 	}
 	
 	public long getId() {
