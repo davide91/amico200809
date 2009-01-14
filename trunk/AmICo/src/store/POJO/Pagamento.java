@@ -14,6 +14,7 @@ public class Pagamento {
 	private long id;
 	private DatiPagamento datiPagamento;
 	private MovimentoCassa pagato;
+	private Bilancio bilancio;
 	private PianoPagamenti pagamenti;
 	private Persona eseguitoDa;
 	
@@ -93,5 +94,13 @@ public class Pagamento {
 
 	public void setEseguitoDa(Persona eseguitoDa) {
 		this.eseguitoDa = eseguitoDa;
+	}
+
+	public Bilancio getBilancio() {
+		return bilancio;
+	}
+
+	public void setBilancio(Bilancio bilancio) {
+		this.bilancio = bilancio;
 	}
 }

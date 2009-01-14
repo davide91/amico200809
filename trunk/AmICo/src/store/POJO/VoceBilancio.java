@@ -3,6 +3,9 @@
  */
 package store.POJO;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.print.attribute.standard.MediaSize.Other;
 
 import datatype.Data;
@@ -17,6 +20,7 @@ public class VoceBilancio {
 	private long id;
 	private DatiVoceBilancio dati;
 	private Data dataContabilitazione;
+	private Bilancio bilancio;
 	private MovimentoCassa contabilizzata;
 	
 	
@@ -48,8 +52,8 @@ public class VoceBilancio {
 	 if (!(other instanceof VoceBilancio))
 	   return false;
 	 final VoceBilancio o = (VoceBilancio) other;
-	 if (!o.getContabilizzata().equals(getContabilizzata()))
-	   return false;
+//	 if (!o.getContabilizzata().equals(getContabilizzata()))
+//	   return false;
 	 if (!o.getDataContabilitazione().equals(getDataContabilitazione()))
 	   return false;
 	 if(!o.getDati().equals(getDati()))
@@ -60,9 +64,9 @@ public class VoceBilancio {
 	@Override
 	public int hashCode() {
 	 int result;
-	 result = getContabilizzata().hashCode();
+	 result = this.getDati().hashCode();
 	 result = 29 * result + this.getDataContabilitazione().hashCode();
-	 result = 29 * result + this.getDati().hashCode();
+	// result = 29 * result + getContabilizzata().hashCode();
 	 return result;
 	}
 
@@ -91,11 +95,11 @@ public class VoceBilancio {
 		this.id = id;
 	}
 
-	public MovimentoCassa getContabilizzata() {
+/*	public MovimentoCassa getContabilizzata() {
 		return contabilizzata;
 	}
 
 	public void setContabilizzata(MovimentoCassa contabilizzata) {
 		this.contabilizzata = contabilizzata;
-	}
+	}*/
 }

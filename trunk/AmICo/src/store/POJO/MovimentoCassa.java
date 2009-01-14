@@ -14,7 +14,7 @@ public class MovimentoCassa {
 	private long id;
 	private DatiMovimentoCassa dati;
 	private Pagamento relativoAPagamento;
-	//private Cassa cassa;
+	private Cassa cassa;
 	private VoceBilancio relativoAVoce;
 	
 	public MovimentoCassa()
@@ -89,14 +89,14 @@ public class MovimentoCassa {
 		this.relativoAPagamento = relativoAPagamento;
 	}
 
-/*	public Cassa getCassa() {
+	public Cassa getCassa() {
 		return cassa;
 	}
 
 	public void setCassa(Cassa cassa) {
 		this.cassa = cassa;
 	}
-*/
+
 	public VoceBilancio getRelativoAVoce() {
 		return relativoAVoce;
 	}

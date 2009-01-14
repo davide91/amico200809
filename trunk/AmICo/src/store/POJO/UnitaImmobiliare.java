@@ -17,8 +17,8 @@ import datatype.list.QuoteProprietà;
 public class UnitaImmobiliare {
 	
 	private long id;
-	private DatiUnitaImmobiliare datiUnitàImmobiliare;
-	
+	private DatiUnitaImmobiliare datiUnitaImmobiliare;
+	private Condominio condominio;
 	private SortedSet<Proprieta> quoteDiPossesso = new TreeSet<Proprieta>();
 	
 	public UnitaImmobiliare()
@@ -28,12 +28,12 @@ public class UnitaImmobiliare {
 	
 	public void creaUnitàImmobiliare()
 	{
-		datiUnitàImmobiliare = new DatiUnitaImmobiliare();
+		datiUnitaImmobiliare = new DatiUnitaImmobiliare();
 	}
 	
 	public void modificaDati(DatiUnitaImmobiliare dui)
 	{
-		datiUnitàImmobiliare = dui;
+		datiUnitaImmobiliare = dui;
 	}
 	
 	private QuoteProprietà recuperaProprietà()
@@ -53,7 +53,7 @@ public class UnitaImmobiliare {
 	 if (!(other instanceof UnitaImmobiliare))
 	   return false;
 	 final UnitaImmobiliare o = (UnitaImmobiliare) other;
-	 if (!o.getDatiUnitàImmobiliare().equals(getDatiUnitàImmobiliare()))
+	 if (!o.getDatiUnitaImmobiliare().equals(getDatiUnitaImmobiliare()))
 	   return false;
 	 if (!o.getQuoteDiPossesso().equals(getQuoteDiPossesso()))
 	   return false;
@@ -63,7 +63,7 @@ public class UnitaImmobiliare {
 	@Override
 	public int hashCode() {
 	 int result;
-	 result = this.getDatiUnitàImmobiliare().hashCode();
+	 result = this.getDatiUnitaImmobiliare().hashCode();
 	 result = 29 * result + this.getQuoteDiPossesso().hashCode();
 	 return result;
 	}
@@ -76,12 +76,12 @@ public class UnitaImmobiliare {
 		this.id = id;
 	}
 
-	public DatiUnitaImmobiliare getDatiUnitàImmobiliare() {
-		return datiUnitàImmobiliare;
+	public DatiUnitaImmobiliare getDatiUnitaImmobiliare() {
+		return datiUnitaImmobiliare;
 	}
 
-	public void setDatiUnitàImmobiliare(DatiUnitaImmobiliare datiUnitàImmobiliare) {
-		this.datiUnitàImmobiliare = datiUnitàImmobiliare;
+	public void setDatiUnitàImmobiliare(DatiUnitaImmobiliare datiUnitaImmobiliare) {
+		this.datiUnitaImmobiliare = datiUnitaImmobiliare;
 	}
 
 	public SortedSet<Proprieta> getQuoteDiPossesso() {

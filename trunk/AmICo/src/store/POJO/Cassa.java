@@ -17,7 +17,7 @@ public class Cassa {
 	private long id;
 	private Euro saldo;
 	private Set<MovimentoCassa> movimentiDiCassa = new HashSet<MovimentoCassa>();
-//	private Condominio condominio;
+	private Condominio condominio;
 	
 	public Cassa()
 	{
@@ -78,12 +78,11 @@ public class Cassa {
 		this.id = id;
 	}
 
-/*	public Condominio getCondominio() {
+	public Condominio getCondominio() {
 		return condominio;
 	}
 
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
 	}
-*/
 }

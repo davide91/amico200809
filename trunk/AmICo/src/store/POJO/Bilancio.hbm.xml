@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="store.POJO">
+
+	<class name="Bilancio" table="BILANCIO">
+	
+		<id name="id" column="BILANCIO_ID">
+			<generator class="native"/>
+		</id>
+	
+		<component name="dati" class="datatype.DatiBilancio">
+			<property name="tipo" type="store.convertitori.HibTipoBilancio"/> 
+			<property name="inizio" type="date"/>
+			<property name="fine" type="date"/>
+			<property name="titolo"/>
+			<property name="descrizione"/>
+			<property name="stato" type="store.convertitori.HibStatoBilancio"/>
+		</component>	
+			
+		<set name="voci" cascade="all">
+		 	<key column="BILANCIO_ID"/>
+		 	<one-to-many class="VoceBilancio"/>
+		</set>	
+			
+		<set name="pagamenti" cascade="all">
+		 	<key column="BILANCIO_ID"/>
+		 	<one-to-many class="Pagamento"/>
+		</set>
+		
+		<!-- inverse end -->
+		<many-to-one name="condominio"
+		 	class="Condominio"
+		 	column="CONDOMINIO_ID"/>
+
+	</class>
+</hibernate-mapping>

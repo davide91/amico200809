@@ -23,10 +23,8 @@ public class Condominio {
 	protected Set<TabellaMillesimale> tabelleMillesimali = new HashSet<TabellaMillesimale>(); 
 	protected Set<Bilancio> bilanci = new HashSet<Bilancio>();
 	protected Set<UnitaImmobiliare> unitaImmobiliari = new HashSet<UnitaImmobiliare>();
-
-	/* ANCHE 
-	 * persona (in persona, persona giuridica e persona fisica)
-	 * */
+	protected Set<Persona> condomini = new HashSet<Persona>();
+	
 	
 	public Condominio() // costruttore per Hibernate
 	{

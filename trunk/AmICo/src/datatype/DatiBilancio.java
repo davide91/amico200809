@@ -11,6 +11,7 @@ public class DatiBilancio {
 	private String titolo;
 	private String descrizione;
 	private StatoBilancio stato;
+	
 	public TipoBilancio getTipo() {
 		return tipo;
 	}

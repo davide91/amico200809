@@ -16,7 +16,7 @@
 		</component>	
 		
 		<set name="movimentiDiCassa" cascade="all">
-		 	<key column="MOVIMENTO_ID"/>
+		 	<key column="CASSA_ID"/>
 		 	<one-to-many class="Movimenti_Di_Cassa"/>
 		</set>
 
