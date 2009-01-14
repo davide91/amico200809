@@ -14,7 +14,7 @@ import executor.GestorePersone;
  * @author Pietro
  *
  */
-public class InserirePersona {
+public class InserirePersona extends AccedentiPersone implements BaseBoundary{
 
 	private GestorePersone GP;
 	public InserirePersona(){  	}
@@ -26,35 +26,53 @@ public class InserirePersona {
 	
 	
 	public void ok() {
-		
+		GP.procedi(true);
 	}
 	
 	
 
 	public void ko() {
-		
+		GP.procedi(false);
+		//AMM.mostra(PersonaInseritaKO);
 	}
 	
 	public void inserisciDatiPersona(DatiPersona datiP) {
 		EsitoControlloDati esito= datiP.controlla();
 		 if (esito instanceof DatiErrati) {
 			//AMM.mostra(esito);
-		 else if(esito instanceof DatiCorretti) {
-			
-			
-		
+			 System.out.println("");
+		 if(esito instanceof DatiCorretti) {
+			GP.inserisciDatiPersona(datiP);
+		 }
+		 
 		}
 	}
+	
 	public void ammissibile(Boolean b) {
 		
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona personaGiaInserita) {
+		//AMM.richiediConferma(controlloDati);
 		
+		
+	}
+	public void  annulla() {
+		GP.annullato();
 		
 	}
 
 	public void fatto() {
+		//Amm.mostra(PersonaInseritaOK);
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finito() {
 		// TODO Auto-generated method stub
 		
 	}
