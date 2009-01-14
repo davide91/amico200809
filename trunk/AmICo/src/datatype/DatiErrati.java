@@ -3,8 +3,7 @@
  */
 package datatype;
 
-import datatype.liste.Stringhe;
-
+import datatype.list.*;
 /**
  * @author bruno
  *

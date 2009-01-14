@@ -9,7 +9,7 @@
 
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">org.h2.Driver</property>
-		<property name="connection.url">jdbc:h2:~/AmICo/AmICo4HibernateDB</property>
+		<property name="connection.url">jdbc:h2:~/AmICo/DataBasaHibernate</property>
 		<property name="connection.username">sa</property>
 		<property name="connection.password"></property>
 
@@ -26,7 +26,9 @@
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		
 		<!-- Echo all executed SQL to stdout -->
-		<property name="show_sql">false</property>
+		<property name="show_sql">true</property>
+		
+		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">create</property> 
 		
 		<mapping resource="store/POJO/Bilancio.hbm.xml"/>

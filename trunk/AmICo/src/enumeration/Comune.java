@@ -9,7 +9,7 @@ public enum Comune{
 		ALMESE,
 		ALPETTE,
 		ALPIGNANO,
-		ANDEZENO,
+	/*	ANDEZENO,
 		ANDRATE,
 		ANGROGNA,
 		ARIGNANO,
@@ -8101,4 +8101,5 @@ public enum Comune{
 		SIAPICCIA,
 		CURCURIS,
 		SODDI
+		*/
 }
