@@ -11,7 +11,10 @@
 			<generator class="native"/>
 		</id>
 	
-		<component name="dati" class="datatype.DatiBilancio">
+		<component name="datiCond" class="datatype.DatiCondominio">
+		
+		
+		
 			<property name="tipo" type="store.convertitori.HibTipoBilancio"/> 
 			<property name="inizio" type="date"/>
 			<property name="fine" type="date"/>

@@ -9,7 +9,7 @@
 
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">org.h2.Driver</property>
-		<property name="connection.url">jdbc:h2:~/AmICo/AmICo4Hibernate</property>
+		<property name="connection.url">jdbc:h2:~/AmICo/AmICo4HibernateDB</property>
 		<property name="connection.username">sa</property>
 		<property name="connection.password"></property>
 
@@ -28,10 +28,19 @@
 		<!-- Echo all executed SQL to stdout -->
 		<property name="show_sql">false</property>
 		<property name="hbm2ddl.auto">create</property> 
-
-		<mapping resource="store/Conference.hbm.xml"/><mapping
-			resource="store/Track.hbm.xml" />
-
+		
+		<mapping resource="store/POJO/Bilancio.hbm.xml"/>
+		<mapping resource="store/POJO/Cassa.hbm.xml"/>
+		<mapping resource="store/POJO/Condominio.hbm.xml"/>
+		<mapping resource="store/POJO/MovimentoCassa.hbm.xml"/>
+		<mapping resource="store/POJO/Pagamento.hbm.xml"/>
+		<mapping resource="store/POJO/Persona.hbm.xml"/>
+		<mapping resource="store/POJO/PianoPagamenti.hbm.xml"/>
+		<mapping resource="store/POJO/Proprieta.hbm.xml"/>
+		<mapping resource="store/POJO/TabellaMillesimale.hbm.xml"/>
+		<mapping resource="store/POJO/UnitaImmobiliare.hbm.xml"/>
+		<mapping resource="store/POJO/VoceBilancio.hbm.xml"/>
+		
 	</session-factory>
 	
 </hibernate-configuration>

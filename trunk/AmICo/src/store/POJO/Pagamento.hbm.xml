@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="store.POJO">
+
+	<class name="Pagamento" table="PAGAMENTO">
+	
+		<id name="id" column="PAGAMENTO_ID">
+			<generator class="native"/>
+		</id>
+		
+		<component name="datiPagamento" class="datatype.DatiPagamento">
+			<component name="mora" class="datatype.Euro">
+				<property name="euro"/>
+			</component>
+			<component name="importo" class="datatype.Euro">
+				<property name="euro"/>
+			</component>
+			<property name="codice"/>
+			<property name="scadenza" type="date"/> 
+			<property name="data" type="date"/>
+		</component>	
+		
+		<many-to-one name="pagato"
+			column="PAGATO"
+			unique="true"
+			not-null="false"/>
+		
+		<!-- inverse end -->
+		<many-to-one name="bilancio"
+		 	class="Bilancio"
+		 	column="BILANCIO_ID"/>
+		
+		<!-- inverse end -->
+		<many-to-one name="pagamenti"
+		 	class="PianoPagamenti"
+		 	column="PIANO_PAGAMENTI_ID"/>
+		
+		<many-to-one name="eseguitoDa"
+			column="ESEGUITO_DA	"
+			unique="true"
+			not-null="false"/>
+	</class>
+
+</hibernate-mapping>
