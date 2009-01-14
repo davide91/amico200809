@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import datatype.DatiBilancio;
-import datatype.liste.Euri;
-import datatype.liste.PianiPagamenti;
-import datatype.liste.VociBilancio;
+import datatype.list.Euri;
+import datatype.list.PianiPagamenti;
+import datatype.list.VociBilancio;
 import enumeration.StatoBilancio;
 
 /**
@@ -23,48 +23,8 @@ public class Bilancio {
 	private Set<VoceBilancio> voci = new HashSet<VoceBilancio>(); 
 	private Set<Pagamento> pagamenti = new HashSet<Pagamento>();
 	private Set<PianoPagamenti> pianoPagamenti = new HashSet<PianoPagamenti>();
-	private Condominio condominio;
+//	private Condominio condominio;
 		
-	public DatiBilancio getDati() {
-		return dati;
-	}
-
-	public void setDati(DatiBilancio dati) {
-		this.dati = dati;
-	}
-
-	public Set<VoceBilancio> getVoci() {
-		return voci;
-	}
-
-	public void setVoci(Set<VoceBilancio> voci) {
-		this.voci = voci;
-	}
-
-	public Set<Pagamento> getPagamenti() {
-		return pagamenti;
-	}
-
-	public void setPagamenti(Set<Pagamento> pagamenti) {
-		this.pagamenti = pagamenti;
-	}
-
-	public Set<PianoPagamenti> getPianoPagamenti() {
-		return pianoPagamenti;
-	}
-
-	public void setPianoPagamenti(Set<PianoPagamenti> pianoPagamenti) {
-		this.pianoPagamenti = pianoPagamenti;
-	}
-
-	public Condominio getCondominio() {
-		return condominio;
-	}
-
-	public void setCondominio(Condominio condominio) {
-		this.condominio = condominio;
-	}
-
 	public Bilancio()
 	{
 		
@@ -140,6 +100,75 @@ public class Bilancio {
 		return null;
 	}
 
+	
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof Bilancio))
+	   return false;
+	 final Bilancio o = (Bilancio) other;
+	 if (!o.getDati().equals(getDati()))
+	   return false;
+	 if (!o.getPagamenti().equals(getPagamenti()))
+	   return false;
+	 if (!o.getPianoPagamenti().equals(getPianoPagamenti()))
+		   return false;
+	 if (!o.getVoci().equals(getVoci()))
+		   return false;
+	 return true;
+	}
+
+	@Override
+	public int hashCode() {
+	 int result;
+	 result = this.getPagamenti().hashCode();
+	 result = 29 * result + this.getDati().hashCode();
+	 result = 29 * result + this.getPianoPagamenti().hashCode();
+	 result = 29 * result + this.getVoci().hashCode();
+	 return result;
+	}
+	
+	public DatiBilancio getDati() {
+		return dati;
+	}
+
+	public void setDati(DatiBilancio dati) {
+		this.dati = dati;
+	}
+
+	public Set<VoceBilancio> getVoci() {
+		return voci;
+	}
+
+	public void setVoci(Set<VoceBilancio> voci) {
+		this.voci = voci;
+	}
+
+	public Set<Pagamento> getPagamenti() {
+		return pagamenti;
+	}
+
+	public void setPagamenti(Set<Pagamento> pagamenti) {
+		this.pagamenti = pagamenti;
+	}
+
+	public Set<PianoPagamenti> getPianoPagamenti() {
+		return pianoPagamenti;
+	}
+
+	public void setPianoPagamenti(Set<PianoPagamenti> pianoPagamenti) {
+		this.pianoPagamenti = pianoPagamenti;
+	}
+
+/*	public Condominio getCondominio() {
+		return condominio;
+	}
+
+	public void setCondominio(Condominio condominio) {
+		this.condominio = condominio;
+	}
+*/
 	public long getId() {
 		return id;
 	}

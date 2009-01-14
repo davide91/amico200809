@@ -14,7 +14,7 @@ public class MovimentoCassa {
 	private long id;
 	private DatiMovimentoCassa dati;
 	private Pagamento relativoAPagamento;
-	private Cassa cassa;
+	//private Cassa cassa;
 	private VoceBilancio relativoAVoce;
 	
 	public MovimentoCassa()
@@ -37,6 +37,34 @@ public class MovimentoCassa {
 		dati = datiMC;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof MovimentoCassa))
+	   return false;
+	 final MovimentoCassa o = (MovimentoCassa) other;
+//	 if (!o.getCassa().equals(getCassa()))
+//	   return false;
+	 if (!o.getDati().equals(getDati()))
+	   return false;
+	 if (!o.getRelativoAPagamento().equals(getRelativoAPagamento()))
+		   return false;
+	 if (!o.getRelativoAVoce().equals(getRelativoAVoce()))
+		   return false;
+	 return true;
+	}
+
+	@Override
+	public int hashCode() {
+	 int result;
+	 result = this.getRelativoAVoce().hashCode();
+	 result = 29 * result + this.getDati().hashCode();
+	 result = 29 * result + this.getRelativoAPagamento().hashCode();
+//	 result = 29 * result + this.getCassa().hashCode();
+	 return result;
+	}
+	
 	public DatiMovimentoCassa getDati() {
 		return dati;
 	}
@@ -61,14 +89,14 @@ public class MovimentoCassa {
 		this.relativoAPagamento = relativoAPagamento;
 	}
 
-	public Cassa getCassa() {
+/*	public Cassa getCassa() {
 		return cassa;
 	}
 
 	public void setCassa(Cassa cassa) {
 		this.cassa = cassa;
 	}
-
+*/
 	public VoceBilancio getRelativoAVoce() {
 		return relativoAVoce;
 	}

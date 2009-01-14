@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="store.POJO">
+
+	<class name="Cassa" table="CASSA">
+	
+		<id name="id" column="CASSA_ID">
+			<generator class="native"/>
+		</id>
+		
+		<component name="saldo" class="datatype.Euro">
+			<property name="euro"/>
+		</component>	
+		
+		<set name="movimentiDiCassa" cascade="all">
+		 	<key column="MOVIMENTO_ID"/>
+		 	<one-to-many class="Movimenti_Di_Cassa"/>
+		</set>
+
+	</class>
+
+</hibernate-mapping>

@@ -39,6 +39,25 @@ public class TabellaMillesimale {
 		dati = DTM;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof TabellaMillesimale))
+	   return false;
+	 final TabellaMillesimale o = (TabellaMillesimale) other;
+	 if (!o.getDati().equals(getDati()))
+	   return false;
+	 return true;
+	}
+
+	@Override
+	public int hashCode() {
+	 int result;
+	 result = this.getDati().hashCode();
+	 return result;
+	}
+	
 	public DatiTabellaMillesimale getDati() {
 		return dati;
 	}

@@ -27,6 +27,23 @@ public class PersonaFisica extends Persona {
 	{
 		
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof PersonaGiuridica))
+	   return false;
+	 final PersonaGiuridica o = (PersonaGiuridica) other;
+	 if (!o.getDati().equals(this.getDati()))
+	   return false;
+	 return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getDati().hashCode();
+	}
 
 	public DatiPersonaFisica getDati() {
 		return dati;

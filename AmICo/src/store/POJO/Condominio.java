@@ -50,17 +50,28 @@ public class Condominio {
 			return false;
 		if(!(other.getStatoCondominio().equals(getStatoCondominio())))
 			return false;
+		if(!(other.getCassa().equals(getCassa())))
+			return false;
+		if(!(other.getTabelleMillesimali().equals(getTabelleMillesimali())))
+			return false;
+		if(!(other.getBilanci().equals(getBilanci())))
+			return false;
+		if(!(other.getUnitaImmobiliari().equals(getUnitaImmobiliari())))
+			return false;
 		return true;
 	}
 	
-	public int hashCode()
-	{
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result + ((this.datiCond == null) ? 0 : this.datiCond.hashCode())
-								+ ((this.preferenze == null) ? 0 : this.preferenze.hashCode())
-								+ ((this.statoCondominio == null) ? 0 : this.statoCondominio.hashCode());
-		return result;
+	@Override
+	public int hashCode() {
+		 int result;
+		 result = this.getDatiCond().hashCode();
+		 result = 29 * result + this.getPreferenze().hashCode();
+		 result = 29 * result + this.getStatoCondominio().hashCode();
+		 result = 29 * result + this.getCassa().hashCode();
+		 result = 29 * result + this.getTabelleMillesimali().hashCode();
+		 result = 29 * result + this.getBilanci().hashCode();
+		 result = 29 * result + this.getUnitaImmobiliari().hashCode();
+		 return result;
 	}
 	
 	public void CreaCondominio()

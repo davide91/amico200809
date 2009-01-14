@@ -17,6 +17,44 @@ public class Pagamento {
 	private PianoPagamenti pagamenti;
 	private Persona eseguitoDa;
 	
+	public Pagamento()
+	{
+		
+	}
+	
+	public void modificaDati(DatiPagamento dp)
+	{
+		datiPagamento = dp;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof Pagamento))
+	   return false;
+	 final Pagamento o = (Pagamento) other;
+	 if (!o.getDatiPagamento().equals(getDatiPagamento()))
+	   return false;
+	 if (!o.getEseguitoDa().equals(getEseguitoDa()))
+	   return false;
+	 if (!o.getPagamenti().equals(getPagamenti()))
+		   return false;
+	 if (!o.getPagato().equals(getPagato()))
+		   return false;
+	 return true;
+	}
+
+	@Override
+	public int hashCode() {
+	 int result;
+	 result = this.getDatiPagamento().hashCode();
+	 result = 29 * result + this.getEseguitoDa().hashCode();
+	 result = 29 * result + this.getPagamenti().hashCode();
+	 result = 29 * result + this.getPagato().hashCode();
+	 return result;
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -55,15 +93,5 @@ public class Pagamento {
 
 	public void setEseguitoDa(Persona eseguitoDa) {
 		this.eseguitoDa = eseguitoDa;
-	}
-
-	public Pagamento()
-	{
-		
-	}
-	
-	public void modificaDati(DatiPagamento dp)
-	{
-		datiPagamento = dp;
 	}
 }
