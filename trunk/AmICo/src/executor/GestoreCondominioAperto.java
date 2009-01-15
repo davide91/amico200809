@@ -101,8 +101,14 @@ public class GestoreCondominioAperto extends BaseExecutor {
 	}
 	*/
 	
-	public boolean eliminabile() {
+	/* TODO : 
+	 * EsitoEliminabile ?
+	 * 
+	
+	public EsitoEliminabile eliminabile() {
 		return true;
 	}
+	
+	*/
 	
 }
