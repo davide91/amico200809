@@ -16,32 +16,27 @@ public class Avvio  {
 	private Condomini m_condomini;
 	private Persone m_persone;
 	// private GestoreCondomini m_gestoreCondomini;
-	// private GestorePersone m_gestorePersone;
+	private GestorePersone m_gestorePersone;
 	// private DriverFileSystem m_driverFileSystem;
-	
-	private static void beenStarted() {
-		/*
-		 * TODO: AmICo già in esecuzione, mostra messaggio ed esci.
-		 */
-	}
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		if (m_singleAvvio != null)
-			beenStarted();
-		else
-			m_singleAvvio = new Avvio();
+		Avvio avvioAmiCO = Avvio.getInstance();
 	}
 
+	public static Avvio getInstance() {
+		if ( m_singleAvvio == null )
+			m_singleAvvio = new Avvio();
+		return m_singleAvvio;
+	}
+	
 	/*
 	 * Inizializza Amico 
 	 */
 	
-	public Avvio() {
+	private Avvio() {
 		inizializzaAmICo();
 	}
 
