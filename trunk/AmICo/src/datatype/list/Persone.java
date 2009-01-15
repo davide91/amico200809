@@ -22,11 +22,6 @@ public class Persone {
 
 	private List<Persona> persone = new ArrayList<Persona>();
 	
-	public void inserisciPersona(DatiPersona datiPersona) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public void inserisciPersona(Persona p) {
 		// TODO Auto-generated method stub
 		persone.add(p);
@@ -74,6 +69,4 @@ public class Persone {
 		}
 		return persIva;	
 	}
-	
-	
 }
