@@ -11,7 +11,7 @@
 			<generator class="native"/>
 		</id>
 		
-		<component name="datiCond" class="datatype.DatiCondominio">
+		<component name="datiC" class="datatype.DatiCondominio">
 			<property name="id"/>		
 			<component name="indirizzo" class="datatype.Indirizzo">
 				<property name="via"/>
@@ -30,7 +30,7 @@
 			</component>
 		</component>
 		
-		<property name="interessiMora"/>  <!-- STATO CONDOMINIO -->
+		<property name="statoCondominio"/>  <!-- STATO CONDOMINIO -->
 		
 		<set name="cassa" cascade="all">
  			<key column="CASSA_ID"/>
@@ -49,7 +49,7 @@
 		
 		<set name="unitaImmobiliari" cascade="all">
  			<key column="UNITA_ID"/>
-			<one-to-many class="UnitaImmobiliari"/>
+			<one-to-many class="UnitaImmobiliare"/>
 		</set>
 		
 		<set name="condomini" cascade="all">

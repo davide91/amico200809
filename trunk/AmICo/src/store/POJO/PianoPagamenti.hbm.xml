@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="store.POJO">
+
+	<class name="PianoPagamenti" table="PIANO_PAGAMENTI">
+    <id name="id" column="PIANO_PAGAMENTI_ID">
+        <generator class="native"/>
+    </id>
+    
+    <component name="dati" class="datatype.DatiPianoPagamenti">
+   		<component name="importo" class="datatype.Euro">
+			<property name="euro"/>
+		</component>	
+		<property name="percentuali"/>
+		<property name="scadenze" type="date"/>
+		<property name="tipo" type="store.convertitori.HibTipoPianoPagamenti"/>
+  	</component>	
+   
+   
+   <set name="pagamenti" cascade="all">
+		<key column="BILANCIO_ID"/>
+		<one-to-many class="Pagamento"/>
+	</set>
+	
+   	<!-- inverse end -->
+	<many-to-one name="bilancio"
+	 	class="Bilancio"
+	 	column="BILANCIO_ID"/>
+   
+    <joined-subclass name="PianoPagamentiOrdinario" table="PIANO_PAGAMENTI_ORDINARIO">
+        <key column="PIANO_PAGAMENTI_ID"/>
+    </joined-subclass>
+    
+  
+    <joined-subclass name="PianoPagamentiStraordinario" table="PIANO_PAGAMENTI_STRAORDINARIO">
+        <key column="PIANO_PAGAMENTI_ID"/>        
+        <many-to-one name="ripartizione"
+			column="RIPARTIZIONE"
+			unique="true"
+			not-null="false"/>
+    </joined-subclass>
+   
+ 
+	</class>
+</hibernate-mapping>

@@ -3,29 +3,31 @@
  */
 package datatype;
 
+import sun.security.krb5.Realm;
+
 /**
  * @author bruno
  *
  */
 public class Euro {
 
-	private Float euro;
+	private float euro;
 	
 	public Euro()
 	{
 		
 	}
 	
-	public Euro(Float e)
+	public Euro(float e)
 	{
 		this.euro = e;
 	}
 
-	public Float getEuro() {
+	public float getEuro() {
 		return euro;
 	}
 
-	public void setEuro(Float euro) {
+	public void setEuro(float euro) {
 		this.euro = euro;
 	}
 }

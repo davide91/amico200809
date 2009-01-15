@@ -47,12 +47,12 @@ public class DatiPersonaFisica extends DatiPersona{
 		}
 	}
 
-	public CodiceFiscale getCF() {
+	public CodiceFiscale getCf() {
 		return cf;
 	}
 
-	public void setCF(CodiceFiscale cf) {
-		cf = cf;
+	public void setCf(CodiceFiscale cf) {
+		this.cf = cf;
 	}
 
 	public String getNome() {

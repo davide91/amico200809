@@ -10,6 +10,10 @@
         <generator class="native"/>
     </id>
     
+    <set name="pagamenti" cascade="all">
+		 	<key column="PERSONA_ID"/>
+		 	<one-to-many class="Pagamento"/>
+		</set>
    
     <joined-subclass name="PersonaFisica" table="PERSONA_FISICA">
         <key column="PERSONA_ID"/>
@@ -38,7 +42,7 @@
   
     <joined-subclass name="PersonaGiuridica" table="PERSONA_GIURIDICA">
         <key column="PERSONA_ID"/>
-        <component name="dati" class="datatype.DatiPersonaFisica">
+        <component name="dati" class="datatype.DatiPersonaGiuridica">
 			<property name="tel"/>
 			<component name="mail" class="datatype.Email">
 				<property name="email"/>

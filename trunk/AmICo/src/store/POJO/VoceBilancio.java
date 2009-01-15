@@ -70,7 +70,14 @@ public class VoceBilancio {
 	 return result;
 	}
 
-	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public DatiVoceBilancio getDati() {
 		return dati;
 	}
@@ -87,19 +94,19 @@ public class VoceBilancio {
 		this.dataContabilitazione = dataContabilitazione;
 	}
 
-	public long getId() {
-		return id;
+	public Bilancio getBilancio() {
+		return bilancio;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setBilancio(Bilancio bilancio) {
+		this.bilancio = bilancio;
 	}
 
-/*	public MovimentoCassa getContabilizzata() {
+	public MovimentoCassa getContabilizzata() {
 		return contabilizzata;
 	}
 
 	public void setContabilizzata(MovimentoCassa contabilizzata) {
 		this.contabilizzata = contabilizzata;
-	}*/
+	}
 }

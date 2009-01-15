@@ -16,13 +16,13 @@
 				<property name="euro"/>
 			</component>
 			<component name="importo" class="datatype.Euro">
-				<property name="euro"/>
+				<property name="euro" column="importoPagamento"/>
 			</component>
 			<property name="codice"/>
 			<property name="scadenza" type="date"/> 
 			<property name="data" type="date"/>
 		</component>	
-		
+
 		<many-to-one name="pagato"
 			column="PAGATO"
 			unique="true"

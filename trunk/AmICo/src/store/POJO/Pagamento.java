@@ -20,7 +20,7 @@ public class Pagamento {
 	
 	public Pagamento()
 	{
-		
+	
 	}
 	
 	public void modificaDati(DatiPagamento dp)

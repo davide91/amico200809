@@ -12,25 +12,7 @@ import store.POJO.PersonaGiuridica;
  * @author bruno
  *
  */
-public class PersoneGiuridiche extends Persone{
+public class PersoneGiuridiche {
 
-	private List<PersonaGiuridica> personeG = new ArrayList<PersonaGiuridica>();
 	
-	public PersoneGiuridiche()
-	{
-		
-	}
-	
-	public void inserisciPersonaGiuridica(PersonaGiuridica pg)
-	{
-		personeG.add(pg);
-	}
-
-	public List<PersonaGiuridica> getPersoneG() {
-		return personeG;
-	}
-
-	public void setPersoneG(List<PersonaGiuridica> personeG) {
-		this.personeG = personeG;
-	}
 }

@@ -43,11 +43,11 @@ public class DatiPersonaGiuridica extends DatiPersona {
 		}
 	}
 	
-	public PartitaIva getPIva() {
+	public PartitaIva getpIva() {
 		return pIva;
 	}
 
-	public void setPIva(PartitaIva iva) {
+	public void setpIva(PartitaIva iva) {
 		pIva = iva;
 	}
 

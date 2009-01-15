@@ -3,7 +3,12 @@
  */
 package store;
 
+import java.util.List;
+
+import org.hibernate.Session;
+
 import store.POJO.Persona;
+import store.util.HibernateUtil;
 import datatype.DatiPersona;
 import datatype.Indirizzo;
 import datatype.PartitaIva;
@@ -21,6 +26,7 @@ public class TuttePersone {
 	
 	public TuttePersone()
 	{
+		
 	}
 
 	public void inizializza()
@@ -40,6 +46,20 @@ public class TuttePersone {
 	
 	public Persone recuperaPersone()
 	{
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+		
+		List persone = session.createQuery("from Persona").list();
+		
+		Persone tuttePersone = new Persone();
+		for (int i = 0; i < persone.size(); i++) {
+			
+			
+			Persona p = (Persona) persone.get(i);
+			tuttePersone.inserisciPersona(p);  
+		}
+		session.getTransaction().commit();
+
 		return null;
 	}
 	

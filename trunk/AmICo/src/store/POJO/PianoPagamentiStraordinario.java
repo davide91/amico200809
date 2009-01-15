@@ -44,4 +44,12 @@ public class PianoPagamentiStraordinario extends PianoPagamenti{
 	public int hashCode() {
 		return this.getDati().hashCode();
 	}
+
+	public TabellaMillesimale getRipartizione() {
+		return ripartizione;
+	}
+
+	public void setRipartizione(TabellaMillesimale ripartizione) {
+		this.ripartizione = ripartizione;
+	}
 }

@@ -15,7 +15,7 @@ import enumeration.StatoCondominio;
 public class Condominio {
 
 	private long id;
-	private DatiCondominio datiCond;
+	private DatiCondominio datiC;
 	private Preferenze preferenze;
 	private StatoCondominio statoCondominio;
 
@@ -42,7 +42,7 @@ public class Condominio {
 			return false;
 		final Condominio other = (Condominio)obj;
 		
-		if(!(other.getDatiCond().equals(getDatiCond())))
+		if(!(other.getDatiC().equals(getDatiC())))
 			return false;
 		if(!(other.getPreferenze().equals(getPreferenze())))
 			return false;
@@ -62,7 +62,7 @@ public class Condominio {
 	@Override
 	public int hashCode() {
 		 int result;
-		 result = this.getDatiCond().hashCode();
+		 result = this.getDatiC().hashCode();
 		 result = 29 * result + this.getPreferenze().hashCode();
 		 result = 29 * result + this.getStatoCondominio().hashCode();
 		 result = 29 * result + this.getCassa().hashCode();
@@ -79,7 +79,7 @@ public class Condominio {
 	
 	public void modificaDati(DatiCondominio dCond)
 	{
-		datiCond = dCond;
+		datiC = dCond;
 	}
 	
 	public void inserisciPersona(Persona p)
@@ -157,21 +157,21 @@ public class Condominio {
 	{
 		
 	}
-	
+
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	public DatiCondominio getDatiCond() {
-		return datiCond;
+	public DatiCondominio getDatiC() {
+		return datiC;
 	}
 
-	public void setDatiCond(DatiCondominio datiCond) {
-		this.datiCond = datiCond;
+	public void setDatiC(DatiCondominio datiC) {
+		this.datiC = datiC;
 	}
 
 	public Preferenze getPreferenze() {
@@ -220,5 +220,13 @@ public class Condominio {
 
 	public void setUnitaImmobiliari(Set<UnitaImmobiliare> unitaImmobiliari) {
 		this.unitaImmobiliari = unitaImmobiliari;
+	}
+
+	public Set<Persona> getCondomini() {
+		return condomini;
+	}
+
+	public void setCondomini(Set<Persona> condomini) {
+		this.condomini = condomini;
 	}
 }

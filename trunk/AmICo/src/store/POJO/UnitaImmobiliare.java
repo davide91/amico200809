@@ -67,7 +67,7 @@ public class UnitaImmobiliare {
 	 result = 29 * result + this.getQuoteDiPossesso().hashCode();
 	 return result;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -80,8 +80,16 @@ public class UnitaImmobiliare {
 		return datiUnitaImmobiliare;
 	}
 
-	public void setDatiUnitàImmobiliare(DatiUnitaImmobiliare datiUnitaImmobiliare) {
+	public void setDatiUnitaImmobiliare(DatiUnitaImmobiliare datiUnitaImmobiliare) {
 		this.datiUnitaImmobiliare = datiUnitaImmobiliare;
+	}
+
+	public Condominio getCondominio() {
+		return condominio;
+	}
+
+	public void setCondominio(Condominio condominio) {
+		this.condominio = condominio;
 	}
 
 	public SortedSet<Proprieta> getQuoteDiPossesso() {
@@ -91,5 +99,4 @@ public class UnitaImmobiliare {
 	public void setQuoteDiPossesso(SortedSet<Proprieta> quoteDiPossesso) {
 		this.quoteDiPossesso = quoteDiPossesso;
 	}
-
 }
