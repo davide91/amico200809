@@ -38,7 +38,13 @@ public class UnitaImmobiliare {
 	
 	private QuoteProprietà recuperaProprietà()
 	{
-		return null;
+		QuoteProprietà ret = new QuoteProprietà();
+		
+		for (Proprieta p : quoteDiPossesso) {
+			ret.inserisciQuota(p);
+		}
+		
+		return ret;
 	}
 	
 	private void modificaProprietà(Persone p, float r)
