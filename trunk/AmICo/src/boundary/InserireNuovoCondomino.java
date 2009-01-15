@@ -18,7 +18,42 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-public class InserireNuovoCondomino extends JFrame {
+public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
+
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fatto() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	private static final long serialVersionUID = 1L;
 	private JTextField via;
