@@ -9,13 +9,13 @@ public enum StatiGestoreCondominio {
 	gestoreCondomini,
 	attesaSelezioneFile,
 	condominioAperto,
-	attesaConferma,
+	attesaConfermaTabellaMillesimale,
 	inserimentoCondominio,
 	attesaConfermaDatiCondominio,
 	inserimentoUnitaImmobiliari,
 	inserimentoTabellaMillesimaleProprietà,
 	inserimentoProprietà,
-	attesaConferma2,
+	attesaConferma,
 	inserimentoUnitàImmobliare
 }
 
