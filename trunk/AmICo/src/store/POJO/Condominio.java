@@ -10,6 +10,7 @@ import datatype.list.Pagamenti;
 import datatype.list.Persone;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitàImmobiliari;
+import enumeration.StatoBilancio;
 import enumeration.StatoCondominio;
 
 public class Condominio {
@@ -28,9 +29,114 @@ public class Condominio {
 	
 	public Condominio() // costruttore per Hibernate
 	{
+			
+	}
+	
+	public void CreaCondominio()
+	{
 		
 	}
-
+	
+	public void modificaDati(DatiCondominio dCond)
+	{
+		datiC = dCond;
+	}
+	
+	public void inserisciPersona(Persona p)
+	{
+		condomini.add(p);
+	}
+	
+	public void inserisciUnitàImmobiliare(UnitaImmobiliare uImm)
+	{
+		unitaImmobiliari.add(uImm);
+	}
+	
+	public void eliminaUnitàImmobiliare(UnitaImmobiliare uImm)
+	{
+		unitaImmobiliari.remove(uImm);
+	}
+	
+	public void inserisciTabellaMillesimale(TabellaMillesimale tab)
+	{
+		tabelleMillesimali.add(tab);
+	}
+	
+	public void inserisciBilancio(Bilancio b)
+	{
+		bilanci.add(b);
+	}
+	
+	public Bilanci recuperaBilanci()
+	{
+		Bilanci bil = new Bilanci();
+		
+		for (Bilancio b : bilanci) {
+			bil.inserisciBilancio(b);
+		}
+		return bil;
+	}
+	
+	public Bilanci recuperaBilanciInEsercizio()
+	{
+		Bilanci bil = new Bilanci();
+		
+		for (Bilancio b : bilanci) {
+			if(b.getDati().getStato().equals(StatoBilancio.inEsercizio))
+				bil.inserisciBilancio(b);
+		}
+		return bil;
+	}
+	
+	public Cassa recuperaCassa()
+	{
+		return null;
+	}
+	
+	public DatiCondominio recuperaDatiCondominio()
+	{
+		return datiC;
+	}
+	
+	public Persone recuperaCondomini()
+	{
+		Persone ret = new Persone();
+		
+		for (Persona p : condomini) {
+			ret.inserisciPersona(p);
+		}
+		return ret;
+	}
+	
+	public UnitàImmobiliari recuperaUnitàImmobiliari()
+	{
+		UnitàImmobiliari ret = new UnitàImmobiliari();
+		for (UnitaImmobiliare ui : unitaImmobiliari) {
+			ret.inserisciUnitaImmobiliare(ui);
+		}
+		return ret;
+	}
+	
+	public TabelleMillesimali recuperaTabelleMillesimali()
+	{
+		TabelleMillesimali ret = new TabelleMillesimali();
+		
+		for (TabellaMillesimale t : tabelleMillesimali) {
+			ret.inserisciTabellaMillesimale(t);
+		}
+		return ret;
+	}
+	
+	public Pagamenti recuperaPagamenti()
+	{
+		return null;
+	}
+	
+	public void modificaPreferenze(Preferenze pref)
+	{
+		preferenze = pref;
+	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -70,92 +176,6 @@ public class Condominio {
 		 result = 29 * result + this.getBilanci().hashCode();
 		 result = 29 * result + this.getUnitaImmobiliari().hashCode();
 		 return result;
-	}
-	
-	public void CreaCondominio()
-	{
-		
-	}
-	
-	public void modificaDati(DatiCondominio dCond)
-	{
-		datiC = dCond;
-	}
-	
-	public void inserisciPersona(Persona p)
-	{
-		
-	}
-	
-	public void inserisciUnitàImmobiliare(UnitaImmobiliare uImm)
-	{
-		unitaImmobiliari.add(uImm);
-	}
-	
-	public void eliminaUnitàImmobiliare(UnitaImmobiliare uImm)
-	{
-		unitaImmobiliari.remove(uImm);
-	}
-	
-	public void inserisciTabellaMillesimale(TabellaMillesimale tab)
-	{
-		tabelleMillesimali.add(tab);
-	}
-	
-	public void inserisciBilancio(Bilancio b)
-	{
-		bilanci.add(b);
-	}
-	
-	public Bilanci recuperaBilanci()
-	{
-		return null;
-	}
-	
-	public Bilanci recuperaBilanciInEsercizio()
-	{
-		/*Bilanci bil = new Bilanci();
-		for (Bilancio b : bilanci) {
-			if(b.isInEsercizio())
-				
-				//aggiungi alla lista di quelli da restituire
-		}*/
-		return null;
-	}
-	
-	public Cassa recuperaCassa()
-	{
-		return null;
-	}
-	
-	public DatiCondominio recuperaDatiCondominio()
-	{
-		return null;
-	}
-	
-	public Persone recuperaCondomini()
-	{
-		return null;
-	}
-	
-	public UnitàImmobiliari recuperaUnitàImmobiliari()
-	{
-		return null;
-	}
-	
-	public TabelleMillesimali recuperaTabelleMillesimali()
-	{
-		return null;
-	}
-	
-	public Pagamenti recuperaPagamenti()
-	{
-		return null;
-	}
-	
-	public void modificaPreferenze(Preferenze pref)
-	{
-		
 	}
 
 	public long getId() {

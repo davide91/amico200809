@@ -70,22 +70,38 @@ public class Bilancio {
 	
 	public void inserisciPianoPagamenti(PianoPagamenti pp)
 	{
-		
+		pianoPagamenti.add(pp);
 	}
 	
 	public VociBilancio recuperaVociBilancio()
 	{
-		return null;
+		VociBilancio ret = new VociBilancio();
+		
+		for (VoceBilancio vb : voci) {
+			ret.inserisciVoceBilancio(vb);
+		}
+		return ret;
 	}
 	
 	public PianiPagamenti recuperaPianiPagamenti()
 	{
-		return null;
+		PianiPagamenti ret = new PianiPagamenti();
+		
+		for (PianoPagamenti pp : pianoPagamenti) {
+			ret.inserisciPianoPagamenti(pp);
+		}
+		return ret;
 	}
 	
 	public VociBilancio vociNonContabilizzate()
 	{
-		return null;
+		VociBilancio ret = new VociBilancio();
+		
+		for (VoceBilancio vb : voci) {
+			if(vb.getContabilizzata() == null)
+				ret.inserisciVoceBilancio(vb);
+		}
+		return ret;
 	}
 	
 	public boolean terminabile()
