@@ -31,6 +31,11 @@ public class Data {
 		data = new GregorianCalendar(aa,mm,gg);
 	}
 	
+	public void creaCurrenDate()
+	{
+		data = new GregorianCalendar();
+	}
+	
 	public int anno()
 	{
 		return data.get(Calendar.YEAR);

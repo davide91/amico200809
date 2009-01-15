@@ -20,12 +20,14 @@ public class PianoPagamentiStraordinario extends PianoPagamenti{
 	
 	public void creaPianoPagamenti(DatiPianoPagamenti dpp, TabellaMillesimale tab)
 	{
-		
+		dati = dpp;
+		ripartizione = tab;
 	}
 	
 	public void modificaDati(DatiPianoPagamenti dpp, TabellaMillesimale tab)
 	{
-		
+		dati = dpp;
+		ripartizione = tab;
 	}
 	
 	@Override

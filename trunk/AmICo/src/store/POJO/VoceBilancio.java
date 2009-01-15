@@ -3,6 +3,7 @@
  */
 package store.POJO;
 
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class VoceBilancio {
 	private Data dataContabilitazione;
 	private Bilancio bilancio;
 	private MovimentoCassa contabilizzata;
-	
+	private TabellaMillesimale ripartizione;
 	
 	
 	public VoceBilancio()
@@ -33,6 +34,9 @@ public class VoceBilancio {
 	public void creaVoceBilancio(DatiVoceBilancio dvb)
 	{
 		dati = dvb;
+		Data d = new Data();
+		d.creaCurrenDate();
+		dataContabilitazione = d;
 	}
 	
 	public void modificaDati(DatiVoceBilancio dvb)
@@ -42,7 +46,7 @@ public class VoceBilancio {
 	
 	public void ripartisci(TabellaMillesimale tab)
 	{
-		
+		ripartizione = tab;
 	}
 
 	@Override
@@ -108,5 +112,13 @@ public class VoceBilancio {
 
 	public void setContabilizzata(MovimentoCassa contabilizzata) {
 		this.contabilizzata = contabilizzata;
+	}
+
+	public TabellaMillesimale getRipartizione() {
+		return ripartizione;
+	}
+
+	public void setRipartizione(TabellaMillesimale ripartizione) {
+		this.ripartizione = ripartizione;
 	}
 }
