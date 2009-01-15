@@ -58,7 +58,15 @@ public class TabellaMillesimale {
 	 result = this.getDati().hashCode();
 	 return result;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public DatiTabellaMillesimale getDati() {
 		return dati;
 	}
@@ -67,11 +75,11 @@ public class TabellaMillesimale {
 		this.dati = dati;
 	}
 
-	public long getId() {
-		return id;
+	public Condominio getCondominio() {
+		return condominio;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCondominio(Condominio condominio) {
+		this.condominio = condominio;
 	}
 }

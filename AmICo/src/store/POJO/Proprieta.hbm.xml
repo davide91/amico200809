@@ -10,8 +10,9 @@
 		<id name="id" column="PROPRIETA_ID">
 			<generator class="native"/>
 		</id>
+		<property name="quota"/>
 		
-		<set name="quota" table="PROPRIETA" cascade="save-update">
+		<set name="proprietario" table="PROPRIETA_PERSONE" cascade="save-update">
  			<key column="PROPRIETA_ID"/>
  			<many-to-many column="PERSONA_ID" class="Persona"/>
 		</set>

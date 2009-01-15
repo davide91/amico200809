@@ -131,7 +131,15 @@ public class Bilancio {
 	 result = 29 * result + this.getVoci().hashCode();
 	 return result;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public DatiBilancio getDati() {
 		return dati;
 	}
@@ -170,13 +178,5 @@ public class Bilancio {
 
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 }

@@ -9,7 +9,7 @@ package datatype;
  */
 public class DatiMovimentoCassa {
 
-	private Euro importo;
+	private Euro importoMovimento;
 	private String motivazione;
 	
 	public DatiMovimentoCassa()
@@ -19,21 +19,21 @@ public class DatiMovimentoCassa {
 	
 	public void creaDatiMovimentoCassa(Euro e)
 	{
-		importo = e;
+		importoMovimento = e;
 	}
 	
 	public boolean controlla()
 	{
 		
-		return !importo.equals(new Euro(new Float(0.0)));
+		return !importoMovimento.equals(new Euro(new Float(0.0)));
 	}
 
-	public Euro getImporto() {
-		return importo;
+	public Euro getImportoMovimento() {
+		return importoMovimento;
 	}
 
-	public void setImporto(Euro importo) {
-		this.importo = importo;
+	public void setImportoMovimento(Euro importoMovimento) {
+		this.importoMovimento = importoMovimento;
 	}
 
 	public String getMotivazione() {

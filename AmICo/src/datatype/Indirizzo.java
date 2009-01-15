@@ -54,4 +54,44 @@ public class Indirizzo {
 			return false;
 		return true;
 	}
+
+	public String getVia() {
+		return via;
+	}
+
+	public void setVia(String via) {
+		this.via = via;
+	}
+
+	public String getInterno() {
+		return interno;
+	}
+
+	public void setInterno(String interno) {
+		this.interno = interno;
+	}
+
+	public Comune getComune() {
+		return comune;
+	}
+
+	public void setComune(Comune comune) {
+		this.comune = comune;
+	}
+
+	public Provincia getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getCap() {
+		return cap;
+	}
+
+	public void setCap(String cap) {
+		this.cap = cap;
+	}
 }

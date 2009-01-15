@@ -3,6 +3,9 @@
  */
 package store.POJO;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 /**
  * @author bruno
  *
@@ -11,6 +14,7 @@ public class Proprieta {
 
 	private long id;
 	private float quota;
+	private SortedSet<Persona> proprietario = new TreeSet<Persona>();
 	
 	public Proprieta()
 	{
@@ -48,5 +52,13 @@ public class Proprieta {
 
 	public void setQuota(float quota) {
 		this.quota = quota;
+	}
+
+	public SortedSet<Persona> getProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(SortedSet<Persona> proprietario) {
+		this.proprietario = proprietario;
 	}	
 }

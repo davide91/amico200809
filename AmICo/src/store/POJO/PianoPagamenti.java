@@ -14,6 +14,7 @@ import datatype.DatiPianoPagamenti;
  */
 public class PianoPagamenti {
 
+	protected long id;
 	protected DatiPianoPagamenti dati;
 	protected SortedSet<Pagamento> pagamenti = new TreeSet<Pagamento>();
 	protected Bilancio bilancio;
@@ -33,11 +34,11 @@ public class PianoPagamenti {
 		dati = dpp;
 	}
 
-	public DatiPianoPagamenti getDati() {
+	protected DatiPianoPagamenti getDati() {
 		return dati;
 	}
 
-	public void setDati(DatiPianoPagamenti dati) {
+	protected void setDati(DatiPianoPagamenti dati) {
 		this.dati = dati;
 	}
 	
@@ -56,5 +57,29 @@ public class PianoPagamenti {
 	@Override
 	public int hashCode() {
 		return this.getDati().hashCode();
+	}
+
+	protected SortedSet<Pagamento> getPagamenti() {
+		return pagamenti;
+	}
+
+	protected void setPagamenti(SortedSet<Pagamento> pagamenti) {
+		this.pagamenti = pagamenti;
+	}
+
+	protected Bilancio getBilancio() {
+		return bilancio;
+	}
+
+	protected void setBilancio(Bilancio bilancio) {
+		this.bilancio = bilancio;
+	}
+
+	protected long getId() {
+		return id;
+	}
+
+	protected void setId(long id) {
+		this.id = id;
 	}
 }

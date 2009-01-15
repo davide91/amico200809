@@ -17,7 +17,7 @@
 		
 		<set name="movimentiDiCassa" cascade="all">
 		 	<key column="CASSA_ID"/>
-		 	<one-to-many class="Movimenti_Di_Cassa"/>
+		 	<one-to-many class="MovimentoCassa"/>
 		</set>
 
 	</class>

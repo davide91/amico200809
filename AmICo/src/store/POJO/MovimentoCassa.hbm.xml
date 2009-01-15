@@ -13,7 +13,7 @@
 		
 		<component name="dati" class="datatype.DatiMovimentoCassa">
 			<property name="motivazione"/>
-		 	<component name="importo" class="datatype.Euro">
+		 	<component name="importoMovimento" class="datatype.Euro">
 		 		<property name="euro"/>
 			</component>
 		</component>
