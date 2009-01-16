@@ -24,9 +24,9 @@
 		 	column="CONDOMINIO_ID"/>
 			
 <!--	<set name="quoteDiPossesso" cascade="all"> -->
-<!--		 	<key column="UNITA_ID"/>				-->
-<!--		 	<one-to-many class="Proprieta"/>		-->
-<!--		</set>	-->
+<!--		 	<key column="UNITA_ID"/>			-->	
+<!--	 	<one-to-many class="Proprieta"/>		-->
+<!--		</set>								-->
 
 	</class>
 </hibernate-mapping>

@@ -38,12 +38,12 @@
 		</set>
 		
 		<set name="tabelleMillesimali"  cascade="all-delete-orphan,save-update">
- 			<key column="TABELLA_ID"/>
+ 			<key column="CONDOMINIO_ID"/>
 			<one-to-many class="TabellaMillesimale"/>
 		</set>
 		
 		<set name="bilanci"  cascade="all-delete-orphan,save-update">
- 			<key column="BILANCIO_ID"/>
+ 			<key column="CONDOMINIO_ID"/>
 			<one-to-many class="Bilancio"/>
 		</set>
 		
@@ -53,7 +53,7 @@
 		</set>
 		
 		<set name="persone"  cascade="all-delete-orphan,save-update">
- 			<key column="PERSONA_ID"/>
+ 			<key column="CONDOMINIO_ID"/>
 			<one-to-many class="Persona"/>
 		</set>
 	</class>
