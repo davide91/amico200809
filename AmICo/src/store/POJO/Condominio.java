@@ -1,7 +1,12 @@
 package store.POJO;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
 
 import datatype.DatiCondominio;
 import datatype.Preferenze;
@@ -24,8 +29,9 @@ public class Condominio {
 	protected Set<TabellaMillesimale> tabelleMillesimali = new HashSet<TabellaMillesimale>(); 
 	protected Set<Bilancio> bilanci = new HashSet<Bilancio>();
 	protected Set<UnitaImmobiliare> unitaImmobiliari = new HashSet<UnitaImmobiliare>();
-	protected Set<Persona> condomini = new HashSet<Persona>();
+	protected Set<Persona> persone = new HashSet<Persona>();
 	
+	private Session session;
 	
 	public Condominio() // costruttore per Hibernate
 	{
@@ -38,18 +44,29 @@ public class Condominio {
 	}
 	
 	public void modificaDati(DatiCondominio dCond)
-	{
+	{		
 		datiC = dCond;
 	}
 	
 	public void inserisciPersona(Persona p)
 	{
-		condomini.add(p);
+		persone.add(p);
 	}
 	
 	public void inserisciUnitàImmobiliare(UnitaImmobiliare uImm)
 	{
-		unitaImmobiliari.add(uImm);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+		
+		link(this,uImm);
+	
+		session.getTransaction().commit();
+	}
+	
+	private void link(Condominio c, UnitaImmobiliare ui)
+	{
+		ui.setCondominio(c);
+		unitaImmobiliari.add(ui);
 	}
 	
 	public void eliminaUnitàImmobiliare(UnitaImmobiliare uImm)
@@ -102,7 +119,7 @@ public class Condominio {
 	{
 		Persone ret = new Persone();
 		
-		for (Persona p : condomini) {
+		for (Persona p : persone) {
 			ret.inserisciPersona(p);
 		}
 		return ret;
@@ -152,15 +169,7 @@ public class Condominio {
 			return false;
 		if(!(other.getPreferenze().equals(getPreferenze())))
 			return false;
-		if(!(other.getStatoCondominio().equals(getStatoCondominio())))
-			return false;
-		if(!(other.getCassa().equals(getCassa())))
-			return false;
-		if(!(other.getTabelleMillesimali().equals(getTabelleMillesimali())))
-			return false;
-		if(!(other.getBilanci().equals(getBilanci())))
-			return false;
-		if(!(other.getUnitaImmobiliari().equals(getUnitaImmobiliari())))
+		if(!(other.getStatoCondominio() == (getStatoCondominio())))
 			return false;
 		return true;
 	}
@@ -242,11 +251,11 @@ public class Condominio {
 		this.unitaImmobiliari = unitaImmobiliari;
 	}
 
-	public Set<Persona> getCondomini() {
-		return condomini;
+	public Set<Persona> getPersone() {
+		return persone;
 	}
 
-	public void setCondomini(Set<Persona> condomini) {
-		this.condomini = condomini;
+	public void setPersone(Set<Persona> persone) {
+		this.persone = persone;
 	}
 }

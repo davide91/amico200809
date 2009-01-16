@@ -94,6 +94,7 @@ public class UnitaImmobiliare {
 		return condominio;
 	}
 
+	@SuppressWarnings("unused")
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
 	}

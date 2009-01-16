@@ -25,6 +25,11 @@ public class Condomini {
 	{
 		condomini.add(c);
 	}
+	
+	public void elimina(Condominio c)
+	{
+		condomini.remove(c);
+	}
 
 	public List<Condominio> getCondomini() {
 		return condomini;

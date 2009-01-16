@@ -13,7 +13,7 @@
     <set name="pagamenti" cascade="all">
 		 	<key column="PERSONA_ID"/>
 		 	<one-to-many class="Pagamento"/>
-		</set>
+	</set>
    
     <joined-subclass name="PersonaFisica" table="PERSONA_FISICA">
         <key column="PERSONA_ID"/>

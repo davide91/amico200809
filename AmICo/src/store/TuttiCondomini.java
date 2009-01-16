@@ -9,6 +9,7 @@ import org.hibernate.Session;
 
 import datatype.list.Condomini;
 import datatype.list.Persone;
+import enumeration.StatoCondominio;
 
 import store.POJO.Condominio;
 import store.POJO.Persona;
@@ -62,6 +63,7 @@ public class TuttiCondomini {
 	{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
+		CONDOMINI.elimina(c);
 		session.delete(c);
 		session.getTransaction().commit();
 	}

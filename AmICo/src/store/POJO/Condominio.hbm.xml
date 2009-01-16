@@ -5,9 +5,9 @@
 
 <hibernate-mapping package="store.POJO">
 
-	<class name="Condominio" table="CONDOMINI">
+	<class name="Condominio" table="CONDOMINIO">
 	
-		<id name="id" column="CONDOMINI_ID">
+		<id name="id" column="CONDOMINIO_ID">
 			<generator class="native"/>
 		</id>
 		
@@ -47,12 +47,12 @@
 			<one-to-many class="Bilancio"/>
 		</set>
 		
-		<set name="unitaImmobiliari" cascade="all">
+		<set name="unitaImmobiliari" cascade="all-delete-orphan,save-update">
  			<key column="UNITA_ID"/>
 			<one-to-many class="UnitaImmobiliare"/>
 		</set>
 		
-		<set name="condomini" cascade="all">
+		<set name="persone" cascade="all">
  			<key column="PERSONA_ID"/>
 			<one-to-many class="Persona"/>
 		</set>
