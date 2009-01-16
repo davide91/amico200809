@@ -15,6 +15,7 @@ import datatype.Euro;
 import datatype.Indirizzo;
 import datatype.Preferenze;
 import datatype.list.Condomini;
+import datatype.list.UnitàImmobiliari;
 import enumeration.CategoriaCatastale;
 import enumeration.Comune;
 import enumeration.DestinazioneUso;
@@ -92,9 +93,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	{
 		TuttiCondomini tc = new TuttiCondomini();
 		tc.inizializza();
-		
-		//Condominio c = tc.CONDOMINI.getCondomini().get(0);
-		
+				
 		Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
 		
 		Condominio c = new Condominio();
@@ -110,6 +109,34 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		c.inserisciUnitàImmobiliare(ui);
 	}
+	
+
+	public void testCONDOMINI_recuperaUnitaImmobiliare()
+	{
+		TuttiCondomini tc = new TuttiCondomini();
+		tc.inizializza();
+				
+	/*	Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
+		
+		Condominio c = new Condominio();
+		c.modificaDati(new DatiCondominio("Papigliano2",ind));
+		c.modificaPreferenze(new Preferenze((float)3.4,10,new Euro((float)150.0)));
+		
+		tc.inserisciCondominio(c);
+	*/
+		Condominio c = tc.CONDOMINI.getCondomini().get(1);
+		
+		UnitàImmobiliari uimm = c.recuperaUnitàImmobiliari();
+		
+		UnitaImmobiliare unitaRecuperata = uimm.getImmobili().get(0);
+		
+		DatiUnitaImmobiliare dui = new DatiUnitaImmobiliare("Unità 1",CategoriaCatastale.A10,"interna", (float)85,DestinazioneUso.appartamento);
+		UnitaImmobiliare ui = new UnitaImmobiliare();
+		ui.modificaDati(dui);		
+		
+		assertTrue(ui.equals(unitaRecuperata));
+	}
+	
 /*	public void testCONDOMINI_elimina()
 	{
 		TuttiCondomini tc = new TuttiCondomini();

@@ -55,7 +55,7 @@ public class TuttiCondomini {
 		session.beginTransaction();		
 		//uso c come Condominio
 		CONDOMINI.inserisciCondominio(c);
-		session.save(c);
+		session.persist(c);
 		session.getTransaction().commit();
 	}
 
