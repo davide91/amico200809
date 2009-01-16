@@ -66,7 +66,8 @@ public class Condominio {
 	private void link(Condominio c, UnitaImmobiliare ui)
 	{
 		ui.setCondominio(c);
-		unitaImmobiliari.add(ui);
+		c.unitaImmobiliari.add(ui);
+		session.persist(ui);
 	}
 	
 	public void eliminaUnitàImmobiliare(UnitaImmobiliare uImm)

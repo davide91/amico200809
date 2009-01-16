@@ -37,22 +37,22 @@
 			<one-to-many class="Cassa"/>
 		</set>
 		
-		<set name="tabelleMillesimali" cascade="all">
+		<set name="tabelleMillesimali"  cascade="all-delete-orphan,save-update">
  			<key column="TABELLA_ID"/>
 			<one-to-many class="TabellaMillesimale"/>
 		</set>
 		
-		<set name="bilanci" cascade="all">
+		<set name="bilanci"  cascade="all-delete-orphan,save-update">
  			<key column="BILANCIO_ID"/>
 			<one-to-many class="Bilancio"/>
 		</set>
 		
 		<set name="unitaImmobiliari" cascade="all-delete-orphan,save-update">
- 			<key column="UNITA_ID"/>
+ 			<key column="CONDOMINIO_ID"/>
 			<one-to-many class="UnitaImmobiliare"/>
 		</set>
 		
-		<set name="persone" cascade="all">
+		<set name="persone"  cascade="all-delete-orphan,save-update">
  			<key column="PERSONA_ID"/>
 			<one-to-many class="Persona"/>
 		</set>

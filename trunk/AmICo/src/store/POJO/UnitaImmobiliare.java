@@ -19,7 +19,7 @@ public class UnitaImmobiliare {
 	private long id;
 	private DatiUnitaImmobiliare datiUnitaImmobiliare;
 	private Condominio condominio;
-	private SortedSet<Proprieta> quoteDiPossesso = new TreeSet<Proprieta>();
+//	private SortedSet<Proprieta> quoteDiPossesso = new TreeSet<Proprieta>();
 	
 	public UnitaImmobiliare()
 	{
@@ -36,7 +36,7 @@ public class UnitaImmobiliare {
 		datiUnitaImmobiliare = dui;
 	}
 	
-	private QuoteProprietà recuperaProprietà()
+/*	public QuoteProprietà recuperaProprietà()
 	{
 		QuoteProprietà ret = new QuoteProprietà();
 		
@@ -46,8 +46,8 @@ public class UnitaImmobiliare {
 		
 		return ret;
 	}
-	
-	private void modificaProprietà(Persone p, float r)
+*/	
+	public void modificaProprietà(Persone p, float r)
 	{
 		
 	}
@@ -61,8 +61,8 @@ public class UnitaImmobiliare {
 	 final UnitaImmobiliare o = (UnitaImmobiliare) other;
 	 if (!o.getDatiUnitaImmobiliare().equals(getDatiUnitaImmobiliare()))
 	   return false;
-	 if (!o.getQuoteDiPossesso().equals(getQuoteDiPossesso()))
-	   return false;
+//	 if (!o.getQuoteDiPossesso().equals(getQuoteDiPossesso()))
+//	   return false;
 	 return true;
 	}
 
@@ -70,7 +70,7 @@ public class UnitaImmobiliare {
 	public int hashCode() {
 	 int result;
 	 result = this.getDatiUnitaImmobiliare().hashCode();
-	 result = 29 * result + this.getQuoteDiPossesso().hashCode();
+	// result = 29 * result + this.getQuoteDiPossesso().hashCode();
 	 return result;
 	}
 
@@ -94,16 +94,17 @@ public class UnitaImmobiliare {
 		return condominio;
 	}
 
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
 	}
 
-	public SortedSet<Proprieta> getQuoteDiPossesso() {
+/*	public SortedSet<Proprieta> getQuoteDiPossesso() {
 		return quoteDiPossesso;
 	}
 
 	public void setQuoteDiPossesso(SortedSet<Proprieta> quoteDiPossesso) {
 		this.quoteDiPossesso = quoteDiPossesso;
 	}
+*/
 }
