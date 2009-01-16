@@ -77,15 +77,15 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getVia(), new Constraints(new Leading(105, 117, 10, 10), new Leading(77, 10, 10)));
-		add(getCap(), new Constraints(new Leading(103, 114, 12, 12), new Leading(199, 10, 10)));
-		add(getComune(), new Constraints(new Leading(367, 120, 10, 10), new Leading(135, 12, 12)));
-		add(getProvincia(), new Constraints(new Leading(105, 112, 12, 12), new Leading(135, 12, 12)));
-		add(getInserisci(), new Constraints(new Leading(487, 10, 10), new Leading(316, 10, 10)));
-		add(getScrittavia(), new Constraints(new Leading(40, 29, 12, 12), new Leading(77, 12, 12)));
-		add(getScrittaprovincia(), new Constraints(new Leading(34, 10, 10), new Leading(144, 12, 12)));
-		add(getScrittacomune(), new Constraints(new Leading(313, 10, 10), new Leading(144, 12, 12)));
 		add(getScrittacap(), new Constraints(new Leading(48, 10, 10), new Leading(203, 12, 12)));
-		add(getAnnulla(), new Constraints(new Leading(367, 12, 12), new Leading(314, 10, 10)));
+		add(getInserisci(), new Constraints(new Leading(407, 10, 10), new Leading(311, 10, 10)));
+		add(getAnnulla(), new Constraints(new Leading(505, 10, 10), new Leading(311, 12, 12)));
+		add(getScrittacomune(), new Constraints(new Leading(293, 10, 10), new Leading(144, 12, 12)));
+		add(getCap(), new Constraints(new Leading(107, 114, 12, 12), new Leading(199, 12, 12)));
+		add(getProvincia(), new Constraints(new Leading(107, 112, 12, 12), new Leading(136, 22, 12, 12)));
+		add(getComune(), new Constraints(new Leading(367, 110, 10, 10), new Leading(135, 12, 12)));
+		add(getScrittaprovincia(), new Constraints(new Leading(26, 10, 10), new Leading(144, 12, 12)));
+		add(getScrittavia(), new Constraints(new Leading(48, 29, 12, 12), new Leading(79, 12, 12)));
 		setJMenuBar(getJMenuBar0());
 		setSize(620, 394);
 	}
