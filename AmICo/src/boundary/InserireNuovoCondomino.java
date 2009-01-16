@@ -2,6 +2,9 @@
 package boundary;
 
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -76,24 +79,30 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getVia(), new Constraints(new Leading(105, 117, 10, 10), new Leading(77, 10, 10)));
-		add(getScrittacap(), new Constraints(new Leading(48, 10, 10), new Leading(203, 12, 12)));
-		add(getInserisci(), new Constraints(new Leading(407, 10, 10), new Leading(311, 10, 10)));
-		add(getAnnulla(), new Constraints(new Leading(505, 10, 10), new Leading(311, 12, 12)));
-		add(getScrittacomune(), new Constraints(new Leading(293, 10, 10), new Leading(144, 12, 12)));
-		add(getCap(), new Constraints(new Leading(107, 114, 12, 12), new Leading(199, 12, 12)));
-		add(getProvincia(), new Constraints(new Leading(107, 112, 12, 12), new Leading(136, 22, 12, 12)));
-		add(getComune(), new Constraints(new Leading(367, 110, 10, 10), new Leading(135, 12, 12)));
-		add(getScrittaprovincia(), new Constraints(new Leading(26, 10, 10), new Leading(144, 12, 12)));
-		add(getScrittavia(), new Constraints(new Leading(48, 29, 12, 12), new Leading(79, 12, 12)));
+		add(getScrittavia(), new Constraints(new Leading(18, 29, 10, 10), new Leading(12, 12, 12)));
+		add(getVia(), new Constraints(new Leading(96, 117, 10, 10), new Leading(10, 12, 12)));
+		add(getScrittacomune(), new Constraints(new Leading(258, 10, 10), new Leading(40, 12, 12)));
+		add(getProvincia(), new Constraints(new Leading(96, 116, 12, 12), new Leading(34, 22, 12, 12)));
+		add(getCap(), new Constraints(new Leading(97, 114, 12, 12), new Leading(64, 10, 10)));
+		add(getScrittacap(), new Constraints(new Leading(20, 12, 12), new Leading(66, 12, 12)));
+		add(getScrittaprovincia(), new Constraints(new Leading(12, 12, 12), new Leading(38, 16, 12, 12)));
+		add(getComune(), new Constraints(new Leading(312, 110, 12, 12), new Leading(32, 12, 12)));
+		add(getInserisci(), new Constraints(new Leading(100, 10, 10), new Leading(121, 10, 10)));
+		add(getAnnulla(), new Constraints(new Leading(315, 10, 10), new Leading(123, 10, 10)));
 		setJMenuBar(getJMenuBar0());
-		setSize(620, 394);
+		setSize(437, 192);
 	}
 
 	private JButton getAnnulla() {
 		if (annulla == null) {
 			annulla = new JButton();
 			annulla.setText("Annulla");
+			annulla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					annullaMouseMouseClicked(event);
+				}
+			});
 		}
 		return annulla;
 	}
@@ -126,6 +135,12 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 		if (inserisci == null) {
 			inserisci = new JButton();
 			inserisci.setText("Inserisci");
+			inserisci.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					inserisciMouseMouseClicked(event);
+				}
+			});
 		}
 		return inserisci;
 	}
@@ -227,6 +242,12 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 				frame.setVisible(true);
 			}
 		});
+	}
+
+	private void inserisciMouseMouseClicked(MouseEvent event) {
+	}
+
+	private void annullaMouseMouseClicked(MouseEvent event) {
 	}
 
 }
