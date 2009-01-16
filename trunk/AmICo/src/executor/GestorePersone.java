@@ -22,28 +22,31 @@ import enumeration.StatiGestorePersone;
  * @author Pietro
  *
  */
-public class GestorePersone extends BaseExecutor{
+public class GestorePersone implements BaseExecutor {
 	
 	public static GestorePersone GP;
-	private AccedentiPersone RICH;
+	
+	public static GestorePersone getInstance() {
+		if (GP == null) {
+			GP = new GestorePersone();
+		}
+		return GP;
+	}
+	
+	private DatiPersona datiPersona;
 	private InserirePersona IP;
 	private ModificarePersona MP;
 	private Persona personaMod;
-	private DatiPersona datiPersona;
+	private AccedentiPersone RICH;
 	private StatiGestorePersone state; 
-	
-	
-	
+		
 	public GestorePersone(){
-	 GP=this;
 	 state=StatiGestorePersone.base;
 	}
 	
-	public void inserisciPersona(AccedentiPersone richiedente){
-		RICH=richiedente;
-		IP=new InserirePersona();
-		IP.creaInserirePersona(this);
-		state=StatiGestorePersone.inserimentoPersona;
+	public void annullato() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
@@ -60,12 +63,11 @@ public class GestorePersone extends BaseExecutor{
 		
 	}
 	
-	public void modificaPersona(AccedentiPersone richiedente, Persona persona) {
+	public void inserisciPersona(AccedentiPersone richiedente){
 		RICH=richiedente;
-		personaMod=persona;
-		MP=new ModificarePersona();
-		MP.creaModificarePersona(this, persona);
-		state=StatiGestorePersone.modificaPersona;
+		IP=new InserirePersona();
+		IP.creaInserirePersona(this);
+		state=StatiGestorePersone.inserimentoPersona;
 	}
 	public void modificaDatiPersona(DatiPersona datiP) {
 		datiPersona=datiP;
@@ -81,6 +83,46 @@ public class GestorePersone extends BaseExecutor{
 	}
 	
 	
+	public void modificaPersona(AccedentiPersone richiedente, Persona persona) {
+		RICH=richiedente;
+		personaMod=persona;
+		MP=new ModificarePersona();
+		MP.creaModificarePersona(this, persona);
+		state=StatiGestorePersone.modificaPersona;
+	}
+	
+	public void operazioneAnnullata() {
+		
+	}
+	
+   private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaFisica datiPF) {
+	Persone pf = TuttePersone.PERSONE.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
+	if(!pf.isEmpty()){
+		PersoneConStessoNome PCSN = new PersoneConStessoNome();
+		PCSN.creaEsitoOmonimi(pf);
+		return PCSN;
+	}
+	pf= TuttePersone.PERSONE.recuperaPersone(datiPF.getDomicilio());
+	if(!pf.isEmpty()){
+		PersoneConStessoIndirizzo PCSI = new PersoneConStessoIndirizzo();
+		PCSI.creaEsitoCoabitanti(pf);
+		return PCSI;
+	}
+	Inseribile INS = new Inseribile();
+	INS.creaEsitoOK();
+	return INS;
+	
+}
+
+private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaGiuridica datiPG) {
+/*		Persone pg=TuttePersone.PERSONE.recuperaPersone(datiPG.getPIva());
+		if(!pg.isEmpty()){
+			PersoneConStessaPartitaIVA PCSI = new PersoneConStessoIndirizzo();
+			PCSI.creaEsitoCoabitanti(pf);
+			return PCSI;
+	*/
+	return null;
+}
 	public void procedi(Boolean procedere) {
 		switch (state) {
 		case attesaConfermaInserimento: 
@@ -108,40 +150,5 @@ public class GestorePersone extends BaseExecutor{
 		}
 		state=StatiGestorePersone.base;
 	}
-	
-	private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaFisica datiPF) {
-		Persone pf = TuttePersone.PERSONE.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
-		if(!pf.isEmpty()){
-			PersoneConStessoNome PCSN = new PersoneConStessoNome();
-			PCSN.creaEsitoOmonimi(pf);
-			return PCSN;
-		}
-		pf= TuttePersone.PERSONE.recuperaPersone(datiPF.getDomicilio());
-		if(!pf.isEmpty()){
-			PersoneConStessoIndirizzo PCSI = new PersoneConStessoIndirizzo();
-			PCSI.creaEsitoCoabitanti(pf);
-			return PCSI;
-		}
-		Inseribile INS = new Inseribile();
-		INS.creaEsitoOK();
-		return INS;
-		
-	}
-	
-   private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaGiuridica datiPG) {
-/*		Persone pg=TuttePersone.PERSONE.recuperaPersone(datiPG.getPIva());
-		if(!pg.isEmpty()){
-			PersoneConStessaPartitaIVA PCSI = new PersoneConStessoIndirizzo();
-			PCSI.creaEsitoCoabitanti(pf);
-			return PCSI;
-	*/
-	return null;
-}
-
-public void annullato() {
-	// TODO Auto-generated method stub
-	
-}
-	
 	
 }
