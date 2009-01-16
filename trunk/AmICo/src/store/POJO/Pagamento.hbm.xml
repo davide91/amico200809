@@ -38,10 +38,13 @@
 		 	class="PianoPagamenti"
 		 	column="PIANO_PAGAMENTI_ID"/>
 		
-		<many-to-one name="eseguitoDa"
-			column="ESEGUITO_DA	"
-			unique="true"
-			not-null="false"/>
+		<!-- inverse end -->
+		<many-to-one name="eseguito_da"
+		 	class="Persona"
+		 	column="PERSONA_ID"/>
+		 	
+		 	
+		
 	</class>
 
 </hibernate-mapping>

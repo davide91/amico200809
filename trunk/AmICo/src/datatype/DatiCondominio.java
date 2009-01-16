@@ -3,6 +3,8 @@
  */
 package datatype;
 
+import store.POJO.UnitaImmobiliare;
+
 /**
  * @author bruno
  *
@@ -22,6 +24,18 @@ public class DatiCondominio {
 	public DatiCondominio()
 	{
 		
+	}
+
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof DatiCondominio))
+	   return false;
+	 final DatiCondominio o = (DatiCondominio) other;
+	 if (!o.getIndirizzo().equals(getIndirizzo()))
+	   return false;
+	 return true;
 	}
 	
 	@Override

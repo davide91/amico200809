@@ -30,4 +30,17 @@ public class Euro {
 	public void setEuro(float euro) {
 		this.euro = euro;
 	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		if (this == other)
+			   return true;
+		if (!(other instanceof Euro))
+		   return false;
+		final Euro o = (Euro) other;
+		if (!(o.getEuro() == getEuro()))
+		  return false;
+		return true;
+	}
 }

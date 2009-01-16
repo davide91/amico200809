@@ -16,8 +16,9 @@ public class Pagamento {
 	private MovimentoCassa pagato;
 	private Bilancio bilancio;
 	private PianoPagamenti pagamenti;
-	private Persona eseguitoDa;
 	
+	private Persona eseguito_da;
+
 	public Pagamento()
 	{
 	
@@ -37,7 +38,7 @@ public class Pagamento {
 	 final Pagamento o = (Pagamento) other;
 	 if (!o.getDatiPagamento().equals(getDatiPagamento()))
 	   return false;
-	 if (!o.getEseguitoDa().equals(getEseguitoDa()))
+	 if (!o.getEseguito_da().equals(getEseguito_da()))
 	   return false;
 	 if (!o.getPagamenti().equals(getPagamenti()))
 		   return false;
@@ -50,7 +51,7 @@ public class Pagamento {
 	public int hashCode() {
 	 int result;
 	 result = this.getDatiPagamento().hashCode();
-	 result = 29 * result + this.getEseguitoDa().hashCode();
+	 result = 29 * result + this.getEseguito_da().hashCode();
 	 result = 29 * result + this.getPagamenti().hashCode();
 	 result = 29 * result + this.getPagato().hashCode();
 	 return result;
@@ -87,15 +88,7 @@ public class Pagamento {
 	public void setPagamenti(PianoPagamenti pagamenti) {
 		this.pagamenti = pagamenti;
 	}
-
-	public Persona getEseguitoDa() {
-		return eseguitoDa;
-	}
-
-	public void setEseguitoDa(Persona eseguitoDa) {
-		this.eseguitoDa = eseguitoDa;
-	}
-
+	
 	public Bilancio getBilancio() {
 		return bilancio;
 	}
@@ -103,4 +96,13 @@ public class Pagamento {
 	public void setBilancio(Bilancio bilancio) {
 		this.bilancio = bilancio;
 	}
+	
+	public Persona getEseguito_da() {
+		return eseguito_da;
+	}
+
+	public void setEseguito_da(Persona eseguito_da) {
+		this.eseguito_da = eseguito_da;
+	}
+	
 }

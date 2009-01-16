@@ -19,6 +19,11 @@
 		 	<key column="CASSA_ID"/>
 		 	<one-to-many class="MovimentoCassa"/>
 		</set>
+		
+		<!-- inverse end -->
+		<many-to-one name="condominio"
+		 	class="Condominio"
+		 	column="CONDOMINIO_ID"/>
 
 	</class>
 
