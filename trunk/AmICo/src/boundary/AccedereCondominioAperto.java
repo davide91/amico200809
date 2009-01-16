@@ -1,6 +1,9 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -11,19 +14,26 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
+
+import store.POJO.Condominio;
+import datatype.Preferenze;
+import datatype.list.Avvisi;
+import executor.GestoreCondominioAperto;
 
 
 /**
  * @author Federico
  *
  */
-public class AccedereCondominioAperto extends JFrame {
+public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
+	private Condominio condominio;
+	private GestoreCondominioAperto gca;
+	
 	private static final long serialVersionUID = 1L;
 	private JMenuItem jMenuItem0;
 	private JMenu jMenu0;
@@ -48,19 +58,19 @@ public class AccedereCondominioAperto extends JFrame {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getBdaticondomini(), new Constraints(new Leading(148, 124, 10, 10), new Leading(12, 58, 12, 12)));
-		add(getBbilanci(), new Constraints(new Leading(277, 96, 10, 10), new Leading(12, 58, 12, 12)));
-		add(getBcassa(), new Constraints(new Leading(379, 96, 10, 10), new Leading(12, 58, 12, 12)));
-		add(getBpagamenti(), new Constraints(new Leading(481, 96, 10, 10), new Leading(12, 58, 12, 12)));
-		add(getBreport(), new Constraints(new Leading(583, 96, 10, 10), new Leading(12, 58, 12, 12)));
-		add(getBarchiviobilanci(), new Constraints(new Leading(685, 159, 10, 10), new Leading(12, 58, 12, 12)));
-		add(getAvvisi(), new Constraints(new Leading(148, 531, 12, 12), new Leading(78, 68, 10, 10)));
-		add(getScrittaavvisi(), new Constraints(new Leading(16, 101, 10, 10), new Leading(88, 36, 10, 10)));
-		add(getBdaticondominio(), new Constraints(new Leading(12, 130, 12, 12), new Leading(12, 58, 12, 12)));
 		add(getBchiudicondominio(), new Constraints(new Leading(365, 10, 10), new Trailing(12, 167, 507)));
 		add(getBeliminacondominio(), new Constraints(new Leading(42, 10, 10), new Trailing(12, 167, 507)));
 		add(getBesportarecondominio(), new Constraints(new Leading(694, 10, 10), new Trailing(12, 167, 507)));
-		add(getPannello(), new Constraints(new Leading(12, 832, 12, 12), new Bilateral(155, 42, 0)));
+		add(getBcassa(), new Constraints(new Leading(389, 96, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBpagamenti(), new Constraints(new Leading(491, 96, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBreport(), new Constraints(new Leading(593, 96, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBarchiviobilanci(), new Constraints(new Leading(694, 159, 12, 12), new Leading(12, 58, 48, 48)));
+		add(getBbilanci(), new Constraints(new Leading(287, 96, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBdaticondomini(), new Constraints(new Leading(158, 124, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBdaticondominio(), new Constraints(new Leading(22, 130, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getPannello(), new Constraints(new Leading(22, 832, 12, 12), new Trailing(42, 261, 118, 158)));
+		add(getAvvisi(), new Constraints(new Leading(208, 531, 10, 10), new Leading(76, 68, 54, 315)));
+		add(getScrittaavvisi(), new Constraints(new Leading(22, 48, 10, 10), new Leading(88, 36, 48, 48)));
 		setJMenuBar(getJMenuBar0());
 		setSize(874, 481);
 	}
@@ -69,6 +79,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (besportarecondominio == null) {
 			besportarecondominio = new JButton();
 			besportarecondominio.setText("Esportare Condominio");
+			besportarecondominio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					besportarecondominioMouseMouseClicked(event);
+				}
+			});
 		}
 		return besportarecondominio;
 	}
@@ -77,6 +93,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (bchiudicondominio == null) {
 			bchiudicondominio = new JButton();
 			bchiudicondominio.setText("Esportare Condominio");
+			bchiudicondominio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bchiudicondominioMouseMouseClicked(event);
+				}
+			});
 		}
 		return bchiudicondominio;
 	}
@@ -85,6 +107,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (beliminacondominio == null) {
 			beliminacondominio = new JButton();
 			beliminacondominio.setText("Elimina Condominio");
+			beliminacondominio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					beliminacondominioMouseMouseClicked(event);
+				}
+			});
 		}
 		return beliminacondominio;
 	}
@@ -102,6 +130,7 @@ public class AccedereCondominioAperto extends JFrame {
 		if (avvisi == null) {
 			avvisi = new JTextField();
 			avvisi.setEditable(false);
+			avvisi.setToolTipText("gli avvisi");
 		}
 		return avvisi;
 	}
@@ -118,6 +147,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (barchiviobilanci == null) {
 			barchiviobilanci = new JButton();
 			barchiviobilanci.setText("Archivio Bilanci");
+			barchiviobilanci.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					barchiviobilanciMouseMouseClicked(event);
+				}
+			});
 		}
 		return barchiviobilanci;
 	}
@@ -126,6 +161,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (breport == null) {
 			breport = new JButton();
 			breport.setText("Report");
+			breport.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					breportMouseMouseClicked(event);
+				}
+			});
 		}
 		return breport;
 	}
@@ -134,6 +175,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (bpagamenti == null) {
 			bpagamenti = new JButton();
 			bpagamenti.setText("Pagamenti");
+			bpagamenti.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bpagamentiMouseMouseClicked(event);
+				}
+			});
 		}
 		return bpagamenti;
 	}
@@ -142,6 +189,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (bcassa == null) {
 			bcassa = new JButton();
 			bcassa.setText("Cassa");
+			bcassa.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bcassaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bcassa;
 	}
@@ -150,6 +203,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (bbilanci == null) {
 			bbilanci = new JButton();
 			bbilanci.setText("Bilanci");
+			bbilanci.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bbilanciMouseMouseClicked(event);
+				}
+			});
 		}
 		return bbilanci;
 	}
@@ -158,6 +217,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (bdaticondomini == null) {
 			bdaticondomini = new JButton();
 			bdaticondomini.setText("Dati Condomini");
+			bdaticondomini.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bdaticondominiMouseMouseClicked(event);
+				}
+			});
 		}
 		return bdaticondomini;
 	}
@@ -166,6 +231,12 @@ public class AccedereCondominioAperto extends JFrame {
 		if (bdaticondominio == null) {
 			bdaticondominio = new JButton();
 			bdaticondominio.setText("Dati Condominio");
+			bdaticondominio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bdaticondominioMouseMouseClicked(event);
+				}
+			});
 		}
 		return bdaticondominio;
 	}
@@ -191,7 +262,7 @@ public class AccedereCondominioAperto extends JFrame {
 	private JMenuItem getJMenuItem0() {
 		if (jMenuItem0 == null) {
 			jMenuItem0 = new JMenuItem();
-			jMenuItem0.setText("menu item");
+			jMenuItem0.setText("esci");
 		}
 		return jMenuItem0;
 	}
@@ -227,5 +298,142 @@ public class AccedereCondominioAperto extends JFrame {
 		});
 	}
 
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fatto() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bdaticondominioMouseMouseClicked(MouseEvent event) {
+		// TODO
+	}
+
+	private void bdaticondominiMouseMouseClicked(MouseEvent event) {
+		this.passaADatiCondomini();
+	}
+
+	private void bbilanciMouseMouseClicked(MouseEvent event) {
+		this.passaABilanci();
+	}
+
+	private void bcassaMouseMouseClicked(MouseEvent event) {
+		this.passaACassa();
+	}
+
+	private void bpagamentiMouseMouseClicked(MouseEvent event) {
+		this.passaAPagamenti();
+	}
+
+	private void breportMouseMouseClicked(MouseEvent event) {
+		// TODO
+	}
+
+	private void barchiviobilanciMouseMouseClicked(MouseEvent event) {
+		// TODO
+	}
+
+	private void beliminacondominioMouseMouseClicked(MouseEvent event) {
+		this.eliminaCondominio();
+	}
+
+	private void bchiudicondominioMouseMouseClicked(MouseEvent event) {
+		this.chiudiCondominio();
+	}
+
+	private void besportarecondominioMouseMouseClicked(MouseEvent event) {
+		this.esportaCondominio();
+	}
+	
+	public void creaAccedereCondominioAperto(GestoreCondominioAperto GCA,Condominio C){
+		condominio=C;
+		gca=GCA;
+	}
+	
+	public void passaAvvisi(Avvisi a){
+		// TODO
+	}
+	
+	public void passaAUnitaImmobiliari(){
+		// TODO
+	}
+	
+	public void passaATabelleMillesimali(){
+		// TODO
+	}
+	
+	public void passaADatiCondomini(){
+		// TODO
+	}
+	
+	public void passaABilanci(){
+		// TODO
+	}
+	
+	public void passaACassa(){
+		// TODO
+	}
+	
+	public void passaAPreferenze(){
+		// TODO
+	}
+	
+	public void passaAPagamenti(){
+		// TODO
+	}
+	
+	public void modificaPreferenze(Preferenze p){
+		// TODO
+	}
+	
+	public void passaPreferenze(Preferenze p){
+		// TODO
+	}
+
+	/*public void faiReportCondominio(TipoReportCondominio trc,FormatoFile ff){	
+	}*/
+	
+	public void chiudiCondominio(){
+		// TODO
+	}
+	
+	public void esportaCondominio(){	
+		// TODO
+	}
+	
+	public void eliminaCondominio(){
+		// TODO
+	}
+	
+	/*public void selezionaFile(path){
+	}*/
 }
 
