@@ -19,14 +19,14 @@ import store.POJO.Condominio;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 
-public class GestoreCondominio implements BaseExecutor {
+public class GestoreCondomini implements BaseExecutor {
 
-	public static GestoreCondominio m_gestoreCondominio;
+	public static GestoreCondomini m_gestoreCondominio;
 	
-	public static GestoreCondominio getInstance()
+	public static GestoreCondomini getInstance()
 	{
 		if ( m_gestoreCondominio == null ) 
-			m_gestoreCondominio = new GestoreCondominio();
+			m_gestoreCondominio = new GestoreCondomini();
 		return m_gestoreCondominio;
 	}
 	
@@ -36,17 +36,19 @@ public class GestoreCondominio implements BaseExecutor {
 	private DatiCondominio m_datiCondominio;
 	private GestoreCondominioAperto m_gestoreCondominioAperto;
 	private InserireNuovoCondomino m_inserireNuovoCondominio;
-	private InserireUnitàImmobliare m_inserireUnitaImmobiliare;
+	private InserireUnitaImmobliare m_inserireUnitaImmobiliare;
 	private StatiGestoreCondominio m_state;
+	private TuttiCondomini m_dbCondomini;
 	
 	private TabellaMillesimale m_tabellaMillesimaleProprieta;
 	
 	private UnitaImmobiliare m_unitaImmobiliare;
 	
-	private GestoreCondominio()
+	private GestoreCondomini()
 	{
 		m_accedereCondomini = new AccedereCondomini(TuttiCondomini.CONDOMINI);
 		m_state = StatiGestoreCondominio.gestoreCondomini;
+		m_dbCondomini.inizializza();
 	}
 	
 	public void impostaAvvio(Avvio avvio)
@@ -63,13 +65,9 @@ public class GestoreCondominio implements BaseExecutor {
 	}
 	
 	private boolean condominioGiaInserito(DatiCondominio datiCondominio) {
-		/*
-		 * TODO : controllare nel db se è già presente... come ?
-		 * - Controllare se è presente in TuttiCondomini.CONDOMINI ? 
-		 * Se si, solito problema di confronto id vs confronto contenuto?
-		 */
-		
-		return true;
+		Condominio toCheck = new Condominio();
+		toCheck.modificaDati(datiCondominio);
+		return m_dbCondomini.recuperaCondomini().getCondomini().contains(toCheck);
 	}
 	
 	public void esciDaAmico() {
@@ -93,16 +91,7 @@ public class GestoreCondominio implements BaseExecutor {
 		
 		m_inserireNuovoCondominio = new InserireNuovoCondominio();
 		m_condominio = new Condominio();
-		/*
-		 * TODO
-		 * 
-		 * CONDOMINI.aggiungiCondominio()
-		 * 
-		 * Come aggiungere un condominio (m_condominio) nello store?
-		 * 
-		 * 
-		 * 
-		 */
+		m_dbCondomini.inserisciCondominio(m_condominio);
 	}
 	
 	public void inserisciUnitaImmobliare() {
@@ -114,15 +103,7 @@ public class GestoreCondominio implements BaseExecutor {
 	
 	public void operazioneAnnullata() {
 		if ( m_state == StatiGestoreCondominio.inserimentoCondominio ) {
-			/*
-			 * TODO
-			 * 
-			 * CONDOMINI.eliminaCondominio()
-			 * 
-			 * Come rimuovere un condominio (m_condominio) dallo store?
-			 * 
-			 * 
-			 */
+			m_dbCondomini.eliminaCondominio(m_condominio);
 		}
 	}
 	
@@ -141,12 +122,7 @@ public class GestoreCondominio implements BaseExecutor {
 		m_datiCondominio = datiCondominio;
 		m_state = StatiGestoreCondominio.attesaConfermaDatiCondominio;
 	}
-	
-	/*
-	 * TODO: Reali ?!?
-	 * 		 il costruttore di TabellaMillesimale accetta solo "DatiTabellaMillesimale"
-	 */
-	
+		
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale millesimi) {
 		m_tabellaMillesimaleProprieta = new TabellaMillesimale(millesimi);
 		m_inserireNuovoCondominio.ammissibile(true);
@@ -166,10 +142,6 @@ public class GestoreCondominio implements BaseExecutor {
 		m_inserireUnitaImmobiliare.aggiornaPersone(TuttePersone.PERSONE);
 	}
 	
-	/* TODO:
-	 * Path potrebbe essere cambiato in java.net.URL
-	*/
-	
 	public void passaFile(File file)
 	{
 		switch (m_state) {
@@ -179,9 +151,7 @@ public class GestoreCondominio implements BaseExecutor {
 					return;
 				}
 				m_condominio = FormatoAmICo.daFileACondominio(file);
-				/*
-				 * TODO: CONDOMINI.aggiungiCondominio(condominio);
-				 */
+				m_dbCondomini.inserisciCondominio(m_condominio);
 				m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 				m_accedereCondomini.fatto();
 				m_state = StatiGestoreCondominio.condominioAperto;
@@ -223,15 +193,7 @@ public class GestoreCondominio implements BaseExecutor {
 			case attesaConfermaTabellaMillesimale :
 				if ( !procedere ) {
 					m_state = StatiGestoreCondominio.gestoreCondomini;
-					/*
-					 * TODO
-					 * 
-					 * CONDOMINI.eliminaCondominio()
-					 * 
-					 * Come rimuovere un condominio (m_condominio) dallo store?
-					 * 
-					 * 
-					 */
+					m_dbCondomini.eliminaCondominio(m_condominio);
 					break;
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
@@ -260,15 +222,11 @@ public class GestoreCondominio implements BaseExecutor {
 		 */
 	}
 	
-	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	
-		/* TODO Probabile soluzione : solito dubbio, confronto id?
-		 
+	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 
 		UnitàImmobiliari uImmobiliari = m_condominio.recuperaUnitàImmobiliari();
 		UnitaImmobiliare newUnit = new UnitaImmobiliare();
 		newUnit.modificaDati(datiUnitaImmobliare);
 		
 		return uImmobiliari.getImmobili().contains(newUnit);
-		*/
-		return true:
 	}
 }

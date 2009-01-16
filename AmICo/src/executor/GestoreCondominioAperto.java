@@ -3,6 +3,7 @@ package executor;
 import java.net.URL;
 
 import boundary.AccedereCondominioAperto;
+import boundary.DriverFileSystem;
 import datatype.DatiTabellaMillesimale;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
@@ -21,6 +22,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 
 	private AccedereCondominioAperto m_accedereCondominioAperto;
 	private AccederePersone m_accederePersone;
+	private AccedereTabelleMillesimali m_accedereTabelleMillesimali;
 	private AccedereUnitaImmobliari m_accedereUnitaImmobliari;
 	private Avvisi m_avvisi;
 	private Condominio m_condominio;
@@ -34,6 +36,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private StatiGestoreCondominioAperto m_state;
 	private TabellaMillesimale m_tabellaMillesimale;
 	private UnitaImmobiliare m_unitaImmobiliare;
+	private DriverFileSystem m_driverFileSystem;
 	
 
 	public GestoreCondominioAperto(Condominio condominio) {
@@ -43,10 +46,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_avvisi = CalcolaAvvisi.calcolaAvvisi(m_condominio);
 		m_accedereCondominioAperto.passaAvvisi(m_avvisi);
 		m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
+		m_driverFileSystem = new DriverFileSystem();
 	}
 	
 	public void chiudiCondominio() {
-		GestoreCondominio.getInstance().operazioneTerminata();
+		GestoreCondomini.getInstance().operazioneTerminata();
 	}
 	
 	/* TODO : 
@@ -66,13 +70,15 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	 * Path potrebbe essere cambiato in java.net.URL
 	*/
 	public void esportaCondominio(URL path) {
-		DriverFileSystem.salva(FormatoAmICo.daCondominioAFile(m_condominio),
+		m_driverFileSystem.salva(FormatoAmICo.daCondominioAFile(m_condominio),
 				path, this);
 		m_state = StatiGestoreCondominioAperto.exportCondominio;
 	}
 	
-	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMIllesimale) {
-		
+	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale) {
+		m_datiTabellaMillesimale = datiTabellaMillesimale;
+		m_accedereTabelleMillesimali.ammissibile(true);
+		m_state = StatiGestoreCondominioAperto.attesaConfermaInserimentoTabellaMillesimale;
 	}
 	
 	public void modificaPreferenze(Preferenze preferenze) {
@@ -86,7 +92,10 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void modificaTabellaMillesimale(TabellaMillesimale tabellaMillesimale, DatiTabellaMillesimale datiTabellaMillesimale) {
-		
+		m_tabellaMillesimale = tabellaMillesimale;
+		m_datiTabellaMillesimale = datiTabellaMillesimale;
+		m_accedereTabelleMillesimali.ammissibile(true);
+		m_state = StatiGestoreCondominioAperto.attesaConfermaModificaTabellaMillesimale;
 	}
 	
 	public void operazioneAnnullata() {
@@ -121,8 +130,9 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_gestorePagamenti = new GestorePagamenti(m_condominio);
 		m_state = StatiGestoreCondominioAperto.gestionePagamenti;
 	}
-	/* TODO: TipoReportCondominio ? 
+/*
 	public void generaReport(TipoReportCondominio tipoReportCondominio, FormatoFile formatoFile) {
+	
 		
 	}
 	*/
@@ -132,7 +142,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void passaATabelleMillesimali() {
-		
+		m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(self, m_condominio.recuperaTabelleMillesimali());
+		m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 	}
 	
 	public void passaAUnitaImmobiliari() {
@@ -173,14 +184,35 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			}
 			m_dbCondomini.eliminaCondominio(m_condominio);
 			m_accedereCondominioAperto.fatto();
-			GestoreCondominio.getInstance().m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+			GestoreCondomini.getInstance().m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 			break;
 		case attesaConfermaProprietà :
 			if (!procedere) {
 				m_state = StatiGestoreCondominioAperto.gestioneUnitàImmmobiliari;
 				break;
 			}
-			m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);			
+			m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);		
+			break;
+		case attesaConfermaInserimentoTabellaMillesimale :
+			if (!procedere) {
+				m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
+				break;
+			}
+			m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(m_datiTabellaMillesimale));
+			m_accedereTabelleMillesimali.fatto();
+			m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
+			m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
+			break;
+		case attesaConfermaModificaTabellaMillesimale :
+			if (!procedere) {
+				m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
+				break;
+			}
+			m_tabellaMillesimale.modificaDati(m_datiTabellaMillesimale);
+			m_accedereTabelleMillesimali.fatto();
+			m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
+			m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
+			break;
 		}
 	}
 	
