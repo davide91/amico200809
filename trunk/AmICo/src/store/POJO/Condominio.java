@@ -50,7 +50,11 @@ public class Condominio {
 	
 	public void inserisciPersona(Persona p)
 	{
-		persone.add(p);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			p.setCondominio(this);
+			persone.add(p);
+		session.getTransaction().commit();
 	}
 	
 	public void inserisciUnitàImmobiliare(UnitaImmobiliare uImm)

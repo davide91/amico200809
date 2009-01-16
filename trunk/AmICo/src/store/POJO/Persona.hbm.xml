@@ -14,6 +14,8 @@
 		 	<key column="PERSONA_ID"/>
 		 	<one-to-many class="Pagamento"/>
 	</set>
+	
+	<many-to-one name="condominio" class="Condominio" column="CONDOMINIO_ID"/>
    
     <joined-subclass name="PersonaFisica" table="PERSONA_FISICA">
         <key column="PERSONA_ID"/>

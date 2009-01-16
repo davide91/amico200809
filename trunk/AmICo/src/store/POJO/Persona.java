@@ -16,7 +16,16 @@ public class Persona {
 
 	protected long id;
 	protected Set<Pagamento> pagamenti = new HashSet<Pagamento>();
+	protected Condominio condominio;
 	
+	public Condominio getCondominio() {
+		return condominio;
+	}
+
+	public void setCondominio(Condominio condominio) {
+		this.condominio = condominio;
+	}
+
 	protected Set<Pagamento> getPagamenti() {
 		return pagamenti;
 	}

@@ -46,7 +46,7 @@ public class UnitaImmobiliare {
 		
 		return ret;
 	}
-*/	
+*/
 	public void modificaProprietà(Persone p, float r)
 	{
 		
@@ -70,7 +70,7 @@ public class UnitaImmobiliare {
 	public int hashCode() {
 	 int result;
 	 result = this.getDatiUnitaImmobiliare().hashCode();
-	// result = 29 * result + this.getQuoteDiPossesso().hashCode();
+//	 result = 29 * result + this.getQuoteDiPossesso().hashCode();
 	 return result;
 	}
 
@@ -106,5 +106,5 @@ public class UnitaImmobiliare {
 	public void setQuoteDiPossesso(SortedSet<Proprieta> quoteDiPossesso) {
 		this.quoteDiPossesso = quoteDiPossesso;
 	}
-*/
+	*/
 }
