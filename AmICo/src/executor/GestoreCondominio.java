@@ -19,18 +19,18 @@ import store.POJO.Condominio;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 
-public class GestoreCondominio extends BaseExecutor {
+public class GestoreCondominio implements BaseExecutor {
 
 	public static GestoreCondominio m_gestoreCondominio;
 	
-	public static GestoreCondominio getInstance(Avvio avvio)
+	public static GestoreCondominio getInstance()
 	{
 		if ( m_gestoreCondominio == null ) 
-			m_gestoreCondominio = new GestoreCondominio(avvio);
+			m_gestoreCondominio = new GestoreCondominio();
 		return m_gestoreCondominio;
 	}
 	
-	private AccedereCondomini m_accedereCondomini;
+	public  AccedereCondomini m_accedereCondomini;
 	private Avvio m_avvio;
 	private Condominio m_condominio;
 	private DatiCondominio m_datiCondominio;
@@ -43,12 +43,15 @@ public class GestoreCondominio extends BaseExecutor {
 	
 	private UnitaImmobiliare m_unitaImmobiliare;
 	
-	private GestoreCondominio(Avvio avvio)
+	private GestoreCondominio()
 	{
-		m_avvio = avvio;
 		m_accedereCondomini = new AccedereCondomini(TuttiCondomini.CONDOMINI);
 		m_state = StatiGestoreCondominio.gestoreCondomini;
-		
+	}
+	
+	public void impostaAvvio(Avvio avvio)
+	{
+		m_avvio = avvio;
 	}
 	
 	public void apriCondominio(Condominio condominio) {
