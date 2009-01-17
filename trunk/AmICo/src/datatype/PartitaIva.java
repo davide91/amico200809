@@ -52,5 +52,13 @@ public class PartitaIva {
 		this.partIva = partIva;
 	}
 	
-	
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof PartitaIva))
+	   return false;
+	 final PartitaIva pi = (PartitaIva)other;
+	 return this.partIva.equals(pi.partIva);
+	}
 }

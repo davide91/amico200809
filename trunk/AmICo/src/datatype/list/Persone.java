@@ -6,7 +6,6 @@ package datatype.list;
 import java.util.ArrayList;
 import java.util.List;
 
-import datatype.DatiPersona;
 import datatype.Indirizzo;
 import datatype.PartitaIva;
 
@@ -68,5 +67,10 @@ public class Persone {
 			}
 		}
 		return persIva;	
+	}
+	
+	public void elimina(Persona p)
+	{
+		this.persone.remove(p);
 	}
 }

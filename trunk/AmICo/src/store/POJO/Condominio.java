@@ -76,7 +76,11 @@ public class Condominio {
 	
 	public void eliminaUnitàImmobiliare(UnitaImmobiliare uImm)
 	{
-		unitaImmobiliari.remove(uImm);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		//	unitaImmobiliari.remove(uImm);
+			session.delete(uImm);
+		session.getTransaction().commit();
 	}
 	
 	public void inserisciTabellaMillesimale(TabellaMillesimale tab)
@@ -132,10 +136,18 @@ public class Condominio {
 	
 	public UnitàImmobiliari recuperaUnitàImmobiliari()
 	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+		
 		UnitàImmobiliari ret = new UnitàImmobiliari();
-		for (UnitaImmobiliare ui : unitaImmobiliari) {
-			ret.inserisciUnitaImmobiliare(ui);
+	
+		List UnitImm = session.createQuery("from UnitaImmobiliare where condominio = :cond").setParameter("cond", this).list();
+		session.getTransaction().commit();
+
+		for (Object o : UnitImm) {
+			ret.inserisciUnitaImmobiliare((UnitaImmobiliare)o);
 		}
+		
 		return ret;
 	}
 	

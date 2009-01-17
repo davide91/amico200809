@@ -43,6 +43,28 @@ public class DatiPersonaGiuridica extends DatiPersona {
 		}
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof DatiPersonaGiuridica))
+	   return false;
+	 final DatiPersonaGiuridica o = (DatiPersonaGiuridica) other;
+	 if (!o.getFax().equals(this.getFax()))
+	   return false;
+	 if (!o.getIndFiscale().equals(this.getIndFiscale()))
+		   return false;
+	 if (!o.getMail().equals(this.getMail()))
+		   return false;
+	 if (!o.getpIva().equals(this.getpIva()))
+		   return false;
+	 if (!o.getRagioneSociale().equals(this.getRagioneSociale()))
+		   return false;
+	 if (!o.getTel().equals(this.getTel()))
+		   return false;
+	 return true;
+	}
+	
 	public PartitaIva getpIva() {
 		return pIva;
 	}

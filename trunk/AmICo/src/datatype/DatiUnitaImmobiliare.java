@@ -15,7 +15,7 @@ public class DatiUnitaImmobiliare {
 	private String id;
 	private CategoriaCatastale catCatastale;
 	private String posizioneInterna;
-	private Float metriQ;
+	private float metriQ;
 	private DestinazioneUso destUso;
 	
 	public DatiUnitaImmobiliare()
@@ -32,6 +32,30 @@ public class DatiUnitaImmobiliare {
 		this.destUso = dest;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof DatiUnitaImmobiliare))
+	   return false;
+	 final DatiUnitaImmobiliare o = (DatiUnitaImmobiliare) other;
+	 if (!o.getCatCatastale().equals(getCatCatastale()))
+	   return false;
+	 if (!o.getDestUso().equals(getDestUso()))
+		   return false;
+	 if (!(o.getMetriQ() == getMetriQ()))
+		   return false;
+	 if (!o.getPosizioneInterna().equals(getPosizioneInterna()))
+		   return false;
+	 return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -56,7 +80,7 @@ public class DatiUnitaImmobiliare {
 		this.posizioneInterna = posizioneInterna;
 	}
 
-	public Float getMetriQ() {
+	public float getMetriQ() {
 		return metriQ;
 	}
 

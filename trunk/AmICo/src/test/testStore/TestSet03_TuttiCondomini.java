@@ -116,14 +116,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		TuttiCondomini tc = new TuttiCondomini();
 		tc.inizializza();
 				
-	/*	Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
-		
-		Condominio c = new Condominio();
-		c.modificaDati(new DatiCondominio("Papigliano2",ind));
-		c.modificaPreferenze(new Preferenze((float)3.4,10,new Euro((float)150.0)));
-		
-		tc.inserisciCondominio(c);
-	*/
 		Condominio c = tc.CONDOMINI.getCondomini().get(1);
 		
 		UnitàImmobiliari uimm = c.recuperaUnitàImmobiliari();
@@ -137,7 +129,45 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		assertTrue(ui.equals(unitaRecuperata));
 	}
 	
-/*	public void testCONDOMINI_elimina()
+	public void testCONDOMINI_modificaUnitaImmobiliare()
+	{
+		TuttiCondomini tc = new TuttiCondomini();
+		tc.inizializza();
+				
+		Condominio c = tc.CONDOMINI.getCondomini().get(1);
+		
+		//recupero l'unità immobiliare
+		UnitaImmobiliare unita = c.recuperaUnitàImmobiliari().getImmobili().get(0);
+		
+		//creo dei nuovi dati
+		DatiUnitaImmobiliare dui = new DatiUnitaImmobiliare("Unità 14",CategoriaCatastale.A10,"palconata", (float)85,DestinazioneUso.appartamento);
+
+		//modifico i dati dell'unità precedente
+		unita.modificaDati(dui);
+		
+		UnitaImmobiliare nuovaUnità = new UnitaImmobiliare();
+		nuovaUnità.creaUnitàImmobiliare();
+		nuovaUnità.modificaDati(dui);
+		
+		assertTrue(unita.equals(nuovaUnità));
+	}
+	
+	public void testCONDOMINI_eliminaUnitaImmobiliare()
+	{
+		TuttiCondomini tc = new TuttiCondomini();
+		tc.inizializza();
+				
+		Condominio c = tc.CONDOMINI.getCondomini().get(1);
+		
+		//recupero l'unità immobiliare
+		UnitaImmobiliare unita = c.recuperaUnitàImmobiliari().getImmobili().get(0);
+		
+		c.eliminaUnitàImmobiliare(unita);
+		
+		assertEquals(0, c.recuperaUnitàImmobiliari().getImmobili().size());
+	}
+	
+	public void testCONDOMINI_elimina()
 	{
 		TuttiCondomini tc = new TuttiCondomini();
 		tc.inizializza();
@@ -149,5 +179,4 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		tc.eliminaCondominio(cond);
 		assertEquals(0, tc.CONDOMINI.getCondomini().size());
 	}
-	*/
 }
