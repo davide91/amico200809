@@ -32,7 +32,7 @@
 		
 		<property name="statoCondominio"/>  <!-- STATO CONDOMINIO -->
 		
-		<set name="cassa" cascade="all">
+		<set name="cassa" cascade="all,save-update">
  			<key column="CASSA_ID"/>
 			<one-to-many class="Cassa"/>
 		</set>
