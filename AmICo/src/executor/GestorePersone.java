@@ -38,16 +38,15 @@ public class GestorePersone implements BaseExecutor {
 	private ModificarePersona MP;
 	private Persona personaMod;
 	private AccedentiPersone RICH;
+	private TuttePersone TP;
 	private StatiGestorePersone state; 
 		
 	public GestorePersone(){
+	 TP.inizializza();
 	 state=StatiGestorePersone.base;
+	 
 	}
 	
-	public void annullato() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 	public void inserisciDatiPersona(DatiPersona datiP){
@@ -94,44 +93,16 @@ public class GestorePersone implements BaseExecutor {
 	public void operazioneAnnullata() {
 		
 	}
-	
-   private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaFisica datiPF) {
-	Persone pf = TuttePersone.PERSONE.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
-	if(!pf.isEmpty()){
-		PersoneConStessoNome PCSN = new PersoneConStessoNome();
-		PCSN.creaEsitoOmonimi(pf);
-		return PCSN;
-	}
-	pf= TuttePersone.PERSONE.recuperaPersone(datiPF.getDomicilio());
-	if(!pf.isEmpty()){
-		PersoneConStessoIndirizzo PCSI = new PersoneConStessoIndirizzo();
-		PCSI.creaEsitoCoabitanti(pf);
-		return PCSI;
-	}
-	Inseribile INS = new Inseribile();
-	INS.creaEsitoOK();
-	return INS;
-	
-}
 
-private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaGiuridica datiPG) {
-/*		Persone pg=TuttePersone.PERSONE.recuperaPersone(datiPG.getPIva());
-		if(!pg.isEmpty()){
-			PersoneConStessaPartitaIVA PCSI = new PersoneConStessoIndirizzo();
-			PCSI.creaEsitoCoabitanti(pf);
-			return PCSI;
-	*/
-	return null;
-}
 	public void procedi(Boolean procedere) {
 		switch (state) {
 		case attesaConfermaInserimento: 
 			if (procedere){
-				TuttePersone.PERSONE.inserisciPersona(datiPersona);
+				TP.inserisciPersona(datiPersona);
 				IP.fatto();
 			}
 			else IP.fallito();	
-			RICH.aggiornaPersone(TuttePersone.PERSONE.recuperaPersone()); //lo fa in entrambi i casi
+			RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
 			
 			break;
 		case attesaConfermaModifica:
@@ -151,4 +122,52 @@ private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaGiuridica datiPG
 		state=StatiGestorePersone.base;
 	}
 	
+	private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaFisica datiPF) {
+		Persone pf = TuttePersone.PERSONE.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
+		if(!pf.isEmpty()){
+			PersoneConStessoNome PCSN = new PersoneConStessoNome();
+			PCSN.creaEsitoOmonimi(pf);
+			return PCSN;
+		}
+		pf= TuttePersone.PERSONE.recuperaPersone(datiPF.getDomicilio());
+		if(!pf.isEmpty()){
+			PersoneConStessoIndirizzo PCSI = new PersoneConStessoIndirizzo();
+			PCSI.creaEsitoCoabitanti(pf);
+			return PCSI;
+		}
+		Inseribile INS = new Inseribile();
+		INS.creaEsitoOK();
+		return INS;
+		
+	}
+	
+   private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaGiuridica datiPG) {
+/*		Persone pg=TuttePersone.PERSONE.recuperaPersone(datiPG.getPIva());
+		if(!pg.isEmpty()){
+			PersoneConStessaPartitaIVA PCSI = new PersoneConStessoIndirizzo();
+			PCSI.creaEsitoCoabitanti(pf);
+			return PCSI;
+	*/
+	return null;
 }
+
+public void annullato() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+public void operazioneTerminata() {
+	// TODO Auto-generated method stub
+	
+}
+
+public void procedi(boolean b) {
+	// TODO Auto-generated method stub
+	
+}
+
+}
+	
+	
+
