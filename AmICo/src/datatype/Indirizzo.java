@@ -44,9 +44,6 @@ public class Indirizzo {
 			return false;
 		final Indirizzo other = (Indirizzo)obj;
 		
-		
-		
-		
 		if (this.via == null || this.interno == null || this.comune == null || this.provincia == null || this.cap == null) {
 			if (other.via == null || other.interno == null || other.comune == null || other.provincia == null || other.cap == null)
 				return false;

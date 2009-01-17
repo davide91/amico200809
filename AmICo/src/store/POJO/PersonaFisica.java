@@ -3,6 +3,10 @@
  */
 package store.POJO;
 
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
+
 import datatype.DatiPersonaFisica;
 
 /**
@@ -13,6 +17,7 @@ public class PersonaFisica extends Persona {
 
 	private DatiPersonaFisica dati;
 	
+	private Session session;
 	public void creaPersonaFisica(DatiPersonaFisica dpf)
 	{
 		dati = dpf;
@@ -20,7 +25,7 @@ public class PersonaFisica extends Persona {
 	
 	public void modificaDati(DatiPersonaFisica dpf)
 	{
-		dati = dpf;
+			dati = dpf;
 	}
 	
 	public PersonaFisica()

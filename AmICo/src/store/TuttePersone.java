@@ -27,6 +27,7 @@ import datatype.list.PersoneGiuridiche;
 public class TuttePersone {
 
 	public static Persone PERSONE = new Persone();
+	private Session session;
 	
 	public TuttePersone()
 	{
@@ -40,7 +41,7 @@ public class TuttePersone {
 	}
 	
 	public void inserisciPersona(DatiPersona dati)
-	{	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	{	session = HibernateUtil.getSessionFactory().getCurrentSession();
 
 		session.beginTransaction();
 		
@@ -63,12 +64,16 @@ public class TuttePersone {
 	
 	public void eliminaPersona(Persona pers)
 	{
-		
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			PERSONE.elimina(pers);
+			session.delete(pers);
+		session.getTransaction().commit();
 	}
 	
 	public Persone recuperaPersone()
 	{
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
 		List persone = session.createQuery("from Persona").list();

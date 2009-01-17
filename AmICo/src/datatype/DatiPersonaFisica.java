@@ -3,6 +3,8 @@
  */
 package datatype;
 
+import store.POJO.PersonaGiuridica;
+
 /**
  * @author bruno
  *
@@ -28,6 +30,37 @@ public class DatiPersonaFisica extends DatiPersona{
 		this.cognome = cogn;
 		this.cell = cell;
 		this.domicilio = dom;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+	 if (this == other)
+	   return true;
+	 if (!(other instanceof DatiPersonaFisica))
+	   return false;
+	 final DatiPersonaFisica o = (DatiPersonaFisica) other;
+	 if (!o.getCell().equals(this.getCell()))
+	   return false;
+	 if (!o.getCf().equals(this.getCf()))
+		   return false;
+	 if (!o.getCognome().equals(this.getCognome()))
+		   return false;
+	 if (!o.getDomicilio().equals(this.getDomicilio()))
+		   return false;
+	 if (!o.getFax().equals(this.getFax()))
+		   return false;
+	 if (!o.getMail().equals(this.getMail()))
+		   return false;
+	 if (!o.getNome().equals(this.getNome()))
+		   return false;
+	 if (!o.getTel().equals(this.getTel()))
+		   return false;
+	 return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 2;
 	}
 	
 	@Override

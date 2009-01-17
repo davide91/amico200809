@@ -22,6 +22,7 @@ import store.util.HibernateUtil;
 public class TuttiCondomini {
 
 	public static Condomini CONDOMINI = new Condomini();
+	private Session session;
 	
 	public TuttiCondomini()
 	{
@@ -36,7 +37,7 @@ public class TuttiCondomini {
 	
 	public Condomini recuperaCondomini()
 	{
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
 		List Cond = session.createQuery("from Condominio").list();
@@ -51,20 +52,19 @@ public class TuttiCondomini {
 	
 	public void inserisciCondominio(Condominio c)
 	{
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();		
-		//uso c come Condominio
-		CONDOMINI.inserisciCondominio(c);
+			CONDOMINI.inserisciCondominio(c);
 		session.persist(c);
 		session.getTransaction().commit();
 	}
 
 	public void eliminaCondominio(Condominio c)
 	{
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		CONDOMINI.elimina(c);
-		session.delete(c);
+			CONDOMINI.elimina(c);
+			session.delete(c);
 		session.getTransaction().commit();
 	}
 }

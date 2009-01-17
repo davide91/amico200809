@@ -3,6 +3,8 @@
  */
 package datatype;
 
+import store.POJO.PersonaGiuridica;
+
 /**
  * @author bruno
  * 
@@ -52,6 +54,22 @@ public class CodiceFiscale {
 	        return false;
 	    return true;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			   return true;
+		if (!(other instanceof CodiceFiscale))
+			   return false;
+		final CodiceFiscale o = (CodiceFiscale) other;
+		return this.codiceFis.equals(o.codiceFis);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.codiceFis.hashCode();
+	}
+
 	
 	public String getCodiceFis() {
 		return codiceFis;
