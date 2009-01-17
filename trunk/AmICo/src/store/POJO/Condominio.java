@@ -45,7 +45,12 @@ public class Condominio {
 	
 	public void modificaDati(DatiCondominio dCond)
 	{		
-		datiC = dCond;
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			datiC = dCond;
+			session.flush();
+	//	session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	public void inserisciPersona(Persona p)
@@ -197,10 +202,6 @@ public class Condominio {
 		 result = this.getDatiC().hashCode();
 		 result = 29 * result + this.getPreferenze().hashCode();
 		 result = 29 * result + this.getStatoCondominio().hashCode();
-		 result = 29 * result + this.getCassa().hashCode();
-		 result = 29 * result + this.getTabelleMillesimali().hashCode();
-		 result = 29 * result + this.getBilanci().hashCode();
-		 result = 29 * result + this.getUnitaImmobiliari().hashCode();
 		 return result;
 	}
 
