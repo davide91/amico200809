@@ -21,6 +21,19 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 
 	public void ammissibile(Boolean b) {
@@ -90,7 +103,12 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 		add(getInserisci(), new Constraints(new Leading(100, 10, 10), new Leading(121, 10, 10)));
 		add(getAnnulla(), new Constraints(new Leading(315, 10, 10), new Leading(123, 10, 10)));
 		setJMenuBar(getJMenuBar0());
+<<<<<<< .mine
+		this.setSize(610, 450);
 		setSize(437, 192);
+=======
+		setSize(437, 192);
+>>>>>>> .r60
 	}
 
 	private JButton getAnnulla() {
