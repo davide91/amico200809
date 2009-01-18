@@ -109,12 +109,12 @@ public class Bilancio {
 		return false;
 	}
 	
-	public Euri saldoUnità()
+	public Euri saldoUnita()
 	{
 		return null;
 	}
 	
-	public Euri moreUnità()
+	public Euri moreUnita()
 	{
 		return null;
 	}

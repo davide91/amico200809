@@ -17,7 +17,7 @@ public enum StatiGestoreCondominioAperto {
 	gestioneTabelleMillesimali,
 	attesaConfermaInserimentoTabellaMillesimale,
 	attesaConfermaModificaTabellaMillesimale,
-	gestioneUnitàImmmobiliari,
-	modificaProprietà,
-	attesaConfermaProprietà
+	gestioneUnitaImmmobiliari,
+	modificaProprieta,
+	attesaConfermaProprieta
 }

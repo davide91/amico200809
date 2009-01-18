@@ -30,7 +30,7 @@ public class TabellaMillesimale {
 		dati = DTM;
 	}
 	
-	public void creaTabellaProprietàGenerale(float millesimi)
+	public void creaTabellaProprietaGenerale(float millesimi)
 	{
 		dati.setMillesimi(millesimi);
 	}

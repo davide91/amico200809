@@ -9,7 +9,7 @@ import datatype.Preferenze;
 import datatype.list.Avvisi;
 import datatype.list.Condomini;
 import datatype.list.Persone;
-import datatype.list.QuoteProprietà;
+import datatype.list.QuoteProprieta;
 import enumeration.FormatoFile;
 import enumeration.StatiGestoreCondominioAperto;
 import store.TuttePersone;

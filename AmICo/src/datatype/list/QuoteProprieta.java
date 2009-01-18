@@ -12,11 +12,11 @@ import store.POJO.Proprieta;
  * @author bruno
  *
  */
-public class QuoteProprietà {
+public class QuoteProprieta{
 
 	private List<Proprieta> listaQuote = new ArrayList<Proprieta>();
 	
-	public QuoteProprietà()
+	public QuoteProprieta()
 	{
 		
 	}

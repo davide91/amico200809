@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,13 +17,14 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.TuttiCondomini;
+import store.POJO.Condominio;
 import datatype.list.Condomini;
+import executor.GestoreCondominioAperto;
 
 /**
  * @author Federico
@@ -46,6 +46,7 @@ public class AmICo extends JFrame {
 	private JList elenco;
 
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+
 	public AmICo() {
 		
 		condomini=TuttiCondomini.CONDOMINI;
@@ -60,14 +61,15 @@ public class AmICo extends JFrame {
 		add(getBinserisci(), new Constraints(new Leading(240, 182, 12, 12), new Leading(208, 10, 10)));
 		add(getBapri(), new Constraints(new Leading(240, 182, 12, 12), new Leading(92, 10, 10)));
 		setJMenuBar(getJMenuBar0());
-		setSize(445, 324);
+		setSize(445, 351);
 	}
 
 	private JList getElenco() {
 		if (elenco == null) {
 			elenco = new JList();
 			DefaultListModel listModel = new DefaultListModel();
-			listModel.addElement("prova");
+			listModel.addElement("via prova");
+			listModel.addElement("via ciao");
 			elenco.setModel(listModel);
 		}
 		return elenco;
@@ -189,7 +191,6 @@ public class AmICo extends JFrame {
 			public void run() {
 				AmICo frame = new AmICo();
 				frame.setTitle("AmICo");
-				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
@@ -200,9 +201,9 @@ public class AmICo extends JFrame {
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
-		if(elenco.getSelectedIndex()>-1)
+		if(elenco.getSelectedIndex()>-1)// una bozza per aprire la finestra con il nome scritto sopra
 		{
-			AccedereCondominioAperto ACA=new AccedereCondominioAperto();
+			AccedereCondominioAperto ACA=new AccedereCondominioAperto(new GestoreCondominioAperto(null),new Condominio());
 			ACA.setTitle((String)elenco.getSelectedValue());
 			ACA.setVisible(true);
 			this.setVisible(false);

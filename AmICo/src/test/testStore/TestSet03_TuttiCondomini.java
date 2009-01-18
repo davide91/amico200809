@@ -15,7 +15,7 @@ import datatype.Euro;
 import datatype.Indirizzo;
 import datatype.Preferenze;
 import datatype.list.Condomini;
-import datatype.list.UnitàImmobiliari;
+import datatype.list.UnitaImmobiliari;
 import enumeration.CategoriaCatastale;
 import enumeration.Comune;
 import enumeration.DestinazioneUso;

@@ -14,7 +14,7 @@ import datatype.list.Bilanci;
 import datatype.list.Pagamenti;
 import datatype.list.Persone;
 import datatype.list.TabelleMillesimali;
-import datatype.list.UnitàImmobiliari;
+import datatype.list.UnitaImmobiliari;
 import enumeration.StatoBilancio;
 import enumeration.StatoCondominio;
 
@@ -62,7 +62,7 @@ public class Condominio {
 		session.getTransaction().commit();
 	}
 	
-	public void inserisciUnitàImmobiliare(UnitaImmobiliare uImm)
+	public void inserisciUnitaImmobiliare(UnitaImmobiliare uImm)
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
@@ -79,7 +79,7 @@ public class Condominio {
 		session.persist(ui);
 	}
 	
-	public void eliminaUnitàImmobiliare(UnitaImmobiliare uImm)
+	public void eliminaUnitaImmobiliare(UnitaImmobiliare uImm)
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -139,12 +139,12 @@ public class Condominio {
 		return ret;
 	}
 	
-	public UnitàImmobiliari recuperaUnitàImmobiliari()
+	public UnitaImmobiliari recuperaUnitaImmobiliari()
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
-		UnitàImmobiliari ret = new UnitàImmobiliari();
+		UnitaImmobiliari ret = new UnitaImmobiliari();
 	
 		List UnitImm = session.createQuery("from UnitaImmobiliare where condominio = :cond").setParameter("cond", this).list();
 		session.getTransaction().commit();
