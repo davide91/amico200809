@@ -74,7 +74,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getScrittaavvisi(), new Constraints(new Leading(119, 41, 10, 10), new Leading(92, 36, 54, 315)));
 		add(getPannello(), new Constraints(new Leading(160, 541, 10, 10), new Bilateral(155, 42, 10)));
 		setJMenuBar(getJMenuBar0());
-		setSize(874, 526);
+		setSize(874, 586);
 	}
 
 	private JButton getBesportarecondominio() {
@@ -94,7 +94,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton getBchiudicondominio() {
 		if (bchiudicondominio == null) {
 			bchiudicondominio = new JButton();
-			bchiudicondominio.setText("Esportare Condominio");
+			bchiudicondominio.setText("Chiudi Condominio");
 			bchiudicondominio.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -293,7 +293,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 			public void run() {
 				AccedereCondominioAperto frame = new AccedereCondominioAperto();
 				frame.setTitle("AccedereCondominioAperto");
-				frame.pack();
+				//frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
