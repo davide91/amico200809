@@ -103,12 +103,12 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 		add(getInserisci(), new Constraints(new Leading(100, 10, 10), new Leading(121, 10, 10)));
 		add(getAnnulla(), new Constraints(new Leading(315, 10, 10), new Leading(123, 10, 10)));
 		setJMenuBar(getJMenuBar0());
-<<<<<<< .mine
+//<<<<<<< .mine
 		this.setSize(610, 450);
 		setSize(437, 192);
-=======
+//=======
 		setSize(437, 192);
->>>>>>> .r60
+//>>>>>>> .r60
 	}
 
 	private JButton getAnnulla() {
