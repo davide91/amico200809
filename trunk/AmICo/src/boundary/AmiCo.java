@@ -8,15 +8,15 @@ import javax.swing.UIManager;
 import org.dyno.visual.swing.layouts.GroupLayout;
 
 /**
- * @author Federico
- *
+ * @author Federico 
  */
-public class AmiCO extends JFrame {
+
+public class AmiCo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static final String PREFERRED_LOOK_AND_FEEL = null;
 
-	public AmiCO() {
+	public AmiCo() {
 		initComponents();
 	}
 
@@ -47,7 +47,7 @@ public class AmiCO extends JFrame {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				AmiCO frame = new AmiCO();
+				AmiCo frame = new AmiCo();
 				frame.setTitle("AmiCO");
 				frame.pack();
 				frame.setLocationRelativeTo(null);
