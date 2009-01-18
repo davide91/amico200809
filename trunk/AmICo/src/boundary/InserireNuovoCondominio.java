@@ -34,7 +34,7 @@ import org.dyno.visual.swing.layouts.Leading;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
+public class InserireNuovoCondominio extends JFrame implements BaseBoundary{
 
 	public void ammissibile(Boolean b) {
 		// TODO Auto-generated method stub
@@ -86,7 +86,7 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 	private JLabel scrittacap;
 	private JButton annulla;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public InserireNuovoCondomino() {
+	public InserireNuovoCondominio() {
 		initComponents();
 	}
 
@@ -253,7 +253,7 @@ public class InserireNuovoCondomino extends JFrame implements BaseBoundary{
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				InserireNuovoCondomino frame = new InserireNuovoCondomino();
+				InserireNuovoCondominio frame = new InserireNuovoCondominio();
 				frame.setTitle("Inserimento Dati Condominio");
 				frame.pack();
 				frame.setLocationRelativeTo(null);
