@@ -5,27 +5,51 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.dyno.visual.swing.layouts.Bilateral;
+import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
+import org.dyno.visual.swing.layouts.Leading;
 
 /**
  * @author Federico
  *
  */
-public class AccedereTabelleMillesimali extends JPanel {
+public class PannelloTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final String PREFERRED_LOOK_AND_FEEL = null;
-
-	public AccedereTabelleMillesimali() {
+	private JTabbedPane preferenze;
+	private JTabbedPane jTabbedPane0;
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	public PannelloTab() {
 		initComponents();
 	}
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		setSize(400, 300);
+		add(getJTabbedPane0(), new Constraints(new Leading(0, 507, 10, 10), new Bilateral(0, 0, 7)));
+		setSize(509, 388);
+	}
+
+	private JTabbedPane getJTabbedPane0() {
+		if (jTabbedPane0 == null) {
+			jTabbedPane0 = new JTabbedPane();
+			jTabbedPane0.addTab("Dati Generali",new DatiGenerali());
+			jTabbedPane0.addTab("Unità Immobiliari", new AccedereUnitaImmobiliari());
+			jTabbedPane0.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
+			jTabbedPane0.addTab("Preferenze", getPreferenze());
+		}
+		return jTabbedPane0;
+	}
+
+	private JTabbedPane getPreferenze() {
+		if (preferenze == null) {
+			preferenze = new JTabbedPane();
+		}
+		return preferenze;
 	}
 
 	private static void installLnF() {
@@ -52,8 +76,8 @@ public class AccedereTabelleMillesimali extends JPanel {
 			public void run() {
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("AccedereTabelleMillesimali");
-				AccedereTabelleMillesimali content = new AccedereTabelleMillesimali();
+				frame.setTitle("PannelloTab");
+				PannelloTab content = new PannelloTab();
 				content.setPreferredSize(content.getSize());
 				frame.add(content, BorderLayout.CENTER);
 				frame.pack();
