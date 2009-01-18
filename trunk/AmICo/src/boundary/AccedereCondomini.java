@@ -2,12 +2,17 @@
 package boundary;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -20,8 +25,10 @@ import org.dyno.visual.swing.layouts.Leading;
 public class AccedereCondomini extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JButton jButton0;
-	private JButton jButton1;
+	private JButton bvisualizza;
+	private JLabel jLabel0;
+	private JTable jTable0;
+	private JScrollPane jScrollPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccedereCondomini() {
 		initComponents();
@@ -29,25 +36,50 @@ public class AccedereCondomini extends JPanel {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJButton0(), new Constraints(new Leading(87, 10, 10), new Leading(53, 10, 10)));
-		add(getJButton1(), new Constraints(new Leading(190, 10, 10), new Leading(188, 10, 10)));
+		add(getJLabel0(), new Constraints(new Leading(114, 10, 10), new Leading(27, 10, 10)));
+		add(getJScrollPane0(), new Constraints(new Leading(60, 285, 10, 10), new Leading(66, 158, 10, 10)));
+		add(getBvisualizza(), new Constraints(new Leading(126, 10, 10), new Leading(242, 12, 12)));
 		setSize(400, 300);
 	}
 
-	private JButton getJButton1() {
-		if (jButton1 == null) {
-			jButton1 = new JButton();
-			jButton1.setText("jButton1");
+	private JScrollPane getJScrollPane0() {
+		if (jScrollPane0 == null) {
+			jScrollPane0 = new JScrollPane();
+			jScrollPane0.setViewportView(getJTable0());
 		}
-		return jButton1;
+		return jScrollPane0;
 	}
 
-	private JButton getJButton0() {
-		if (jButton0 == null) {
-			jButton0 = new JButton();
-			jButton0.setText("jButton0");
+	private JTable getJTable0() {
+		if (jTable0 == null) {
+			jTable0 = new JTable();
+			jTable0.setModel(new DefaultTableModel(new Object[][] { { "0x0", "0x1", }, { "1x0", "1x1", }, }, new String[] { "Title 0", "Title 1", }) {
+				private static final long serialVersionUID = 1L;
+				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+	
+				public Class<?> getColumnClass(int columnIndex) {
+					return types[columnIndex];
+				}
+			});
 		}
-		return jButton0;
+		return jTable0;
+	}
+
+	private JLabel getJLabel0() {
+		if (jLabel0 == null) {
+			jLabel0 = new JLabel();
+			jLabel0.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 14));
+			jLabel0.setText("Elenco dei condòmini:");
+		}
+		return jLabel0;
+	}
+
+	private JButton getBvisualizza() {
+		if (bvisualizza == null) {
+			bvisualizza = new JButton();
+			bvisualizza.setText("Visualizza dati anagrafici");
+		}
+		return bvisualizza;
 	}
 
 	private static void installLnF() {

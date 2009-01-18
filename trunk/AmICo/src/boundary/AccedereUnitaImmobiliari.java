@@ -3,6 +3,7 @@ package boundary;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,6 +26,7 @@ public class AccedereUnitaImmobiliari extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
 	private JScrollPane jScrollPane0;
+	private JButton bmodifica;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccedereUnitaImmobiliari() {
 		initComponents();
@@ -33,7 +35,16 @@ public class AccedereUnitaImmobiliari extends JPanel {
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(0, 0, 22), new Leading(0, 192, 12, 12)));
+		add(getBmodifica(), new Constraints(new Bilateral(130, 130, 144), new Leading(258, 10, 10)));
 		setSize(404, 341);
+	}
+
+	private JButton getBmodifica() {
+		if (bmodifica == null) {
+			bmodifica = new JButton();
+			bmodifica.setText("Modifica proprietà unità");
+		}
+		return bmodifica;
 	}
 
 	private JScrollPane getJScrollPane0() {
