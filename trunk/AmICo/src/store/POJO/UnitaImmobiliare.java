@@ -8,7 +8,7 @@ import java.util.TreeSet;
 
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Persone;
-import datatype.list.QuoteProprietà;
+import datatype.list.QuoteProprieta;
 
 /**
  * @author bruno
@@ -26,7 +26,7 @@ public class UnitaImmobiliare {
 		
 	}
 	
-	public void creaUnitàImmobiliare()
+	public void creaUnitaImmobiliare()
 	{
 		datiUnitaImmobiliare = new DatiUnitaImmobiliare();
 	}
@@ -36,9 +36,9 @@ public class UnitaImmobiliare {
 		datiUnitaImmobiliare = dui;
 	}
 	
-	public QuoteProprietà recuperaProprietà()
+	public QuoteProprieta recuperaProprieta()
 	{
-		QuoteProprietà ret = new QuoteProprietà();
+		QuoteProprieta ret = new QuoteProprieta();
 		
 		for (Proprieta p : quoteDiPossesso) {
 			ret.inserisciQuota(p);
@@ -47,7 +47,7 @@ public class UnitaImmobiliare {
 		return ret;
 	}
 
-	public void modificaProprietà(Persone p, float r)
+	public void modificaProprieta(Persone p, float r)
 	{
 		
 	}

@@ -3,15 +3,15 @@ package executor;
 import java.io.File;
 import java.net.URL;
 
-import boundary.AccedereCondomini;
-import boundary.InserireNuovoCondomino;
+import boundary.AccederePersone;
+import boundary.InserirePersona;
 import datatype.DatiCondominio;
 import datatype.DatiTabellaMillesimale;
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Condomini;
 import datatype.list.Persone;
-import datatype.list.QuoteProprietà;
-import datatype.list.UnitàImmobiliari;
+import datatype.list.QuoteProprieta;
+import datatype.list.UnitaImmobiliari;
 import enumeration.StatiGestoreCondominio;
 import store.TuttePersone;
 import store.TuttiCondomini;
@@ -30,12 +30,12 @@ public class GestoreCondomini implements BaseExecutor {
 		return m_gestoreCondominio;
 	}
 	
-	public  AccedereCondomini m_accedereCondomini;
+	public  AccederePersone m_AccederePersone;
 	private Avvio m_avvio;
 	private Condominio m_condominio;
 	private DatiCondominio m_datiCondominio;
 	private GestoreCondominioAperto m_gestoreCondominioAperto;
-	private InserireNuovoCondomino m_inserireNuovoCondominio;
+	private InserirePersona m_inserireNuovoCondominio;
 	private InserireUnitaImmobliare m_inserireUnitaImmobiliare;
 	private StatiGestoreCondominio m_state;
 	private TuttiCondomini m_dbCondomini;
@@ -46,7 +46,7 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	private GestoreCondomini()
 	{
-		m_accedereCondomini = new AccedereCondomini(TuttiCondomini.CONDOMINI);
+		m_AccederePersone = new AccederePersone(TuttiCondomini.CONDOMINI);
 		m_state = StatiGestoreCondominio.gestoreCondomini;
 		m_dbCondomini.inizializza();
 	}
@@ -147,13 +147,13 @@ public class GestoreCondomini implements BaseExecutor {
 		switch (m_state) {
 			case attesaSelezioneFile :
 				if ( ! FormatoAmICo.fileInFormatoAmICo(file) ) {
-					m_accedereCondomini.fallito();
+					m_AccederePersone.fallito();
 					return;
 				}
 				m_condominio = FormatoAmICo.daFileACondominio(file);
 				m_dbCondomini.inserisciCondominio(m_condominio);
-				m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
-				m_accedereCondomini.fatto();
+				m_AccederePersone.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+				m_AccederePersone.fatto();
 				m_state = StatiGestoreCondominio.condominioAperto;
 				break;
 		}
@@ -197,10 +197,10 @@ public class GestoreCondomini implements BaseExecutor {
 					break;
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
-				m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+				m_AccederePersone.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 				m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
 				m_inserireNuovoCondominio.fatto();
-				m_accedereCondomini.fatto();
+				m_AccederePersone.fatto();
 				m_state = StatiGestoreCondominio.condominioAperto;
 				break;
 			case attesaConferma :

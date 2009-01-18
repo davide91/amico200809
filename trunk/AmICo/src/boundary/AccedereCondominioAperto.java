@@ -24,6 +24,7 @@ import org.dyno.visual.swing.layouts.Trailing;
 import store.POJO.Condominio;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
+import enumeration.StatiGestoreCondominioAperto;
 import executor.GestoreCondominioAperto;
 
 
@@ -35,6 +36,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private Condominio condominio;
 	private GestoreCondominioAperto gca;
+	private Avvisi avvisi;
 	
 	private static final long serialVersionUID = 1L;
 	private JMenuItem jMenuItem0;
@@ -48,14 +50,18 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton breport;
 	private JButton barchiviobilanci;
 	private JPanel pannello;
-	private JTextField avvisi;
+	private JTextField campoavvisi;
 	private JTextField scrittaavvisi;
 	private JButton beliminacondominio;
 	private JButton bchiudicondominio;
 	private JButton besportarecondominio;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public AccedereCondominioAperto() {
+	public AccedereCondominioAperto(GestoreCondominioAperto GCA,Condominio condominio) {
 		initComponents();
+		
+		this.gca=GCA;
+		this.condominio=condominio;
+	
 	}
 
 	private void initComponents() {
@@ -129,12 +135,12 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 
 	private JTextField getAvvisi() {
-		if (avvisi == null) {
-			avvisi = new JTextField();
-			avvisi.setEditable(false);
-			avvisi.setToolTipText("gli avvisi");
+		if (campoavvisi == null) {
+			campoavvisi = new JTextField();
+			campoavvisi.setEditable(false);
+			campoavvisi.setToolTipText("gli avvisi");
 		}
-		return avvisi;
+		return campoavvisi;
 	}
 
 	private JPanel getPannello() {
@@ -291,7 +297,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				AccedereCondominioAperto frame = new AccedereCondominioAperto();
+				AccedereCondominioAperto frame =new AccedereCondominioAperto(new GestoreCondominioAperto(null),new Condominio());
 				frame.setTitle("AccedereCondominioAperto");
 				//frame.pack();
 				frame.setLocationRelativeTo(null);

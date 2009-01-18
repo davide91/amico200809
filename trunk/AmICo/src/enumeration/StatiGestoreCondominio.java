@@ -13,9 +13,9 @@ public enum StatiGestoreCondominio {
 	inserimentoCondominio,
 	attesaConfermaDatiCondominio,
 	inserimentoUnitaImmobiliari,
-	inserimentoTabellaMillesimaleProprietà,
-	inserimentoProprietà,
+	inserimentoTabellaMillesimaleProprieta,
+	inserimentoProprieta,
 	attesaConferma,
-	inserimentoUnitàImmobliare
+	inserimentoUnitaImmobliare
 }
 

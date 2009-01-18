@@ -12,11 +12,11 @@ import store.POJO.UnitaImmobiliare;
  * @author bruno
  *
  */
-public class UnitàImmobiliari {
+public class UnitaImmobiliari {
 	
 	private List<UnitaImmobiliare> immobili = new ArrayList<UnitaImmobiliare>();
 	
-	public UnitàImmobiliari()
+	public UnitaImmobiliari()
 	{
 		
 	}
