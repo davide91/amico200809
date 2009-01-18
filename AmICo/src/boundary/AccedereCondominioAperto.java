@@ -1,6 +1,7 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -70,7 +71,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getBdaticondominio(), new Constraints(new Leading(22, 130, 10, 10), new Leading(12, 58, 48, 48)));
 		add(getPannello(), new Constraints(new Leading(22, 832, 12, 12), new Trailing(42, 261, 118, 158)));
 		add(getAvvisi(), new Constraints(new Leading(208, 531, 10, 10), new Leading(76, 68, 54, 315)));
-		add(getScrittaavvisi(), new Constraints(new Leading(22, 48, 10, 10), new Leading(88, 36, 48, 48)));
+		add(getScrittaavvisi(), new Constraints(new Leading(119, 41, 10, 10), new Leading(92, 36, 54, 315)));
 		setJMenuBar(getJMenuBar0());
 		setSize(874, 481);
 	}
@@ -137,8 +138,8 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private JPanel getPannello() {
 		if (pannello == null) {
-			pannello = new JPanel();
-			pannello.setLayout(new GroupLayout());
+			pannello = new JPanel(new FlowLayout());
+		//	pannello.setLayout(new GroupLayout());
 		}
 		return pannello;
 	}
@@ -334,10 +335,19 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 
 	private void bdaticondominioMouseMouseClicked(MouseEvent event) {
+		pannello.removeAll();
+		pannello.add(new PannelloTab());
+		pannello.revalidate();
+		pannello.repaint();
+		
 		// TODO
 	}
 
 	private void bdaticondominiMouseMouseClicked(MouseEvent event) {
+		pannello.removeAll();
+		pannello.add(new AccedereCondomini());  
+		pannello.revalidate();
+		pannello.repaint();
 		this.passaADatiCondomini();
 	}
 
