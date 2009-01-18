@@ -1,4 +1,5 @@
 package boundary;
+import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
@@ -7,11 +8,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import javax.swing.JTable;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -31,7 +30,7 @@ public class NewJPanel extends javax.swing.JPanel {
 	private JRadioButton radioPersonaGiuridica;
 	private JLabel jLabel3;
 	private JTextField textFieldCAP;
-	private JTable tablePreferenze;
+	private JSplitPane jSplitPane1;
 	private JLabel labelPreferenze;
 	private JTextField textFieldFAX;
 	private JTextField textFieldEmail;
@@ -59,8 +58,6 @@ public class NewJPanel extends javax.swing.JPanel {
 	private JLabel jLabel2;
 	private JLabel labelNome;
 	private JLabel labelCognome;
-	private ButtonGroup buttonGroup;
-	private ButtonGroup buttonGroup1;
 	private JRadioButton radioPersonaFisica;
 	
 	/**
@@ -82,8 +79,12 @@ public class NewJPanel extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		
-			this.setPreferredSize(new java.awt.Dimension(618, 503));
-			this.setLayout(null);
+			this.setPreferredSize(new java.awt.Dimension(800, 700));
+			GridLayout thisLayout = new GridLayout(1, 1);
+			thisLayout.setHgap(5);
+			thisLayout.setVgap(5);
+			thisLayout.setColumns(1);
+			this.setLayout(thisLayout);
 			this.setName("textFieldNome");
 			{
 				labelTipoPersona = new JLabel();
@@ -92,11 +93,6 @@ public class NewJPanel extends javax.swing.JPanel {
 				labelTipoPersona.setBounds(12, 12, 240, 15);
 				labelTipoPersona.setText("Inserire il tipo di persona");
 			}
-			
-			
-			
-			
-			
 			{
 				radioPersonaFisica = new JRadioButton();
 				this.add(radioPersonaFisica);
@@ -166,7 +162,6 @@ public class NewJPanel extends javax.swing.JPanel {
 				this.add(getTextFieldEmail());
 				this.add(getTextFieldFAX());
 				this.add(getLabelPreferenze());
-				this.add(getTablePreferenze());
 				jLabel3.setName("labelDomicilio");
 				jLabel3.setBounds(12, 123, 63, 17);
 				jLabel3.setIgnoreRepaint(true);
@@ -175,27 +170,6 @@ public class NewJPanel extends javax.swing.JPanel {
 			}
 			
 			
-	}
-	
-	private ButtonGroup getGroupTipoPersona() {
-		if(GroupTipoPersona == null) {
-			GroupTipoPersona = new ButtonGroup();
-		}
-		return GroupTipoPersona;
-	}
-	
-	private ButtonGroup getButtonGroup1() {
-		if(buttonGroup1 == null) {
-buttonGroup1 = new ButtonGroup();
-		}
-		return buttonGroup1;
-	}
-	
-	private ButtonGroup getButtonGroup() {
-		if(buttonGroup == null) {
-	buttonGroup = new ButtonGroup();
-		}
-		return buttonGroup;
 	}
 	
 	private JLabel getLabelCAP() {
@@ -429,17 +403,6 @@ buttonGroup1 = new ButtonGroup();
 		return labelPreferenze;
 	}
 	
-	private JTable getTablePreferenze() {
-		if(tablePreferenze == null) {
-			TableModel tablePreferenzeModel =
-				new DefaultTableModel(
-						new Object[][] { {new JLabel(), new JLabel("POSTEL"), new JLabel("SMS"),new JLabel("EMAIL"),new JLabel("TELEFONO"),new JLabel("FAX"), }, { "Three", "Four" } },
-						new Object[] { "Column 1", "Column 2", "Column 3","Column 4","Column 5","Column 6" });
-			tablePreferenze = new JTable();
-			tablePreferenze.setModel(tablePreferenzeModel);
-			tablePreferenze.setBounds(181, 422, 10, 10);
-		}
-		return tablePreferenze;
-	}
+	
 
 }
