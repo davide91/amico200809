@@ -203,7 +203,7 @@ public class AmICo extends JFrame {
 	private void bapriMouseMouseClicked(MouseEvent event) {
 		if(elenco.getSelectedIndex()>-1)// una bozza per aprire la finestra con il nome scritto sopra
 		{
-			AccedereCondominioAperto ACA=new AccedereCondominioAperto(new GestoreCondominioAperto(null),new Condominio());
+			AccedereCondominioAperto ACA=new AccedereCondominioAperto(null,null);
 			ACA.setTitle((String)elenco.getSelectedValue());
 			ACA.setVisible(true);
 			this.setVisible(false);
