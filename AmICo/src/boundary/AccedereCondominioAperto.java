@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
@@ -69,11 +70,11 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getBbilanci(), new Constraints(new Leading(287, 96, 10, 10), new Leading(12, 58, 48, 48)));
 		add(getBdaticondomini(), new Constraints(new Leading(158, 124, 10, 10), new Leading(12, 58, 48, 48)));
 		add(getBdaticondominio(), new Constraints(new Leading(22, 130, 10, 10), new Leading(12, 58, 48, 48)));
-		add(getPannello(), new Constraints(new Leading(22, 832, 12, 12), new Trailing(42, 261, 118, 158)));
 		add(getAvvisi(), new Constraints(new Leading(208, 531, 10, 10), new Leading(76, 68, 54, 315)));
 		add(getScrittaavvisi(), new Constraints(new Leading(119, 41, 10, 10), new Leading(92, 36, 54, 315)));
+		add(getPannello(), new Constraints(new Leading(160, 541, 10, 10), new Bilateral(155, 42, 10)));
 		setJMenuBar(getJMenuBar0());
-		setSize(874, 481);
+		setSize(874, 526);
 	}
 
 	private JButton getBesportarecondominio() {
@@ -344,30 +345,49 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 
 	private void bdaticondominiMouseMouseClicked(MouseEvent event) {
+		this.passaADatiCondomini();
+		
 		pannello.removeAll();
 		pannello.add(new AccedereCondomini());  
 		pannello.revalidate();
 		pannello.repaint();
-		this.passaADatiCondomini();
+		
 	}
 
 	private void bbilanciMouseMouseClicked(MouseEvent event) {
 		this.passaABilanci();
+		pannello.removeAll();
+		pannello.revalidate();
+		pannello.repaint();
+		
 	}
 
 	private void bcassaMouseMouseClicked(MouseEvent event) {
 		this.passaACassa();
+		pannello.removeAll();
+		pannello.revalidate();
+		pannello.repaint();
 	}
 
 	private void bpagamentiMouseMouseClicked(MouseEvent event) {
 		this.passaAPagamenti();
+		pannello.removeAll();
+		pannello.revalidate();
+		pannello.repaint();
+		
 	}
 
 	private void breportMouseMouseClicked(MouseEvent event) {
+		pannello.removeAll();
+		pannello.revalidate();
+		pannello.repaint();
 		// TODO
 	}
 
 	private void barchiviobilanciMouseMouseClicked(MouseEvent event) {
+		pannello.removeAll();
+		pannello.revalidate();
+		pannello.repaint();
 		// TODO
 	}
 

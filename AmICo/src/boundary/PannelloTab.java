@@ -21,7 +21,6 @@ import org.dyno.visual.swing.layouts.Leading;
 public class PannelloTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTabbedPane preferenze;
 	private JTabbedPane jTabbedPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public PannelloTab() {
@@ -40,16 +39,9 @@ public class PannelloTab extends JPanel {
 			jTabbedPane0.addTab("Dati Generali",new DatiGenerali());
 			jTabbedPane0.addTab("Unità Immobiliari", new AccedereUnitaImmobiliari());
 			jTabbedPane0.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
-			jTabbedPane0.addTab("Preferenze", getPreferenze());
+			jTabbedPane0.addTab("Preferenze", new AccederePreferenze());
 		}
 		return jTabbedPane0;
-	}
-
-	private JTabbedPane getPreferenze() {
-		if (preferenze == null) {
-			preferenze = new JTabbedPane();
-		}
-		return preferenze;
 	}
 
 	private static void installLnF() {
