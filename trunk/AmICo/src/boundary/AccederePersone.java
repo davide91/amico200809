@@ -22,7 +22,7 @@ import org.dyno.visual.swing.layouts.Leading;
  * @author Federico
  *
  */
-public class AccedereCondomini extends JPanel {
+public class AccederePersone extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JButton bvisualizza;
@@ -30,7 +30,7 @@ public class AccedereCondomini extends JPanel {
 	private JTable jTable0;
 	private JScrollPane jScrollPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public AccedereCondomini() {
+	public AccederePersone() {
 		initComponents();
 	}
 
@@ -107,7 +107,7 @@ public class AccedereCondomini extends JPanel {
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setTitle("AccedereCondomini");
-				AccedereCondomini content = new AccedereCondomini();
+				AccederePersone content = new AccederePersone();
 				content.setPreferredSize(content.getSize());
 				frame.add(content, BorderLayout.CENTER);
 				frame.pack();

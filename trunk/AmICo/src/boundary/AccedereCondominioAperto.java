@@ -348,7 +348,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		this.passaADatiCondomini();
 		
 		pannello.removeAll();
-		pannello.add(new AccedereCondomini());  
+		pannello.add(new AccederePersone());  
 		pannello.revalidate();
 		pannello.repaint();
 		
