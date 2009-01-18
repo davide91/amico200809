@@ -1,6 +1,8 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+// questa classe si dovrebbe chiamare AccedereCondomini ma per motivi di ambiguita' si e' cambiato in AccederePersone
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 
