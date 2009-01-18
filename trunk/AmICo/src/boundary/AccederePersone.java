@@ -24,7 +24,7 @@ import org.dyno.visual.swing.layouts.Leading;
  * @author Federico
  *
  */
-public class AccederePersone extends JPanel {
+public class AccederePersone extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JButton bvisualizza;

@@ -5,20 +5,26 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+
+import store.TuttiCondomini;
+import datatype.list.Condomini;
 
 /**
  * @author Federico
@@ -26,8 +32,9 @@ import org.dyno.visual.swing.layouts.Leading;
  */
 public class AmICo extends JFrame {
 
+	private Condomini condomini;
+	
 	private static final long serialVersionUID = 1L;
-	private JTextArea condomini;
 	private JScrollPane jScrollPane0;
 	private JButton binserisci;
 	private JButton bapri;
@@ -36,19 +43,34 @@ public class AmICo extends JFrame {
 	private JMenuItem jMenuItem1;
 	private JMenu file;
 	private JMenuBar jMenuBar0;
+	private JList elenco;
+
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AmICo() {
+		
+		condomini=TuttiCondomini.CONDOMINI;
 		initComponents();
+		
 	}
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJLabel0(), new Constraints(new Leading(14, 12, 12), new Leading(28, 10, 10)));
 		add(getJScrollPane0(), new Constraints(new Leading(14, 200, 10, 10), new Leading(66, 220, 10, 10)));
-		add(getBinserisci(), new Constraints(new Leading(240, 182, 10, 10), new Leading(111, 12, 12)));
-		add(getBapri(), new Constraints(new Leading(240, 182, 12, 12), new Leading(147, 12, 12)));
+		add(getBinserisci(), new Constraints(new Leading(240, 182, 12, 12), new Leading(208, 10, 10)));
+		add(getBapri(), new Constraints(new Leading(240, 182, 12, 12), new Leading(92, 10, 10)));
 		setJMenuBar(getJMenuBar0());
 		setSize(445, 324);
+	}
+
+	private JList getElenco() {
+		if (elenco == null) {
+			elenco = new JList();
+			DefaultListModel listModel = new DefaultListModel();
+			listModel.addElement("prova");
+			elenco.setModel(listModel);
+		}
+		return elenco;
 	}
 
 	private JMenuBar getJMenuBar0() {
@@ -138,17 +160,9 @@ public class AmICo extends JFrame {
 	private JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {
 			jScrollPane0 = new JScrollPane();
-			jScrollPane0.setViewportView(getCondomini());
+			jScrollPane0.setViewportView(getElenco());
 		}
 		return jScrollPane0;
-	}
-
-	private JTextArea getCondomini() {
-		if (condomini == null) {
-			condomini = new JTextArea();
-			condomini.setEditable(false);
-		}
-		return condomini;
 	}
 
 	private static void installLnF() {
@@ -186,11 +200,20 @@ public class AmICo extends JFrame {
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
+		if(elenco.getSelectedIndex()>-1)
+		{
+			AccedereCondominioAperto ACA=new AccedereCondominioAperto();
+			ACA.setTitle((String)elenco.getSelectedValue());
+			ACA.setVisible(true);
+			this.setVisible(false);
+		}
+		
 	}
 	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
 	}
 	private void jMenuItem1MouseMouseClicked(MouseEvent event) {
 	}
+
 
 
 
