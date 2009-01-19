@@ -45,7 +45,6 @@ public class InserireUnitaImmobiliare extends JFrame {
 			public void run() {
 				InserireUnitaImmobiliare frame = new InserireUnitaImmobiliare();
 				frame.setTitle("InserireUnitaImmobiliare");
-				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
