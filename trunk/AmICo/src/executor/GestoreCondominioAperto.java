@@ -14,6 +14,7 @@ import boundary.DriverFileSystem;
 import datatype.DatiTabellaMillesimale;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
+import datatype.list.Bilanci;
 import datatype.list.Condomini;
 import datatype.list.Persone;
 import datatype.list.QuoteProprieta;
@@ -21,6 +22,7 @@ import enumeration.FormatoFile;
 import enumeration.StatiGestoreCondominioAperto;
 import store.TuttePersone;
 import store.TuttiCondomini;
+import store.POJO.Bilancio;
 import store.POJO.Condominio;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
@@ -60,11 +62,10 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		GestoreCondomini.getInstance().operazioneTerminata();
 	}
 	
-	/* TODO : 
-	 * EsitoEliminabile ?
-	 * 
-	*/
 	public boolean eliminabile() {
+		for ( Bilancio bilancio : m_condominio.recuperaBilanciInEsercizio().getBilanci() ) {
+			if (!bilancio.terminabile()) return false;
+		}
 		return true;
 	}
 	
