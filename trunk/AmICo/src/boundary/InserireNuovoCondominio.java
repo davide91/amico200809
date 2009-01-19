@@ -21,6 +21,15 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import datatype.DatiCondominio;
+import datatype.list.Reali;
+import datatype.list.UnitàImmobiliari;
+import enumeration.StatiInserireNuovoCondominio;
+import executor.GestoreCondomini;
+
+import store.POJO.UnitaImmobiliare;
+import sun.misc.GC;
+
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -35,14 +44,72 @@ import org.dyno.visual.swing.layouts.Leading;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class InserireNuovoCondominio extends JFrame implements BaseBoundary{
+	
+	
+	private UnitàImmobiliari unitaImmobiliari;
+	private DatiCondominio datiCondominio;
+	private Reali tabellaGenerale;
+	private StatiInserireNuovoCondominio state;
+	
+	public void creaInserireNuovoCondominio(){
+		//AMM.richiediDatiComdominio();
+		state=StatiInserireNuovoCondominio.base;
+		
+	}
+	
+	public void inserisciDatiCondominio(DatiCondominio datiCondominio){
+		GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
+		state=StatiInserireNuovoCondominio.controlloDatiCondominio;
+	}
 
+	
+	public void inserisciUnitaImmobiliare(){
+		GestoreCondomini.getInstance().inserisciUnitaImmobiliare();
+		state= StatiInserireNuovoCondominio.inserimentoUnitaImmobiliare;
+	}
+	
+	
+	public void inserisciTabellaMillesimaleProprieta(Reali millesimi) {
+		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi);
+		state=StatiInserireNuovoCondominio.controlloTabellaMillesimaleProprieta;
+		
+	}
+	
+	
+	public void aggiornaUnitaImmobiliari(UnitàImmobiliari unitaImmobiliari) {
+		this.unitaImmobiliari=unitaImmobiliari;
+		//AMM.mostraUnitaImmobiliari(unitaImmobiliari);
+	}
+	
+	
 	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub
+		switch (state) {
+		case controlloDatiCondominio:
+			
+			if (b)
+				//AMM.richiediConferma();
+				state=StatiInserireNuovoCondominio.attesaConfermaDatiCondominio;
+			else
+				state=StatiInserireNuovoCondominio.base;
+				//AMM.mostra(CondominioInseritoKO):
+			break;
+		case controlloTabellaMillesimaleProprieta:
+
+			if (b)
+				//AMM.richiediConferma();
+				state=StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale;
+			else
+				state=StatiInserireNuovoCondominio.base;
+				//AMM.mostra(TabellaMillesimaleInseritaKO):
+			break;
+		default:
+			break;
+		}
 		
 	}
 
 	public void annulla() {
-		// TODO Auto-generated method stub
+		GestoreCondomini.getInstance().operazioneAnnullata();
 		
 	}
 
@@ -52,22 +119,40 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary{
 	}
 
 	public void fatto() {
-		// TODO Auto-generated method stub
+		state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
 		
 	}
 
 	public void finito() {
-		// TODO Auto-generated method stub
+		state = StatiInserireNuovoCondominio.base;
 		
 	}
 
 	public void ko() {
-		// TODO Auto-generated method stub
+		if (state==StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale)
+		{	//AMM.mostra(condominioInseritoKO);
+		}
+		GestoreCondomini.getInstance().procedi(false);
+		state=StatiInserireNuovoCondominio.base;
+			
+		
 		
 	}
 
 	public void ok() {
-		// TODO Auto-generated method stub
+		switch (state) {
+		case attesaConfermaDatiCondominio:
+			GestoreCondomini.getInstance().procedi(true);
+			state= StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
+			break;
+		case attesaConfermaTabellaMillesimale:
+			GestoreCondomini.getInstance().procedi(true);
+			//AMM.mostra(CondominioInseritoOK);
+			break;
+		default:
+			break;
+		}
+
 		
 	}
 
