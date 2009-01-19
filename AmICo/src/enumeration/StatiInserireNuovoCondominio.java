@@ -8,7 +8,7 @@ package enumeration;
  *
  */
 public enum StatiInserireNuovoCondominio {
-	inserireNuovoCondominio,
+	base,
 	controlloDatiCondominio,
 	attesaConfermaDatiCondominio,
 	inserimentoUnitaImmobiliari,
