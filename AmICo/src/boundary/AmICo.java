@@ -4,16 +4,16 @@ package boundary;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -21,20 +21,35 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import store.TuttiCondomini;
 import store.POJO.Condominio;
+
+import datatype.Path;
 import datatype.list.Condomini;
-import executor.GestoreCondominioAperto;
+import enumeration.StatiAmICo;
+import executor.GestoreCondomini;
 
 /**
  * @author Federico
  *
  */
-public class AmICo extends JFrame {
+public class AmICo extends JFrame implements BaseBoundary{
 
+	public static AmICo amico;
+	public static AmICo getInstance(){
+		if (amico==null) 
+			amico=new AmICo();
+		return amico;
+		
+		
+	}
+	
 	private Condomini condomini;
+	private StatiAmICo state;
+	private GestoreCondomini GC;
+	
 	
 	private static final long serialVersionUID = 1L;
+//	private JTextArea condomini;
 	private JScrollPane jScrollPane0;
 	private JButton binserisci;
 	private JButton bapri;
@@ -43,36 +58,64 @@ public class AmICo extends JFrame {
 	private JMenuItem jMenuItem1;
 	private JMenu file;
 	private JMenuBar jMenuBar0;
-	private JList elenco;
-
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-
+	
 	public AmICo() {
-		
-		condomini=TuttiCondomini.CONDOMINI;
-		initComponents();
-		
+		//initComponents();
 	}
 
+	public void creaAmICo(Condomini condomini, GestoreCondomini GC){
+		this.condomini=condomini;
+		this.GC=GC;
+		initComponents();
+		state=StatiAmICo.base;
+		
+		//AMM.mostraCondomini(condomini);
+	}
+	
+	
+	
+	public void apriCondominio(Condominio condominio){
+		GC.apriCondominio(condominio);
+		state=StatiAmICo.inserimentoCondominio;
+		
+	}
+	
+	public void  inserisciCondominio() {
+		GC.inserisciCondominio();
+		state=StatiAmICo.inserimentoCondominio;
+	}
+	
+	public void  importaCondominio() {
+		//AMM.richiediSelezioneFile();
+		state = StatiAmICo.importazioneCondominio;
+	}
+	
+	public void aggiornaCondomini(Condomini condomini){
+		this.condomini=condomini;
+		
+	}
+	
+	public void selezioneFile(Path path) {
+		GC.importaCondominio(path);
+		state=StatiAmICo.selezionePath;
+	}
+	
+	public void esciDaAmICo(){
+		GC.esciDaAmico();
+	}
+	
+	
+	
+	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJLabel0(), new Constraints(new Leading(14, 12, 12), new Leading(28, 10, 10)));
-		add(getJScrollPane0(), new Constraints(new Leading(14, 200, 10, 10), new Leading(66, 220, 10, 10)));
-		add(getBinserisci(), new Constraints(new Leading(240, 182, 12, 12), new Leading(208, 10, 10)));
-		add(getBapri(), new Constraints(new Leading(240, 182, 12, 12), new Leading(92, 10, 10)));
+//		add(getJScrollPane0(), new Constraints(new Leading(14, 200, 10, 10), new Leading(66, 220, 10, 10)));
+		add(getBinserisci(), new Constraints(new Leading(240, 182, 10, 10), new Leading(111, 12, 12)));
+		add(getBapri(), new Constraints(new Leading(240, 182, 12, 12), new Leading(147, 12, 12)));
 		setJMenuBar(getJMenuBar0());
-		setSize(445, 351);
-	}
-
-	private JList getElenco() {
-		if (elenco == null) {
-			elenco = new JList();
-			DefaultListModel listModel = new DefaultListModel();
-			listModel.addElement("via prova");
-			listModel.addElement("via ciao");
-			elenco.setModel(listModel);
-		}
-		return elenco;
+		setSize(445, 324);
 	}
 
 	private JMenuBar getJMenuBar0() {
@@ -159,14 +202,22 @@ public class AmICo extends JFrame {
 		return binserisci;
 	}
 
-	private JScrollPane getJScrollPane0() {
+/*	private JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {
 			jScrollPane0 = new JScrollPane();
-			jScrollPane0.setViewportView(getElenco());
+			jScrollPane0.setViewportView(getCondomini());
 		}
 		return jScrollPane0;
 	}
 
+	private JTextArea getCondomini() {
+		if (condomini == null) {
+			condomini = new JTextArea();
+			condomini.setEditable(false);
+		}
+		return condomini;
+	}
+*/
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -191,6 +242,7 @@ public class AmICo extends JFrame {
 			public void run() {
 				AmICo frame = new AmICo();
 				frame.setTitle("AmICo");
+				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
@@ -198,27 +250,76 @@ public class AmICo extends JFrame {
 	}
 
 	private void binserisciMouseMouseClicked(MouseEvent event) {
-		
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
-		if(elenco.getSelectedIndex()>-1)// una bozza per aprire la finestra con il nome scritto sopra
-		{
-			AccedereCondominioAperto ACA=new AccedereCondominioAperto(null,null);
-			ACA.setTitle((String)elenco.getSelectedValue());
-			ACA.setVisible(true);
-			this.setVisible(false);
-		}
-		
 	}
 	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
-	
-		
 	}
 	private void jMenuItem1MouseMouseClicked(MouseEvent event) {
-		this.dispose();
 	}
 
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		switch (state) {
+		case selezionePath:
+			//AMM.mostra(CondominioImportatoKO)
+			break;
+		case inserimentoCondominio:
+			// AMM.mostra(condominioInseritoKO);
+		default:
+			break;
+		}
+		state=StatiAmICo.base;
+		//AMM.mostraCondomini(condomini);
+		
+	}
+
+	public void fatto() {
+		
+		switch (state) {
+		case condominioAperto:
+			//AMM.mostra(condominio chiuso);	
+			break;
+		case inserimentoCondominio: 
+			//AMM.mostra(condominioinseritoOK);
+			break;
+		case selezionePath:
+			//AMM.mostra(CondominioImportatoOK);
+			state=StatiAmICo.condominioAperto;
+			return;
+		default:
+			break;
+		}
+		state=StatiAmICo.base;
+		//AMM.mostraCondomini(condomini);
+		
+		
+	}
+
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 
