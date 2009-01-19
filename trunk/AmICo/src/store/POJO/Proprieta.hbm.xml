@@ -22,5 +22,4 @@
  			<many-to-many column="PERSONA_ID" class="Persona"/>
 		</set>
 	</class>
-
 </hibernate-mapping>

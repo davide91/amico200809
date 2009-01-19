@@ -106,7 +106,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		
 		assertEquals(0, persone.recuperaPersone().size());
 	}
-	
+
 	public void testPERSONE_InserimentoPersonaGiuridica()
 	{
 		TuttePersone tp = new TuttePersone();
@@ -140,6 +140,11 @@ public class TestSet02_TuttePersone extends TestCase {
 		Persona p = persone.recuperaPersone().get(0);
 		
 		//controlliamo che sia l'istanza voluta
+		
+		if (p instanceof PersonaGiuridica) {
+			PersonaGiuridica per = (PersonaGiuridica) p;
+		}
+		
 		assertTrue(p instanceof PersonaGiuridica);
 		//cast a persona Fisica
 		PersonaGiuridica per = (PersonaGiuridica)p;
@@ -163,5 +168,4 @@ public class TestSet02_TuttePersone extends TestCase {
 		
 		assertEquals(0, persone.recuperaPersone().size());
 	}
-	
 }

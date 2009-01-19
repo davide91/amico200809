@@ -21,12 +21,12 @@ import store.util.HibernateUtil;
  */
 public class TuttiCondomini {
 
-	public static Condomini CONDOMINI = new Condomini();
+	public static Condomini CONDOMINI;
 	private Session session;
 	
 	public TuttiCondomini()
 	{
-		
+		CONDOMINI = new Condomini();
 	}
 	
 	public void inizializza()

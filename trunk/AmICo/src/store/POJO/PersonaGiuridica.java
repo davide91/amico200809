@@ -3,6 +3,8 @@
  */
 package store.POJO;
 
+import java.util.SortedSet;
+
 import datatype.DatiPersonaGiuridica;
 
 /**
