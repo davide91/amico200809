@@ -17,6 +17,10 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import datatype.list.Persone;
+import datatype.list.UnitaImmobiliari;
+import executor.GestoreCondominioAperto;
+
 /**
  * @author Federico
  *
@@ -30,6 +34,12 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccedereUnitaImmobiliari() {
 		initComponents();
+	}
+
+	public AccedereUnitaImmobiliari(
+			GestoreCondominioAperto gestoreCondominioAperto,
+			UnitaImmobiliari recuperaUnitaImmobiliari) {
+		// TODO Auto-generated constructor stub
 	}
 
 	private void initComponents() {
@@ -136,6 +146,11 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	}
 
 	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersone(Persone persone) {
 		// TODO Auto-generated method stub
 		
 	}

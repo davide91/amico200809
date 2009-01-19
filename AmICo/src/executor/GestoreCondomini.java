@@ -6,6 +6,7 @@ import java.net.URL;
 import calculator.FormatoAmICo;
 
 import boundary.AccedereCondomini;
+import boundary.AmICo;
 import boundary.DriverFileSystem;
 import boundary.InserireNuovoCondominio;
 import boundary.InserireUnitaImmobiliare;
@@ -36,7 +37,7 @@ public class GestoreCondomini implements BaseExecutor {
 		return m_gestoreCondominio;
 	}
 	
-	public  AccedereCondomini m_accedereCondomini;
+	private  AmICo m_amico;
 	private Avvio m_avvio;
 	private Condominio m_condominio;
 	private DatiCondominio m_datiCondominio;
@@ -53,8 +54,8 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	private GestoreCondomini()
 	{
-		m_accedereCondomini = new AccedereCondomini();
-		m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+		m_amico = AmICo.getInstance();
+		m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 		m_state = StatiGestoreCondominio.gestoreCondomini;
 		m_driverFS = new DriverFileSystem();
 		m_dbCondomini.inizializza();
@@ -124,15 +125,15 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	public void operazioneTerminata(File file) {
 		if ( !FormatoAmICo.fileInFormatoAmICo(file) ) {
-			m_accedereCondomini.fallito();
+			m_amico.fallito();
 			m_state = StatiGestoreCondominio.gestoreCondomini;
 			return;
 		}
 		m_condominio = FormatoAmICo.daFileACondominio(file);
 		m_dbCondomini.inserisciCondominio(m_condominio);
 		m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
-		m_accedereCondomini.fatto();
-		m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+		m_amico.fatto();
+		m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 		m_state = StatiGestoreCondominio.condominioAperto;
 			
 	}
@@ -177,13 +178,13 @@ public class GestoreCondomini implements BaseExecutor {
 //		switch (m_state) {
 //			case attesaSelezioneFile :
 //				if ( ! FormatoAmICo.fileInFormatoAmICo(file) ) {
-//					m_accedereCondomini.fallito();
+//					m_amico.fallito();
 //					return;
 //				}
 //				m_condominio = FormatoAmICo.daFileACondominio(file);
 //				m_dbCondomini.inserisciCondominio(m_condominio);
-//				m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
-//				m_accedereCondomini.fatto();
+//				m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+//				m_amico.fatto();
 //				m_state = StatiGestoreCondominio.condominioAperto;
 //				break;
 //		}
@@ -227,9 +228,9 @@ public class GestoreCondomini implements BaseExecutor {
 					break;
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
-				m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+				m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 				m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
-				m_accedereCondomini.fatto();
+				m_amico.fatto();
 				m_state = StatiGestoreCondominio.condominioAperto;
 				break;
 			case attesaConferma :
