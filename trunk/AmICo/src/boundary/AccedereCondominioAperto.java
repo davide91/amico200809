@@ -287,24 +287,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		}
 	}
 
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 */
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				AccedereCondominioAperto frame =new AccedereCondominioAperto(new GestoreCondominioAperto(null),new Condominio());
-				frame.setTitle("AccedereCondominioAperto");
-				//frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
 
 	public void ammissibile(Boolean b) {
 		// TODO Auto-generated method stub
@@ -403,6 +385,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private void bchiudicondominioMouseMouseClicked(MouseEvent event) {
 		this.chiudiCondominio();
+		this.dispose();
 	}
 
 	private void besportarecondominioMouseMouseClicked(MouseEvent event) {
@@ -458,6 +441,8 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}*/
 	
 	public void chiudiCondominio(){
+	//	gca.chiudiCondominio();
+		
 		// TODO
 	}
 	
@@ -471,5 +456,25 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	
 	/*public void selezionaFile(path){
 	}*/
+	
+	/**
+	 * Main entry of the class.
+	 * Note: This class is only created so that you can easily preview the result at runtime.
+	 * It is not expected to be managed by the designer.
+	 * You can modify it as you like.
+	 */
+	public static void main(String[] args) {
+		installLnF();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				AccedereCondominioAperto frame =new AccedereCondominioAperto(null,null);
+				frame.setTitle("AccedereCondominioAperto");
+				//frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
+			}
+		});
+	}
+
 }
 

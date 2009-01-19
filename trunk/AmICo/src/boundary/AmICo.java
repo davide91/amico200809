@@ -198,6 +198,7 @@ public class AmICo extends JFrame {
 	}
 
 	private void binserisciMouseMouseClicked(MouseEvent event) {
+		
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
@@ -211,8 +212,11 @@ public class AmICo extends JFrame {
 		
 	}
 	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
+	
+		
 	}
 	private void jMenuItem1MouseMouseClicked(MouseEvent event) {
+		this.dispose();
 	}
 
 
