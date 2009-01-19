@@ -50,14 +50,14 @@ public class TuttePersone {
 			PersonaFisica pf = new PersonaFisica();
 			pf.creaPersonaFisica(dpf);
 			PERSONE.inserisciPersona(pf);
-			session.save(pf);
+			session.persist(pf);
 		}else
 		{
 			DatiPersonaGiuridica dpg = (DatiPersonaGiuridica) dati;
 			PersonaGiuridica pg = new PersonaGiuridica();
 			pg.creaPersonaGiuridica(dpg);
 			PERSONE.inserisciPersona(pg);
-			session.save(pg);
+			session.persist(pg);
 		}
 		session.getTransaction().commit();
 	}
@@ -76,14 +76,24 @@ public class TuttePersone {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
-		List persone = session.createQuery("from Persona").list();
-		session.getTransaction().commit();
+		List personeF = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "FISICA").list();
+		
 		
 		Persone tuttePersone = new Persone();
-		for (int i = 0; i < persone.size(); i++) {
-			Persona p = (Persona) persone.get(i);
+		for (int i = 0; i < personeF.size(); i++) {
+			PersonaFisica p = (PersonaFisica) personeF.get(i);
 			tuttePersone.inserisciPersona(p);  
 		}
+		
+		List personeG = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "GIURIDICA").list();
+		session.getTransaction().commit();
+		
+		
+		for (int i = 0; i < personeG.size(); i++) {
+			PersonaGiuridica p = (PersonaGiuridica) personeG.get(i);
+			tuttePersone.inserisciPersona(p);  
+		}
+		
 		return tuttePersone;
 	}
 	

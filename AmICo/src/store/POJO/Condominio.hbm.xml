@@ -32,8 +32,8 @@
 		
 		<property name="statoCondominio"/>  <!-- STATO CONDOMINIO -->
 		
-		<set name="cassa" cascade="all,save-update">
- 			<key column="CASSA_ID"/>
+		<set name="cassa" cascade="all-delete-orphan,save-update">
+ 			<key column="CONDOMINIO_ID"/>
 			<one-to-many class="Cassa"/>
 		</set>
 		
@@ -52,10 +52,11 @@
 			<one-to-many class="UnitaImmobiliare"/>
 		</set>
 		
-		<set name="persone"  cascade="all-delete-orphan,save-update">
+		<set name="persone" table="persone_condomini" cascade="all-delete-orphan,save-update">
  			<key column="CONDOMINIO_ID"/>
-			<one-to-many class="Persona"/>
+ 			<many-to-many column="PERSONA_ID" class="Persona"/>
 		</set>
+	
 	</class>
 
 </hibernate-mapping>

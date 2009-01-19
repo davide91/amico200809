@@ -8,20 +8,26 @@
 	<class name="Persona" table="PERSONA">
     <id name="id" column="PERSONA_ID">
         <generator class="native"/>
-    </id>
+    </id>	
+
+	<discriminator column="PERSONA_TYPE" type="string"/>
     
     <set name="pagamenti" cascade="all">
-		 	<key column="PERSONA_ID"/>
-		 	<one-to-many class="Pagamento"/>
+		 <key column="PERSONA_ID"/>
+		 <one-to-many class="Pagamento"/>
 	</set>
+		
+<!--	<set name="condomini" table="persone_condomini" cascade="all-delete-orphan,save-update">	-->
+<!-- 		<key column="PERSONA_ID"/>																-->
+<!-- 		<many-to-many column="CONDOMINIO_ID" class="Condominio"/>								-->		
+<!--	</set>																						-->
 	
-	<!-- inverse end -->
-	<many-to-one name="condominio" 
-		class="Condominio" 
-		column="CONDOMINIO_ID"/>
+	<set name="proprieta" table="PROPRIETA_PERSONE" cascade="all-delete-orphan,save-update">
+ 		<key column="PERSONA_ID"/>
+ 		<many-to-many column="PROPRIETA_ID" class="Proprieta"/>
+	</set>
    
-    <joined-subclass name="PersonaFisica" table="PERSONA_FISICA">
-        <key column="PERSONA_ID"/>
+  	<subclass name="PersonaFisica" discriminator-value="FISICA">
         <component name="dati" class="datatype.DatiPersonaFisica">
 			<property name="tel"/>
 			<component name="mail" class="datatype.Email">
@@ -42,16 +48,14 @@
 				<property name="cap"/>
 			</component>	
 		</component>	
-    </joined-subclass>
+   </subclass>
     
   
-    <joined-subclass name="PersonaGiuridica" table="PERSONA_GIURIDICA">
-        <key column="PERSONA_ID"/>
+   <subclass name="PersonaGiuridica" discriminator-value="GIURIDICA">
         <component name="dati" class="datatype.DatiPersonaGiuridica">
 			<property name="tel"/>
 			<component name="mail" class="datatype.Email">
-				<property name="email"/>
-			</component>	
+				<property name="email"/>		</component>	
 			<property name="fax"/>
 			<component name="pIva" class="datatype.PartitaIva">
 				<property name="partIva"/>
@@ -70,7 +74,7 @@
 			column="PERSONA_RIFERIMENTO"
 			unique="true"
 			not-null="false"/>
-    </joined-subclass>
+   </subclass>
     
 	</class>
 </hibernate-mapping>

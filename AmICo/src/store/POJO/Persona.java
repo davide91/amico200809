@@ -5,8 +5,11 @@ package store.POJO;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.hibernate.Session;
+import org.hibernate.type.OrderedSetType;
 
 import store.util.HibernateUtil;
 
@@ -23,29 +26,16 @@ import datatype.DatiPersonaGiuridica;
 public class Persona {
 
 	protected long id;
-	protected Set<Pagamento> pagamenti = new HashSet<Pagamento>();
-	protected Condominio condominio;
+	protected Set<Pagamento> pagamenti;
+	protected Set<Proprieta> proprieta;
+	
 	
 	private Session session;
-	public Condominio getCondominio() {
-		return condominio;
-	}
-
-	public void setCondominio(Condominio condominio) {
-		this.condominio = condominio;
-	}
-
-	protected Set<Pagamento> getPagamenti() {
-		return pagamenti;
-	}
-
-	protected void setPagamenti(Set<Pagamento> pagamenti) {
-		this.pagamenti = pagamenti;
-	}
 
 	public Persona()
 	{
-		
+		pagamenti = new HashSet<Pagamento>();
+		proprieta = new TreeSet<Proprieta>();
 	}
 
 	public void modificaDati(DatiPersona datiPersona) 
@@ -72,15 +62,28 @@ public class Persona {
 		PersonaGiuridica pg = (PersonaGiuridica) this;
 		pg.modificaDati(dpg);
 	}
-	
-	
-	
-	protected long getId() {
+
+	public long getId() {
 		return id;
 	}
 
-	protected void setId(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
+	public Set<Pagamento> getPagamenti() {
+		return pagamenti;
+	}
+
+	public void setPagamenti(Set<Pagamento> pagamenti) {
+		this.pagamenti = pagamenti;
+	}
+
+	public Set<Proprieta> getProprieta() {
+		return proprieta;
+	}
+
+	public void setProprieta(Set<Proprieta> proprieta) {
+		this.proprieta = proprieta;
+	}
 }

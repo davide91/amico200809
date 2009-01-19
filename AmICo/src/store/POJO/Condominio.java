@@ -7,7 +7,6 @@ import java.util.Set;
 import org.hibernate.Session;
 
 import store.util.HibernateUtil;
-
 import datatype.DatiCondominio;
 import datatype.Preferenze;
 import datatype.list.Bilanci;
@@ -25,17 +24,21 @@ public class Condominio {
 	private Preferenze preferenze;
 	private StatoCondominio statoCondominio;
 
-	protected Set<Cassa> cassa = new HashSet<Cassa>();
-	protected Set<TabellaMillesimale> tabelleMillesimali = new HashSet<TabellaMillesimale>(); 
-	protected Set<Bilancio> bilanci = new HashSet<Bilancio>();
-	protected Set<UnitaImmobiliare> unitaImmobiliari = new HashSet<UnitaImmobiliare>();
-	protected Set<Persona> persone = new HashSet<Persona>();
+	protected Set<Cassa> cassa;
+	protected Set<TabellaMillesimale> tabelleMillesimali; 
+	protected Set<Bilancio> bilanci;
+	protected Set<UnitaImmobiliare> unitaImmobiliari;
+	protected Set<Persona> persone;
 	
 	private Session session;
 	
 	public Condominio() // costruttore per Hibernate
 	{
-			
+			persone = new HashSet<Persona>();
+			unitaImmobiliari = new HashSet<UnitaImmobiliare>();
+			bilanci = new HashSet<Bilancio>();
+			tabelleMillesimali  = new HashSet<TabellaMillesimale>();
+			cassa = new HashSet<Cassa>();
 	}
 	
 	public void CreaCondominio()
@@ -47,8 +50,10 @@ public class Condominio {
 	{		
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-			datiC = dCond;
-			session.flush();
+			
+		this.setDatiC(dCond);
+		
+			//session.flush();
 	//	session.update(this);
 		session.getTransaction().commit();
 	}
@@ -57,7 +62,7 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-			p.setCondominio(this);
+//			p.getCondomini().add(this);
 			persone.add(p);
 		session.getTransaction().commit();
 	}
@@ -67,15 +72,15 @@ public class Condominio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
-		link(this,uImm);
+		link(uImm);
 	
 		session.getTransaction().commit();
 	}
 	
-	private void link(Condominio c, UnitaImmobiliare ui)
+	private void link(UnitaImmobiliare ui)
 	{
-		ui.setCondominio(c);
-		c.unitaImmobiliari.add(ui);
+		ui.setCondominio(this);
+		unitaImmobiliari.add(ui);
 		session.persist(ui);
 	}
 	
@@ -83,7 +88,7 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		//	unitaImmobiliari.remove(uImm);
+			unitaImmobiliari.remove(uImm);
 			session.delete(uImm);
 		session.getTransaction().commit();
 	}
@@ -146,7 +151,7 @@ public class Condominio {
 		
 		UnitaImmobiliari ret = new UnitaImmobiliari();
 	
-		List UnitImm = session.createQuery("from UnitaImmobiliare where condominio = :cond").setParameter("cond", this).list();
+		List UnitImm = session.createQuery("from UnitaImmobiliare where CONDOMINIO_ID = :cond").setParameter("cond", this.getId()).list();
 		session.getTransaction().commit();
 
 		for (Object o : UnitImm) {
@@ -276,4 +281,5 @@ public class Condominio {
 	public void setPersone(Set<Persona> persone) {
 		this.persone = persone;
 	}
+
 }
