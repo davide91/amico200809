@@ -48,7 +48,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 	
 	private static final long serialVersionUID = 1L;
-private JButton binserisci;
+	private JButton binserisci;
 	private JButton bapri;
 	private JLabel jLabel0;
 	private JMenuItem jMenuItem0;
@@ -233,31 +233,13 @@ private JButton binserisci;
 		}
 	}
 
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 */
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				AmICo frame = new AmICo();
-				frame.setTitle("AmICo");
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
-
 	private void binserisciMouseMouseClicked(MouseEvent event) {
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
 		
 		if(lista.getSelectedIndex()>-1) {
+			// temporaneo
 			AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
 			ACA.setTitle((String)lista.getSelectedValue());
 			ACA.setVisible(true);
@@ -334,6 +316,28 @@ private JButton binserisci;
 		
 	}
 
+
+	
+	
+
+	/**
+	 * Main entry of the class.
+	 * Note: This class is only created so that you can easily preview the result at runtime.
+	 * It is not expected to be managed by the designer.
+	 * You can modify it as you like.
+	 */
+	public static void main(String[] args) {
+		installLnF();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				AmICo frame = new AmICo();
+				frame.setTitle("AmICo");
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
+			}
+		});
+	}
 
 
 }
