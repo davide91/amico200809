@@ -56,6 +56,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton bchiudicondominio;
 	private JButton besportarecondominio;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	public AccedereCondominioAperto(GestoreCondominioAperto GCA,Condominio condominio) {
 		initComponents();
 		

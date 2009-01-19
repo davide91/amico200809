@@ -3,6 +3,7 @@ package executor;
 import java.io.File;
 import java.net.URL;
 
+import boundary.InserireUnitaImmobiliare;
 import boundary.AccederePersone;
 import boundary.InserirePersona;
 import datatype.DatiCondominio;
@@ -94,11 +95,11 @@ public class GestoreCondomini implements BaseExecutor {
 		m_dbCondomini.inserisciCondominio(m_condominio);
 	}
 	
-	public void inserisciUnitaImmobliare() {
+	public void inserisciUnitaImmobiliare() {
 		m_unitaImmobiliare = new UnitaImmobiliare();
-		m_condominio.inserisciUnitàImmobiliare(m_unitaImmobiliare);
-		m_inserireUnitaImmobiliare = new InserireUnitàImmobliare();
-		m_state = StatiGestoreCondominio.inserimentoUnitàImmobliare;
+		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
+		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare();
+		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 	}
 	
 	public void operazioneAnnullata() {

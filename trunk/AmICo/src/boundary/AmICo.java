@@ -4,16 +4,16 @@ package boundary;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URL;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -22,7 +22,6 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Condominio;
-
 import datatype.Path;
 import datatype.list.Condomini;
 import enumeration.StatiAmICo;
@@ -49,19 +48,18 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 	
 	private static final long serialVersionUID = 1L;
-//	private JTextArea condomini;
-	private JScrollPane jScrollPane0;
-	private JButton binserisci;
+private JButton binserisci;
 	private JButton bapri;
 	private JLabel jLabel0;
 	private JMenuItem jMenuItem0;
 	private JMenuItem jMenuItem1;
 	private JMenu file;
 	private JMenuBar jMenuBar0;
+	private JList lista;
+	private JScrollPane jScrollPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	
 	public AmICo() {
-		//initComponents();
+		initComponents();
 	}
 
 	public void creaAmICo(Condomini condomini, GestoreCondomini GC){
@@ -97,7 +95,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 	}
 	
 	public void selezioneFile(Path path) {
-		GC.importaCondominio(path);
+	//	GC.importaCondominio(path);
 		state=StatiAmICo.selezionePath;
 	}
 	
@@ -110,12 +108,33 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(14, 12, 12), new Leading(28, 10, 10)));
-//		add(getJScrollPane0(), new Constraints(new Leading(14, 200, 10, 10), new Leading(66, 220, 10, 10)));
-		add(getBinserisci(), new Constraints(new Leading(240, 182, 10, 10), new Leading(111, 12, 12)));
-		add(getBapri(), new Constraints(new Leading(240, 182, 12, 12), new Leading(147, 12, 12)));
+		add(getBinserisci(), new Constraints(new Leading(240, 182, 12, 12), new Leading(179, 10, 10)));
+		add(getBapri(), new Constraints(new Leading(238, 182, 10, 10), new Leading(108, 10, 10)));
+		add(getJScrollPane0(), new Constraints(new Leading(27, 146, 10, 10), new Leading(82, 189, 10, 10)));
+		add(getJLabel0(), new Constraints(new Leading(27, 12, 12), new Leading(28, 10, 10)));
 		setJMenuBar(getJMenuBar0());
 		setSize(445, 324);
+	}
+
+	private JScrollPane getJScrollPane0() {
+		if (jScrollPane0 == null) {
+			jScrollPane0 = new JScrollPane();
+			jScrollPane0.setViewportView(getLista());
+		}
+		return jScrollPane0;
+	}
+
+	private JList getLista() {
+		if (lista == null) {
+			lista = new JList();
+			DefaultListModel listModel = new DefaultListModel();
+			listModel.addElement("item0");
+			listModel.addElement("item1");
+			listModel.addElement("item2");
+			listModel.addElement("item3");
+			lista.setModel(listModel);
+		}
+		return lista;
 	}
 
 	private JMenuBar getJMenuBar0() {
@@ -202,22 +221,6 @@ public class AmICo extends JFrame implements BaseBoundary{
 		return binserisci;
 	}
 
-/*	private JScrollPane getJScrollPane0() {
-		if (jScrollPane0 == null) {
-			jScrollPane0 = new JScrollPane();
-			jScrollPane0.setViewportView(getCondomini());
-		}
-		return jScrollPane0;
-	}
-
-	private JTextArea getCondomini() {
-		if (condomini == null) {
-			condomini = new JTextArea();
-			condomini.setEditable(false);
-		}
-		return condomini;
-	}
-*/
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -253,6 +256,16 @@ public class AmICo extends JFrame implements BaseBoundary{
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
+		
+		if(lista.getSelectedIndex()>-1) {
+			AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
+			ACA.setTitle((String)lista.getSelectedValue());
+			ACA.setVisible(true);
+			this.apriCondominio(null);
+			this.dispose();
+		}
+		
+		
 	}
 	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
 	}

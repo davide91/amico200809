@@ -23,7 +23,7 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import datatype.DatiCondominio;
 import datatype.list.Reali;
-import datatype.list.UnitàImmobiliari;
+import datatype.list.UnitaImmobiliari;
 import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
 
@@ -46,7 +46,7 @@ import sun.misc.GC;
 public class InserireNuovoCondominio extends JFrame implements BaseBoundary{
 	
 	
-	private UnitàImmobiliari unitaImmobiliari;
+	private UnitaImmobiliari unitaImmobiliari;
 	private DatiCondominio datiCondominio;
 	private Reali tabellaGenerale;
 	private StatiInserireNuovoCondominio state;
@@ -70,13 +70,13 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary{
 	
 	
 	public void inserisciTabellaMillesimaleProprieta(Reali millesimi) {
-		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi);
+//		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi);
 		state=StatiInserireNuovoCondominio.controlloTabellaMillesimaleProprieta;
 		
 	}
 	
 	
-	public void aggiornaUnitaImmobiliari(UnitàImmobiliari unitaImmobiliari) {
+	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unitaImmobiliari) {
 		this.unitaImmobiliari=unitaImmobiliari;
 		//AMM.mostraUnitaImmobiliari(unitaImmobiliari);
 	}
