@@ -21,7 +21,7 @@ import org.dyno.visual.swing.layouts.Leading;
  * @author Federico
  *
  */
-public class AccedereUnitaImmobiliari extends JPanel {
+public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
@@ -42,7 +42,7 @@ public class AccedereUnitaImmobiliari extends JPanel {
 	private JButton getBmodifica() {
 		if (bmodifica == null) {
 			bmodifica = new JButton();
-			bmodifica.setText("Modifica proprietà unità");
+			bmodifica.setText("Modifica proprietï¿½ unitï¿½");
 		}
 		return bmodifica;
 	}
@@ -103,6 +103,41 @@ public class AccedereUnitaImmobiliari extends JPanel {
 				frame.setVisible(true);
 			}
 		});
+	}
+
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fatto() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
