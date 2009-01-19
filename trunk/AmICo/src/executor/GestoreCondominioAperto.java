@@ -2,7 +2,12 @@ package executor;
 
 import java.net.URL;
 
+import calculator.FormatoAmICo;
+
 import boundary.AccedereCondominioAperto;
+import boundary.AccederePersone;
+import boundary.AccedereTabelleMillesimali;
+import boundary.AccedereUnitaImmobiliari;
 import boundary.DriverFileSystem;
 import datatype.DatiTabellaMillesimale;
 import datatype.Preferenze;
@@ -23,7 +28,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private AccedereCondominioAperto m_accedereCondominioAperto;
 	private AccederePersone m_accederePersone;
 	private AccedereTabelleMillesimali m_accedereTabelleMillesimali;
-	private AccedereUnitaImmobliari m_accedereUnitaImmobliari;
+	private AccedereUnitaImmobiliari m_accedereUnitaImmobliari;
 	private Avvisi m_avvisi;
 	private Condominio m_condominio;
 	private DatiTabellaMillesimale m_datiTabellaMillesimale;
@@ -31,7 +36,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private GestoreBilanci m_gestoreBilanci;
 	private GestoreCassa m_gestoreCassa;
 	private GestorePagamenti m_gestorePagamenti;
-	private QuoteProprietà m_nuoveQuote;
+	private QuoteProprieta m_nuoveQuote;
 	private Persone m_nuoviProprietari;
 	private StatiGestoreCondominioAperto m_state;
 	private TabellaMillesimale m_tabellaMillesimale;
@@ -66,12 +71,9 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.attesaConfermaEliminazione;
 	}
 	
-	/* TODO:
-	 * Path potrebbe essere cambiato in java.net.URL
-	*/
 	public void esportaCondominio(URL path) {
 		m_driverFileSystem.salva(FormatoAmICo.daCondominioAFile(m_condominio),
-				path, this);
+				path, (BaseExecutor)this);
 		m_state = StatiGestoreCondominioAperto.exportCondominio;
 	}
 	
@@ -88,7 +90,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	public void modificaProprieta(UnitaImmobiliare unitaImmobliare) {
 		m_unitaImmobiliare = unitaImmobliare;
 		m_accedereUnitaImmobliari.aggiornaPersone(TuttePersone.PERSONE.recuperaPersone());
-		m_state = StatiGestoreCondominioAperto.modificaProprietà;
+		m_state = StatiGestoreCondominioAperto.modificaProprieta;
 	}
 	
 	public void modificaTabellaMillesimale(TabellaMillesimale tabellaMillesimale, DatiTabellaMillesimale datiTabellaMillesimale) {
@@ -148,20 +150,24 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaAUnitaImmobiliari() {
 		m_accedereUnitaImmobliari = 
-			new AccedereUnitaImmobliari(this, m_condominio.recuperaUnitàImmobiliari());
-		m_state = StatiGestoreCondominioAperto.gestioneUnitàImmmobiliari;
+			new AccedereUnitaImmobliari(this, m_condominio.recuperaUnitaImmobiliari());
+		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 	}
 	
 	
-	public void passaProprieta(Persone persone, QuoteProprietà quoteProprieta) {
-		if ( !quoteProprieta.quoteOk() ) {
+	public void passaProprieta(Persone persone, QuoteProprieta quoteProprieta) {
+		
+		/* TODO : qui è richiesto quoteProprieta.quoteOk(), ma credo che sia
+		 * un sinonimo di quoteProprieta.controlla()
+		 */
+		if ( !quoteProprieta.controlla() ) {
 			m_accedereUnitaImmobliari.ammissibile(false);
 			return;
 		}
 		m_nuoviProprietari = persone;
 		m_nuoveQuote = quoteProprieta;
 		m_accedereUnitaImmobliari.ammissibile(true);
-		m_state = StatiGestoreCondominioAperto.attesaConfermaProprietà;	
+		m_state = StatiGestoreCondominioAperto.attesaConfermaProprieta;	
 		
 	}
 	
@@ -186,9 +192,9 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			m_accedereCondominioAperto.fatto();
 			GestoreCondomini.getInstance().m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 			break;
-		case attesaConfermaProprietà :
+		case attesaConfermaProprieta :
 			if (!procedere) {
-				m_state = StatiGestoreCondominioAperto.gestioneUnitàImmmobiliari;
+				m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 				break;
 			}
 			m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);		

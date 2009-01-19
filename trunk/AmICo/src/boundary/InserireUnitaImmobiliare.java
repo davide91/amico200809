@@ -7,7 +7,10 @@ import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.GroupLayout;
 
-public class InserireUnitaImmobiliare extends JFrame {
+import store.POJO.Persona;
+import datatype.list.Persone;
+
+public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone {
 
 	private static final long serialVersionUID = 1L;
 	private static final String PREFERRED_LOOK_AND_FEEL = null;
@@ -49,6 +52,51 @@ public class InserireUnitaImmobiliare extends JFrame {
 				frame.setVisible(true);
 			}
 		});
+	}
+
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fatto() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersone(Persone persone) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

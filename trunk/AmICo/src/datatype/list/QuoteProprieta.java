@@ -33,4 +33,9 @@ public class QuoteProprieta{
 	public void setListaQuote(List<Proprieta> listaQuote) {
 		this.listaQuote = listaQuote;
 	}
+
+	public boolean controlla() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

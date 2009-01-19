@@ -43,7 +43,7 @@ import sun.misc.GC;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class InserireNuovoCondominio extends JFrame implements BaseBoundary{
+public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	
 	private UnitaImmobiliari unitaImmobiliari;

@@ -47,7 +47,7 @@ public class UnitaImmobiliare {
 		return ret;
 	}
 
-	public void modificaProprieta(Persone p, float r)
+	public void modificaProprieta(Persone p, QuoteProprieta q)
 	{
 		
 	}

@@ -3,6 +3,11 @@ package executor;
 import java.io.File;
 import java.net.URL;
 
+import calculator.FormatoAmICo;
+
+import boundary.AccedereCondomini;
+import boundary.DriverFileSystem;
+import boundary.InserireNuovoCondominio;
 import boundary.InserireUnitaImmobiliare;
 import boundary.AccederePersone;
 import boundary.InserirePersona;
@@ -31,15 +36,16 @@ public class GestoreCondomini implements BaseExecutor {
 		return m_gestoreCondominio;
 	}
 	
-	public  AccederePersone m_AccederePersone;
+	public  AccedereCondomini m_accedereCondomini;
 	private Avvio m_avvio;
 	private Condominio m_condominio;
 	private DatiCondominio m_datiCondominio;
 	private GestoreCondominioAperto m_gestoreCondominioAperto;
-	private InserirePersona m_inserireNuovoCondominio;
-	private InserireUnitaImmobliare m_inserireUnitaImmobiliare;
+	private InserireNuovoCondominio m_inserireNuovoCondominio;
+	private InserireUnitaImmobiliare m_inserireUnitaImmobiliare;
 	private StatiGestoreCondominio m_state;
 	private TuttiCondomini m_dbCondomini;
+	private DriverFileSystem m_driverFS;
 	
 	private TabellaMillesimale m_tabellaMillesimaleProprieta;
 	
@@ -47,9 +53,12 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	private GestoreCondomini()
 	{
-		m_AccederePersone = new AccederePersone(TuttiCondomini.CONDOMINI);
+		m_accedereCondomini = new AccedereCondomini();
+		m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 		m_state = StatiGestoreCondominio.gestoreCondomini;
+		m_driverFS = new DriverFileSystem();
 		m_dbCondomini.inizializza();
+		
 	}
 	
 	public void impostaAvvio(Avvio avvio)
@@ -77,22 +86,21 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	public void finito() {
-		m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprietà;
+		m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
 	}
 	
 	public void importaCondominio(URL path) {
 		if (m_state == StatiGestoreCondominio.gestoreCondomini) {
-			DriverFileSystem.leggi(path);
+			m_driverFS.leggi(path, (BaseExecutor)this);
 			m_state = StatiGestoreCondominio.attesaSelezioneFile;
 		}
 	}
 	
 	public void inserisciCondominio() {
-		if ( m_state != StatiGestoreCondominio.gestoreCondomini ) return;
-		
 		m_inserireNuovoCondominio = new InserireNuovoCondominio();
 		m_condominio = new Condominio();
 		m_dbCondomini.inserisciCondominio(m_condominio);
+		m_state = StatiGestoreCondominio.inserimentoCondominio;
 	}
 	
 	public void inserisciUnitaImmobiliare() {
@@ -105,12 +113,28 @@ public class GestoreCondomini implements BaseExecutor {
 	public void operazioneAnnullata() {
 		if ( m_state == StatiGestoreCondominio.inserimentoCondominio ) {
 			m_dbCondomini.eliminaCondominio(m_condominio);
+			m_state = StatiGestoreCondominio.gestoreCondomini;
 		}
 	}
 	
 	public void operazioneTerminata() {
 		if ( m_state == StatiGestoreCondominio.condominioAperto )
 			m_state = StatiGestoreCondominio.gestoreCondomini;
+	}
+	
+	public void operazioneTerminata(File file) {
+		if ( !FormatoAmICo.fileInFormatoAmICo(file) ) {
+			m_accedereCondomini.fallito();
+			m_state = StatiGestoreCondominio.gestoreCondomini;
+			return;
+		}
+		m_condominio = FormatoAmICo.daFileACondominio(file);
+		m_dbCondomini.inserisciCondominio(m_condominio);
+		m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
+		m_accedereCondomini.fatto();
+		m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+		m_state = StatiGestoreCondominio.condominioAperto;
+			
 	}
 	
 	public void passaDatiCondominio(DatiCondominio datiCondominio) {
@@ -133,34 +157,39 @@ public class GestoreCondomini implements BaseExecutor {
 	public void passaDatiUnitaImmobliare(DatiUnitaImmobiliare datiUnitaImmobliare) {
 		if ( unitaImmobiliareGiaInserita(datiUnitaImmobliare) ) {
 			m_inserireUnitaImmobiliare.ammissibile(false);
-			m_condominio.eliminaUnitàImmobiliare(m_unitaImmobiliare);
+			m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 			return;
 		}
 		
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
-		m_inserireUnitaImmobiliare.ammissible(true);
-		m_state = StatiGestoreCondominio.inserimentoProprietà;
+		m_inserireUnitaImmobiliare.ammissibile(true);
+		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_inserireUnitaImmobiliare.aggiornaPersone(TuttePersone.PERSONE);
 	}
 	
-	public void passaFile(File file)
-	{
-		switch (m_state) {
-			case attesaSelezioneFile :
-				if ( ! FormatoAmICo.fileInFormatoAmICo(file) ) {
-					m_AccederePersone.fallito();
-					return;
-				}
-				m_condominio = FormatoAmICo.daFileACondominio(file);
-				m_dbCondomini.inserisciCondominio(m_condominio);
-				m_AccederePersone.aggiornaCondomini(TuttiCondomini.CONDOMINI);
-				m_AccederePersone.fatto();
-				m_state = StatiGestoreCondominio.condominioAperto;
-				break;
-		}
-	}
+	/* TODO : Candidato alla rimozione
+	 * 
+	 * Non più presente nel design 3.2
+	 * 
+	 */
+//	public void passaFile(File file)
+//	{
+//		switch (m_state) {
+//			case attesaSelezioneFile :
+//				if ( ! FormatoAmICo.fileInFormatoAmICo(file) ) {
+//					m_accedereCondomini.fallito();
+//					return;
+//				}
+//				m_condominio = FormatoAmICo.daFileACondominio(file);
+//				m_dbCondomini.inserisciCondominio(m_condominio);
+//				m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+//				m_accedereCondomini.fatto();
+//				m_state = StatiGestoreCondominio.condominioAperto;
+//				break;
+//		}
+//	}
 	
-	public void passaProprieta(Persone persone, QuoteProprietà quoteProprieta) {
+	public void passaProprieta(Persone persone, QuoteProprieta quoteProprieta) {
 		/* TODO:
 		 * Nella SM di GestoreCondominio appare quote.controlla(), ma QuoteProprietà 
 		 * non contiene il metodo "controlla()"
@@ -198,20 +227,19 @@ public class GestoreCondomini implements BaseExecutor {
 					break;
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
-				m_AccederePersone.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+				m_accedereCondomini.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 				m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
-				m_inserireNuovoCondominio.fatto();
-				m_AccederePersone.fatto();
+				m_accedereCondomini.fatto();
 				m_state = StatiGestoreCondominio.condominioAperto;
 				break;
 			case attesaConferma :
 				if ( !procedere ) {
 					m_inserireUnitaImmobiliare.fallito();
-					m_condominio.eliminaUnitàImmobiliare(m_unitaImmobiliare);
+					m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 					break;
 				}
 				m_inserireUnitaImmobiliare.fatto();
-				m_inserireNuovoCondominio.aggiornaUnitàImmobliari(m_condominio.recuperaUnitàImmobiliari());
+				m_inserireNuovoCondominio.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
 				break;
 		}
 	}
@@ -220,11 +248,12 @@ public class GestoreCondomini implements BaseExecutor {
 	public void settaCondomini(Condomini condomini) {
 		/*
 		 * TODO : Totalemente inutilizzata nella SM, che fare?
+		 * Rimane anche nel design 3.2, sempre inutilizzata
 		 */
 	}
 	
 	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 
-		UnitàImmobiliari uImmobiliari = m_condominio.recuperaUnitàImmobiliari();
+		UnitaImmobiliari uImmobiliari = m_condominio.recuperaUnitaImmobiliari();
 		UnitaImmobiliare newUnit = new UnitaImmobiliare();
 		newUnit.modificaDati(datiUnitaImmobliare);
 		
