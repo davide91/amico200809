@@ -5,16 +5,10 @@ package store.POJO;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.hibernate.Session;
-import org.hibernate.type.OrderedSetType;
 
 import store.util.HibernateUtil;
-
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
@@ -28,14 +22,15 @@ public class Persona {
 	protected long id;
 	protected Set<Pagamento> pagamenti;
 	protected Set<Proprieta> proprieta;
-	
+	protected Set<Condominio> condomini;
 	
 	private Session session;
 
 	public Persona()
 	{
 		pagamenti = new HashSet<Pagamento>();
-		proprieta = new TreeSet<Proprieta>();
+		proprieta = new HashSet<Proprieta>();
+		condomini = new HashSet<Condominio>();
 	}
 
 	public void modificaDati(DatiPersona datiPersona) 
@@ -86,4 +81,16 @@ public class Persona {
 	public void setProprieta(Set<Proprieta> proprieta) {
 		this.proprieta = proprieta;
 	}
+
+	public Set<Condominio> getCondomini() {
+		return condomini;
+	}
+
+	public void setCondomini(Set<Condominio> condomini) {
+		this.condomini = condomini;
+	}
+
+	
+
+	
 }

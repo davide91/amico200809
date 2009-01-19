@@ -17,9 +17,10 @@
 		 	class="UnitaImmobiliare"
 		 	column="UNITA_ID"/>
 		
-		<set name="proprietario" table="PROPRIETA_PERSONE" cascade="save-update">
- 			<key column="PROPRIETA_ID"/>
- 			<many-to-many column="PERSONA_ID" class="Persona"/>
-		</set>
+		<!-- inverse end -->
+		<many-to-one name="proprietario"
+		 	class="Persona"
+		 	column="PERSONA_ID"/>
+		 	
 	</class>
 </hibernate-mapping>

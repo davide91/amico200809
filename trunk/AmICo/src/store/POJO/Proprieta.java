@@ -15,7 +15,7 @@ public class Proprieta {
 	private long id;
 	private float quota;
 	private UnitaImmobiliare unitaImmobiliare;
-	private SortedSet<Persona> proprietario = new TreeSet<Persona>();
+	private Persona proprietario;
 	
 	public Proprieta()
 	{
@@ -55,11 +55,11 @@ public class Proprieta {
 		this.quota = quota;
 	}
 
-	public SortedSet<Persona> getProprietario() {
+	public Persona getProprietario() {
 		return proprietario;
 	}
 
-	public void setProprietario(SortedSet<Persona> proprietario) {
+	public void setProprietario(Persona proprietario) {
 		this.proprietario = proprietario;
 	}
 
