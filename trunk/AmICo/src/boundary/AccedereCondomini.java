@@ -18,7 +18,7 @@ public class AccedereCondomini implements BaseBoundary
 	
 	private Persone persone;
 
-	AccedereCondomini(GestoreCondominioAperto GCA, Persone P) {
+	public AccedereCondomini(GestoreCondominioAperto GCA, Persone P) {
 		
 	}
 	
