@@ -110,12 +110,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		default :
 				m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
 				break;
-				
-		
-//		default :
-//			m_accedereCondominioAperto.fatto();
-//			break;
-				
 		}
 	}
 	
