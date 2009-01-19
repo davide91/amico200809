@@ -470,7 +470,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 			public void run() {
 				AccedereCondominioAperto frame =new AccedereCondominioAperto(null,null);
 				frame.setTitle("AccedereCondominioAperto");
-				//frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
