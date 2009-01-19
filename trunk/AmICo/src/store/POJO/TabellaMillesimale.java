@@ -4,6 +4,7 @@
 package store.POJO;
 
 import datatype.DatiTabellaMillesimale;
+import datatype.list.QuoteProprieta;
 
 /**
  * @author bruno
@@ -81,5 +82,10 @@ public class TabellaMillesimale {
 
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
+	}
+
+	public void modificaTabella(String descr, QuoteProprieta quote) {
+		// TODO Auto-generated method stub
+		
 	}
 }

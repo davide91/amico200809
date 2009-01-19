@@ -23,6 +23,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.TabellaMillesimale;
 import datatype.DatiTabellaMillesimale;
 import datatype.list.TabelleMillesimali;
+import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereTabelleMillimesimali;
 import executor.GestoreCondominioAperto;
 
@@ -47,6 +48,13 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccedereTabelleMillesimali() {
 		initComponents();
+	}
+
+	public AccedereTabelleMillesimali(
+			GestoreCondominioAperto gestoreCondominioAperto,
+			TabelleMillesimali recuperaTabelleMillesimali,
+			UnitaImmobiliari recuperaUnitaImmobiliari) {
+		// TODO Auto-generated constructor stub
 	}
 
 	private void initComponents() {
@@ -116,7 +124,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JTable getJTable0() {
 		if (jTable0 == null) {
 			jTable0 = new JTable();
-			jTable0.setModel(new DefaultTableModel(new Object[][] { { "0x0", "0x1", }, { "1x0", "1x1", }, }, new String[] { "Unità", "Coefficente", }) {
+			jTable0.setModel(new DefaultTableModel(new Object[][] { { "0x0", "0x1", }, { "1x0", "1x1", }, }, new String[] { "Unitï¿½", "Coefficente", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
 	
