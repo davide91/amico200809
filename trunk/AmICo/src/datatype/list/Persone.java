@@ -31,18 +31,13 @@ public class Persone {
 		return persone;
 	}
 
-	public Persone recuperaPersone(String nome, String cognome) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Persone recuperaPersone(Indirizzo domicilio) {
-		Persone persInd = new Persone();
+	public PersoneFisiche recuperaPersone(Indirizzo domicilio) {
+		Persone persInd = new PersoneFisiche();
 		
 		for (Persona p : persone) {
 			if (p instanceof PersonaFisica) {
@@ -52,11 +47,11 @@ public class Persone {
 					persInd.inserisciPersona(pf);
 			}
 		}
-		return persInd;
+		return (PersoneFisiche)persInd;
 	}
 
 	public Persone recuperaPersone(PartitaIva iva) {
-		Persone persIva = new Persone();
+		PersoneGiuridiche persIva = new PersoneGiuridiche();
 		
 		for (Persona p : persone) {
 			if (p instanceof PersonaGiuridica) {
@@ -66,7 +61,22 @@ public class Persone {
 					persIva.inserisciPersona(pg);
 			}
 		}
-		return persIva;	
+		return (PersoneGiuridiche)persIva;	
+	}
+	
+	public PersoneFisiche recuperaPersone(String nome, String cognome)
+	{
+		PersoneFisiche persInd = new PersoneFisiche();
+		
+		for (Persona p : persone) {
+			if (p instanceof PersonaFisica) {
+				PersonaFisica pf = (PersonaFisica) p;
+				
+				if(pf.getDati().getNome().equals(nome) && pf.getDati().getCognome().equals(cognome))
+					persInd.inserisciPersona(pf);
+			}
+		}
+		return (PersoneFisiche)persInd;
 	}
 	
 	public void elimina(Persona p)

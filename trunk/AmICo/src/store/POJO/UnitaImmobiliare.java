@@ -3,8 +3,14 @@
  */
 package store.POJO;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
 
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Persone;
@@ -17,13 +23,24 @@ import datatype.list.QuoteProprieta;
 public class UnitaImmobiliare {
 	
 	private long id;
-	private DatiUnitaImmobiliare datiUnitaImmobiliare;
+	private DatiUnitaImmobiliare datiUnitaImmobiliare = new DatiUnitaImmobiliare();
 	private Condominio condominio;
-	private SortedSet<Proprieta> quoteDiPossesso = new TreeSet<Proprieta>();
+	private Set<Proprieta> quoteDiPossesso;
+	private Set<Millesimo> millesimo;
+	
+	private Session session;
 	
 	public UnitaImmobiliare()
 	{
-		
+		 quoteDiPossesso = new HashSet<Proprieta>();
+		 millesimo = new HashSet<Millesimo>();
+	}
+	
+	public UnitaImmobiliare(DatiUnitaImmobiliare dui)
+	{
+		quoteDiPossesso = new HashSet<Proprieta>();
+		 millesimo = new HashSet<Millesimo>();
+		this.datiUnitaImmobiliare = dui;
 	}
 	
 	public void creaUnitaImmobiliare()
@@ -33,7 +50,13 @@ public class UnitaImmobiliare {
 	
 	public void modificaDati(DatiUnitaImmobiliare dui)
 	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+	
 		datiUnitaImmobiliare = dui;
+	
+		session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	public QuoteProprieta recuperaProprieta()
@@ -61,17 +84,12 @@ public class UnitaImmobiliare {
 	 final UnitaImmobiliare o = (UnitaImmobiliare) other;
 	 if (!o.getDatiUnitaImmobiliare().equals(getDatiUnitaImmobiliare()))
 	   return false;
-	 if (!o.getQuoteDiPossesso().equals(getQuoteDiPossesso()))
-	   return false;
 	 return true;
 	}
 
 	@Override
 	public int hashCode() {
-	 int result;
-	 result = this.getDatiUnitaImmobiliare().hashCode();
-//	 result = 29 * result + this.getQuoteDiPossesso().hashCode();
-	 return result;
+	 return this.getDatiUnitaImmobiliare().hashCode();
 	}
 
 	public long getId() {
@@ -99,11 +117,19 @@ public class UnitaImmobiliare {
 		this.condominio = condominio;
 	}
 
-	public SortedSet<Proprieta> getQuoteDiPossesso() {
+	public Set<Proprieta> getQuoteDiPossesso() {
 		return quoteDiPossesso;
 	}
 
-	public void setQuoteDiPossesso(SortedSet<Proprieta> quoteDiPossesso) {
+	public void setQuoteDiPossesso(Set<Proprieta> quoteDiPossesso) {
 		this.quoteDiPossesso = quoteDiPossesso;
+	}
+
+	public Set<Millesimo> getMillesimo() {
+		return millesimo;
+	}
+
+	public void setMillesimo(Set<Millesimo> millesimo) {
+		this.millesimo = millesimo;
 	}
 }

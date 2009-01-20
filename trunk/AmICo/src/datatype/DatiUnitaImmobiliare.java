@@ -52,8 +52,11 @@ public class DatiUnitaImmobiliare {
 	
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		int result;
+		 result = this.getPosizioneInterna().hashCode();
+		 result = 29 * result + this.getCatCatastale().hashCode();
+		 result = 29 * result + this.getDestUso().hashCode();
+		 return result;
 	}
 	
 	public String getId() {

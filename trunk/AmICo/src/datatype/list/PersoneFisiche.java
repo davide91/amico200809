@@ -13,7 +13,7 @@ import store.POJO.PersonaFisica;
  * @author bruno
  *
  */
-public class PersoneFisiche{
+public class PersoneFisiche extends Persone{
 	
 	
 	

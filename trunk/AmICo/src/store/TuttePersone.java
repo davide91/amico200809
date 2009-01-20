@@ -40,9 +40,27 @@ public class TuttePersone {
 		PERSONE = recuperaPersone();	
 	}
 	
+	private void caricaDalDB()
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+		
+		List personeF = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "FISICA").list();
+				
+		for (int i = 0; i < personeF.size(); i++) {
+			PERSONE.inserisciPersona((PersonaFisica) personeF.get(i));
+		}
+		
+		List personeG = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "GIURIDICA").list();
+		session.getTransaction().commit();
+	
+		for (int i = 0; i < personeG.size(); i++) {
+			PERSONE.inserisciPersona((PersonaGiuridica) personeG.get(i));
+		}
+	}
+	
 	public void inserisciPersona(DatiPersona dati)
 	{	session = HibernateUtil.getSessionFactory().getCurrentSession();
-
 		session.beginTransaction();
 		
 		if (dati instanceof DatiPersonaFisica) {
@@ -73,42 +91,21 @@ public class TuttePersone {
 	
 	public Persone recuperaPersone()
 	{
-		session = HibernateUtil.getSessionFactory().getCurrentSession();	
-		session.beginTransaction();
-		
-		List personeF = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "FISICA").list();
-		
-		
-		Persone tuttePersone = new Persone();
-		for (int i = 0; i < personeF.size(); i++) {
-			PersonaFisica p = (PersonaFisica) personeF.get(i);
-			tuttePersone.inserisciPersona(p);  
-		}
-		
-		List personeG = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "GIURIDICA").list();
-		session.getTransaction().commit();
-		
-		
-		for (int i = 0; i < personeG.size(); i++) {
-			PersonaGiuridica p = (PersonaGiuridica) personeG.get(i);
-			tuttePersone.inserisciPersona(p);  
-		}
-		
-		return tuttePersone;
+		return PERSONE;
 	}
 	
-	public PersoneFisiche recuperaPersone(String nome, String cognome)
+	public Persone recuperaPersone(String nome, String cognome)
 	{
-		return null;
+		return PERSONE.recuperaPersone(nome, cognome);
 	}
 	
-	public PersoneFisiche recuperaPersone(Indirizzo ind)
+	public Persone recuperaPersone(Indirizzo ind)
 	{
-		return null;
+		return PERSONE.recuperaPersone(ind);
 	}
 	
-	public PersoneGiuridiche recuperaPersone(PartitaIva pIva)
+	public Persone recuperaPersone(PartitaIva pIva)
 	{
-		return null;
+		return PERSONE.recuperaPersone(pIva);
 	}
 }

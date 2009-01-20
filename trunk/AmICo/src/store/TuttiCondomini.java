@@ -32,10 +32,10 @@ public class TuttiCondomini {
 	public void inizializza()
 	{
 		//carico da DB tutti i condomini...	
-		CONDOMINI = recuperaCondomini();
+		caricaDalDB();
 	}
 	
-	public Condomini recuperaCondomini()
+	private void caricaDalDB()
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
@@ -45,17 +45,22 @@ public class TuttiCondomini {
 
 		Condomini ret = new Condomini();
 		for (int i = 0; i < Cond.size(); i++) {	
-			ret.inserisciCondominio((Condominio)Cond.get(i));
+			CONDOMINI.inserisciCondominio((Condominio)Cond.get(i));
 		}
-		return ret;
+	}
+	
+	public Condomini recuperaCondomini()
+	{	
+		return CONDOMINI;
 	}
 	
 	public void inserisciCondominio(Condominio c)
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();		
+			c.setStatoCondominio(StatoCondominio.inCompilazione);
 			CONDOMINI.inserisciCondominio(c);
-		session.persist(c);
+			session.persist(c);
 		session.getTransaction().commit();
 	}
 
