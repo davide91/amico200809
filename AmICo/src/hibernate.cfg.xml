@@ -42,6 +42,7 @@
 		<mapping resource="store/POJO/TabellaMillesimale.hbm.xml"/>
 		<mapping resource="store/POJO/UnitaImmobiliare.hbm.xml"/>
 		<mapping resource="store/POJO/VoceBilancio.hbm.xml"/>
+		<mapping resource="store/POJO/Millesimo.hbm.xml"/>
 		
 	</session-factory>
 	

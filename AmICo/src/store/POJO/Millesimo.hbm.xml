@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="store.POJO">
+
+	<class name="Millesimo" table="MILLESIMI">
+	
+		<id name="id" column="MILLESIMI_ID">
+			<generator class="native"/>
+		</id>
+		
+		<property name="quota"/>
+		
+	<!-- inverse end -->
+	<many-to-one name="quotaDi"
+ 		class="UnitaImmobiliare"
+		column="UNITA_ID"/>
+			
+	<!-- inverse end -->
+	<many-to-one name="tabellaMillesimale"
+ 		class="TabellaMillesimale"
+		column="TABELLA_ID"/>
+	
+
+	</class>
+
+</hibernate-mapping>

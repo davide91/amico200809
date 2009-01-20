@@ -3,6 +3,9 @@
  */
 package store.POJO;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import datatype.DatiTabellaMillesimale;
 import datatype.list.QuoteProprieta;
 
@@ -15,10 +18,19 @@ public class TabellaMillesimale {
 	private long id;
 	private DatiTabellaMillesimale dati;
 	private Condominio condominio;
+	private Set<Millesimo> millesimi;
 	
+	public Set<Millesimo> getMillesimi() {
+		return millesimi;
+	}
+
+	public void setMillesimi(Set<Millesimo> millesimi) {
+		this.millesimi = millesimi;
+	}
+
 	public TabellaMillesimale()
 	{
-		
+		millesimi = new HashSet<Millesimo>();
 	}
 	
 	public TabellaMillesimale(DatiTabellaMillesimale DTM)

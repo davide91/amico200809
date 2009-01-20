@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import store.util.HibernateUtil;
 import datatype.DatiCondominio;
+import datatype.Euro;
 import datatype.Preferenze;
 import datatype.list.Bilanci;
 import datatype.list.Pagamenti;
@@ -47,14 +48,11 @@ public class Condominio {
 	}
 	
 	public void modificaDati(DatiCondominio dCond)
-	{		
+	{	
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-			
-		this.setDatiC(dCond);
-		
-			//session.flush();
-	//	session.update(this);
+			this.setDatiC(dCond);
+			session.update(this);
 		session.getTransaction().commit();
 	}
 	
@@ -62,9 +60,14 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-//			p.getCondomini().add(this);
-			persone.add(p);
+			link(p);
 		session.getTransaction().commit();
+	}
+	
+	public void link(Persona p)
+	{
+		p.getCondomini().add(this);
+		session.update(p);
 	}
 	
 	public void inserisciUnitaImmobiliare(UnitaImmobiliare uImm)
@@ -88,7 +91,7 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-			unitaImmobiliari.remove(uImm);
+			//unitaImmobiliari.remove(uImm);
 			session.delete(uImm);
 		session.getTransaction().commit();
 	}
@@ -178,7 +181,13 @@ public class Condominio {
 	
 	public void modificaPreferenze(Preferenze pref)
 	{
-		preferenze = pref;
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+	
+		this.preferenze = pref;
+	
+		session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	@Override
