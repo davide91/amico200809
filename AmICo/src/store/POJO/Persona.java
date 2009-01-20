@@ -22,7 +22,7 @@ public class Persona {
 	protected long id;
 	protected Set<Pagamento> pagamenti;
 	protected Set<Proprieta> proprieta;
-	protected Set<Condominio> condomini;
+//	protected Set<Condominio> condomini;
 	
 	private Session session;
 
@@ -30,7 +30,7 @@ public class Persona {
 	{
 		pagamenti = new HashSet<Pagamento>();
 		proprieta = new HashSet<Proprieta>();
-		condomini = new HashSet<Condominio>();
+//		condomini = new HashSet<Condominio>();
 	}
 
 	public void modificaDati(DatiPersona datiPersona) 
@@ -83,15 +83,12 @@ public class Persona {
 		this.proprieta = proprieta;
 	}
 
-	public Set<Condominio> getCondomini() {
+/*	public Set<Condominio> getCondomini() {
 		return condomini;
 	}
 
 	public void setCondomini(Set<Condominio> condomini) {
 		this.condomini = condomini;
 	}
-
-	
-
-	
+*/
 }

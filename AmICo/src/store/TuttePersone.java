@@ -35,28 +35,10 @@ public class TuttePersone {
 	}
 
 	public void inizializzaPersone()
-	{	//PERSONE.getPersone().clear();
-		caricaDalDB();
-	}
-	
-	private void caricaDalDB()
-	{
-		session = HibernateUtil.getSessionFactory().getCurrentSession();	
-		session.beginTransaction();
+	{	
 		
-		List personeF = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "FISICA").list();
-				
-		for (int i = 0; i < personeF.size(); i++) {
-			PERSONE.inserisciPersona((PersonaFisica) personeF.get(i));
-		}
-		
-		List personeG = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "GIURIDICA").list();
-		session.getTransaction().commit();
-	
-		for (int i = 0; i < personeG.size(); i++) {
-			PERSONE.inserisciPersona((PersonaGiuridica) personeG.get(i));
-		}
 	}
+
 	
 	public void inserisciPersona(DatiPersona dati)
 	{	session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -102,6 +84,24 @@ public class TuttePersone {
 	
 	public Persone recuperaPersone()
 	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+		Persone persone = new Persone();
+		
+		List personeF = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "FISICA").list();
+				
+		for (int i = 0; i < personeF.size(); i++) {
+			persone.inserisciPersona((PersonaFisica) personeF.get(i));
+		}
+		
+		List personeG = session.createQuery("from Persona where PERSONA_TYPE = :tipo").setParameter("tipo", "GIURIDICA").list();
+		session.getTransaction().commit();
+	
+		for (int i = 0; i < personeG.size(); i++) {
+			persone.inserisciPersona((PersonaGiuridica) personeG.get(i));
+		}
+		
+		PERSONE.setPersone(persone.getPersone());	
 		return PERSONE;
 	}
 	

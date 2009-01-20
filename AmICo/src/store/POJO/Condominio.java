@@ -57,15 +57,23 @@ public class Condominio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 			link(p);
+		session.update(this);
 		session.getTransaction().commit();
 	}
 
 	private void link(Persona p)
 	{
-		
 		persone.add(p);
-		p.getCondomini().add(this);
-		//session.update(p);		
+		//p.getCondomini().add(this);		
+	}
+	
+	public void rimuoviPersona(Persona p)
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			persone.remove(p);
+		session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	public void inserisciUnitaImmobiliare(UnitaImmobiliare uImm)

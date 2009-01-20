@@ -49,7 +49,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		tc = new TuttiCondomini();
 		tc.inizializzaCondomi();
 		
-		assertEquals(0, tc.CONDOMINI.getCondomini().size());
+		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 		
 		Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
 		
@@ -57,7 +57,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		this.tc.inserisciCondominio(c);
 		c.modificaDati(new DatiCondominio("Papigliano1",ind));
 		c.modificaPreferenze(new Preferenze((float)3.4,10,new Euro((float)150.0)));
-		
 		
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 	}
@@ -83,25 +82,26 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		assertTrue(cond.getStatoCondominio().equals(StatoCondominio.inCompilazione));
 	}
 	
-/*	public void testCONDOMINI_inserireUnitaImmobiliare()
+	public void testCONDOMINI_inserireUnitaImmobiliare()
 	{
 		tc = new TuttiCondomini();
 		tc.inizializzaCondomi();
 		
-		Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
+		tp = new TuttePersone();
+		tp.inizializzaPersone();
 		
-		Condominio c = new Condominio();
-		tc.inserisciCondominio(c);
-		c.modificaDati(new DatiCondominio("Papigliano2",ind));
-		c.modificaPreferenze(new Preferenze((float)3.4,10,new Euro((float)150.0)));
+		//recupero il condominio
+		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
+		Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
+	
 
 		DatiUnitaImmobiliare dui = new DatiUnitaImmobiliare("Unità 1",CategoriaCatastale.A10,"interna", (float)85,DestinazioneUso.appartamento);
 		
 		UnitaImmobiliare ui = new UnitaImmobiliare(dui);
-		c.inserisciUnitaImmobiliare(ui);
+		cond.inserisciUnitaImmobiliare(ui);
 	}
 
-	public void testCONDOMINI_modificaPreferenzeUnitàImmobiliare()
+/*	public void testCONDOMINI_modificaPreferenzeUnitàImmobiliare()
 	{
 		Condominio cond = tc.CONDOMINI.getCondomini().get(0); // recupero il condominio
 		
@@ -184,7 +184,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		assertTrue(p.getDati().equals(dpf));
 		cond.inserisciPersona(p);
 		
-		assertEquals(1, tc.CONDOMINI.getCondomini().size());
+		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 	}
 	
 /*	public void testCONDOMINI_EliminaPersona()
@@ -196,17 +196,17 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		tp.inizializzaPersone();
 		
 		//recupero il condominio
-		Condominio cond = TuttiCondomini.CONDOMINI.getCondomini().get(0);
+		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
 		
 		//recupero la persona e la elimino		
-		PersonaFisica p = (PersonaFisica)cond.recuperaCondomini().recuperaPersone().get(0);
+		PersonaFisica p = (PersonaFisica)(cond.recuperaCondomini().recuperaPersone().get(0));
 		
 		Indirizzo ind = new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060");
 		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",ind,"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		assertTrue(p.getDati().equals(dpf));
-		tp.eliminaPersona(p);
+		cond.rimuoviPersona(p);
 		
-		assertEquals(2, tc.CONDOMINI.getCondomini().size());
+		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 	}
 
 /*	public void testCONDOMINI_InserireProprietàUnitàImmobiliare()
