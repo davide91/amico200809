@@ -114,14 +114,16 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 
 	private void binserisciMouseMouseClicked(MouseEvent event) {
-		this.inserisciCondominio();
+		//this.inserisciCondominio();
+		InserireNuovoCondominio INC=new InserireNuovoCondominio();
+		INC.setVisible(true);
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
 		
 		if(lista.getSelectedIndex()>-1) {
 			// temporaneo
-			AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
+			AccedereCondominioAperto ACA =new AccedereCondominioAperto();
 			ACA.setTitle((String)lista.getSelectedValue());
 			ACA.setVisible(true);/* si cancella quello prima e si mette quello dopo per integrazione TODO
 			for (Condominio c : condomini.getCondomini())

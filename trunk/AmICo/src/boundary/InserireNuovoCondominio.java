@@ -8,11 +8,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -22,6 +24,7 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import datatype.DatiCondominio;
+import datatype.Indirizzo;
 import datatype.list.Reali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.Comune;
@@ -74,12 +77,32 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		switch (state) {
 		case controlloDatiCondominio:
 			
+			
+			
 			if (b)
+			{
+				
 				//AMM.richiediConferma();
 				state=StatiInserireNuovoCondominio.attesaConfermaDatiCondominio;
+				JOptionPane option = new JOptionPane("sei sicuro?", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
+				JDialog dialog = option.createDialog(this,"errore");
+				dialog.setVisible(true);
+				if(true){
+					ok();
+				}
+				if(false){
+					ko();
+				}
+			}
 			else
+			{
 				state=StatiInserireNuovoCondominio.base;
+			
+				JOptionPane option = new JOptionPane("condominio inserito ko", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
+				JDialog dialog = option.createDialog(this,"errore");
+				dialog.setVisible(true);
 				//AMM.mostra(CondominioInseritoKO):
+			}
 			break;
 		case controlloTabellaMillesimaleProprieta:
 
@@ -145,6 +168,34 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	}
 	
 	private void inserisciMouseMouseClicked(MouseEvent event) {
+
+		if(cap.getText().equals(""))
+		{
+			JOptionPane option = new JOptionPane("inserire CAP", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
+			JDialog dialog = option.createDialog(this,"errore");
+			dialog.setVisible(true);
+		}
+		else if(via.getText().equals(""))
+		{
+			JOptionPane option = new JOptionPane("inserire Via", JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE );
+			JDialog dialog = option.createDialog(this,"errore");
+			dialog.setVisible(true);
+			
+		}
+			
+		else
+		{
+			Indirizzo indirizzo=new Indirizzo();
+			indirizzo.setCap(cap.getText());
+			indirizzo.setComune((Comune)comune.getSelectedItem());
+			indirizzo.setProvincia((Provincia)provincia.getSelectedItem());
+			indirizzo.setVia(via.getText());
+			indirizzo.setInterno(null);
+			datiCondominio.setIndirizzo(indirizzo);
+			GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
+			
+		}
+		
 	}
 
 	private void annullaMouseMouseClicked(MouseEvent event) {
