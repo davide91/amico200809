@@ -22,8 +22,10 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
 import store.POJO.Condominio;
+import datatype.EsitoEliminabile;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
+import enumeration.StatiAccedereCondominioAperto;
 import enumeration.StatiGestoreCondominioAperto;
 import executor.GestoreCondominioAperto;
 
@@ -35,8 +37,9 @@ import executor.GestoreCondominioAperto;
 public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private Condominio condominio;
-	private GestoreCondominioAperto gca;
-	private Avvisi avvisi;
+	private GestoreCondominioAperto GCA;
+	private Avvisi avvisiCorrenti;
+	private StatiAccedereCondominioAperto state;
 	
 	private static final long serialVersionUID = 1L;
 	private JMenuItem jMenuItem0;
@@ -57,12 +60,11 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton besportarecondominio;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
-	public AccedereCondominioAperto(GestoreCondominioAperto GCA,Condominio condominio) {
+	public AccedereCondominioAperto() {
 		initComponents();
+		state=StatiAccedereCondominioAperto.base;
 		
-		this.gca=GCA;
-		this.condominio=condominio;
-	
+		
 	}
 
 	private void initComponents() {
@@ -287,43 +289,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-
-	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void annulla() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void fallito() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void fatto() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void finito() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void ko() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void ok() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void bdaticondominioMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
 		pannello.add(new PannelloTab());
@@ -395,39 +360,92 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	
 	public void creaAccedereCondominioAperto(GestoreCondominioAperto GCA,Condominio C){
 		condominio=C;
-		gca=GCA;
+		this.GCA=GCA;
 	}
+
+
+
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub	
+		
+	}
+	public void ammissibile(EsitoEliminabile esito){
+		//AMM.richiediConferma(esito);
+		state=StatiAccedereCondominioAperto.attesaConfermaEliminazione;
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fatto() {
+		if (state==StatiAccedereCondominioAperto.chiusuraCondominio){
+			//AMM.mostra(condominioChiuso);
+		}
+		else state=StatiAccedereCondominioAperto.base;
+	}
+
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ko() {
+		GCA.procedi(false);
+		//AMM.mostra(CondominioEliminatoKO);
+		state=StatiAccedereCondominioAperto.base;
+	}
+
+	public void ok() {
+		GCA.procedi(true);
+		//AMM.mostra(condominioEliminatoOK);
+	}
+
 	
-	public void passaAvvisi(Avvisi a){
-		// TODO
+	
+	public void passaAvvisi(Avvisi avvisi){
+		this.avvisiCorrenti=avvisi;
 	}
 	
 	public void passaAUnitaImmobiliari(){
-		// TODO
+		GCA.passaAUnitaImmobiliari();
+		state=StatiAccedereCondominioAperto.gestioneUnitaImmobiliari;
 	}
 	
 	public void passaATabelleMillesimali(){
-		// TODO
+		GCA.passaATabelleMillesimali();
+		state=StatiAccedereCondominioAperto.gestioneTabelleMillesimali;
 	}
 	
 	public void passaADatiCondomini(){
-		// TODO
+		GCA.passaADatiCondomini();
+		state=StatiAccedereCondominioAperto.gestioneDatiCondomini;
 	}
 	
 	public void passaABilanci(){
-		// TODO
+		GCA.passaABilanci();
+		state= StatiAccedereCondominioAperto.gestioneBilanci;
 	}
 	
 	public void passaACassa(){
-		// TODO
+		GCA.passaACassa();
+		state=StatiAccedereCondominioAperto.gestioneCassa;
 	}
 	
 	public void passaAPreferenze(){
-		// TODO
+		GCA.passaAPreferenze();
+		state=StatiAccedereCondominioAperto.gestionePreferenze;
 	}
 	
 	public void passaAPagamenti(){
-		// TODO
+		GCA.passaAPagamenti();
+		state=StatiAccedereCondominioAperto.gestionePagamenti;
 	}
 	
 	public void modificaPreferenze(Preferenze p){
@@ -442,17 +460,18 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}*/
 	
 	public void chiudiCondominio(){
-	//	gca.chiudiCondominio();
-		
-		// TODO
+		GCA.chiudiCondominio();
+		state=StatiAccedereCondominioAperto.chiusuraCondominio;
 	}
 	
 	public void esportaCondominio(){	
-		// TODO
+		GCA.esportaCondominio();
+		state=StatiAccedereCondominioAperto.esportazioneCondominio;
 	}
 	
 	public void eliminaCondominio(){
-		// TODO
+		GCA.eliminaCondominio();
+		state=StatiAccedereCondominioAperto.controlloEliminabilita;
 	}
 	
 	/*public void selezionaFile(path){
@@ -468,7 +487,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				AccedereCondominioAperto frame =new AccedereCondominioAperto(null,null);
+				AccedereCondominioAperto frame =new AccedereCondominioAperto();
 				frame.setTitle("AccedereCondominioAperto");
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
