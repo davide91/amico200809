@@ -21,7 +21,7 @@ import store.util.HibernateUtil;
  */
 public class TuttiCondomini {
 
-	public Condomini CONDOMINI;
+	private Condomini CONDOMINI;
 	private Session session;
 	
 	public TuttiCondomini()
