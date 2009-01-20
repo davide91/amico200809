@@ -22,9 +22,10 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.TabellaMillesimale;
 import datatype.DatiTabellaMillesimale;
+import datatype.list.Reali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
-import enumeration.StatiAccedereTabelleMillimesimali;
+import enumeration.StatiAccedereTabelleMillesimali;
 import executor.GestoreCondominioAperto;
 
 /**
@@ -35,7 +36,9 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	private TabelleMillesimali tabelleMillesimali;
 	private GestoreCondominioAperto GCA;
-	private StatiAccedereTabelleMillimesimali stato;
+	private StatiAccedereTabelleMillesimali state;
+	private UnitaImmobiliari unita;
+	private DatiTabellaMillesimale datiTabella;
 	
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
@@ -48,13 +51,8 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccedereTabelleMillesimali() {
 		initComponents();
-	}
-
-	public AccedereTabelleMillesimali(
-			GestoreCondominioAperto gestoreCondominioAperto,
-			TabelleMillesimali recuperaTabelleMillesimali,
-			UnitaImmobiliari recuperaUnitaImmobiliari) {
-		// TODO Auto-generated constructor stub
+		state=StatiAccedereTabelleMillesimali.base;
+		
 	}
 
 	private void initComponents() {
@@ -149,26 +147,51 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	}
 
 	
-	public void creaAccedereTabelleMillesimali(GestoreCondominioAperto gca,TabelleMillesimali TM)
+	public void creaAccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
 	{
-		this.tabelleMillesimali=TM;
-		this.GCA=gca;
-		stato=stato.accedereTabelleMillesimali;
+		this.tabelleMillesimali=tabelleMillesimali;
+		this.unita=unita;
+		this.GCA=GCA;
+		//AMM.mostraTabelleMillesimali(tabelleMillesimali);
 	}
 	
-	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM)
-	{}
-	public void modificaTabellaMillesimale(TabellaMillesimale TM ,DatiTabellaMillesimale DTM)
-	{}
+	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM){
+		datiTabella=DTM;
+		//AMM.mostraUnitaImmobiliar(unita);
+		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
+	}
+	public void modificaTabellaMillesimale(TabellaMillesimale TM , DatiTabellaMillesimale DTM, Reali millesimi)
+	{
+		if (millesimi.somma()==1000){
+			//AMM.richiestaConferma();
+			state=StatiAccedereTabelleMillesimali.attesaConfermaInserimento;
+			
+			
+		}
+		
+	}
 	public void aggiornaTabelleMillesimali(TabelleMillesimali TM)
 	{
-		
-		
+		this.tabelleMillesimali=TM;
+	}
+	public void inserisciMillesimi(Reali millesimi){
+		if (millesimi.somma()==1000){
+			GCA.inserisciTabellaMillesimale(datiTabella, millesimi);
+			state=StatiAccedereTabelleMillesimali.attesaControlloMillesimi;
+		}
 	}
 	
 
 	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub
+		if (b){
+			//AMM.richiestaConferma();
+			state=StatiAccedereTabelleMillesimali.attesaConfermaMillesimi;
+			
+		}
+		else {
+			//AMM.mostra(NomeTabellaNonUnico);
+			state=StatiAccedereTabelleMillesimali.base;
+		}
 		
 	}
 
@@ -188,18 +211,29 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	}
 
 	public void finito() {
-		// TODO Auto-generated method stub
-		
+		GCA.operazioneTerminata();
 	}
 
 	public void ko() {
-		// TODO Auto-generated method stub
+		switch (state) {
+		case attesaConfermaInserimento:
+		//	GCA.modificaTabellaMillesimale(tabellaMillesimale, datiTabella.getDescrizione(), )
+			break;
+		case attesaConfermaMillesimi:
+			GCA.procedi(false);
+			//AMM.mostra(TabellaMillesimaleInseritaKO);
+			break;
+		default:
+			break;
+		}
+		state=StatiAccedereTabelleMillesimali.base;
 		
 	}
 
 	public void ok() {
-		// TODO Auto-generated method stub
-		
+		GCA.procedi(true);
+		//AMM.mostra(TabellaMillesimaleInseritaOK);
+		state=StatiAccedereTabelleMillesimali.base;
 	}
 
 	

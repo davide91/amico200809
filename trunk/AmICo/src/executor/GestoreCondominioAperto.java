@@ -23,6 +23,7 @@ import datatype.list.Bilanci;
 import datatype.list.Condomini;
 import datatype.list.Persone;
 import datatype.list.QuoteProprieta;
+import datatype.list.Reali;
 import enumeration.FormatoFile;
 import enumeration.StatiGestoreCondominioAperto;
 import store.TuttePersone;
@@ -35,7 +36,7 @@ import store.POJO.UnitaImmobiliare;
 public class GestoreCondominioAperto implements BaseExecutor {
 
 	private AccedereCondominioAperto m_accedereCondominioAperto;
-	private AccedereCondomini m_accedereCondomini;
+	private AccederePersone m_accedereCondomini;
 	private AccedereTabelleMillesimali m_accedereTabelleMillesimali;
 	private AccedereUnitaImmobiliari m_accedereUnitaImmobiliari;
 	private Avvisi m_avvisi;
@@ -56,7 +57,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	public GestoreCondominioAperto(Condominio condominio) {
 		m_dbCondomini.inizializzaPersone();
 		m_condominio = condominio;
-		m_accedereCondominioAperto = new AccedereCondominioAperto(this,m_condominio);
+		m_accedereCondominioAperto = new AccedereCondominioAperto();
+		m_accedereCondominioAperto.creaAccedereCondominioAperto(this, m_condominio);
 		m_avvisi = CalcolaAvvisi.calcolaAvvisi(m_condominio);
 		m_accedereCondominioAperto.passaAvvisi(m_avvisi);
 		m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
@@ -85,7 +87,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.exportCondominio;
 	}
 	
-	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale) {
+	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale, Reali millesimi) {
 		m_datiTabellaMillesimale = datiTabellaMillesimale;
 		m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(datiTabellaMillesimale));
 		m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
