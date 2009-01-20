@@ -43,6 +43,7 @@ public class Persona {
 		else{
 			modificaDatiPersonaGiuridica((DatiPersonaGiuridica)datiPersona);	
 		}
+		session.update(this);
 		session.getTransaction().commit();
 	}
 	

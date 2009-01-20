@@ -54,7 +54,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 
 	public GestoreCondominioAperto(Condominio condominio) {
-		m_dbCondomini.inizializza();
+		m_dbCondomini.inizializzaPersone();
 		m_condominio = condominio;
 		m_accedereCondominioAperto = new AccedereCondominioAperto(this,m_condominio);
 		m_avvisi = CalcolaAvvisi.calcolaAvvisi(m_condominio);

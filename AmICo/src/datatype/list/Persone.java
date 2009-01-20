@@ -22,17 +22,16 @@ public class Persone {
 	private List<Persona> persone = new ArrayList<Persona>();
 	
 	public void inserisciPersona(Persona p) {
-		// TODO Auto-generated method stub
 		persone.add(p);
 	}
 
 	public List<Persona> recuperaPersone() {
-		// TODO Auto-generated method stub
 		return persone;
 	}
 
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
+		if(persone.size()==0)
+			return true;
 		return false;
 	}
 
@@ -82,5 +81,13 @@ public class Persone {
 	public void elimina(Persona p)
 	{
 		this.persone.remove(p);
+	}
+
+	public List<Persona> getPersone() {
+		return persone;
+	}
+
+	public void setPersone(List<Persona> persone) {
+		this.persone = persone;
 	}
 }

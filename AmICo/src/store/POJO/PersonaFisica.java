@@ -39,9 +39,9 @@ public class PersonaFisica extends Persona {
 	public boolean equals(Object other) {
 	 if (this == other)
 	   return true;
-	 if (!(other instanceof PersonaGiuridica))
+	 if (!(other instanceof PersonaFisica))
 	   return false;
-	 final PersonaGiuridica o = (PersonaGiuridica) other;
+	 final PersonaFisica o = (PersonaFisica) other;
 	 if (!o.getDati().equals(this.getDati()))
 	   return false;
 	 return true;

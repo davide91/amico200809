@@ -29,9 +29,9 @@ public class TuttiCondomini {
 		CONDOMINI = new Condomini();
 	}
 	
-	public void inizializza()
-	{
-		//carico da DB tutti i condomini...	
+	public void inizializzaCondomi()
+	{	//carico da DB tutti i condomini...	
+		CONDOMINI.getCondomini().clear();
 		caricaDalDB();
 	}
 	

@@ -42,7 +42,7 @@ public class GestorePersone implements BaseExecutor {
 	private StatiGestorePersone state; 
 		
 	public GestorePersone(){
-	 TP.inizializza();
+	 TP.inizializzaPersone();
 	 state=StatiGestorePersone.base;
 	 
 	}
