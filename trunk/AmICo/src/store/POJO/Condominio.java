@@ -64,9 +64,10 @@ public class Condominio {
 		session.getTransaction().commit();
 	}
 	
-	public void link(Persona p)
+	private void link(Persona p)
 	{
 		p.getCondomini().add(this);
+		persone.add(p);
 		session.update(p);
 	}
 	
@@ -91,7 +92,7 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-			//unitaImmobiliari.remove(uImm);
+		//	unitaImmobiliari.remove(uImm);
 			session.delete(uImm);
 		session.getTransaction().commit();
 	}
@@ -129,7 +130,13 @@ public class Condominio {
 	
 	public Cassa recuperaCassa()
 	{
-		return null;
+		if(!cassa.isEmpty())
+		{
+			for (Cassa cas : cassa) {
+				return cas;
+			}
+		}
+		return new Cassa();
 	}
 	
 	public DatiCondominio recuperaDatiCondominio()

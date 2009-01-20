@@ -34,10 +34,9 @@ public class TuttePersone {
 		
 	}
 
-	public void inizializza()
-	{		
-		//carico dal DB tutte le persone	
-		PERSONE = recuperaPersone();	
+	public void inizializzaPersone()
+	{	PERSONE.getPersone().clear();
+		caricaDalDB();
 	}
 	
 	private void caricaDalDB()
@@ -84,8 +83,20 @@ public class TuttePersone {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-			PERSONE.elimina(pers);
-			session.delete(pers);
+		if(pers instanceof PersonaFisica){ // se è fisica guardo se è il riferimento di qualche personaGiuridica, nel caso la levo!
+			List lista = session.createQuery("from Persona where PERSONA_TYPE = :tipo AND PERSONA_RIFERIMENTO = :rif").setParameter("tipo", "GIURIDICA").setParameter("rif", pers.getId()).list();
+			
+			if(lista.size() != 0)
+			{
+				for (Object o : lista) {
+					PersonaGiuridica pg = (PersonaGiuridica)o;
+					pg.setPersonaDiRiferimento(null);
+					session.update(pg);
+				}
+			}
+		}
+		PERSONE.elimina(pers);
+		session.delete(pers);
 		session.getTransaction().commit();
 	}
 	

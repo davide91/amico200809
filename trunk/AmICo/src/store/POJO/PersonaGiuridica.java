@@ -5,6 +5,10 @@ package store.POJO;
 
 import java.util.SortedSet;
 
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
+
 import datatype.DatiPersonaGiuridica;
 
 /**
@@ -29,6 +33,15 @@ public class PersonaGiuridica extends Persona{
 	public void modificaDati(DatiPersonaGiuridica dpg)
 	{
 		dati = dpg;
+	}
+	
+	public void assegnaPersonaDiRiferimento(PersonaFisica pf)
+	{
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			personaDiRiferimento = pf;
+		session.update(this);
+		session.getTransaction().commit();
 	}
 
 	@Override

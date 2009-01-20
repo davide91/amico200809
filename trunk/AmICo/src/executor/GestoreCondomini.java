@@ -58,7 +58,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
 		m_state = StatiGestoreCondominio.gestoreCondomini;
 		m_driverFS = new DriverFileSystem();
-		m_dbCondomini.inizializza();
+		m_dbCondomini.inizializzaPersone();
 		
 	}
 	
