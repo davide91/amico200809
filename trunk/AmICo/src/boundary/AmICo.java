@@ -22,6 +22,7 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Condominio;
+import datatype.DatiCondominio;
 import datatype.Path;
 import datatype.list.Condomini;
 import enumeration.StatiAmICo;
@@ -38,8 +39,6 @@ public class AmICo extends JFrame implements BaseBoundary{
 		if (amico==null) 
 			amico=new AmICo();
 		return amico;
-		
-		
 	}
 	
 	private Condomini condomini;
@@ -59,7 +58,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 	private JScrollPane jScrollPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AmICo() {
-		initComponents();
+	//	initComponents();
 	}
 
 	public void creaAmICo(Condomini condomini, GestoreCondomini GC){
@@ -67,8 +66,8 @@ public class AmICo extends JFrame implements BaseBoundary{
 		this.GC=GC;
 		initComponents();
 		state=StatiAmICo.base;
-		
-		//AMM.mostraCondomini(condomini);
+		this.aggiornaCondomini(condomini);
+
 	}
 	
 	
@@ -92,6 +91,16 @@ public class AmICo extends JFrame implements BaseBoundary{
 	public void aggiornaCondomini(Condomini condomini){
 		this.condomini=condomini;
 		
+		DefaultListModel listModel = new DefaultListModel();
+		
+		for (Condominio c : condomini.getCondomini())
+		{
+			listModel.addElement( c.getDatiC().getId() );
+			System.out.println(c.getDatiC().getId());
+		}
+		lista.setModel(listModel);
+		
+		
 	}
 	
 	public void selezioneFile(Path path) {
@@ -104,6 +113,97 @@ public class AmICo extends JFrame implements BaseBoundary{
 	}
 	
 	
+
+	private void binserisciMouseMouseClicked(MouseEvent event) {
+	}
+
+	private void bapriMouseMouseClicked(MouseEvent event) {
+		
+		if(lista.getSelectedIndex()>-1) {
+			// temporaneo
+			AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
+			ACA.setTitle((String)lista.getSelectedValue());
+			ACA.setVisible(true);/* si cancella quello prima e si mette quello dopo per integrazione TODO
+			for (Condominio c : condomini.getCondomini())
+			{
+				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) )
+					this.apriCondominio(c);
+			}*/
+			this.dispose();
+		}
+		
+		
+	}
+	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
+		this.dispose();
+	}
+	private void jMenuItem1MouseMouseClicked(MouseEvent event) {
+	}
+
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		switch (state) {
+		case selezionePath:
+			//AMM.mostra(CondominioImportatoKO)
+			break;
+		case inserimentoCondominio:
+			// AMM.mostra(condominioInseritoKO);
+		default:
+			break;
+		}
+		state=StatiAmICo.base;
+		//AMM.mostraCondomini(condomini);
+		
+	}
+
+	public void fatto() {
+		
+		switch (state) {
+		case condominioAperto:
+			//AMM.mostra(condominio chiuso);	
+			break;
+		case inserimentoCondominio: 
+			//AMM.mostra(condominioinseritoOK);
+			break;
+		case selezionePath:
+			//AMM.mostra(CondominioImportatoOK);
+			state=StatiAmICo.condominioAperto;
+			return;
+		default:
+			break;
+		}
+		state=StatiAmICo.base;
+		//AMM.mostraCondomini(condomini);
+		
+		
+	}
+
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
 	
 	
 	private void initComponents() {
@@ -113,7 +213,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 		add(getJScrollPane0(), new Constraints(new Leading(27, 146, 10, 10), new Leading(82, 189, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(27, 12, 12), new Leading(28, 10, 10)));
 		setJMenuBar(getJMenuBar0());
-		setSize(445, 324);
+		setSize(445, 374);
 	}
 
 	private JScrollPane getJScrollPane0() {
@@ -127,12 +227,6 @@ public class AmICo extends JFrame implements BaseBoundary{
 	private JList getLista() {
 		if (lista == null) {
 			lista = new JList();
-			DefaultListModel listModel = new DefaultListModel();
-			listModel.addElement("item0");
-			listModel.addElement("item1");
-			listModel.addElement("item2");
-			listModel.addElement("item3");
-			lista.setModel(listModel);
 		}
 		return lista;
 	}
@@ -233,90 +327,6 @@ public class AmICo extends JFrame implements BaseBoundary{
 		}
 	}
 
-	private void binserisciMouseMouseClicked(MouseEvent event) {
-	}
-
-	private void bapriMouseMouseClicked(MouseEvent event) {
-		
-		if(lista.getSelectedIndex()>-1) {
-			// temporaneo
-			AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
-			ACA.setTitle((String)lista.getSelectedValue());
-			ACA.setVisible(true);
-			this.apriCondominio(null);
-			this.dispose();
-		}
-		
-		
-	}
-	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
-	}
-	private void jMenuItem1MouseMouseClicked(MouseEvent event) {
-	}
-
-	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void annulla() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void fallito() {
-		switch (state) {
-		case selezionePath:
-			//AMM.mostra(CondominioImportatoKO)
-			break;
-		case inserimentoCondominio:
-			// AMM.mostra(condominioInseritoKO);
-		default:
-			break;
-		}
-		state=StatiAmICo.base;
-		//AMM.mostraCondomini(condomini);
-		
-	}
-
-	public void fatto() {
-		
-		switch (state) {
-		case condominioAperto:
-			//AMM.mostra(condominio chiuso);	
-			break;
-		case inserimentoCondominio: 
-			//AMM.mostra(condominioinseritoOK);
-			break;
-		case selezionePath:
-			//AMM.mostra(CondominioImportatoOK);
-			state=StatiAmICo.condominioAperto;
-			return;
-		default:
-			break;
-		}
-		state=StatiAmICo.base;
-		//AMM.mostraCondomini(condomini);
-		
-		
-	}
-
-	public void finito() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void ko() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void ok() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	
 	
 
@@ -330,9 +340,26 @@ public class AmICo extends JFrame implements BaseBoundary{
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				Condominio c = new Condominio();
+				Condominio c2 = new Condominio();
+				Condomini cond = new Condomini();
+				DatiCondominio datiC= new DatiCondominio();
+				DatiCondominio datiC2= new DatiCondominio();
+				
+				c2.CreaCondominio();
+				c2.setDatiC(datiC2);
+				c2.getDatiC().setId("via merano");
+				
+				c.CreaCondominio();
+				c.setDatiC(datiC);
+				c.getDatiC().setId("via gavino");
+				
+				cond.inserisciCondominio(c);
+				cond.inserisciCondominio(c2);
+				
 				AmICo frame = new AmICo();
+				frame.creaAmICo(cond,null);
 				frame.setTitle("AmICo");
-				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}

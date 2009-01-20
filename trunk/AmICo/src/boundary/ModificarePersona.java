@@ -9,13 +9,14 @@ import datatype.DatiErrati;
 import datatype.DatiPersona;
 import datatype.EsitoControlloDati;
 import datatype.EsitoControlloDatiPersona;
+import datatype.list.Persone;
 import executor.GestorePersone;
 
 /**
  * @author peregrino
  *
  */
-public class ModificarePersona extends AccedentiPersone implements BaseBoundary{
+public class ModificarePersona implements AccedentiPersone, BaseBoundary{
 
 	private GestorePersone GP;
 
@@ -78,6 +79,18 @@ public class ModificarePersona extends AccedentiPersone implements BaseBoundary{
 
 
 	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void aggiornaPersone(Persone persone) {
 		// TODO Auto-generated method stub
 		
 	}
