@@ -25,7 +25,7 @@ public class ModificarePersona implements AccedentiPersone, BaseBoundary{
 	
 	
 	public void creaModificarePersona(GestorePersone GP, Persona persona){
-		this.GP=GP;
+		this.GP=GestorePersone.getInstance();
 		//AMM.mostraPersona(persona);
 	}
 	

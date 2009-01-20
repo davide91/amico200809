@@ -21,8 +21,8 @@ public class InserirePersona implements AccedentiPersone,BaseBoundary{
 	private GestorePersone GP;
 	public InserirePersona(){  	}
 	
-	public void creaInserirePersona(GestorePersone GP){
-		this.GP=GP;
+	public void creaInserirePersona(){
+		this.GP=GestorePersone.getInstance();
 		//AMM.richiediDatiPersona()
 	}
 	
