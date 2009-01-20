@@ -35,7 +35,7 @@ public class TuttePersone {
 	}
 
 	public void inizializzaPersone()
-	{	PERSONE.getPersone().clear();
+	{	//PERSONE.getPersone().clear();
 		caricaDalDB();
 	}
 	
