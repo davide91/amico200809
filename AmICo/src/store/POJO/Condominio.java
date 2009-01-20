@@ -25,21 +25,17 @@ public class Condominio {
 	private Preferenze preferenze;
 	private StatoCondominio statoCondominio;
 
-	protected Set<Cassa> cassa;
-	protected Set<TabellaMillesimale> tabelleMillesimali; 
-	protected Set<Bilancio> bilanci;
-	protected Set<UnitaImmobiliare> unitaImmobiliari;
-	protected Set<Persona> persone;
+	protected Set<Cassa> cassa = new HashSet<Cassa>();
+	protected Set<TabellaMillesimale> tabelleMillesimali  = new HashSet<TabellaMillesimale>();
+	protected Set<Bilancio> bilanci = new HashSet<Bilancio>();
+	protected Set<UnitaImmobiliare> unitaImmobiliari = new HashSet<UnitaImmobiliare>();
+	protected Set<Persona> persone = new HashSet<Persona>();
 	
 	private Session session;
 	
 	public Condominio() // costruttore per Hibernate
 	{
-			persone = new HashSet<Persona>();
-			unitaImmobiliari = new HashSet<UnitaImmobiliare>();
-			bilanci = new HashSet<Bilancio>();
-			tabelleMillesimali  = new HashSet<TabellaMillesimale>();
-			cassa = new HashSet<Cassa>();
+		
 	}
 	
 	public void CreaCondominio()
@@ -58,17 +54,18 @@ public class Condominio {
 	
 	public void inserisciPersona(Persona p)
 	{
-		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 			link(p);
 		session.getTransaction().commit();
 	}
-	
+
 	private void link(Persona p)
 	{
-		p.getCondomini().add(this);
+		
 		persone.add(p);
-		session.update(p);
+		p.getCondomini().add(this);
+		//session.update(p);		
 	}
 	
 	public void inserisciUnitaImmobiliare(UnitaImmobiliare uImm)
@@ -92,7 +89,6 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		//	unitaImmobiliari.remove(uImm);
 			session.delete(uImm);
 		session.getTransaction().commit();
 	}
@@ -156,6 +152,13 @@ public class Condominio {
 	
 	public UnitaImmobiliari recuperaUnitaImmobiliari()
 	{
+		UnitaImmobiliari ret = new UnitaImmobiliari();
+		for (UnitaImmobiliare ui : unitaImmobiliari) {
+			ret.inserisciUnitaImmobiliare(ui);
+		}
+		
+		return ret;
+		/*
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
@@ -169,6 +172,7 @@ public class Condominio {
 		}
 		
 		return ret;
+		*/
 	}
 	
 	public TabelleMillesimali recuperaTabelleMillesimali()

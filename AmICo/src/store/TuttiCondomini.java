@@ -21,7 +21,7 @@ import store.util.HibernateUtil;
  */
 public class TuttiCondomini {
 
-	public static Condomini CONDOMINI;
+	public Condomini CONDOMINI;
 	private Session session;
 	
 	public TuttiCondomini()
@@ -30,27 +30,22 @@ public class TuttiCondomini {
 	}
 	
 	public void inizializzaCondomi()
-	{	//carico da DB tutti i condomini...	
-		CONDOMINI.getCondomini().clear();
-		caricaDalDB();
+	{	
+		CONDOMINI = new Condomini();
 	}
 	
-	private void caricaDalDB()
-	{
+	public Condomini recuperaCondomini()
+	{	
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
 		List Cond = session.createQuery("from Condominio").list();
 		session.getTransaction().commit();
 
-		Condomini ret = new Condomini();
-		for (int i = 0; i < Cond.size(); i++) {	
+		CONDOMINI.setCondomini(Cond);
+		/*for (int i = 0; i < Cond.size(); i++) {	
 			CONDOMINI.inserisciCondominio((Condominio)Cond.get(i));
-		}
-	}
-	
-	public Condomini recuperaCondomini()
-	{	
+		}*/
 		return CONDOMINI;
 	}
 	
