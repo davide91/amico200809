@@ -45,14 +45,14 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(0, 0, 22), new Leading(0, 192, 12, 12)));
-		add(getBmodifica(), new Constraints(new Bilateral(130, 130, 144), new Leading(258, 10, 10)));
+		add(getBmodifica(), new Constraints(new Leading(107, 186, 10, 10), new Leading(282, 10, 10)));
 		setSize(404, 341);
 	}
 
 	private JButton getBmodifica() {
 		if (bmodifica == null) {
 			bmodifica = new JButton();
-			bmodifica.setText("Modifica propriet� unit�");
+			bmodifica.setText("Modifica proprieta unita");
 		}
 		return bmodifica;
 	}

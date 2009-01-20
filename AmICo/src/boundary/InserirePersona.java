@@ -3,18 +3,20 @@
  */
 package boundary;
 
+import store.POJO.Persona;
 import datatype.DatiCorretti;
 import datatype.DatiErrati;
 import datatype.DatiPersona;
 import datatype.EsitoControlloDati;
 import datatype.EsitoControlloDatiPersona;
+import datatype.list.Persone;
 import executor.GestorePersone;
 
 /**
  * @author Pietro
  *
  */
-public class InserirePersona extends AccedentiPersone implements BaseBoundary{
+public class InserirePersona implements AccedentiPersone,BaseBoundary{
 
 	private GestorePersone GP;
 	public InserirePersona(){  	}
@@ -73,6 +75,16 @@ public class InserirePersona extends AccedentiPersone implements BaseBoundary{
 	}
 
 	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersone(Persone persone) {
 		// TODO Auto-generated method stub
 		
 	}

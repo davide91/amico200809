@@ -81,7 +81,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getScrittaavvisi(), new Constraints(new Leading(119, 41, 10, 10), new Leading(92, 36, 54, 315)));
 		add(getPannello(), new Constraints(new Leading(160, 541, 10, 10), new Bilateral(155, 42, 10)));
 		setJMenuBar(getJMenuBar0());
-		setSize(874, 586);
+		setSize(874, 630);
 	}
 
 	private JButton getBesportarecondominio() {
