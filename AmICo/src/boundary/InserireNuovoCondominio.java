@@ -24,25 +24,13 @@ import org.dyno.visual.swing.layouts.Leading;
 import datatype.DatiCondominio;
 import datatype.list.Reali;
 import datatype.list.UnitaImmobiliari;
+import enumeration.Comune;
+import enumeration.Provincia;
 import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
 
-import store.POJO.UnitaImmobiliare;
-import sun.misc.GC;
 
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
 public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	
@@ -155,6 +143,15 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 		
 	}
+	
+	private void inserisciMouseMouseClicked(MouseEvent event) {
+	}
+
+	private void annullaMouseMouseClicked(MouseEvent event) {
+		//this.annulla();
+		this.dispose();
+	}
+
 
 	private static final long serialVersionUID = 1L;
 	private JTextField via;
@@ -177,23 +174,18 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getScrittavia(), new Constraints(new Leading(18, 29, 10, 10), new Leading(12, 12, 12)));
 		add(getVia(), new Constraints(new Leading(96, 117, 10, 10), new Leading(10, 12, 12)));
-		add(getScrittacomune(), new Constraints(new Leading(258, 10, 10), new Leading(40, 12, 12)));
-		add(getProvincia(), new Constraints(new Leading(96, 116, 12, 12), new Leading(34, 22, 12, 12)));
-		add(getCap(), new Constraints(new Leading(97, 114, 12, 12), new Leading(64, 10, 10)));
-		add(getScrittacap(), new Constraints(new Leading(20, 12, 12), new Leading(66, 12, 12)));
-		add(getScrittaprovincia(), new Constraints(new Leading(12, 12, 12), new Leading(38, 16, 12, 12)));
-		add(getComune(), new Constraints(new Leading(312, 110, 12, 12), new Leading(32, 12, 12)));
 		add(getInserisci(), new Constraints(new Leading(100, 10, 10), new Leading(121, 10, 10)));
 		add(getAnnulla(), new Constraints(new Leading(315, 10, 10), new Leading(123, 10, 10)));
+		add(getScrittavia(), new Constraints(new Leading(18, 29, 12, 12), new Leading(14, 12, 12)));
+		add(getProvincia(), new Constraints(new Leading(97, 116, 12, 12), new Leading(34, 22, 12, 12)));
+		add(getComune(), new Constraints(new Leading(310, 116, 12, 12), new Leading(33, 12, 12)));
+		add(getScrittaprovincia(), new Constraints(new Leading(12, 12, 12), new Leading(40, 16, 12, 12)));
+		add(getCap(), new Constraints(new Leading(97, 114, 12, 12), new Leading(65, 12, 12)));
+		add(getScrittacap(), new Constraints(new Leading(18, 12, 12), new Leading(67, 12, 12)));
+		add(getScrittacomune(), new Constraints(new Leading(245, 10, 10), new Leading(43, 13, 12, 12)));
 		setJMenuBar(getJMenuBar0());
-//<<<<<<< .mine
-		this.setSize(610, 450);
-		setSize(437, 192);
-//=======
-		setSize(437, 192);
-//>>>>>>> .r60
+		setSize(480, 230);
 	}
 
 	private JButton getAnnulla() {
@@ -285,7 +277,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JComboBox getProvincia() {
 		if (provincia == null) {
 			provincia = new JComboBox();
-			provincia.setModel(new DefaultComboBoxModel(new Object[] { "item0", "item1", "item2", "item3" }));
+			provincia.setModel(new DefaultComboBoxModel(Provincia.values()  ) );
 			provincia.setDoubleBuffered(false);
 			provincia.setBorder(null);
 		}
@@ -302,7 +294,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JComboBox getComune() {
 		if (comune == null) {
 			comune = new JComboBox();
-			comune.setModel(new DefaultComboBoxModel(new Object[] { "item0", "item1", "item2", "item3" }));
+			comune.setModel(new DefaultComboBoxModel( Comune.values() ) );
 			comune.setDoubleBuffered(false);
 			comune.setBorder(null);
 		}
@@ -340,17 +332,11 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			public void run() {
 				InserireNuovoCondominio frame = new InserireNuovoCondominio();
 				frame.setTitle("Inserimento Dati Condominio");
-				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
 		});
 	}
 
-	private void inserisciMouseMouseClicked(MouseEvent event) {
-	}
-
-	private void annullaMouseMouseClicked(MouseEvent event) {
-	}
 
 }
