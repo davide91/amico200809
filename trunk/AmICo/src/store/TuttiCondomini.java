@@ -40,12 +40,13 @@ public class TuttiCondomini {
 		session.beginTransaction();
 		
 		List Cond = session.createQuery("from Condominio").list();
-		session.getTransaction().commit();
+		
 
 		CONDOMINI.setCondomini(Cond);
 		/*for (int i = 0; i < Cond.size(); i++) {	
 			CONDOMINI.inserisciCondominio((Condominio)Cond.get(i));
 		}*/
+		session.getTransaction().commit();
 		return CONDOMINI;
 	}
 	

@@ -12,6 +12,7 @@
 		</id>
 		
 		<component name="datiUnitaImmobiliare" class="datatype.DatiUnitaImmobiliare">
+			<property name="id"/>
 			<property name="catCatastale" type="store.convertitori.HibCategoriaCatastale"/>
 			<property name="posizioneInterna" />
 			<property name="metriQ" />
@@ -23,7 +24,7 @@
 		 	class="Condominio"
 		 	column="CONDOMINIO_ID"/>
 			
-	<set name="quoteDiPossesso" cascade="all-delete-orphan,save-update">
+	<set name="quoteDiPossesso" lazy="false" cascade="all-delete-orphan,save-update">
 		 <key column="UNITA_ID"/>			
 	 	<one-to-many class="Proprieta"/>	
 	</set>			
