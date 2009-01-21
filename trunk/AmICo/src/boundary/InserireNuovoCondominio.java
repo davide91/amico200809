@@ -61,7 +61,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	
 	public void inserisciTabellaMillesimaleProprieta(Reali millesimi) {
-//		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi);
+//		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi); TODO
 		state=StatiInserireNuovoCondominio.controlloTabellaMillesimaleProprieta;
 		
 	}
@@ -199,7 +199,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	}
 
 	private void annullaMouseMouseClicked(MouseEvent event) {
-		//this.annulla();
+		//this.annulla(); TODO
 		this.dispose();
 	}
 
