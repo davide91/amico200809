@@ -60,7 +60,16 @@ public class DatiPersonaFisica extends DatiPersona{
 	
 	@Override
 	public int hashCode() {
-		return 2;
+		 int result;
+		 result = this.getCell().hashCode();
+		 result = 29 * result + this.getCognome().hashCode();
+		 result = 29 * result + this.getFax().hashCode();
+		 result = 29 * result + this.getNome().hashCode();
+		 result = 29 * result + this.getTel().hashCode();
+		 result = 29 * result + this.getCf().hashCode();
+		 result = 29 * result + this.getDomicilio().hashCode();
+		 result = 29 * result + this.getMail().hashCode();		 
+		 return result;
 	}
 	
 	@Override

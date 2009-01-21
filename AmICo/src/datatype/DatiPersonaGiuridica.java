@@ -64,6 +64,18 @@ public class DatiPersonaGiuridica extends DatiPersona {
 		   return false;
 	 return true;
 	}
+
+	@Override
+	public int hashCode() {
+		 int result=0;
+		 result = 29 * result + this.getFax().hashCode();
+		 result = 29 * result + this.getRagioneSociale().hashCode();
+		 result = 29 * result + this.getTel().hashCode();
+		 result = 29 * result + this.getIndFiscale().hashCode();
+		 result = 29 * result + this.getMail().hashCode();
+		 result = 29 * result + this.getpIva().hashCode();		 
+		 return result;
+	}
 	
 	public PartitaIva getpIva() {
 		return pIva;

@@ -15,6 +15,7 @@ import store.util.HibernateUtil;
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Persone;
 import datatype.list.QuoteProprieta;
+import datatype.list.Reali;
 
 /**
  * @author bruno
@@ -25,21 +26,18 @@ public class UnitaImmobiliare {
 	private long id;
 	private DatiUnitaImmobiliare datiUnitaImmobiliare = new DatiUnitaImmobiliare();
 	private Condominio condominio;
-	private Set<Proprieta> quoteDiPossesso;
-	private Set<Millesimo> millesimo;
+	private Set<Proprieta> quoteDiPossesso = new HashSet<Proprieta>();
+	private Set<Millesimo> millesimo = new HashSet<Millesimo>();
 	
 	private Session session;
 	
 	public UnitaImmobiliare()
 	{
-		 quoteDiPossesso = new HashSet<Proprieta>();
-		 millesimo = new HashSet<Millesimo>();
+
 	}
 	
 	public UnitaImmobiliare(DatiUnitaImmobiliare dui)
 	{
-		quoteDiPossesso = new HashSet<Proprieta>();
-		 millesimo = new HashSet<Millesimo>();
 		this.datiUnitaImmobiliare = dui;
 	}
 	
@@ -53,7 +51,7 @@ public class UnitaImmobiliare {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 	
-		datiUnitaImmobiliare = dui;
+			datiUnitaImmobiliare = dui;
 	
 		session.update(this);
 		session.getTransaction().commit();
@@ -70,9 +68,39 @@ public class UnitaImmobiliare {
 		return ret;
 	}
 
-	public void modificaProprieta(Persone p, QuoteProprieta q)
+	public void modificaProprieta(Persone pers, Reali quote)
 	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
 		
+		if(quoteDiPossesso.isEmpty())
+		{
+			for (int i=0;i< pers.getPersone().size();i++) {
+				Proprieta prop = new Proprieta();
+				prop.setProprietario(pers.getPersone().get(i));
+				prop.setQuota(quote.getListaQuote().get(i));
+				//prop.setUnitaImmobiliare(this);
+				quoteDiPossesso.add(prop);
+				//session.update(this);
+			}
+		}
+		else
+		{
+			//per ogni persona nella lista passata
+			for (int i=0; i<pers.getPersone().size();i++) {
+				//scorro tutte le quote di possesso, se la persona è uguale a quella considerata 
+				 //modifica la proprietà allo stesso indice
+				for (Proprieta prop : quoteDiPossesso) {
+					if(prop.getProprietario().equals(pers.getPersone().get(i)))
+					{
+						prop.setQuota(quote.getListaQuote().get(i)); 
+					}
+				}
+			}
+		}
+		
+		session.update(this);
+		session.getTransaction().commit();
 	}
 
 	@Override

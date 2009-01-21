@@ -57,14 +57,14 @@ public class Condominio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 			link(p);
-		session.update(this);
+		
 		session.getTransaction().commit();
 	}
 
 	private void link(Persona p)
 	{
 		persone.add(p);
-		//p.getCondomini().add(this);		
+		session.update(this);		
 	}
 	
 	public void rimuoviPersona(Persona p)
@@ -72,7 +72,7 @@ public class Condominio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 			persone.remove(p);
-		session.update(this);
+			session.update(this);
 		session.getTransaction().commit();
 	}
 	

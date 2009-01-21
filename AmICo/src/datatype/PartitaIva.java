@@ -61,4 +61,9 @@ public class PartitaIva {
 	 final PartitaIva pi = (PartitaIva)other;
 	 return this.partIva.equals(pi.partIva);
 	}
+	
+	@Override
+	public int hashCode() { 
+		 return this.partIva.hashCode();
+	}
 }

@@ -82,13 +82,4 @@ public class Persona {
 	public void setProprieta(Set<Proprieta> proprieta) {
 		this.proprieta = proprieta;
 	}
-
-/*	public Set<Condominio> getCondomini() {
-		return condomini;
-	}
-
-	public void setCondomini(Set<Condominio> condomini) {
-		this.condomini = condomini;
-	}
-*/
 }
