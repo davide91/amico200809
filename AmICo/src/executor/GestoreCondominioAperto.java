@@ -19,7 +19,7 @@ import datatype.DatiTabellaMillesimale;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
 import datatype.list.Persone;
-import datatype.list.QuoteProprieta;
+//import datatype.list.QuoteProprieta;
 import datatype.list.Reali;
 import enumeration.StatiGestoreCondominioAperto;
 
