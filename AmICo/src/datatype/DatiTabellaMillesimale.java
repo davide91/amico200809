@@ -11,7 +11,7 @@ public class DatiTabellaMillesimale {
 
 	private String nome;
 	private String descrizione;
-	private float millesimi; // va messe come sequenza di float ordinata
+	//private float millesimi; // va messe come sequenza di float ordinata
 	
 	public DatiTabellaMillesimale()
 	{
@@ -32,14 +32,6 @@ public class DatiTabellaMillesimale {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
-	}
-
-	public float getMillesimi() {
-		return millesimi;
-	}
-
-	public void setMillesimi(float millesimi) {
-		this.millesimi = millesimi;
 	}
 	
 	public boolean controlla()

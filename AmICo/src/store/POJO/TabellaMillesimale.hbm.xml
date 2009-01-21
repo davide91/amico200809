@@ -14,7 +14,6 @@
 		<component name="dati" class="datatype.DatiTabellaMillesimale">
 			<property name="nome"/>
 			<property name="descrizione"/>
-			<property name="millesimi"/>
 		</component>	
 		
 		<!-- inverse end -->
