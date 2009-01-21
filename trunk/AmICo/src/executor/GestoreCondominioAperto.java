@@ -209,6 +209,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			break;
 		}
 	}
+
+	public void inserisciNuovaPersona() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
