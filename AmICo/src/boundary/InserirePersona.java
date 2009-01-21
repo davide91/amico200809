@@ -2,6 +2,7 @@
 package boundary;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -129,9 +130,16 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JCheckBox avvisiM;
 	private JCheckBox avvisiT;
 	private JCheckBox avvisiF;
-	private JTextField jTextField0;
+	private JTextField cellulare;
+	private JTextField eMail;
+	private JTextField fax;
+	private JTextField ragioneSociale;
+	private JComboBox personaDiRiferimento;
+	private JTextField partitaIVA;
+	private JTextField indirizzoFiscale;
+	private JButton bok;
+	private JButton bannulla;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-
 	public InserirePersona() {
 		initComponents();
 	}
@@ -141,42 +149,119 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getRadioPF(), new Constraints(new Leading(479, 10, 10), new Leading(12, 8, 8)));
 		add(getRadioPG(), new Constraints(new Leading(479, 8, 8), new Leading(38, 8, 8)));
 		add(getNome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(44, 12, 12)));
-		add(getComS(), new Constraints(new Leading(307, 10, 10), new Leading(342, 10, 10)));
-		add(getComM(), new Constraints(new Leading(362, 10, 10), new Leading(342, 8, 8)));
-		add(getComT(), new Constraints(new Leading(413, 10, 10), new Leading(342, 8, 8)));
-		add(getComP(), new Constraints(new Leading(256, 10, 10), new Leading(342, 8, 8)));
-		add(getComF(), new Constraints(new Leading(464, 8, 8), new Leading(342, 8, 8)));
-		add(getVerbaliP(), new Constraints(new Leading(256, 8, 8), new Leading(366, 8, 8)));
-		add(getVerbaliS(), new Constraints(new Leading(307, 8, 8), new Leading(366, 8, 8)));
-		add(getVerbaliM(), new Constraints(new Leading(362, 8, 8), new Leading(366, 8, 8)));
-		add(getVerbaliT(), new Constraints(new Leading(413, 8, 8), new Leading(366, 8, 8)));
-		add(getVerbaliF(), new Constraints(new Leading(464, 8, 8), new Leading(366, 8, 8)));
-		add(getConvP(), new Constraints(new Leading(256, 8, 8), new Leading(392, 8, 8)));
-		add(getConvS(), new Constraints(new Leading(307, 8, 8), new Leading(392, 8, 8)));
-		add(getConvM(), new Constraints(new Leading(362, 8, 8), new Leading(392, 8, 8)));
-		add(getConvT(), new Constraints(new Leading(413, 8, 8), new Leading(392, 8, 8)));
-		add(getConvF(), new Constraints(new Leading(464, 8, 8), new Leading(392, 8, 8)));
-		add(getAvvisiP(), new Constraints(new Leading(256, 8, 8), new Leading(417, 8, 8)));
-		add(getAvvisiS(), new Constraints(new Leading(307, 8, 8), new Leading(417, 8, 8)));
-		add(getAvvisiM(), new Constraints(new Leading(362, 8, 8), new Leading(417, 8, 8)));
-		add(getAvvisiT(), new Constraints(new Leading(413, 8, 8), new Leading(417, 8, 8)));
-		add(getAvvisiF(), new Constraints(new Leading(464, 8, 8), new Leading(417, 8, 8)));
 		add(getCognome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(14, 12, 12)));
 		add(getDomicilio(), new Constraints(new Leading(108, 110, 12, 12), new Leading(104, 12, 12)));
 		add(getComune(), new Constraints(new Leading(108, 110, 12, 12), new Leading(132, 12, 12)));
 		add(getProvincia(), new Constraints(new Leading(313, 104, 10, 10), new Leading(134, 12, 12)));
 		add(getCodiceFiscale(), new Constraints(new Leading(108, 110, 12, 12), new Leading(72, 10, 10)));
 		add(getTelefono(), new Constraints(new Leading(108, 309, 12, 12), new Leading(175, 12, 12)));
-		add(getJTextField0(), new Constraints(new Leading(108, 309, 12, 12), new Leading(211, 12, 12)));
-		setSize(672, 647);
+		add(getCellulare(), new Constraints(new Leading(108, 309, 12, 12), new Leading(211, 12, 12)));
+		add(getEMail(), new Constraints(new Leading(108, 308, 12, 12), new Leading(247, 12, 12)));
+		add(getFax(), new Constraints(new Leading(108, 308, 12, 12), new Leading(283, 12, 12)));
+		add(getPersonaDiRiferimento(), new Constraints(new Leading(554, 10, 10), new Leading(516, 12, 12)));
+		add(getComP(), new Constraints(new Leading(189, 10, 10), new Leading(384, 10, 10)));
+		add(getVerbaliP(), new Constraints(new Leading(189, 10, 10), new Leading(408, 10, 10)));
+		add(getConvP(), new Constraints(new Leading(189, 10, 10), new Leading(434, 10, 10)));
+		add(getAvvisiP(), new Constraints(new Leading(189, 10, 10), new Leading(459, 10, 10)));
+		add(getAvvisiS(), new Constraints(new Leading(240, 10, 10), new Leading(459, 10, 10)));
+		add(getConvS(), new Constraints(new Leading(240, 10, 10), new Leading(434, 10, 10)));
+		add(getVerbaliS(), new Constraints(new Leading(240, 10, 10), new Leading(408, 10, 10)));
+		add(getComS(), new Constraints(new Leading(240, 10, 10), new Leading(384, 10, 10)));
+		add(getComM(), new Constraints(new Leading(295, 10, 10), new Leading(384, 10, 10)));
+		add(getComT(), new Constraints(new Leading(346, 10, 10), new Leading(384, 10, 10)));
+		add(getComF(), new Constraints(new Leading(396, 8, 8), new Leading(384, 10, 10)));
+		add(getVerbaliF(), new Constraints(new Leading(396, 8, 8), new Leading(408, 10, 10)));
+		add(getVerbaliT(), new Constraints(new Leading(346, 10, 10), new Leading(408, 10, 10)));
+		add(getVerbaliM(), new Constraints(new Leading(295, 10, 10), new Leading(408, 10, 10)));
+		add(getConvM(), new Constraints(new Leading(295, 10, 10), new Leading(434, 10, 10)));
+		add(getConvT(), new Constraints(new Leading(346, 10, 10), new Leading(434, 10, 10)));
+		add(getConvF(), new Constraints(new Leading(396, 8, 8), new Leading(434, 10, 10)));
+		add(getAvvisiF(), new Constraints(new Leading(396, 8, 8), new Leading(459, 10, 10)));
+		add(getAvvisiT(), new Constraints(new Leading(346, 10, 10), new Leading(459, 10, 10)));
+		add(getAvvisiM(), new Constraints(new Leading(295, 10, 10), new Leading(459, 10, 10)));
+		add(getRagioneSociale(), new Constraints(new Leading(108, 309, 12, 12), new Leading(495, 10, 10)));
+		add(getPartitaIVA(), new Constraints(new Leading(108, 308, 12, 12), new Leading(529, 10, 10)));
+		add(getIndirizzoFiscale(), new Constraints(new Leading(108, 308, 12, 12), new Leading(565, 12, 12)));
+		add(getBok(), new Constraints(new Leading(138, 10, 10), new Leading(613, 10, 10)));
+		add(getBannulla(), new Constraints(new Leading(432, 10, 10), new Leading(613, 12, 12)));
+		setSize(672, 688);
 	}
 
 
-	private JTextField getJTextField0() {
-		if (jTextField0 == null) {
-			jTextField0 = new JTextField();
+	private JButton getBannulla() {
+		if (bannulla == null) {
+			bannulla = new JButton();
+			bannulla.setText("Annulla");
 		}
-		return jTextField0;
+		return bannulla;
+	}
+
+
+	private JButton getBok() {
+		if (bok == null) {
+			bok = new JButton();
+			bok.setText("OK");
+		}
+		return bok;
+	}
+
+
+	private JTextField getIndirizzoFiscale() {
+		if (indirizzoFiscale == null) {
+			indirizzoFiscale = new JTextField();
+		}
+		return indirizzoFiscale;
+	}
+
+
+	private JTextField getPartitaIVA() {
+		if (partitaIVA == null) {
+			partitaIVA = new JTextField();
+		}
+		return partitaIVA;
+	}
+
+
+	private JComboBox getPersonaDiRiferimento() {
+		if (personaDiRiferimento == null) {
+			personaDiRiferimento = new JComboBox();
+			personaDiRiferimento.setModel(new DefaultComboBoxModel(new Object[] { "item0", "item1", "item2", "item3" }));
+			personaDiRiferimento.setDoubleBuffered(false);
+			personaDiRiferimento.setBorder(null);
+		}
+		return personaDiRiferimento;
+	}
+
+
+	private JTextField getRagioneSociale() {
+		if (ragioneSociale == null) {
+			ragioneSociale = new JTextField();
+		}
+		return ragioneSociale;
+	}
+
+
+	private JTextField getFax() {
+		if (fax == null) {
+			fax = new JTextField();
+		}
+		return fax;
+	}
+
+
+	private JTextField getEMail() {
+		if (eMail == null) {
+			eMail = new JTextField();
+		}
+		return eMail;
+	}
+
+
+	private JTextField getCellulare() {
+		if (cellulare == null) {
+			cellulare = new JTextField();
+		}
+		return cellulare;
 	}
 
 
