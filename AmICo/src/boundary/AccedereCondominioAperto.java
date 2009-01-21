@@ -299,7 +299,8 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 
 	private void bdaticondominiMouseMouseClicked(MouseEvent event) {
-		this.passaADatiCondomini();
+		
+		//this.passaADatiCondomini();
 		
 		pannello.removeAll();
 		pannello.add(new AccederePersone());  
@@ -465,7 +466,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 	
 	public void esportaCondominio(){	
-		GCA.esportaCondominio();
+		//GCA.esportaCondominio();
 		state=StatiAccedereCondominioAperto.esportazioneCondominio;
 	}
 	
