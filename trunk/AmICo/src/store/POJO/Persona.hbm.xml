@@ -22,7 +22,7 @@
 <!--		<many-to-many column="CONDOMINIO_ID" class="Condominio"/>								-->
 <!--	</set>																						-->
 	
-	<set name="proprieta" cascade="all-delete-orphan,save-update">
+	<set name="proprieta" cascade="all">
 		 <key column="PERSONA_ID"/>
 		 <one-to-many class="Proprieta"/>
 	</set>

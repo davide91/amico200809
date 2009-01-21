@@ -49,7 +49,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_Inserimento()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 		
 		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 		
@@ -67,7 +66,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_recupero()
 	{		
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
+	
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 		
 		Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
@@ -83,7 +82,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_modificaPreferenze()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 			
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0); // recupero il condominio
 		c.modificaPreferenze(new Preferenze((float)4.3,100,new Euro((float)510.0)));
@@ -94,10 +92,8 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_inserireUnitaImmobiliare()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 		
 		tp = new TuttePersone();
-		tp.inizializzaPersone();
 		
 		//recupero il condominio
 		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
@@ -111,7 +107,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_recuperaUnitaImmobiliare()
 	{		
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		UnitaImmobiliare unitaRecuperata = c.recuperaUnitaImmobiliari().getImmobili().get(0);
@@ -125,7 +120,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_modificaUnitaImmobiliare()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 		
 		//recupero il condominio
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
@@ -144,10 +138,8 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_InserisciPersona()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 		
 		tp = new TuttePersone();
-		tp.inizializzaPersone();
 		
 		//recupero il condominio
 		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
@@ -176,7 +168,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	public void testCONDOMINI_InserireProprietàUnitàImmobiliare()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
+		
 		
 		//recupero il condominio
 		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
@@ -190,41 +182,56 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		if(pers.getPersone().size()==2)
 		{
-			quote.inserisciReale((float)50);
-			quote.inserisciReale((float)50);
+			quote.inserisciReale((float)0.5);
+			quote.inserisciReale((float)0.5);
 		}
+		unitaRecuperata.modificaProprieta(pers, quote);
+	}
+	
+	public void testCONDOMINI_ModificaProprietàUnitàImmobiliare()
+	{
+		tc = new TuttiCondomini();
 		
+		
+		//recupero il condominio
+		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
+		//recuper l'unità Immobiliare
+		UnitaImmobiliare unitaRecuperata = cond.recuperaUnitaImmobiliari().getImmobili().get(0);
+		
+		//recupero le persone dal condominio
+		Persona pe = cond.recuperaCondomini().recuperaPersone().get(1);
+		
+		Persone pers = new Persone();
+		pers.inserisciPersona(pe);
+		
+		Reali quote = new Reali();
+			quote.inserisciReale((float)1.0);
+	
 		unitaRecuperata.modificaProprieta(pers, quote);
 	}
 	
 	public void testCONDOMINI_EliminaPersona()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 		
 		tp = new TuttePersone();
-		tp.inizializzaPersone();
 		
 		//recupero il condominio
 		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
 		
 		//recupero la persona e la elimino		
-		PersonaFisica p = (PersonaFisica)(cond.recuperaCondomini().recuperaPersone().get(1));
+		PersonaFisica p = (PersonaFisica)(cond.recuperaCondomini().recuperaPersone().get(0));
 		
-		Indirizzo ind = new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060");
-		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",ind,"0143-50187",new Email("mazzibruno@libero.it"),"ff");
-
-		assertTrue(p.getDati().equals(dpf));
 		cond.rimuoviPersona(p);
 		
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 	}
 
-	/*	public void testCONDOMINI_eliminaUnitaImmobiliare()
+	public void testCONDOMINI_eliminaUnitaImmobiliare()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
-		Condominio c = tc.CONDOMINI.getCondomini().get(0);
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		
 		//prima c'è una unità immobiliare
 		assertEquals(1, c.recuperaUnitaImmobiliari().getImmobili().size());
@@ -236,20 +243,19 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		//dopo non c'è nessuna unità immobiliare
 		assertEquals(0, c.recuperaUnitaImmobiliari().getImmobili().size());
 	}
-*/	
 	
-/*	public void testCONDOMINI_eliminaCondominio()
+	
+	public void testCONDOMINI_eliminaCondominio()
 	{
 		tc = new TuttiCondomini();
-		tc.inizializzaCondomi();
 		
-		assertEquals(2, TuttiCondomini.CONDOMINI.getCondomini().size());
+		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 		
-		Condominio cond = TuttiCondomini.CONDOMINI.getCondomini().get(1);
+		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
 		
 		tc.eliminaCondominio(cond);
-		assertEquals(1, tc.CONDOMINI.getCondomini().size());
+		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 	}
-*/
+
 	
 }
