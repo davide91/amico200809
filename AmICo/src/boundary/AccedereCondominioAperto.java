@@ -22,6 +22,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
 import store.POJO.Condominio;
+import datatype.DatiCondominio;
 import datatype.EsitoEliminabile;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
@@ -60,8 +61,14 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton besportarecondominio;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
-	public AccedereCondominioAperto() {
+	public AccedereCondominioAperto(GestoreCondominioAperto gca,Condominio condominio) {
+		GCA=gca;
+		this.condominio=condominio;
 		initComponents();
+		setTitle(condominio.getDatiC().getId());
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
 		state=StatiAccedereCondominioAperto.base;
 		
 		
@@ -488,10 +495,13 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				AccedereCondominioAperto frame =new AccedereCondominioAperto();
-				frame.setTitle("AccedereCondominioAperto");
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
+				Condominio c=new Condominio();
+				DatiCondominio datiC= new DatiCondominio();
+				
+				c.CreaCondominio();
+				c.setDatiC(datiC);
+				c.getDatiC().setId("via gavino");
+				new AccedereCondominioAperto(null,c);
 			}
 		});
 	}

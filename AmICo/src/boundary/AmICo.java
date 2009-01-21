@@ -119,7 +119,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 		
 		if(lista.getSelectedIndex()>-1) {
 			// temporaneo
-			AccedereCondominioAperto ACA =new AccedereCondominioAperto();
+			AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
 			ACA.setTitle((String)lista.getSelectedValue());
 			ACA.setVisible(true);/* si cancella quello prima e si mette quello dopo per integrazione TODO
 			for (Condominio c : condomini.getCondomini())
@@ -127,7 +127,6 @@ public class AmICo extends JFrame implements BaseBoundary{
 				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) )
 					this.apriCondominio(c);
 			}*/
-			this.dispose();
 		}
 		
 		
