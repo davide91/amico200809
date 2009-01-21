@@ -2,36 +2,26 @@ package executor;
 
 import java.net.URL;
 
-import calculator.CalcolaAvvisi;
-import calculator.FormatoAmICo;
-
-import boundary.AccedereCondomini;
-import boundary.AccedereCondominioAperto;
-
-import boundary.AccederePersone;
-import boundary.AccedereTabelleMillesimali;
-
-import boundary.AccedereCondomini;
-import boundary.AccedereTabelleMillesimali;
-import boundary.AccedereUnitaImmobiliari;
-
-import boundary.DriverFileSystem;
-import datatype.DatiTabellaMillesimale;
-import datatype.Preferenze;
-import datatype.list.Avvisi;
-import datatype.list.Bilanci;
-import datatype.list.Condomini;
-import datatype.list.Persone;
-import datatype.list.QuoteProprieta;
-import datatype.list.Reali;
-import enumeration.FormatoFile;
-import enumeration.StatiGestoreCondominioAperto;
 import store.TuttePersone;
 import store.TuttiCondomini;
 import store.POJO.Bilancio;
 import store.POJO.Condominio;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
+import boundary.AccedereCondominioAperto;
+import boundary.AccederePersone;
+import boundary.AccedereTabelleMillesimali;
+import boundary.AccedereUnitaImmobiliari;
+import boundary.DriverFileSystem;
+import calculator.CalcolaAvvisi;
+import calculator.FormatoAmICo;
+import datatype.DatiTabellaMillesimale;
+import datatype.Preferenze;
+import datatype.list.Avvisi;
+import datatype.list.Persone;
+import datatype.list.QuoteProprieta;
+import datatype.list.Reali;
+import enumeration.StatiGestoreCondominioAperto;
 
 public class GestoreCondominioAperto implements BaseExecutor {
 
@@ -132,7 +122,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void passaADatiCondomini() {
-		m_accedereCondomini = new AccedereCondomini(this, m_condominio.recuperaCondomini());
+		m_accedereCondomini = new AccederePersone();
+		m_accedereCondomini.creaAccederePersone(this, persone);
 		m_state = StatiGestoreCondominioAperto.gestioneDatiCondomini;
 	}
 	
@@ -159,13 +150,12 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void passaAUnitaImmobiliari() {
-		m_accedereUnitaImmobiliari = 
-			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
+		m_accedereUnitaImmobiliari = new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
 		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 	}
 	
 	
-	public void passaProprieta(Persone persone, QuoteProprieta quoteProprieta) {
+	public void passaProprieta(Persone persone, Reali quoteProprieta) {
 		
 		/* TODO : qui è richiesto quoteProprieta.quoteOk(), ma credo che sia
 		 * un sinonimo di quoteProprieta.controlla()

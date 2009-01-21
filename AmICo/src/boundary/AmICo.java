@@ -21,6 +21,7 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.TuttiCondomini;
 import store.POJO.Condominio;
 import datatype.DatiCondominio;
 import datatype.Path;
@@ -43,7 +44,6 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 	private Condomini condomini;
 	private StatiAmICo state;
-	private GestoreCondomini GC;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -58,27 +58,22 @@ public class AmICo extends JFrame implements BaseBoundary{
 	private JScrollPane jScrollPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AmICo() {
+		state=StatiAmICo.base;
 		initComponents();
 	}
 
-	public void creaAmICo(Condomini condomini){
-//		this.condomini=condomini;
-		this.GC=GestoreCondomini.getInstance();
-		state=StatiAmICo.base;
-		this.aggiornaCondomini(condomini);
-
-	}
+	
 	
 	
 	
 	public void apriCondominio(Condominio condominio){
-		GC.apriCondominio(condominio);
+		GestoreCondomini.getInstance().apriCondominio(condominio);
 		state=StatiAmICo.inserimentoCondominio;
 		
 	}
 	
 	public void  inserisciCondominio() {
-		GC.inserisciCondominio();
+		GestoreCondomini.getInstance().inserisciCondominio();
 		state=StatiAmICo.inserimentoCondominio;
 	}
 	
@@ -103,12 +98,12 @@ public class AmICo extends JFrame implements BaseBoundary{
 	}
 	
 	public void selezioneFile(Path path) {
-	//	GC.importaCondominio(path);
+	//	GestoreCondomini.getInstance().importaCondominio(path);
 		state=StatiAmICo.selezionePath;
 	}
 	
 	public void esciDaAmICo(){
-		GC.esciDaAmico();
+		GestoreCondomini.getInstance().esciDaAmico();
 	}
 	
 	
@@ -359,8 +354,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 				cond.inserisciCondominio(c);
 				cond.inserisciCondominio(c2);
 				
-				AmICo frame = new AmICo();
-				frame.creaAmICo(cond);
+				AmICo frame = new AmICo(cond);
 				frame.setTitle("AmICo");
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);

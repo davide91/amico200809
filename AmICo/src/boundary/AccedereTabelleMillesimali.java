@@ -49,10 +49,19 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JScrollPane jScrollPane0;
 	private JButton binseriscitabella;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public AccedereTabelleMillesimali() {
-		initComponents();
+	
+	
+	public AccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita) {
+		this.tabelleMillesimali=tabelleMillesimali;
+		this.unita=unita;
+		this.GCA=GCA;
+		//AMM.mostraTabelleMillesimali(tabelleMillesimali);
 		state=StatiAccedereTabelleMillesimali.base;
-		
+		initComponents();
+	}
+
+	public AccedereTabelleMillesimali() {
+		// TODO Auto-generated constructor stub
 	}
 
 	private void initComponents() {
@@ -147,13 +156,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	}
 
 	
-	public void creaAccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
-	{
-		this.tabelleMillesimali=tabelleMillesimali;
-		this.unita=unita;
-		this.GCA=GCA;
-		//AMM.mostraTabelleMillesimali(tabelleMillesimali);
-	}
 	
 	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM){
 		datiTabella=DTM;

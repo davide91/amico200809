@@ -20,11 +20,18 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Persona;
+import datatype.list.Condomini;
+import datatype.list.Persone;
+import enumeration.StatiAccederePersone;
+import executor.GestoreCondominioAperto;
+import executor.GestorePersone;
+
 /**
  * @author Federico
  *
  */
-public class AccederePersone extends JPanel{
+public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPersone{
 
 	private static final long serialVersionUID = 1L;
 	private JButton bvisualizza;
@@ -32,8 +39,22 @@ public class AccederePersone extends JPanel{
 	private JTable jTable0;
 	private JScrollPane jScrollPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	private GestoreCondominioAperto GCA;
+	private Persone persone;
+	private StatiAccederePersone state;
+	
+	
 	public AccederePersone() {
 		initComponents();
+		state=StatiAccederePersone.base;
+	}
+	
+	public void creaAccederePersone(GestoreCondominioAperto GCA, Persone persone){
+		this.GCA=GCA; 
+		this.persone=persone;
+		//AMM.mostraPersone(persone);
+		
+		
 	}
 
 	private void initComponents() {
@@ -71,7 +92,7 @@ public class AccederePersone extends JPanel{
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
 			jLabel0.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 14));
-			jLabel0.setText("Elenco dei condòmini:");
+			jLabel0.setText("Elenco dei condï¿½mini:");
 		}
 		return jLabel0;
 	}
@@ -117,6 +138,62 @@ public class AccederePersone extends JPanel{
 				frame.setVisible(true);
 			}
 		});
+	}
+	
+	public void modificaCondomino(Persona persona) {
+		GestorePersone.getInstance().modificaPersona(this, persona);
+		state=StatiAccederePersone.modificaPersone;
+	}
+	
+	public void aggiornaCondomini(Persone persone	) {
+		
+	}
+	
+
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fatto() {
+		state=StatiAccederePersone.base;
+		
+	}
+
+	public void finito() {
+		GCA.operazioneTerminata();
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersone(Persone persone) {
+		this.persone =persone;
+		//AMM.mostraPersone(persone);
+		
 	}
 
 }
