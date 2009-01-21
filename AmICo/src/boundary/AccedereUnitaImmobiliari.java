@@ -17,8 +17,12 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.UnitaImmobiliare;
+
 import datatype.list.Persone;
+import datatype.list.Reali;
 import datatype.list.UnitaImmobiliari;
+import enumeration.StatiAccedereUnitaImmobiliari;
 import executor.GestoreCondominioAperto;
 
 /**
@@ -29,14 +33,67 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 
 
-	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub
+	private GestoreCondominioAperto GCA;
+	private UnitaImmobiliari unita;
+	private Persone persone;
+	private StatiAccedereUnitaImmobiliari state;
+	
+	
+	private static final long serialVersionUID = 1L;
+	private JTable jTable0;
+	private JScrollPane jScrollPane0;
+	private JButton bmodifica;
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+
+
+	public AccedereUnitaImmobiliari() {
+		initComponents();
+		state=StatiAccedereUnitaImmobiliari.base;
+	}
+
+	public void creaAccedereUnitaImmobiliari(GestoreCondominioAperto GCA, UnitaImmobiliari unita){
+		this.GCA=GCA;
+		this.unita=unita;
+		//AMM.mostraUnitaImmobiliati(unita);
+		
+	}
+	
+	public void modificaProprieta(UnitaImmobiliare unita) {
+		GCA.modificaProprieta(unita);
+		state=StatiAccedereUnitaImmobiliari.modificaProprieta;
+		//AMM.mostraPersone(persone);
+	}
+
+	public void aggiornaPersone(Persone persone) {
+		this.persone=persone;
+		//AMM.mostraPersone(persone);
 		
 	}
 
+	public void  inserisciNuovaPersona() {
+		GCA.inserisciNuovaPersona();
+		state=StatiAccedereUnitaImmobiliari.inserimentoNuovaPersona;
+	}
+	
+	public void specificaProprieta(Persone nuovePersone, Reali nuoveQuote) {
+		GCA.passaProprieta(nuovePersone, nuoveQuote);
+		state = StatiAccedereUnitaImmobiliari.controlloProprieta;
+	}
+	
+	public void ammissibile(Boolean b) {
+		if (b){
+			//AMM.richiediConferma();
+			state=StatiAccedereUnitaImmobiliari.attesaConferma;
+		}
+		else {
+			state=StatiAccedereUnitaImmobiliari.modificaProprieta;
+			//AMM.mostra(proprietaKO);
+		}
+	}
+
 	public void annulla() {
-		// TODO Auto-generated method stub
-		
+		GCA.operazioneAnnullata();
+		state=StatiAccedereUnitaImmobiliari.base;
 	}
 
 	public void fallito() {
@@ -45,44 +102,25 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	}
 
 	public void fatto() {
-		// TODO Auto-generated method stub
-		
+		state=StatiAccedereUnitaImmobiliari.modificaProprieta;
 	}
 
 	public void finito() {
-		// TODO Auto-generated method stub
+		GCA.operazioneTerminata();
 		
 	}
 
 	public void ko() {
-		// TODO Auto-generated method stub
-		
+		GCA.procedi(false);
+		//AMM.mostra(unitaImmobiliareModificataKO);
+		state=StatiAccedereUnitaImmobiliari.base;
 	}
 
 	public void ok() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void aggiornaPersone(Persone persone) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	private static final long serialVersionUID = 1L;
-	private JTable jTable0;
-	private JScrollPane jScrollPane0;
-	private JButton bmodifica;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public AccedereUnitaImmobiliari() {
-		initComponents();
-	}
-
-	public AccedereUnitaImmobiliari(
-			GestoreCondominioAperto gestoreCondominioAperto,
-			UnitaImmobiliari recuperaUnitaImmobiliari) {
-		// TODO Auto-generated constructor stub
+		GCA.procedi(true);
+		//AMM.mostra(unitaImmobiliareModificataOK);
+		state=StatiAccedereUnitaImmobiliari.base;
 	}
 
 	private void initComponents() {
@@ -157,6 +195,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 			}
 		});
 	}
+
 	
 	
 }
