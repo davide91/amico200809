@@ -25,6 +25,7 @@ public class Avvio  {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		Avvio avvioAmiCO = Avvio.getInstance();
 	}
 	private Condomini m_condomini;
@@ -44,9 +45,9 @@ public class Avvio  {
 	}
 	
 	private void inizializzaAmICo() {
-		m_condomini = TuttiCondomini.CONDOMINI;
+/*		m_condomini = TuttiCondomini.CONDOMINI;
 		m_persone = TuttePersone.PERSONE;
-		
+	*/	
 		m_gestoreCondomini = GestoreCondomini.getInstance();
 		m_gestoreCondomini.impostaAvvio(this);
 		m_gestorePersone = GestorePersone.getInstance();

@@ -59,13 +59,11 @@ public class AmICo extends JFrame implements BaseBoundary{
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AmICo() {
 		state=StatiAmICo.base;
+		
 		initComponents();
 	}
 
-	
-	
-	
-	
+
 	public void apriCondominio(Condominio condominio){
 		GestoreCondomini.getInstance().apriCondominio(condominio);
 		state=StatiAmICo.inserimentoCondominio;
@@ -93,6 +91,9 @@ public class AmICo extends JFrame implements BaseBoundary{
 			System.out.println(c.getDatiC().getId());
 		}
 		lista.setModel(listModel);
+		setTitle("AmICo");
+		setLocationRelativeTo(null);
+		setVisible(true);
 		
 		
 	}
@@ -354,7 +355,8 @@ public class AmICo extends JFrame implements BaseBoundary{
 				cond.inserisciCondominio(c);
 				cond.inserisciCondominio(c2);
 				
-				AmICo frame = new AmICo(cond);
+				AmICo frame = new AmICo();
+				//frame.aggiornaCondomini(cond);
 				frame.setTitle("AmICo");
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
