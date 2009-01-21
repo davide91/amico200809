@@ -36,7 +36,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private GestoreBilanci m_gestoreBilanci;
 	private GestoreCassa m_gestoreCassa;
 	private GestorePagamenti m_gestorePagamenti;
-	private QuoteProprieta m_nuoveQuote;
+	//private QuoteProprieta m_nuoveQuote;
 	private Persone m_nuoviProprietari;
 	private StatiGestoreCondominioAperto m_state;
 	private TabellaMillesimale m_tabellaMillesimale;
@@ -47,7 +47,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	public GestoreCondominioAperto(Condominio condominio) {
 		m_dbCondomini.inizializzaPersone();
 		m_condominio = condominio;
-		m_accedereCondominioAperto = new AccedereCondominioAperto();
+		m_accedereCondominioAperto = new AccedereCondominioAperto(this,m_condominio);
 		m_accedereCondominioAperto.creaAccedereCondominioAperto(this, m_condominio);
 		m_avvisi = CalcolaAvvisi.calcolaAvvisi(m_condominio);
 		m_accedereCondominioAperto.passaAvvisi(m_avvisi);
