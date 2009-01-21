@@ -37,7 +37,7 @@ public class PannelloTab extends JPanel {
 		if (jTabbedPane0 == null) {
 			jTabbedPane0 = new JTabbedPane();
 			jTabbedPane0.addTab("Dati Generali",new DatiGenerali());
-			jTabbedPane0.addTab("Unità Immobiliari", new AccedereUnitaImmobiliari());
+			jTabbedPane0.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari());
 			jTabbedPane0.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
 			jTabbedPane0.addTab("Preferenze", new AccederePreferenze());
 		}

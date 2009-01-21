@@ -5,7 +5,6 @@ import java.net.URL;
 
 import calculator.FormatoAmICo;
 
-import boundary.AccedereCondomini;
 import boundary.AmICo;
 import boundary.DriverFileSystem;
 import boundary.InserireNuovoCondominio;
@@ -17,7 +16,7 @@ import datatype.DatiTabellaMillesimale;
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Condomini;
 import datatype.list.Persone;
-import datatype.list.QuoteProprieta;
+import datatype.list.Reali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiGestoreCondominio;
 import store.TuttePersone;
@@ -55,10 +54,14 @@ public class GestoreCondomini implements BaseExecutor {
 	private GestoreCondomini()
 	{
 		m_amico = AmICo.getInstance();
-		m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+		m_dbCondomini=new TuttiCondomini();
+		
+		m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
 		m_state = StatiGestoreCondominio.gestoreCondomini;
 		m_driverFS = new DriverFileSystem();
-		m_dbCondomini.inizializzaPersone();
+		
+		
+		//m_dbCondomini.inizializzaPersone();
 		
 	}
 	
@@ -133,7 +136,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_dbCondomini.inserisciCondominio(m_condominio);
 		m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
 		m_amico.fatto();
-		m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+		m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
 		m_state = StatiGestoreCondominio.condominioAperto;
 			
 	}
@@ -190,15 +193,15 @@ public class GestoreCondomini implements BaseExecutor {
 //		}
 //	}
 	
-	public void passaProprieta(Persone persone, QuoteProprieta quoteProprieta) {
+	public void passaProprieta(Persone persone, Reali quoteProprieta) {
 		/* TODO:
 		 * Nella SM di GestoreCondominio appare quote.controlla(), ma QuoteProprietà 
 		 * non contiene il metodo "controlla()"
 		 */
-		if ( ! quoteProprieta.controlla() ) {
+	//	if ( ! quoteProprieta.controlla() ) {
 			m_inserireUnitaImmobiliare.ammissibile(false);
 			return;
-		}
+		//}
 		
 		/* TODO:
 		 * Nella SM di GestoreCondominio appare 
@@ -228,7 +231,7 @@ public class GestoreCondomini implements BaseExecutor {
 					break;
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
-				m_amico.aggiornaCondomini(TuttiCondomini.CONDOMINI);
+				m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
 				m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
 				m_amico.fatto();
 				m_state = StatiGestoreCondominio.condominioAperto;

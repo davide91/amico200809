@@ -29,11 +29,6 @@ public class TuttiCondomini {
 		CONDOMINI = new Condomini();
 	}
 	
-	public void inizializzaCondomi()
-	{	
-		CONDOMINI = new Condomini();
-	}
-	
 	public Condomini recuperaCondomini()
 	{	
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
