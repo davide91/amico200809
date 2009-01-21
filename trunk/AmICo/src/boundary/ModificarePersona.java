@@ -100,7 +100,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	private static final long serialVersionUID = 1L;
 	private static final String PREFERRED_LOOK_AND_FEEL = null;
 
-	public ModificarePersona() {
+	public ModificarePersona(Persona persona) {
 		initComponents();
 	}
 
@@ -131,7 +131,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				ModificarePersona frame = new ModificarePersona();
+				ModificarePersona frame = new ModificarePersona(null);
 				frame.setTitle("ModificarePersona");
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);

@@ -45,6 +45,7 @@ public class GestoreCondomini implements BaseExecutor {
 	private InserireUnitaImmobiliare m_inserireUnitaImmobiliare;
 	private StatiGestoreCondominio m_state;
 	private TuttiCondomini m_dbCondomini;
+	private TuttePersone m_dbPersone;
 	private DriverFileSystem m_driverFS;
 	
 	private TabellaMillesimale m_tabellaMillesimaleProprieta;
@@ -55,13 +56,11 @@ public class GestoreCondomini implements BaseExecutor {
 	{
 		m_amico = AmICo.getInstance();
 		m_dbCondomini=new TuttiCondomini();
-		
+		m_dbPersone= new TuttePersone();
 		m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
 		m_state = StatiGestoreCondominio.gestoreCondomini;
 		m_driverFS = new DriverFileSystem();
 		
-		
-		//m_dbCondomini.inizializzaPersone();
 		
 	}
 	
@@ -168,7 +167,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_inserireUnitaImmobiliare.ammissibile(true);
 		m_state = StatiGestoreCondominio.inserimentoProprieta;
-		m_inserireUnitaImmobiliare.aggiornaPersone(TuttePersone.PERSONE);
+		m_inserireUnitaImmobiliare.aggiornaPersone(m_dbPersone.recuperaPersone());
 	}
 	
 	/* TODO : Candidato alla rimozione
@@ -198,10 +197,10 @@ public class GestoreCondomini implements BaseExecutor {
 		 * Nella SM di GestoreCondominio appare quote.controlla(), ma QuoteProprietà 
 		 * non contiene il metodo "controlla()"
 		 */
-	//	if ( ! quoteProprieta.controlla() ) {
+		if ( quoteProprieta.somma()!=(float)1.0 ) {
 			m_inserireUnitaImmobiliare.ammissibile(false);
 			return;
-		//}
+		}
 		
 		/* TODO:
 		 * Nella SM di GestoreCondominio appare 

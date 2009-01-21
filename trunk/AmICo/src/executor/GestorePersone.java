@@ -42,13 +42,9 @@ public class GestorePersone implements BaseExecutor {
 	private StatiGestorePersone state; 
 		
 	public GestorePersone(){
-	 
+	 TP=new TuttePersone();
 	 state=StatiGestorePersone.base;
 	 
-	}
-
-	public void creaGestorePersone() {
-		TP.inizializzaPersone();
 	}
 	
 	
@@ -88,8 +84,8 @@ public class GestorePersone implements BaseExecutor {
 	public void modificaPersona(AccedentiPersone richiedente, Persona persona) {
 		RICH=richiedente;
 		personaMod=persona;
-		MP=new ModificarePersona();
-		MP.creaModificarePersona(persona);
+		MP=new ModificarePersona(persona);
+		
 		state=StatiGestorePersone.modificaPersona;
 	}
 	
@@ -99,13 +95,13 @@ public class GestorePersone implements BaseExecutor {
 
 	
 	private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaFisica datiPF) {
-		Persone pf = TuttePersone.PERSONE.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
+		Persone pf = TP.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
 		if(!pf.isEmpty()){
 			PersoneConStessoNome PCSN = new PersoneConStessoNome();
 			PCSN.creaEsitoOmonimi(pf);
 			return PCSN;
 		}
-		pf= TuttePersone.PERSONE.recuperaPersone(datiPF.getDomicilio());
+		pf= TP.recuperaPersone(datiPF.getDomicilio());
 		if(!pf.isEmpty()){
 			PersoneConStessoIndirizzo PCSI = new PersoneConStessoIndirizzo();
 			PCSI.creaEsitoCoabitanti(pf);
