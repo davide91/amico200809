@@ -14,7 +14,6 @@ import store.util.HibernateUtil;
 
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Persone;
-import datatype.list.QuoteProprieta;
 import datatype.list.Reali;
 
 /**
@@ -43,7 +42,7 @@ public class UnitaImmobiliare {
 	
 	public void creaUnitaImmobiliare()
 	{
-		datiUnitaImmobiliare = new DatiUnitaImmobiliare();
+	
 	}
 	
 	public void modificaDati(DatiUnitaImmobiliare dui)
@@ -57,12 +56,12 @@ public class UnitaImmobiliare {
 		session.getTransaction().commit();
 	}
 	
-	public QuoteProprieta recuperaProprieta()
+	public Reali recuperaProprieta()
 	{
-		QuoteProprieta ret = new QuoteProprieta();
+		Reali ret = new Reali();
 		
 		for (Proprieta p : quoteDiPossesso) {
-			ret.inserisciQuota(p);
+			ret.inserisciReale((float)p.getQuota());
 		}
 		
 		return ret;
@@ -72,33 +71,16 @@ public class UnitaImmobiliare {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-		
-		if(quoteDiPossesso.isEmpty())
-		{
+	
+			quoteDiPossesso.clear();
+			
 			for (int i=0;i< pers.getPersone().size();i++) {
 				Proprieta prop = new Proprieta();
 				prop.setProprietario(pers.getPersone().get(i));
 				prop.setQuota(quote.getListaQuote().get(i));
-				//prop.setUnitaImmobiliare(this);
 				quoteDiPossesso.add(prop);
-				//session.update(this);
 			}
-		}
-		else
-		{
-			//per ogni persona nella lista passata
-			for (int i=0; i<pers.getPersone().size();i++) {
-				//scorro tutte le quote di possesso, se la persona è uguale a quella considerata 
-				 //modifica la proprietà allo stesso indice
-				for (Proprieta prop : quoteDiPossesso) {
-					if(prop.getProprietario().equals(pers.getPersone().get(i)))
-					{
-						prop.setQuota(quote.getListaQuote().get(i)); 
-					}
-				}
-			}
-		}
-		
+	
 		session.update(this);
 		session.getTransaction().commit();
 	}

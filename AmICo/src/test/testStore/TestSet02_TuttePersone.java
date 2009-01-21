@@ -26,6 +26,8 @@ import junit.framework.TestCase;
  */
 public class TestSet02_TuttePersone extends TestCase {
 
+	private TuttePersone tp;
+	
 	public TestSet02_TuttePersone(String name)
 	{
 		super(name);
@@ -33,9 +35,8 @@ public class TestSet02_TuttePersone extends TestCase {
 	
 	public void testPERSONE_InserimentoPersonaFisica()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
-		Persone persone = TuttePersone.PERSONE;
+		tp = new TuttePersone();
+		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB è vuoto
 		assertEquals(0, persone.recuperaPersone().size());
@@ -48,17 +49,16 @@ public class TestSet02_TuttePersone extends TestCase {
 	
 	public void testPERSONE_RecuperaPersonaFisica()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
+		tp = new TuttePersone();
 		
 		//inizialmente il DB contiene una persona
-		assertEquals(1, TuttePersone.PERSONE.recuperaPersone().size());
+		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 		
 		//Dati con i quali confronteremo la persona recuperata
 		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",(new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		
 		//recuperiamo la persona
-		Persona p = TuttePersone.PERSONE.recuperaPersone().get(0);
+		Persona p = tp.recuperaPersone().recuperaPersone().get(0);
 		
 		//controlliamo che sia l'istanza voluta
 		assertTrue(p instanceof PersonaFisica);
@@ -70,9 +70,9 @@ public class TestSet02_TuttePersone extends TestCase {
 	
 	public void testPERSONE_modifica()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
-		Persone persone = TuttePersone.PERSONE;
+		tp = new TuttePersone();
+		
+		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB contiene una persona
 		assertEquals(1, persone.recuperaPersone().size());
@@ -85,14 +85,14 @@ public class TestSet02_TuttePersone extends TestCase {
 		
 		p.modificaDati(dpf);
 		
-		assertTrue(((PersonaFisica)TuttePersone.PERSONE.recuperaPersone().get(0)).getDati().equals(dpf));
+		assertTrue(((PersonaFisica)tp.recuperaPersone().recuperaPersone().get(0)).getDati().equals(dpf));
 	}
 
 	public void testPERSONE_InserimentoPersonaGiuridica()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
-		Persone persone = TuttePersone.PERSONE;
+		tp = new TuttePersone();
+		
+		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB ha una persona inserita prima
 		assertEquals(1, persone.recuperaPersone().size());
@@ -107,9 +107,9 @@ public class TestSet02_TuttePersone extends TestCase {
 	
 	public void testPERSONE_RecuperaPersonaGiuridica()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
-		Persone persone = TuttePersone.PERSONE;
+		tp = new TuttePersone();
+		
+		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB contiene una persona
 		assertEquals(2, persone.recuperaPersone().size());
@@ -130,9 +130,9 @@ public class TestSet02_TuttePersone extends TestCase {
 	
 	public void testPERSONE_PersonaGiuridica_AssegnaPersonaDiRiferimento()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
-		Persone persone = TuttePersone.PERSONE;
+		tp = new TuttePersone();
+		
+		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB contiene una persona
 		assertEquals(2, persone.recuperaPersone().size());
@@ -158,9 +158,8 @@ public class TestSet02_TuttePersone extends TestCase {
 	
 		public void testPERSONE_EliminazionePersonaFisica()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
-		Persone persone = TuttePersone.PERSONE;
+		tp = new TuttePersone();
+		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB ha una persona
 		assertEquals(2, persone.recuperaPersone().size());
@@ -175,9 +174,9 @@ public class TestSet02_TuttePersone extends TestCase {
 
 	public void testPERSONE_EliminazionePersonaGiuridica()
 	{
-		TuttePersone tp = new TuttePersone();
-		tp.inizializzaPersone();
-		Persone persone = TuttePersone.PERSONE;
+		tp = new TuttePersone();
+
+		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB è vuoto
 		assertEquals(1, persone.recuperaPersone().size());

@@ -26,19 +26,13 @@ import datatype.list.PersoneGiuridiche;
  */
 public class TuttePersone {
 
-	public static Persone PERSONE = new Persone();
+	private static Persone PERSONE;
 	private Session session;
 	
 	public TuttePersone()
 	{
-		
+		PERSONE = new Persone();
 	}
-
-	public void inizializzaPersone()
-	{	
-		
-	}
-
 	
 	public void inserisciPersona(DatiPersona dati)
 	{	session = HibernateUtil.getSessionFactory().getCurrentSession();
