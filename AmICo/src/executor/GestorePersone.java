@@ -42,11 +42,14 @@ public class GestorePersone implements BaseExecutor {
 	private StatiGestorePersone state; 
 		
 	public GestorePersone(){
-	 TP.inizializzaPersone();
+	 
 	 state=StatiGestorePersone.base;
 	 
 	}
-	
+
+	public void creaGestorePersone() {
+		TP.inizializzaPersone();
+	}
 	
 	
 	public void inserisciDatiPersona(DatiPersona datiP){
@@ -65,7 +68,7 @@ public class GestorePersone implements BaseExecutor {
 	public void inserisciPersona(AccedentiPersone richiedente){
 		RICH=richiedente;
 		IP=new InserirePersona();
-		IP.creaInserirePersona(this);
+		IP.creaInserirePersona();
 		state=StatiGestorePersone.inserimentoPersona;
 	}
 	public void modificaDatiPersona(DatiPersona datiP) {
@@ -86,7 +89,7 @@ public class GestorePersone implements BaseExecutor {
 		RICH=richiedente;
 		personaMod=persona;
 		MP=new ModificarePersona();
-		MP.creaModificarePersona(this, persona);
+		MP.creaModificarePersona(persona);
 		state=StatiGestorePersone.modificaPersona;
 	}
 	
@@ -94,33 +97,6 @@ public class GestorePersone implements BaseExecutor {
 		
 	}
 
-	public void procedi(Boolean procedere) {
-		switch (state) {
-		case attesaConfermaInserimento: 
-			if (procedere){
-				TP.inserisciPersona(datiPersona);
-				IP.fatto();
-			}
-			else IP.fallito();	
-			RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
-			
-			break;
-		case attesaConfermaModifica:
-			if (procedere){
-				personaMod.modificaDati(datiPersona);
-				MP.fatto();
-			}
-			else MP.fallito();
-			RICH.aggiornaPersona(personaMod); //lo fa in entrambi i casi
-		
-			break;
-			
-
-		default:
-			break;
-		}
-		state=StatiGestorePersone.base;
-	}
 	
 	private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaFisica datiPF) {
 		Persone pf = TuttePersone.PERSONE.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
@@ -162,10 +138,34 @@ public void operazioneTerminata() {
 	
 }
 
+
+
 public void procedi(boolean b) {
-	// TODO Auto-generated method stub
+	switch (state) {
+	case attesaConfermaInserimento: 
+		if (b){
+			TP.inserisciPersona(datiPersona);
+			IP.fatto();
+		}
+		else IP.fallito();	
+		RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
+		
+		break;
+	case attesaConfermaModifica:
+		if (b){
+			personaMod.modificaDati(datiPersona);
+			MP.fatto();
+		}
+		else MP.fallito();
+		RICH.aggiornaPersona(personaMod); //lo fa in entrambi i casi
+	
+		break;
+	}
+	state=StatiGestorePersone.base;
+
 	
 }
+
 
 }
 	
