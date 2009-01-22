@@ -159,7 +159,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.gestioneDatiCondomini;
 	}
 	
-	public void 	() public void passaAPagamenti() {
+	public void passaAPagamenti() {
 		m_gestorePagamenti = new GestorePagamenti(m_condominio);
 		m_state = StatiGestoreCondominioAperto.gestionePagamenti;
 	}
@@ -213,7 +213,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 				 *  - Se no, come passare i millesimi alla nuova TabellaMillesimale ?
 				 * 
 				 */
-				m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(m_datiTabellaMillesimale));
+				m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(m_datiTabellaMillesimale,m_nuoveQuote));
 				m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
 				m_state = 	StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 				break;	
