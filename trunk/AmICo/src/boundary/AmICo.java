@@ -24,8 +24,11 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.TuttiCondomini;
 import store.POJO.Condominio;
 import datatype.DatiCondominio;
+import datatype.Indirizzo;
 import datatype.Path;
 import datatype.list.Condomini;
+import enumeration.Comune;
+import enumeration.Provincia;
 import enumeration.StatiAmICo;
 import executor.GestoreCondomini;
 
@@ -119,14 +122,15 @@ public class AmICo extends JFrame implements BaseBoundary{
 		
 		if(lista.getSelectedIndex()>-1) {
 			// temporaneo
-			AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
+		/*	AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
 			ACA.setTitle((String)lista.getSelectedValue());
-			ACA.setVisible(true);/* si cancella quello prima e si mette quello dopo per integrazione TODO
+			ACA.setVisible(true); si cancella quello prima e si mette quello dopo per integrazione TODO*/
 			for (Condominio c : condomini.getCondomini())
 			{
 				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) )
-					this.apriCondominio(c);
-			}*/
+					new AccedereCondominioAperto(null,c);
+					//this.apriCondominio(c);
+			}
 		}
 		
 		
@@ -342,20 +346,28 @@ public class AmICo extends JFrame implements BaseBoundary{
 				Condomini cond = new Condomini();
 				DatiCondominio datiC= new DatiCondominio();
 				DatiCondominio datiC2= new DatiCondominio();
+				Indirizzo indi=new Indirizzo();
+				
+				indi.setCap("16156");
+				indi.setComune(Comune.AGLIE);
+				indi.setProvincia(Provincia.Alessandria);
+				indi.setVia("via gavino");
 				
 				c2.CreaCondominio();
 				c2.setDatiC(datiC2);
 				c2.getDatiC().setId("via merano");
 				
+				
 				c.CreaCondominio();
 				c.setDatiC(datiC);
 				c.getDatiC().setId("via gavino");
+				c.getDatiC().setIndirizzo(indi);
 				
 				cond.inserisciCondominio(c);
 				cond.inserisciCondominio(c2);
 				
 				AmICo frame = new AmICo();
-				//frame.aggiornaCondomini(cond);
+				frame.aggiornaCondomini(cond);
 				frame.setTitle("AmICo");
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);

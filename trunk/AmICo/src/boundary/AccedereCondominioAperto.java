@@ -298,7 +298,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 	private void bdaticondominioMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
-		pannello.add(new PannelloTab());
+		pannello.add(new PannelloTab(condominio));
 		pannello.revalidate();
 		pannello.repaint();
 		
