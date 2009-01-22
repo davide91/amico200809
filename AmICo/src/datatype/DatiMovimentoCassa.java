@@ -17,6 +17,12 @@ public class DatiMovimentoCassa {
 		
 	}
 	
+	public DatiMovimentoCassa(String s, Euro e)
+	{
+		importoMovimento =e;
+		motivazione=s;
+	}
+	
 	public void creaDatiMovimentoCassa(Euro e)
 	{
 		importoMovimento = e;
@@ -24,7 +30,6 @@ public class DatiMovimentoCassa {
 	
 	public boolean controlla()
 	{
-		
 		return !importoMovimento.equals(new Euro(new Float(0.0)));
 	}
 

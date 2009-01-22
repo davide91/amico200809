@@ -6,6 +6,10 @@ package store.POJO;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
+
 import datatype.Euro;
 
 /**
@@ -15,18 +19,26 @@ import datatype.Euro;
 public class Cassa {
 	
 	private long id;
-	private Euro saldo;
+	private Euro saldo = new Euro((float)0.0);
 	private Set<MovimentoCassa> movimentiDiCassa = new HashSet<MovimentoCassa>();
 	private Condominio condominio;
 	
+	private Session session;
+	
 	public Cassa()
 	{
-		
+		saldo=new Euro((float)0.0);
 	}
 	
 	public void registraMovimentoCassa(MovimentoCassa movC)
 	{
-		movimentiDiCassa.add(movC);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			saldo.aggiungi(movC.getDati().getImportoMovimento().getEuro());
+			movimentiDiCassa.add(movC);
+			movC.setCassa(this);
+		session.update(this);
+		session.getTransaction().commit();
 	}
 
 	@Override
@@ -36,10 +48,6 @@ public class Cassa {
 	 if (!(other instanceof Cassa))
 	   return false;
 	 final Cassa o = (Cassa) other;
-//	 if (!o.getCondominio().equals(getCondominio()))
-//	   return false;
-	 if (!o.getMovimentiDiCassa().equals(getMovimentiDiCassa()))
-	   return false;
 	 if (!o.getSaldo().equals(getSaldo()))
 		   return false;
 	 return true;
@@ -49,8 +57,6 @@ public class Cassa {
 	public int hashCode() {
 	 int result;
 	 result = this.getSaldo().hashCode();
-	 result = 29 * result + this.getMovimentiDiCassa().hashCode();
-	// result = 29 * result + this.getCondominio().hashCode();
 	 return result;
 	}
 	

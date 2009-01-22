@@ -45,6 +45,10 @@ public class Data {
 		}
 	}
 
+	public Data() {
+		
+	}
+
 	public void setCalendar(GregorianCalendar calendar) {
 		this.data = calendar;
 	}	
@@ -73,5 +77,9 @@ public class Data {
 	public boolean maggioreUguale(Data d)//this maggiore di d
 	{
 		return this.data.after(d.getCalendar());
+	}
+
+	public void creaCurrenDate() {
+		data = new GregorianCalendar();
 	}
 }

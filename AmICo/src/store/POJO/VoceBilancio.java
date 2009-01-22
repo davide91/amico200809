@@ -3,11 +3,16 @@
  */
 package store.POJO;
 
+import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.print.attribute.standard.MediaSize.Other;
+
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
 
 import datatype.Data;
 import datatype.DatiVoceBilancio;
@@ -19,12 +24,15 @@ import datatype.DatiVoceBilancio;
 public class VoceBilancio {
 
 	private long id;
+	
 	private DatiVoceBilancio dati;
 	private Data dataContabilitazione;
+	
 	private Bilancio bilancio;
 	private MovimentoCassa contabilizzata;
 	private TabellaMillesimale ripartizione;
 	
+	private Session session;
 	
 	public VoceBilancio()
 	{
@@ -41,12 +49,20 @@ public class VoceBilancio {
 	
 	public void modificaDati(DatiVoceBilancio dvb)
 	{
-		dati = dvb;
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			dati = dvb;
+		session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	public void ripartisci(TabellaMillesimale tab)
 	{
-		ripartizione = tab;
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			ripartizione = tab;
+		session.update(this);
+		session.getTransaction().commit();
 	}
 
 	@Override
@@ -56,8 +72,6 @@ public class VoceBilancio {
 	 if (!(other instanceof VoceBilancio))
 	   return false;
 	 final VoceBilancio o = (VoceBilancio) other;
-//	 if (!o.getContabilizzata().equals(getContabilizzata()))
-//	   return false;
 	 if (!o.getDataContabilitazione().equals(getDataContabilitazione()))
 	   return false;
 	 if(!o.getDati().equals(getDati()))
@@ -70,7 +84,6 @@ public class VoceBilancio {
 	 int result;
 	 result = this.getDati().hashCode();
 	 result = 29 * result + this.getDataContabilitazione().hashCode();
-	// result = 29 * result + getContabilizzata().hashCode();
 	 return result;
 	}
 
@@ -90,12 +103,12 @@ public class VoceBilancio {
 		this.dati = dati;
 	}
 
-	public Data getDataContabilitazione() {
-		return dataContabilitazione;
+	public Date getDataContabilitazione() {
+		return new Date(dataContabilitazione.getCalendar().getTime().getTime());
 	}
 
-	public void setDataContabilitazione(Data dataContabilitazione) {
-		this.dataContabilitazione = dataContabilitazione;
+	public void setDataContabilitazione(Date dataContabilitazione) {
+		this.dataContabilitazione = new Data(dataContabilitazione);
 	}
 
 	public Bilancio getBilancio() {

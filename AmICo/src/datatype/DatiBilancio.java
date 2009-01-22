@@ -49,6 +49,16 @@ public class DatiBilancio {
 	 return result;
 	}
 	
+	public void impostaDataFine(Data d)
+	{
+		fine = d;
+	}
+	
+	public void impostaDataInizio(Data d)
+	{
+		inizio = d;
+	}
+	
 	public TipoBilancio getTipo() {
 		return tipo;
 	}
