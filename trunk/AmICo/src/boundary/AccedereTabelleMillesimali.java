@@ -3,17 +3,23 @@ package boundary;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -21,8 +27,11 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Condominio;
+import store.POJO.Millesimo;
 import store.POJO.TabellaMillesimale;
+import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
+import datatype.DatiUnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
@@ -50,8 +59,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JScrollPane jScrollPane0;
 	private JButton binseriscitabella;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	
-	
 	public AccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
 	{
 		this.tabelleMillesimali=tabelleMillesimali;
@@ -102,6 +109,14 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JList getLista() {
 		if (lista == null) {
 			lista = new JList();
+			DefaultListModel listModel = new DefaultListModel();
+			lista.setModel(listModel);
+			lista.addListSelectionListener(new ListSelectionListener() {
+
+				public void valueChanged(ListSelectionEvent event) {
+					listaListSelectionValueChanged(event);
+				}
+			});
 		}
 		return lista;
 	}
@@ -134,7 +149,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JTable getJTable0() {
 		if (jTable0 == null) {
 			jTable0 = new JTable();
-			jTable0.setModel(new DefaultTableModel(new Object[][] { { "0x0", "0x1", }, { "1x0", "1x1", }, }, new String[] { "Unita", "Coefficente", }) {
+			jTable0.setModel(new DefaultTableModel(new Object[][] { }, new String[] { "Unita", "Coefficente", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
 	
@@ -178,6 +193,13 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	public void aggiornaTabelleMillesimali(TabelleMillesimali TM)
 	{
 		this.tabelleMillesimali=TM;
+		DefaultListModel listModel = new DefaultListModel();
+		
+		for (TabellaMillesimale t : this.tabelleMillesimali.getTabelle())
+			listModel.addElement(t.getDati().getNome() );
+
+		lista.setModel(listModel);
+		
 	}
 	public void inserisciMillesimi(Percentuali millesimi){
 		if (millesimi.somma()==1000){
@@ -242,6 +264,50 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	}
 
 	
+	
+	private void listaListSelectionValueChanged(ListSelectionEvent event) {// TODO da testare
+		
+		for (final TabellaMillesimale t : tabelleMillesimali.getTabelle())
+		{
+			if( t.getDati().getNome().equals( (String)lista.getSelectedValue() ) )
+			{
+				if(t.getMillesimi()!=null && t.getCondominio()!=null)
+				{
+					final Iterator<Millesimo> m=t.getMillesimi().iterator();
+					final Iterator<UnitaImmobiliare> ui=t.getCondominio().getUnitaImmobiliari().iterator();
+				
+					jTable0.setModel(
+					new AbstractTableModel()
+					{
+						private static final long serialVersionUID = 1L;
+						
+						public int getColumnCount() { return 2; }
+						public int getRowCount() { return t.getMillesimi().size(); }
+						public Object getValueAt (int row, int col) {
+							if(col==0)
+								if(m.hasNext())
+									return ui.next().getDatiUnitaImmobiliare().getId();
+							if(m.hasNext())
+								return Float.toString(m.next().getQuota());
+							
+							return "";
+						}
+					//	public Class getColumnClass (int column) { return Object.class; } non credo serva
+						public String getColumnName (int column) { if(column==0) return "Unita";
+																	else return "Coefficiente";}
+					}
+					);
+				}
+							
+							
+							
+							//new DefaultTableModel(new String[][] {  {"",""},{"",""}  }, new String[] { "Unita", "Coefficente", }) );
+			}
+		}
+		
+			
+	}
+	
 
 	/**
 	 * Main entry of the class.
@@ -255,14 +321,24 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 			public void run() {
 				
 				TabelleMillesimali tm=new TabelleMillesimali();
+				TabellaMillesimale tab2=new TabellaMillesimale();
+				DatiTabellaMillesimale dati2=new DatiTabellaMillesimale();
+				
+				dati2.setNome("ciao2");
+				
+				tab2.setDati(dati2);
+				
+
 				TabellaMillesimale tab=new TabellaMillesimale();
 				DatiTabellaMillesimale dati=new DatiTabellaMillesimale();
+				
 				
 				dati.setNome("ciao");
 				
 				tab.setDati(dati);
 				
 				tm.inserisciTabellaMillesimale(tab);
+				tm.inserisciTabellaMillesimale(tab2);
 				
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -276,4 +352,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 			}
 		});
 	}
+
+
 }
