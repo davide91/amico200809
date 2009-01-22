@@ -35,12 +35,16 @@ public class Condominio {
 	
 	public Condominio() // costruttore per Hibernate
 	{
-		
+		Cassa c = new Cassa();
+		c.setCondominio(this);
+		cassa.add(c);
 	}
 	
 	public void CreaCondominio()
 	{
-		
+		Cassa c = new Cassa();
+		c.setCondominio(this);
+		cassa.add(c);
 	}
 	
 	public void modificaDati(DatiCondominio dCond)
@@ -103,9 +107,15 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-			tabelleMillesimali.add(tab);
-			session.update(this);
+			link(tab);
 		session.getTransaction().commit();
+	}
+	
+	public void link(TabellaMillesimale tab)
+	{
+		tab.setCondominio(this);
+		tabelleMillesimali.add(tab);
+		session.update(this);
 	}
 	
 	public void inserisciBilancio(Bilancio b)
@@ -178,21 +188,6 @@ public class Condominio {
 		}
 		
 		return ret;
-		/*
-		session = HibernateUtil.getSessionFactory().getCurrentSession();	
-		session.beginTransaction();
-		
-		UnitaImmobiliari ret = new UnitaImmobiliari();
-	
-		List UnitImm = session.createQuery("from UnitaImmobiliare where CONDOMINIO_ID = :cond").setParameter("cond", this.getId()).list();
-		session.getTransaction().commit();
-
-		for (Object o : UnitImm) {
-			ret.inserisciUnitaImmobiliare((UnitaImmobiliare)o);
-		}
-		
-		return ret;
-		*/
 	}
 	
 	public TabelleMillesimali recuperaTabelleMillesimali()
@@ -215,8 +210,17 @@ public class Condominio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 	
-		this.preferenze = pref;
+			this.preferenze = pref;
 	
+		session.update(this);
+		session.getTransaction().commit();
+	}
+	
+	public void modificaStato(StatoCondominio st)
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			statoCondominio = st;
 		session.update(this);
 		session.getTransaction().commit();
 	}

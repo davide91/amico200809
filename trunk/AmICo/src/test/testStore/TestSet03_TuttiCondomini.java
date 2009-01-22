@@ -10,19 +10,24 @@ import org.hibernate.Session;
 import store.TuttePersone;
 import store.TuttiCondomini;
 import store.POJO.Bilancio;
+import store.POJO.Cassa;
 import store.POJO.Condominio;
+import store.POJO.MovimentoCassa;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
+import store.POJO.VoceBilancio;
 import store.util.HibernateUtil;
 import datatype.CodiceFiscale;
 import datatype.Data;
 import datatype.DatiBilancio;
 import datatype.DatiCondominio;
+import datatype.DatiMovimentoCassa;
 import datatype.DatiPersonaFisica;
 import datatype.DatiTabellaMillesimale;
 import datatype.DatiUnitaImmobiliare;
+import datatype.DatiVoceBilancio;
 import datatype.Email;
 import datatype.Euro;
 import datatype.Indirizzo;
@@ -39,6 +44,7 @@ import enumeration.Provincia;
 import enumeration.StatoBilancio;
 import enumeration.StatoCondominio;
 import enumeration.TipoBilancio;
+import enumeration.TipoVoce;
 import junit.framework.TestCase;
 
 /**
@@ -303,8 +309,8 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		db.setTitolo("Bilancio di Prova");
 		db.setTipo(TipoBilancio.ordinario);
 		db.setStato(StatoBilancio.inCompilazione);
-		db.setInizio(new Date(2009,1,1));
-		db.setFine(new Date(2009,12,31));
+		db.impostaDataInizio(new Data(1,0,2009));
+		db.impostaDataFine(new Data(31,11,2009));
 		db.setDescrizione("Sarò in grado di redigere un bilancio?? Ma!!!");
 		Bilancio b = new Bilancio(db);
 		
@@ -312,6 +318,87 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		assertEquals(1, c.recuperaBilanci().getBilanci().size());
 	}
+	
+	public void testCONDOMINI_recuperaBilancio_inEsercizio()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		//non ci sono bilanci in esercizio
+		assertEquals(0, c.recuperaBilanciInEsercizio().getBilanci().size());
+	}
+	
+	public void testCONDOMINI_inserisci_VoceBilancio()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		
+		Bilancio b = c.recuperaBilanci().getBilanci().get(0);
+		
+		Data d = new Data();
+		d.creaCurrenDate();
+		
+		DatiVoceBilancio dvb = new DatiVoceBilancio("Spesa per tetto",TipoVoce.spesa,"Coibentiamo il tetto",new Euro((float)1500.0),d);
+		VoceBilancio vb = new VoceBilancio();
+		
+		//creo la voce di bilancio
+		vb.creaVoceBilancio(dvb);
+		
+		//recupero una tebella millesimale
+		TabellaMillesimale t = c.recuperaTabelleMillesimali().getTabelle().get(0);
+
+		b.inserisciVoceBilancio(vb);
+		vb.ripartisci(t);
+		
+		//esiste una voce di bilancio
+		assertEquals(1, b.recuperaVociBilancio().getVoci().size());
+	}
+	
+	public void testCONDOMINIO_bilancioTerminabile()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		
+		Bilancio b = c.recuperaBilanci().getBilanci().get(0);
+		
+		assertTrue(b.terminabile());
+		
+	}
+	
+	public void testCONDOMINI_recuperaCassa()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		//non ci sono bilanci in esercizio
+		assertTrue(c.recuperaCassa() instanceof Cassa);
+	}
+	
+	public void testCONDOMINI_registraMovimentoCassa()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		//non ci sono bilanci in esercizio
+		Cassa cassa = c.recuperaCassa(); 
+		assertTrue(cassa instanceof Cassa);
+		
+		DatiMovimentoCassa dmc = new DatiMovimentoCassa("Rifacimento Tetto",new Euro((float)-1000.0));
+		MovimentoCassa m = new MovimentoCassa(dmc);
+		
+		DatiMovimentoCassa dmc1 = new DatiMovimentoCassa("Sponsor Pubblicitario",new Euro((float)500.0));
+		MovimentoCassa m1 = new MovimentoCassa(dmc1);
+		
+		cassa.registraMovimentoCassa(m);
+		cassa.registraMovimentoCassa(m1);
+		
+		assertEquals((float)-500, cassa.getSaldo().getEuro());
+	}
+	
+	
+	
 	
 	//commentato per vedere se rimangono gli inserimenti... cancellando il condominio, cancella tutti i suoi aggragati
 /*	public void testCONDOMINI_eliminaCondominio()

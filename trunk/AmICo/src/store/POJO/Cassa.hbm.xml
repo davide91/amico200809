@@ -15,7 +15,7 @@
 			<property name="euro"/>
 		</component>	
 		
-		<set name="movimentiDiCassa" cascade="all">
+		<set name="movimentiDiCassa" lazy="false" cascade="all-delete-orphan,save-update">
 		 	<key column="CASSA_ID"/>
 		 	<one-to-many class="MovimentoCassa"/>
 		</set>

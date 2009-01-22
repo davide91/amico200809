@@ -3,6 +3,8 @@
  */
 package datatype;
 
+import java.sql.Date;
+
 import enumeration.TipoVoce;
 
 /**
@@ -16,6 +18,15 @@ public class DatiVoceBilancio {
 	private String descrizione;
 	private Euro importo;
 	private Data dataPrevista;
+	
+	public DatiVoceBilancio(String tit, TipoVoce tipo, String descr, Euro e, Data d)
+	{
+		this.titolo=tit;
+		this.tipo=tipo;
+		this.descrizione=descr;
+		this.importo=e;
+		this.dataPrevista=d;
+	}
 	
 	public DatiVoceBilancio()
 	{
@@ -54,11 +65,11 @@ public class DatiVoceBilancio {
 		this.importo = importo;
 	}
 
-	public Data getDataPrevista() {
-		return dataPrevista;
+	public Date getDataPrevista() {
+		return new Date(dataPrevista.getCalendar().getTime().getTime());
 	}
 
-	public void setDataPrevista(Data dataPrevista) {
-		this.dataPrevista = dataPrevista;
+	public void setDataPrevista(Date dataPrevista) {
+		this.dataPrevista = new Data(dataPrevista);
 	}
 }

@@ -10,6 +10,8 @@
         <generator class="native"/>
     </id>
     
+    <discriminator column="PIANO_PAGAMENTI_TYPE" type="string"/>
+    
     <component name="dati" class="datatype.DatiPianoPagamenti">
    		<component name="importo" class="datatype.Euro">
 			<property name="euro"/>
@@ -30,18 +32,18 @@
 	 	class="Bilancio"
 	 	column="BILANCIO_ID"/>
    
-    <joined-subclass name="PianoPagamentiOrdinario" table="PIANO_PAGAMENTI_ORDINARIO">
-        <key column="PIANO_PAGAMENTI_ID"/>
-    </joined-subclass>
+    <subclass name="PianoPagamentiOrdinario" discriminator-value="ORDINARIO">
+     <!--   <key column="PIANO_PAGAMENTI_ID"/> -->
+    </subclass>
     
   
-    <joined-subclass name="PianoPagamentiStraordinario" table="PIANO_PAGAMENTI_STRAORDINARIO">
-        <key column="PIANO_PAGAMENTI_ID"/>        
+    <subclass name="PianoPagamentiStraordinario" discriminator-value="STRAORDINARIO">
+   <!--     <key column="PIANO_PAGAMENTI_ID"/>       --> 
         <many-to-one name="ripartizione"
 			column="RIPARTIZIONE"
-			unique="true"
+			unique="false"
 			not-null="false"/>
-    </joined-subclass>
+    </subclass>
    
  
 	</class>

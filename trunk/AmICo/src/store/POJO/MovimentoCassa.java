@@ -44,25 +44,14 @@ public class MovimentoCassa {
 	 if (!(other instanceof MovimentoCassa))
 	   return false;
 	 final MovimentoCassa o = (MovimentoCassa) other;
-//	 if (!o.getCassa().equals(getCassa()))
-//	   return false;
 	 if (!o.getDati().equals(getDati()))
 	   return false;
-	 if (!o.getRelativoAPagamento().equals(getRelativoAPagamento()))
-		   return false;
-	 if (!o.getRelativoAVoce().equals(getRelativoAVoce()))
-		   return false;
 	 return true;
 	}
 
 	@Override
 	public int hashCode() {
-	 int result;
-	 result = this.getRelativoAVoce().hashCode();
-	 result = 29 * result + this.getDati().hashCode();
-	 result = 29 * result + this.getRelativoAPagamento().hashCode();
-//	 result = 29 * result + this.getCassa().hashCode();
-	 return result;
+		return 29 * this.getDati().hashCode();
 	}
 	
 	public DatiMovimentoCassa getDati() {

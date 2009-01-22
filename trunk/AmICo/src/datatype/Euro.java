@@ -31,6 +31,11 @@ public class Euro {
 		this.euro = euro;
 	}
 	
+	public void aggiungi(float valuta)
+	{
+		euro += valuta;
+	}
+	
 	@Override
 	public boolean equals(Object other)
 	{

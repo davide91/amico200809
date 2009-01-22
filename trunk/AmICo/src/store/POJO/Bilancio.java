@@ -13,10 +13,13 @@ import org.hibernate.Session;
 import store.util.HibernateUtil;
 
 import datatype.DatiBilancio;
+import datatype.Euro;
 import datatype.list.Euri;
 import datatype.list.PianiPagamenti;
+import datatype.list.UnitaImmobiliari;
 import datatype.list.VociBilancio;
 import enumeration.StatoBilancio;
+import enumeration.TipoBilancio;
 
 /**
  * @author bruno
@@ -65,12 +68,16 @@ public class Bilancio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-			voci.add(vb);
-		session.update(this);
+			link(vb);
 		session.getTransaction().commit();
-		
 	}
 	
+	private void link(VoceBilancio vb) {
+		vb.setBilancio(this);
+		voci.add(vb);
+		session.update(this);
+	}
+
 	public void eliminaVoceBilancio(VoceBilancio vb)
 	{
 		voci.remove(vb);
@@ -124,7 +131,26 @@ public class Bilancio {
 	
 	public boolean terminabile()
 	{
-		return false;
+		if(this.dati.getTipo().equals(TipoBilancio.straordinario) && (this.saldo() >= (float)0.0))
+			return true;
+		else if(this.saldo() == (float)0.0 && !this.vociNonContabilizzate().getVoci().isEmpty())
+		{
+			for (Euro e : saldoUnita().getEuri()) {
+				if(e.getEuro()!=(float)0.0)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	//sommo l'importo di ogni voce di bilancio
+	private float saldo()
+	{
+		float ret = (float)0.0;
+		for (VoceBilancio vb : voci) {
+			ret += vb.getDati().getImporto().getEuro();
+		}
+		return ret;
 	}
 	
 	public Euri saldoUnita()
@@ -134,6 +160,8 @@ public class Bilancio {
 	
 	public Euri moreUnita()
 	{
+		UnitaImmobiliari uImm = this.condominio.recuperaUnitaImmobiliari();
+		
 		return null;
 	}
 
