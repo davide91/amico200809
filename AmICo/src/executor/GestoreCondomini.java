@@ -16,7 +16,7 @@ import datatype.DatiTabellaMillesimale;
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Condomini;
 import datatype.list.Persone;
-import datatype.list.Reali;
+import datatype.list.Percentuali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiGestoreCondominio;
 import store.TuttePersone;
