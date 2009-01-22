@@ -49,12 +49,12 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		state=StatiAccederePersone.base;
 	}
 	
-	public void creaAccederePersone(GestoreCondominioAperto GCA, Persone persone){
+	public AccederePersone(GestoreCondominioAperto GCA, Persone persone){
 		this.GCA=GCA; 
 		this.persone=persone;
 		//AMM.mostraPersone(persone);
-		
-		
+		initComponents();
+		state = StatiAccederePersone.base;
 	}
 
 	private void initComponents() {
