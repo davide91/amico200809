@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -27,7 +28,6 @@ import datatype.EsitoEliminabile;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
 import enumeration.StatiAccedereCondominioAperto;
-import enumeration.StatiGestoreCondominioAperto;
 import executor.GestoreCondominioAperto;
 
 
@@ -298,7 +298,14 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 	private void bdaticondominioMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
-		pannello.add(new PannelloTab(condominio));
+		
+		JTabbedPane pannelloTab = new JTabbedPane();
+		pannelloTab.addTab("Dati Generali",new DatiGenerali(condominio));
+		pannelloTab.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari());
+		pannelloTab.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
+		pannelloTab.addTab("Preferenze", new AccederePreferenze());
+		pannello.add(pannelloTab);
+		
 		pannello.revalidate();
 		pannello.repaint();
 		

@@ -20,6 +20,7 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Condominio;
 import store.POJO.TabellaMillesimale;
 import datatype.DatiTabellaMillesimale;
 import datatype.list.Percentuali;
@@ -51,17 +52,24 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
 	
-	public AccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita) {
+	public AccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
+	{
 		this.tabelleMillesimali=tabelleMillesimali;
 		this.unita=unita;
 		this.GCA=GCA;
-		//AMM.mostraTabelleMillesimali(tabelleMillesimali);
+		
 		state=StatiAccedereTabelleMillesimali.base;
 		initComponents();
+
+		DefaultListModel listModel = new DefaultListModel();
+		
+		for (TabellaMillesimale t : this.tabelleMillesimali.getTabelle())
+			listModel.addElement(t.getDati().getNome() );
+
+		lista.setModel(listModel);
 	}
 
 	public AccedereTabelleMillesimali() {
-		// TODO Auto-generated constructor stub
 		initComponents();
 	}
 
@@ -94,12 +102,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JList getLista() {
 		if (lista == null) {
 			lista = new JList();
-			DefaultListModel listModel = new DefaultListModel();
-			listModel.addElement("item0");
-			listModel.addElement("item1");
-			listModel.addElement("item2");
-			listModel.addElement("item3");
-			lista.setModel(listModel);
 		}
 		return lista;
 	}
@@ -251,10 +253,21 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				
+				TabelleMillesimali tm=new TabelleMillesimali();
+				TabellaMillesimale tab=new TabellaMillesimale();
+				DatiTabellaMillesimale dati=new DatiTabellaMillesimale();
+				
+				dati.setNome("ciao");
+				
+				tab.setDati(dati);
+				
+				tm.inserisciTabellaMillesimale(tab);
+				
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setTitle("AccedereTabelleMillesimali");
-				AccedereTabelleMillesimali content = new AccedereTabelleMillesimali();
+				AccedereTabelleMillesimali content = new AccedereTabelleMillesimali(null,tm,null);
 				content.setPreferredSize(content.getSize());
 				frame.add(content, BorderLayout.CENTER);
 				frame.pack();

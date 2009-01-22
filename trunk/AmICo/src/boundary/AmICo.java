@@ -21,7 +21,6 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import store.TuttiCondomini;
 import store.POJO.Condominio;
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
