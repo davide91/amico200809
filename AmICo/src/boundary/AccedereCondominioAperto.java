@@ -434,7 +434,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 	
 	public void passaATabelleMillesimali(){
-		GCA.passaATabelleMillesimali();
+	//	GCA.passaATabelleMillesimali();
 		state=StatiAccedereCondominioAperto.gestioneTabelleMillesimali;
 	}
 	
