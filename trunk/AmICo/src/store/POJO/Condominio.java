@@ -79,9 +79,7 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-		
 		link(uImm);
-	
 		session.getTransaction().commit();
 	}
 	
@@ -103,12 +101,26 @@ public class Condominio {
 	
 	public void inserisciTabellaMillesimale(TabellaMillesimale tab)
 	{
-		tabelleMillesimali.add(tab);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			tabelleMillesimali.add(tab);
+			session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	public void inserisciBilancio(Bilancio b)
 	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			link(b);
+		session.getTransaction().commit();
+		
+	}
+	
+	private void link(Bilancio b)
+	{
 		bilanci.add(b);
+		session.update(this);
 	}
 	
 	public Bilanci recuperaBilanci()

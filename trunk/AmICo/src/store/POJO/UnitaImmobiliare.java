@@ -5,16 +5,13 @@ package store.POJO;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.hibernate.Session;
 
 import store.util.HibernateUtil;
-
 import datatype.DatiUnitaImmobiliare;
+import datatype.list.Percentuali;
 import datatype.list.Persone;
-import datatype.list.Reali;
 
 /**
  * @author bruno
@@ -26,7 +23,7 @@ public class UnitaImmobiliare {
 	private DatiUnitaImmobiliare datiUnitaImmobiliare = new DatiUnitaImmobiliare();
 	private Condominio condominio;
 	private Set<Proprieta> quoteDiPossesso = new HashSet<Proprieta>();
-	private Set<Millesimo> millesimo = new HashSet<Millesimo>();
+//	private Set<Millesimo> millesimo = new HashSet<Millesimo>();
 	
 	private Session session;
 	
@@ -56,9 +53,9 @@ public class UnitaImmobiliare {
 		session.getTransaction().commit();
 	}
 	
-	public Reali recuperaProprieta()
+	public Percentuali recuperaProprieta()
 	{
-		Reali ret = new Reali();
+		Percentuali ret = new Percentuali();
 		
 		for (Proprieta p : quoteDiPossesso) {
 			ret.inserisciReale((float)p.getQuota());
@@ -67,7 +64,7 @@ public class UnitaImmobiliare {
 		return ret;
 	}
 
-	public void modificaProprieta(Persone pers, Reali quote)
+	public void modificaProprieta(Persone pers, Percentuali quote)
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
@@ -122,7 +119,6 @@ public class UnitaImmobiliare {
 		return condominio;
 	}
 
-//	@SuppressWarnings("unused")
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
 	}
@@ -135,11 +131,12 @@ public class UnitaImmobiliare {
 		this.quoteDiPossesso = quoteDiPossesso;
 	}
 
-	public Set<Millesimo> getMillesimo() {
+/*	public Set<Millesimo> getMillesimo() {
 		return millesimo;
 	}
 
 	public void setMillesimo(Set<Millesimo> millesimo) {
 		this.millesimo = millesimo;
 	}
+	*/
 }

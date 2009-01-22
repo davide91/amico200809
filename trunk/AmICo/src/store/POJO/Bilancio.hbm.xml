@@ -12,20 +12,20 @@
 		</id>
 	
 		<component name="dati" class="datatype.DatiBilancio">
-			<property name="tipo" type="store.convertitori.HibTipoBilancio"/> 
+			<property name="tipo"/> 
 			<property name="inizio" type="date"/>
 			<property name="fine" type="date"/>
 			<property name="titolo"/>
 			<property name="descrizione"/>
-			<property name="stato" type="store.convertitori.HibStatoBilancio"/>
+			<property name="stato"/>
 		</component>	
 			
-		<set name="voci" cascade="all">
+		<set name="voci" lazy="false" cascade="all-delete-orphan,save-update">
 		 	<key column="BILANCIO_ID"/>
 		 	<one-to-many class="VoceBilancio"/>
 		</set>	
 			
-		<set name="pagamenti" cascade="all">
+		<set name="pagamenti" lazy="false" cascade="all-delete-orphan,save-update">
 		 	<key column="BILANCIO_ID"/>
 		 	<one-to-many class="Pagamento"/>
 		</set>

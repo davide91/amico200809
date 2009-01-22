@@ -18,6 +18,12 @@ public class Millesimo {
 	{
 		
 	}
+	
+	public Millesimo(float q,TabellaMillesimale tab)
+	{
+		tabellaMillesimale = tab;
+		quota = q;
+	}
 
 	public float getQuota() {
 		return quota;

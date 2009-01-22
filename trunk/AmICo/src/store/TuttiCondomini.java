@@ -7,13 +7,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import datatype.list.Condomini;
-import datatype.list.Persone;
-import enumeration.StatoCondominio;
-
 import store.POJO.Condominio;
-import store.POJO.Persona;
 import store.util.HibernateUtil;
+import datatype.list.Condomini;
+import enumeration.StatoCondominio;
+import executor.Avvio;
 
 /**
  * @author bruno
@@ -21,14 +19,16 @@ import store.util.HibernateUtil;
  */
 public class TuttiCondomini {
 
-	private Condomini CONDOMINI;
+	private static TuttiCondomini CONDOMINI = null;
 	private Session session;
 	
-	public TuttiCondomini()
+	public static TuttiCondomini inizializzaCondomini()
 	{
-		CONDOMINI = new Condomini();
+		if ( CONDOMINI == null )
+			CONDOMINI = new TuttiCondomini();
+		return CONDOMINI;
 	}
-	
+
 	public Condomini recuperaCondomini()
 	{	
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
@@ -36,13 +36,11 @@ public class TuttiCondomini {
 		
 		List Cond = session.createQuery("from Condominio").list();
 		
-
-		CONDOMINI.setCondomini(Cond);
-		/*for (int i = 0; i < Cond.size(); i++) {	
-			CONDOMINI.inserisciCondominio((Condominio)Cond.get(i));
-		}*/
+//		CONDOMINI.setCondomini(Cond);
 		session.getTransaction().commit();
-		return CONDOMINI;
+		Condomini c = new Condomini();
+		c.setCondomini(Cond);
+		return c;
 	}
 	
 	public void inserisciCondominio(Condominio c)
@@ -50,7 +48,7 @@ public class TuttiCondomini {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();		
 			c.setStatoCondominio(StatoCondominio.inCompilazione);
-			CONDOMINI.inserisciCondominio(c);
+	//		CONDOMINI.inserisciCondominio(c);
 			session.persist(c);
 		session.getTransaction().commit();
 	}
@@ -59,7 +57,7 @@ public class TuttiCondomini {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-			CONDOMINI.elimina(c);
+		//	CONDOMINI.elimina(c);
 			session.delete(c);
 		session.getTransaction().commit();
 	}

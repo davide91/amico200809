@@ -6,13 +6,11 @@ package datatype.list;
 import java.util.ArrayList;
 import java.util.List;
 
-import store.POJO.Proprieta;
-
 /**
  * @author peregrino
  *
  */
-public class Reali {
+public class Percentuali {
 
 	private List<Float> listaQuote = new ArrayList<Float>();
 	

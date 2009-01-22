@@ -16,7 +16,7 @@
 		</component>	
 		<property name="percentuali"/>
 		<property name="scadenze" type="date"/>
-		<property name="tipo" type="store.convertitori.HibTipoPianoPagamenti"/>
+		<property name="tipo"/>
   	</component>	
    
    

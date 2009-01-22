@@ -13,7 +13,7 @@
 	
 		<component name="dati" class="datatype.DatiVoceBilancio">
 			<property name="titolo"/>
-			<property name="tipo" type="store.convertitori.HibTipoVoce"/> 
+			<property name="tipo"/> 
 			<property name="descrizione"/>
 			<component name="importo" class="datatype.Euro">
 				<property name="euro"/>

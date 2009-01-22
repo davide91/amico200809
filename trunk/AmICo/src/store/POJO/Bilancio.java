@@ -8,6 +8,10 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
+
 import datatype.DatiBilancio;
 import datatype.list.Euri;
 import datatype.list.PianiPagamenti;
@@ -23,11 +27,13 @@ public class Bilancio {
 	private long id;
 	private DatiBilancio dati;
 
-	private SortedSet<VoceBilancio> voci = new TreeSet<VoceBilancio>(); 
+	private Set<VoceBilancio> voci = new HashSet<VoceBilancio>(); 
 	private Set<Pagamento> pagamenti = new HashSet<Pagamento>();
 	private Set<PianoPagamenti> pianoPagamenti = new HashSet<PianoPagamenti>();
 	private Condominio condominio;
 		
+	private Session session;
+	
 	public Bilancio()
 	{
 		
@@ -39,18 +45,30 @@ public class Bilancio {
 	}
 	
 	public void creaBilancio(DatiBilancio db)
-	{
-		dati = db;
+	{	session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			dati = db;
+		session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	public void modificaDati(DatiBilancio db)
 	{
-		dati = db;
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			dati = db;
+		session.update(this);
+		session.getTransaction().commit();
 	}
 	
 	public void inserisciVoceBilancio(VoceBilancio vb)
 	{
-		voci.add(vb);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			voci.add(vb);
+		session.update(this);
+		session.getTransaction().commit();
+		
 	}
 	
 	public void eliminaVoceBilancio(VoceBilancio vb)
@@ -129,12 +147,6 @@ public class Bilancio {
 	 final Bilancio o = (Bilancio) other;
 	 if (!o.getDati().equals(getDati()))
 	   return false;
-	 if (!o.getPagamenti().equals(getPagamenti()))
-	   return false;
-	 if (!o.getPianoPagamenti().equals(getPianoPagamenti()))
-		   return false;
-	 if (!o.getVoci().equals(getVoci()))
-		   return false;
 	 return true;
 	}
 
@@ -164,11 +176,11 @@ public class Bilancio {
 		this.dati = dati;
 	}
 
-	public SortedSet<VoceBilancio> getVoci() {
+	public Set<VoceBilancio> getVoci() {
 		return voci;
 	}
 
-	public void setVoci(SortedSet<VoceBilancio> voci) {
+	public void setVoci(Set<VoceBilancio> voci) {
 		this.voci = voci;
 	}
 

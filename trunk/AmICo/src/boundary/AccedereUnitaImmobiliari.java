@@ -20,7 +20,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.UnitaImmobiliare;
 
 import datatype.list.Persone;
-import datatype.list.Reali;
+import datatype.list.Percentuali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereUnitaImmobiliari;
 import executor.GestoreCondominioAperto;
@@ -75,7 +75,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		state=StatiAccedereUnitaImmobiliari.inserimentoNuovaPersona;
 	}
 	
-	public void specificaProprieta(Persone nuovePersone, Reali nuoveQuote) {
+	public void specificaProprieta(Persone nuovePersone, Percentuali nuoveQuote) {
 		GCA.passaProprieta(nuovePersone, nuoveQuote);
 		state = StatiAccedereUnitaImmobiliari.controlloProprieta;
 	}

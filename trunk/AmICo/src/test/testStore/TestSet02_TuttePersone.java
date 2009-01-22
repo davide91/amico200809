@@ -44,7 +44,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		//cinserisco una persona
 		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",(new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		tp.inserisciPersona(dpf);
-		assertEquals(1, persone.recuperaPersone().size());
+		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 	}
 	
 	public void testPERSONE_RecuperaPersonaFisica()
@@ -92,33 +92,30 @@ public class TestSet02_TuttePersone extends TestCase {
 	{
 		tp = new TuttePersone();
 		
-		Persone persone = tp.recuperaPersone();
-		
 		//inizialmente il DB ha una persona inserita prima
-		assertEquals(1, persone.recuperaPersone().size());
+		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 		
 		//ci inserisco una persona giuridica
 		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
 		tp.inserisciPersona(dpg);
 		
 		//deve essere due perchè una era inserita prima
-		assertEquals(2, persone.recuperaPersone().size());
+		assertEquals(2, tp.recuperaPersone().recuperaPersone().size());
 	}
 	
 	public void testPERSONE_RecuperaPersonaGiuridica()
 	{
 		tp = new TuttePersone();
 		
-		Persone persone = tp.recuperaPersone();
-		
+	
 		//inizialmente il DB contiene una persona
-		assertEquals(2, persone.recuperaPersone().size());
+		assertEquals(2, tp.recuperaPersone().recuperaPersone().size());
 		
 		//Dati con i quali confronteremo la persona recuperata
 		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
 			
 		//recuperiamo la persona
-		Persona p = persone.recuperaPersone().get(1);
+		Persona p = tp.recuperaPersone().recuperaPersone().get(1);
 		
 		//controlliamo che sia l'istanza voluta		
 		assertTrue(p instanceof PersonaGiuridica);
@@ -162,14 +159,14 @@ public class TestSet02_TuttePersone extends TestCase {
 		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB ha una persona
-		assertEquals(2, persone.recuperaPersone().size());
+		assertEquals(2, tp.recuperaPersone().recuperaPersone().size());
 		
 		//recuperiamo la persona
-		Persona p = persone.recuperaPersone().get(0);
+		Persona p = tp.recuperaPersone().recuperaPersone().get(0);
 		
 		tp.eliminaPersona(p);
 		
-		assertEquals(1, persone.recuperaPersone().size());
+		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 	}
 
 	public void testPERSONE_EliminazionePersonaGiuridica()
@@ -179,12 +176,12 @@ public class TestSet02_TuttePersone extends TestCase {
 		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB è vuoto
-		assertEquals(1, persone.recuperaPersone().size());
+		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 		
 		//recuperiamo la persona
 		Persona p = persone.recuperaPersone().get(0);
 		tp.eliminaPersona(p);
 		
-		assertEquals(0, persone.recuperaPersone().size());
+		assertEquals(0, tp.recuperaPersone().recuperaPersone().size());
 	}
 }

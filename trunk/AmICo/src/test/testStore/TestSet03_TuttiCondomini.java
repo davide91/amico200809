@@ -3,18 +3,25 @@
  */
 package test.testStore;
 
+import java.sql.Date;
+
 import org.hibernate.Session;
 
 import store.TuttePersone;
 import store.TuttiCondomini;
+import store.POJO.Bilancio;
 import store.POJO.Condominio;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
+import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import store.util.HibernateUtil;
 import datatype.CodiceFiscale;
+import datatype.Data;
+import datatype.DatiBilancio;
 import datatype.DatiCondominio;
 import datatype.DatiPersonaFisica;
+import datatype.DatiTabellaMillesimale;
 import datatype.DatiUnitaImmobiliare;
 import datatype.Email;
 import datatype.Euro;
@@ -23,13 +30,15 @@ import datatype.Preferenze;
 import datatype.list.Condomini;
 import datatype.list.Persone;
 import datatype.list.PersoneFisiche;
-import datatype.list.Reali;
+import datatype.list.Percentuali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.CategoriaCatastale;
 import enumeration.Comune;
 import enumeration.DestinazioneUso;
 import enumeration.Provincia;
+import enumeration.StatoBilancio;
 import enumeration.StatoCondominio;
+import enumeration.TipoBilancio;
 import junit.framework.TestCase;
 
 /**
@@ -48,7 +57,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_Inserimento()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 		
@@ -65,7 +74,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_recupero()
 	{		
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 	
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 		
@@ -81,7 +90,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_modificaPreferenze()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 			
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0); // recupero il condominio
 		c.modificaPreferenze(new Preferenze((float)4.3,100,new Euro((float)510.0)));
@@ -91,7 +100,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_inserireUnitaImmobiliare()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		tp = new TuttePersone();
 		
@@ -106,7 +115,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_recuperaUnitaImmobiliare()
 	{		
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		UnitaImmobiliare unitaRecuperata = c.recuperaUnitaImmobiliari().getImmobili().get(0);
@@ -119,7 +128,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_modificaUnitaImmobiliare()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		//recupero il condominio
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
@@ -137,7 +146,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_InserisciPersona()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		tp = new TuttePersone();
 		
@@ -153,8 +162,8 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		DatiPersonaFisica dpf1 = new DatiPersonaFisica(new CodiceFiscale("codFisc1"),"Elena","Bianchi","328-4724731",ind1,"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		tp.inserisciPersona(dpf1);
 		
-		PersonaFisica p = (PersonaFisica)tp.recuperaPersone(ind).recuperaPersone().get(0);
-		PersonaFisica p1 = (PersonaFisica)tp.recuperaPersone(ind).recuperaPersone().get(1);
+		PersonaFisica p = (PersonaFisica)tp.recuperaPersone().recuperaPersone().get(0);
+		PersonaFisica p1 = (PersonaFisica)tp.recuperaPersone().recuperaPersone().get(1);
 		
 		assertTrue(p.getDati().equals(dpf));
 		assertTrue(p1.getDati().equals(dpf1));
@@ -167,7 +176,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_InserireProprietàUnitàImmobiliare()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		
 		//recupero il condominio
@@ -178,7 +187,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		//recupero le persone dal condominio
 		Persone pers = cond.recuperaCondomini();
 		
-		Reali quote = new Reali();
+		Percentuali quote = new Percentuali();
 		
 		if(pers.getPersone().size()==2)
 		{
@@ -190,7 +199,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_ModificaProprietàUnitàImmobiliare()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		
 		//recupero il condominio
@@ -204,7 +213,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		Persone pers = new Persone();
 		pers.inserisciPersona(pe);
 		
-		Reali quote = new Reali();
+		Percentuali quote = new Percentuali();
 			quote.inserisciReale((float)1.0);
 	
 		unitaRecuperata.modificaProprieta(pers, quote);
@@ -212,7 +221,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_EliminaPersona()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		tp = new TuttePersone();
 		
@@ -229,7 +238,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_eliminaUnitaImmobiliare()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		
@@ -244,10 +253,70 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		assertEquals(0, c.recuperaUnitaImmobiliari().getImmobili().size());
 	}
 	
-	
-	public void testCONDOMINI_eliminaCondominio()
+	public void testCONDOMINI_inserisciTabellaMillesimale()
 	{
-		tc = new TuttiCondomini();
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		//non ci sono tabelle millesimali
+		assertEquals(0, c.recuperaTabelleMillesimali().getTabelle().size());
+		
+		DatiTabellaMillesimale datiTab = new DatiTabellaMillesimale();
+		datiTab.setDescrizione("Divisione Spiazi Pubblici");
+		datiTab.setNome("Pubblici");
+		TabellaMillesimale t = new TabellaMillesimale();
+		t.setDati(datiTab);
+		c.inserisciTabellaMillesimale(t);
+		assertEquals(1, c.recuperaTabelleMillesimali().getTabelle().size());
+	}
+	
+	public void testCONDOMINI_modificaMillesimi_TabellaMillesimale()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		//c'è una sona tabelle millesimale
+		assertEquals(1, c.recuperaTabelleMillesimali().getTabelle().size());
+		
+		//recupero la tabella millesimale
+		TabellaMillesimale t = c.recuperaTabelleMillesimali().getTabelle().get(0);
+		
+		Percentuali perc = new Percentuali();
+		perc.inserisciReale((float)0.3);
+		perc.inserisciReale((float)0.5);
+		perc.inserisciReale((float)0.2);
+	
+		t.modificaTabella("Pubblici_mod", perc);
+		
+		assertEquals(1, c.recuperaTabelleMillesimali().getTabelle().size());
+	}
+	
+	public void testCONDOMINI_inserisciBilancio()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
+		
+		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
+		//non ci sono bilanci
+		assertEquals(0, c.recuperaBilanci().getBilanci().size());
+		
+		DatiBilancio db = new DatiBilancio();
+		db.setTitolo("Bilancio di Prova");
+		db.setTipo(TipoBilancio.ordinario);
+		db.setStato(StatoBilancio.inCompilazione);
+		db.setInizio(new Date(2009,1,1));
+		db.setFine(new Date(2009,12,31));
+		db.setDescrizione("Sarò in grado di redigere un bilancio?? Ma!!!");
+		Bilancio b = new Bilancio(db);
+		
+		c.inserisciBilancio(b);
+		
+		assertEquals(1, c.recuperaBilanci().getBilanci().size());
+	}
+	
+	//commentato per vedere se rimangono gli inserimenti... cancellando il condominio, cancella tutti i suoi aggragati
+/*	public void testCONDOMINI_eliminaCondominio()
+	{
+		tc = TuttiCondomini.inizializzaCondomini();
 		
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 		
@@ -256,6 +325,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		tc.eliminaCondominio(cond);
 		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 	}
-
+*/
 	
 }
