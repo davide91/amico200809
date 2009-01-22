@@ -2,6 +2,7 @@
 package boundary;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +14,8 @@ import javax.swing.UIManager;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+
+import store.POJO.Condominio;
 
 /**
  * @author Federico
@@ -32,10 +35,19 @@ public class DatiGenerali extends JPanel {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public DatiGenerali() {
+	
+	public DatiGenerali(Condominio condominio) {
 		initComponents();
+		this.setVisible(true);
+		if(condominio!= null)
+		{		
+			cap.setText(condominio.getDatiC().getIndirizzo().getCap());
+			comune.setText(condominio.getDatiC().getIndirizzo().getComune().toString());
+			provincia.setText(condominio.getDatiC().getIndirizzo().getProvincia().toString());
+			via.setText( condominio.getDatiC().getIndirizzo().getVia());
+			identificatore.setText( condominio.getDatiC().getId());
+		}
 	}
-
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getIdentificatore(), new Constraints(new Leading(68, 260, 10, 10), new Leading(38, 10, 10)));
@@ -94,6 +106,8 @@ public class DatiGenerali extends JPanel {
 	private JTextField getCap() {
 		if (cap == null) {
 			cap = new JTextField();
+			cap.setBackground(Color.white);
+			cap.setEditable(false);
 		}
 		return cap;
 	}
@@ -101,6 +115,8 @@ public class DatiGenerali extends JPanel {
 	private JTextField getProvincia() {
 		if (provincia == null) {
 			provincia = new JTextField();
+			provincia.setBackground(Color.white);
+			provincia.setEditable(false);
 		}
 		return provincia;
 	}
@@ -108,6 +124,8 @@ public class DatiGenerali extends JPanel {
 	private JTextField getComune() {
 		if (comune == null) {
 			comune = new JTextField();
+			comune.setBackground(Color.white);
+			comune.setEditable(false);
 		}
 		return comune;
 	}
@@ -115,6 +133,8 @@ public class DatiGenerali extends JPanel {
 	private JTextField getVia() {
 		if (via == null) {
 			via = new JTextField();
+			via.setBackground(Color.white);
+			via.setEditable(false);
 		}
 		return via;
 	}
@@ -122,6 +142,8 @@ public class DatiGenerali extends JPanel {
 	private JTextField getIdentificatore() {
 		if (identificatore == null) {
 			identificatore = new JTextField();
+			identificatore.setBackground(Color.white);
+			identificatore.setEditable(false);
 		}
 		return identificatore;
 	}
@@ -151,7 +173,7 @@ public class DatiGenerali extends JPanel {
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setTitle("DatiGenerali");
-				DatiGenerali content = new DatiGenerali();
+				DatiGenerali content = new DatiGenerali(null);
 				content.setPreferredSize(content.getSize());
 				frame.add(content, BorderLayout.CENTER);
 				frame.pack();

@@ -62,6 +62,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	public AccedereTabelleMillesimali() {
 		// TODO Auto-generated constructor stub
+		initComponents();
 	}
 
 	private void initComponents() {

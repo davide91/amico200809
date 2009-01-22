@@ -14,16 +14,21 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Condominio;
+
 /**
  * @author Federico
  *
  */
 public class PannelloTab extends JPanel {
 
+	private Condominio condominio;
+	
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane jTabbedPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public PannelloTab() {
+	public PannelloTab(Condominio condominio) {
+		this.condominio=condominio;
 		initComponents();
 	}
 
@@ -36,7 +41,7 @@ public class PannelloTab extends JPanel {
 	private JTabbedPane getJTabbedPane0() {
 		if (jTabbedPane0 == null) {
 			jTabbedPane0 = new JTabbedPane();
-			jTabbedPane0.addTab("Dati Generali",new DatiGenerali());
+			jTabbedPane0.addTab("Dati Generali",new DatiGenerali(condominio));
 			jTabbedPane0.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari());
 			jTabbedPane0.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
 			jTabbedPane0.addTab("Preferenze", new AccederePreferenze());
@@ -69,7 +74,7 @@ public class PannelloTab extends JPanel {
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setTitle("PannelloTab");
-				PannelloTab content = new PannelloTab();
+				PannelloTab content = new PannelloTab(null);
 				content.setPreferredSize(content.getSize());
 				frame.add(content, BorderLayout.CENTER);
 				frame.pack();
