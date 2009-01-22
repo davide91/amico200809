@@ -3,56 +3,42 @@
  */
 package executor;
 
-import boundary.DriverFileSystem;
 import store.TuttePersone;
 import store.TuttiCondomini;
-import datatype.list.Condomini;
-import datatype.list.Persone;
+import boundary.AmICo;
+import boundary.DriverFileSystem;
+import executor.GestorePersone;
 
 /**
  * @author thewally
  *
  */
 public class Avvio  {
-	private static Avvio m_singleAvvio;
 	
-	public static Avvio getInstance() {
-		if ( m_singleAvvio == null )
-			m_singleAvvio = new Avvio();
-		return m_singleAvvio;
-	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		Avvio avvioAmiCO = Avvio.getInstance();
+		Avvio.inizializzaAmICo();
 	}
-	private Condomini m_condomini;
-	private GestoreCondomini m_gestoreCondomini;
+	
 
-	private GestorePersone m_gestorePersone;
-	private DriverFileSystem m_driverDriverFileSystem;
-
-	private Persone m_persone;	
-
-	private Avvio() {
-		inizializzaAmICo();
-	}
-
-	public void esciDaAmICo() {
+	public static void esciDaAmICo() {
 
 	}
 	
-	private void inizializzaAmICo() {
-/*		m_condomini = TuttiCondomini.CONDOMINI;
-		m_persone = TuttePersone.PERSONE;
-	*/	
-		m_gestoreCondomini = GestoreCondomini.getInstance();
-		m_gestoreCondomini.impostaAvvio(this);
-		m_gestorePersone = GestorePersone.getInstance();
-		m_driverDriverFileSystem = new DriverFileSystem();
-
+	public static void inizializzaAmICo() {
+		GestoreCondomini.getInstance();
+		GestorePersone.getInstance();
+		DriverFileSystem.getInstance();
+		
+		/* TODO : penso ci sia da fare un singleton
+		 * in tutte e due le classi
+		 */
+		
+		TuttiCondomini.CONDOMINI;
+		TuttePersone.PERSONE;
+		
 	}
 	
 }
