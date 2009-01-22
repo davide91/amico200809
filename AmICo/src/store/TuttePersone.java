@@ -14,11 +14,7 @@ import store.util.HibernateUtil;
 import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
-import datatype.Indirizzo;
-import datatype.PartitaIva;
 import datatype.list.Persone;
-import datatype.list.PersoneFisiche;
-import datatype.list.PersoneGiuridiche;
 
 /**
  * @author bruno
@@ -26,12 +22,14 @@ import datatype.list.PersoneGiuridiche;
  */
 public class TuttePersone {
 
-	private static Persone PERSONE;
+	private static TuttePersone PERSONE = null;
 	private Session session;
 	
-	public TuttePersone()
+	public static TuttePersone inizializzaPersone()
 	{
-		PERSONE = new Persone();
+		if(PERSONE==null)
+			PERSONE = new TuttePersone();
+		return PERSONE;
 	}
 	
 	public void inserisciPersona(DatiPersona dati)
@@ -42,14 +40,14 @@ public class TuttePersone {
 			DatiPersonaFisica dpf = (DatiPersonaFisica) dati;
 			PersonaFisica pf = new PersonaFisica();
 			pf.creaPersonaFisica(dpf);
-			PERSONE.inserisciPersona(pf);
+		//	PERSONE.inserisciPersona(pf);
 			session.persist(pf);
 		}else
 		{
 			DatiPersonaGiuridica dpg = (DatiPersonaGiuridica) dati;
 			PersonaGiuridica pg = new PersonaGiuridica();
 			pg.creaPersonaGiuridica(dpg);
-			PERSONE.inserisciPersona(pg);
+		//	PERSONE.inserisciPersona(pg);
 			session.persist(pg);
 		}
 		session.getTransaction().commit();
@@ -71,7 +69,7 @@ public class TuttePersone {
 				}
 			}
 		}
-		PERSONE.elimina(pers);
+		//PERSONE.elimina(pers);
 		session.delete(pers);
 		session.getTransaction().commit();
 	}
@@ -94,12 +92,11 @@ public class TuttePersone {
 		for (int i = 0; i < personeG.size(); i++) {
 			persone.inserisciPersona((PersonaGiuridica) personeG.get(i));
 		}
-		
-		PERSONE.setPersone(persone.getPersone());	
-		return PERSONE;
+	
+		return persone;
 	}
 	
-	public Persone recuperaPersone(String nome, String cognome)
+/*	public Persone recuperaPersone(String nome, String cognome)
 	{
 		return PERSONE.recuperaPersone(nome, cognome);
 	}
@@ -113,4 +110,5 @@ public class TuttePersone {
 	{
 		return PERSONE.recuperaPersone(pIva);
 	}
+	*/
 }

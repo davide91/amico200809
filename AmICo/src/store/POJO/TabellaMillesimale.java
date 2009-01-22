@@ -6,7 +6,12 @@ package store.POJO;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Session;
+
+import store.util.HibernateUtil;
+
 import datatype.DatiTabellaMillesimale;
+import datatype.list.Percentuali;
 
 /**
  * @author bruno
@@ -17,41 +22,49 @@ public class TabellaMillesimale {
 	private long id;
 	private DatiTabellaMillesimale dati;
 	private Condominio condominio;
-	private Set<Millesimo> millesimi;
+	private Set<Millesimo> millesimi = new HashSet<Millesimo>();
 	
-	public Set<Millesimo> getMillesimi() {
-		return millesimi;
-	}
-
-	public void setMillesimi(Set<Millesimo> millesimi) {
-		this.millesimi = millesimi;
-	}
-
+	private Session session;
+	
 	public TabellaMillesimale()
 	{
-		millesimi = new HashSet<Millesimo>();
+		
 	}
 	
-	public TabellaMillesimale(DatiTabellaMillesimale DTM)
+	public TabellaMillesimale(DatiTabellaMillesimale DTM, Percentuali perc)
+	{
+		creaTabellaMillesimale(DTM, perc);
+	}
+	
+	public void creaTabellaMillesimale(DatiTabellaMillesimale DTM, Percentuali perc)
 	{
 		dati = DTM;
-	}
-	
-	public void creaTabellaMillesimale(DatiTabellaMillesimale DTM)
-	{
-		dati = DTM;
-	}
-	
-	public void creaTabellaProprietaGenerale(float millesimi)
-	{
-		dati.setMillesimi(millesimi);
-	}
-	
-	public void modificaDati(DatiTabellaMillesimale DTM)
-	{
-		dati = DTM;
+		creaTabellaProprietaGenerale(perc);
 	}
 
+	public void creaTabellaProprietaGenerale(Percentuali perc)
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+	
+			millesimi.clear();
+			
+			for (int i=0;i< perc.getListaQuote().size();i++) {
+				Millesimo mill = new Millesimo();
+				mill.setQuota(perc.getListaQuote().get(i));
+				millesimi.add(mill);
+			}
+	
+		session.update(this);
+		session.getTransaction().commit();
+	}
+	
+	public void modificaTabella(String nome, Percentuali perc)
+	{
+		dati.setNome(nome);
+		creaTabellaProprietaGenerale(perc);
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 	 if (this == other)
@@ -93,5 +106,13 @@ public class TabellaMillesimale {
 
 	public void setCondominio(Condominio condominio) {
 		this.condominio = condominio;
+	}
+	
+	public Set<Millesimo> getMillesimi() {
+		return millesimi;
+	}
+
+	public void setMillesimi(Set<Millesimo> millesimi) {
+		this.millesimi = millesimi;
 	}
 }

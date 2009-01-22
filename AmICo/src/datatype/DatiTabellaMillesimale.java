@@ -11,7 +11,6 @@ public class DatiTabellaMillesimale {
 
 	private String nome;
 	private String descrizione;
-	//private float millesimi; // va messe come sequenza di float ordinata
 	
 	public DatiTabellaMillesimale()
 	{

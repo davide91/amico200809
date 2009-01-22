@@ -22,7 +22,7 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.TabellaMillesimale;
 import datatype.DatiTabellaMillesimale;
-import datatype.list.Reali;
+import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereTabelleMillesimali;
@@ -163,7 +163,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		//AMM.mostraUnitaImmobiliar(unita);
 		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
 	}
-	public void modificaTabellaMillesimale(TabellaMillesimale TM , DatiTabellaMillesimale DTM, Reali millesimi)
+	public void modificaTabellaMillesimale(TabellaMillesimale TM , DatiTabellaMillesimale DTM, Percentuali millesimi)
 	{
 		if (millesimi.somma()==1000){
 			//AMM.richiestaConferma();
@@ -177,7 +177,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	{
 		this.tabelleMillesimali=TM;
 	}
-	public void inserisciMillesimi(Reali millesimi){
+	public void inserisciMillesimi(Percentuali millesimi){
 		if (millesimi.somma()==1000){
 			GCA.inserisciTabellaMillesimale(datiTabella, millesimi);
 			state=StatiAccedereTabelleMillesimali.attesaControlloMillesimi;

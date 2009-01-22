@@ -21,7 +21,7 @@
  			class="Condominio"
 			column="CONDOMINIO_ID"/>
 			
-	<set name="millesimi" cascade="all-delete-orphan,save-update">
+	<set name="millesimi" lazy="false" cascade="all-delete-orphan,save-update">
 		 <key column="TABELLA_ID"/>			
 	 	<one-to-many class="Millesimo"/>	
 	</set>		

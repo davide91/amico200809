@@ -13,10 +13,10 @@
 		
 		<component name="datiUnitaImmobiliare" class="datatype.DatiUnitaImmobiliare">
 			<property name="id"/>
-			<property name="catCatastale" type="store.convertitori.HibCategoriaCatastale"/>
+			<property name="catCatastale"/>
 			<property name="posizioneInterna" />
 			<property name="metriQ" />
-			<property name="destUso" type="store.convertitori.HibDestinazioneUso"/>
+			<property name="destUso"/>
 		</component>	
 			
 		<!-- inverse end -->
@@ -29,10 +29,10 @@
 	 	<one-to-many class="Proprieta"/>	
 	</set>			
 	
-	<set name="millesimo" cascade="all-delete-orphan,save-update">
-		 <key column="UNITA_ID"/>			
-	 	<one-to-many class="Millesimo"/>	
-	</set>					
+<!--	<set name="millesimo" lazy="false" cascade="all-delete-orphan,save-update"> 		-->
+<!--		 <key column="UNITA_ID"/>										-->
+<!--	 	<one-to-many class="Millesimo"/>								-->
+<!--	</set>																-->
 
 	</class>
 </hibernate-mapping>

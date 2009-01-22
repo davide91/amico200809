@@ -20,7 +20,7 @@ import datatype.Preferenze;
 import datatype.list.Avvisi;
 import datatype.list.Persone;
 //import datatype.list.QuoteProprieta;
-import datatype.list.Reali;
+import datatype.list.Percentuali;
 import enumeration.StatiGestoreCondominioAperto;
 
 public class GestoreCondominioAperto implements BaseExecutor {
@@ -77,7 +77,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.exportCondominio;
 	}
 	
-	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale, Reali millesimi) {
+	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) {
 		m_datiTabellaMillesimale = datiTabellaMillesimale;
 		m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(datiTabellaMillesimale));
 		m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
@@ -155,7 +155,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	
-	public void passaProprieta(Persone persone, Reali quoteProprieta) {
+	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
 		
 		/* TODO : qui è richiesto quoteProprieta.quoteOk(), ma credo che sia
 		 * un sinonimo di quoteProprieta.controlla()
