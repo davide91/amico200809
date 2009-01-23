@@ -41,11 +41,13 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private DatiCondominio datiCondominio = new DatiCondominio();
 	private Percentuali tabellaGenerale;
 	private StatiInserireNuovoCondominio state;
+	private int c;
 	
 	
 	public void inserisciDatiCondominio(DatiCondominio datiCondominio){
-		GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
 		state=StatiInserireNuovoCondominio.controlloDatiCondominio;
+		GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
+		
 	}
 
 	
@@ -72,30 +74,35 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		switch (state) {
 		case controlloDatiCondominio:
 			
-			
-			
 			if (b)
 			{
-				
 				//AMM.richiediConferma();
 				state=StatiInserireNuovoCondominio.attesaConfermaDatiCondominio;
-				JOptionPane option = new JOptionPane("sei sicuro?", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
-				JDialog dialog = option.createDialog(this,"errore");
-				dialog.setVisible(true);
-				if(true){
-					ok();
+				
+			//	JOptionPane option= new JOptionPane("sei sicuro?",JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
+			//	JDialog dialog = option.createDialog(this,"errore");
+			//	dialog.setVisible(true);
+				
+				c = JOptionPane.showConfirmDialog(this, "", "", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				
+				if (c==0){
+					state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
+					GestoreCondomini.getInstance().procedi(true);
 				}
-				if(false){
-					ko();
+				else {
+					state=StatiInserireNuovoCondominio.base;
+					GestoreCondomini.getInstance().procedi(false);	
 				}
 			}
 			else
 			{
 				state=StatiInserireNuovoCondominio.base;
 			
-				JOptionPane option = new JOptionPane("condominio inserito ko", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
-				JDialog dialog = option.createDialog(this,"errore");
-				dialog.setVisible(true);
+			//	JOptionPane option = new JOptionPane("condominio inserito ko", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
+				c = JOptionPane.showConfirmDialog(this, "", "", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		//		JDialog dialog = option.createDialog(this,"errore");
+		//		dialog.setVisible(true);
+				
 				//AMM.mostra(CondominioInseritoKO):
 			}
 			break;
@@ -188,7 +195,8 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			indirizzo.setInterno(null);
 			datiCondominio.setId(via.getText()+cap.getText());
 			datiCondominio.setIndirizzo(indirizzo);
-			GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
+			inserisciDatiCondominio(datiCondominio);
+			//GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
 			
 		}
 		

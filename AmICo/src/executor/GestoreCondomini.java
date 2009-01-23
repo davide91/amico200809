@@ -74,9 +74,9 @@ public class GestoreCondomini implements BaseExecutor {
 	private boolean condominioGiaInserito(DatiCondominio datiCondominio) {
 		for ( Condominio condominio : m_dbCondomini.recuperaCondomini().getCondomini() )
 			if ( condominio.recuperaDatiCondominio().equals(datiCondominio) )
-				return false;
+				return true;
 		
-		return true;
+		return false;
 	}
 	
 	public void esciDaAmico() {
@@ -104,10 +104,10 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	public void inserisciUnitaImmobiliare() {
+		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 		m_unitaImmobiliare = new UnitaImmobiliare();
 		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
 		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare();
-		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 	}
 	
 	public void operazioneAnnullata() {
@@ -140,12 +140,14 @@ public class GestoreCondomini implements BaseExecutor {
 	public void passaDatiCondominio(DatiCondominio datiCondominio) {
 		if ( condominioGiaInserito(datiCondominio) ) {
 			m_inserireNuovoCondominio.ammissibile(false);
-			return;
+			
 		}
-		
+		else{
+			m_state = StatiGestoreCondominio.attesaConfermaDatiCondominio;
+			m_datiCondominio = datiCondominio;
 		m_inserireNuovoCondominio.ammissibile(true);
-		m_datiCondominio = datiCondominio;
-		m_state = StatiGestoreCondominio.attesaConfermaDatiCondominio;
+		
+		}
 	}
 		
 	public void passaDatiUnitaImmobliare(DatiUnitaImmobiliare datiUnitaImmobliare) {
@@ -185,10 +187,12 @@ public class GestoreCondomini implements BaseExecutor {
 					m_state = StatiGestoreCondominio.inserimentoCondominio;
 					break;
 				}
+				m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 				m_condominio = new Condominio();
 				m_dbCondomini.inserisciCondominio(m_condominio);
 				m_condominio.modificaDati(m_datiCondominio);
-				m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliari;
+				inserisciUnitaImmobiliare();
+				
 				break;
 			case attesaConfermaTabellaMillesimale :
 				if ( !procedere ) {

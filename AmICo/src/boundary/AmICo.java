@@ -90,7 +90,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 		for (Condominio c : condomini.getCondomini())
 		{
 			listModel.addElement( c.getDatiC().getId() );
-			System.out.println(c.getDatiC().getId());
+			//System.out.println(c.getDatiC().getId());
 		}
 		lista.setModel(listModel);
 		setTitle("AmICo");
