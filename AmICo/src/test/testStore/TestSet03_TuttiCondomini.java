@@ -63,7 +63,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_Inserimento()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 		
@@ -80,7 +80,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_recupero()
 	{		
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 	
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 		
@@ -96,7 +96,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_modificaPreferenze()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 			
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0); // recupero il condominio
 		c.modificaPreferenze(new Preferenze((float)4.3,100,new Euro((float)510.0)));
@@ -106,7 +106,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_inserireUnitaImmobiliare()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		tp = new TuttePersone();
 		
@@ -121,7 +121,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_recuperaUnitaImmobiliare()
 	{		
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		UnitaImmobiliare unitaRecuperata = c.recuperaUnitaImmobiliari().getImmobili().get(0);
@@ -134,7 +134,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_modificaUnitaImmobiliare()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		//recupero il condominio
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
@@ -152,7 +152,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_InserisciPersona()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		tp = new TuttePersone();
 		
@@ -182,7 +182,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_InserireProprietàUnitàImmobiliare()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		
 		//recupero il condominio
@@ -205,7 +205,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_ModificaProprietàUnitàImmobiliare()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		
 		//recupero il condominio
@@ -227,7 +227,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_EliminaPersona()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		tp = new TuttePersone();
 		
@@ -244,7 +244,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 
 	public void testCONDOMINI_eliminaUnitaImmobiliare()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		
@@ -261,7 +261,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_inserisciTabellaMillesimale()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		//non ci sono tabelle millesimali
@@ -278,7 +278,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_modificaMillesimi_TabellaMillesimale()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		//c'è una sona tabelle millesimale
@@ -299,7 +299,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_inserisciBilancio()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		//non ci sono bilanci
@@ -321,7 +321,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_recuperaBilancio_inEsercizio()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		//non ci sono bilanci in esercizio
@@ -330,7 +330,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_inserisci_VoceBilancio()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		
@@ -357,7 +357,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINIO_bilancioTerminabile()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		
@@ -369,7 +369,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_recuperaCassa()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		//non ci sono bilanci in esercizio
@@ -378,7 +378,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	public void testCONDOMINI_registraMovimentoCassa()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		//non ci sono bilanci in esercizio
@@ -403,7 +403,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	//commentato per vedere se rimangono gli inserimenti... cancellando il condominio, cancella tutti i suoi aggragati
 	public void testCONDOMINI_eliminaCondominio()
 	{
-		tc = TuttiCondomini.inizializzaCondomini();
+		tc = TuttiCondomini.getInstance();
 		
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 		
