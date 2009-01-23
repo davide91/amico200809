@@ -72,9 +72,11 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	private boolean condominioGiaInserito(DatiCondominio datiCondominio) {
-		Condominio toCheck = new Condominio();
-		toCheck.modificaDati(datiCondominio);
-		return m_dbCondomini.recuperaCondomini().getCondomini().contains(toCheck);
+		for ( Condominio condominio : m_dbCondomini.recuperaCondomini().getCondomini() )
+			if ( condominio.recuperaDatiCondominio() ==  datiCondominio )
+				return false;
+		
+		return true;
 	}
 	
 	public void esciDaAmico() {
