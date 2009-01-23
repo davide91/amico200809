@@ -54,18 +54,9 @@ public class GestoreCondomini implements BaseExecutor {
 	private GestoreCondomini()
 	{
 		m_amico = AmICo.getInstance();
-		
-		/* TODO : Singleton ?
-		m_dbCondomini=new TuttiCondomini();
-		m_dbPersone= new TuttePersone();
-		*/ 
-	
 		m_dbCondomini = TuttiCondomini.getInstance();
 		m_dbPersone = TuttePersone.getInstance();
 		
-		/* TODO : nella SM usa AccedereCondomini al posto di AmICo, 
-		 * ma nella StaticView non è acceddibile dal GestoreCondomini
-		 */
 		m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
 		
 		m_state = StatiGestoreCondominio.gestoreCondomini;
@@ -93,7 +84,8 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	public void finito() {
 		m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
-		/* TODO :
+		
+		/* FIXME :
 		 * AMM.mostra(InserisciTabellaMillesimaleProprietaGenerale)
 		 */
 	}
@@ -106,8 +98,7 @@ public class GestoreCondomini implements BaseExecutor {
 	public void inserisciCondominio() {
 		m_inserireNuovoCondominio = new InserireNuovoCondominio();
 		m_condominio = new Condominio();
-//		m_dbCondomini.inserisciCondominio(m_condominio);
-//		m_state = StatiGestoreCondominio.inserimentoCondominio;
+		m_state = StatiGestoreCondominio.inserimentoCondominio;
 	}
 	
 	public void inserisciUnitaImmobiliare() {
@@ -165,17 +156,21 @@ public class GestoreCondomini implements BaseExecutor {
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_inserireUnitaImmobiliare.ammissibile(true);
 		m_state = StatiGestoreCondominio.inserimentoProprieta;
-//		m_inserireUnitaImmobiliare.aggiornaPersone(m_dbPersone.recuperaPersone());
+		m_inserireUnitaImmobiliare.aggiornaPersone(m_dbPersone.recuperaPersone());
 	}
 		
-	public void passaProprieta(Persone persone, Reali quoteProprieta) {
+	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
-//		m_inserireUnitaImmobiliare.ammissibile(true);
+/*		Scomparso nel design 3.3, proabile ricomparsa in futuro...	
+ * 	
+ * 		m_inserireUnitaImmobiliare.ammissibile(true);
+ * 
+ */
 		m_state = StatiGestoreCondominio.attesaConferma;
 	}
 	
-	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale millesimi) {
-		m_tabellaMillesimaleProprieta = new TabellaMillesimale(millesimi);
+	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) {
+		m_tabellaMillesimaleProprieta = new TabellaMillesimale(datiTabellaMillesimale, millesimi);
 		m_inserireNuovoCondominio.ammissibile(true);
 		m_state = StatiGestoreCondominio.attesaConfermaTabellaMillesimale;
 	}
@@ -209,8 +204,10 @@ public class GestoreCondomini implements BaseExecutor {
 				if ( !procedere ) {
 					/* Se chiamo IUI.fatto() per caso ottimale, *dovrei* chiamare
 					 * IUI.fallito() in caso negativo.
-					 */
-//					m_inserireUnitaImmobiliare.fallito();
+					 * Scomparso nel design 3.3, potrebbe tornare
+					 *
+					 * m_inserireUnitaImmobiliare.fallito();
+					 */					
 					m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 					break;
 				}
