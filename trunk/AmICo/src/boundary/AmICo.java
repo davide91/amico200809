@@ -112,9 +112,10 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 
 	private void binserisciMouseMouseClicked(MouseEvent event) {
-		//this.inserisciCondominio();
-		InserireNuovoCondominio INC=new InserireNuovoCondominio();
-		INC.setVisible(true);
+		// FIXME 
+		this.inserisciCondominio();
+//		InserireNuovoCondominio INC=new InserireNuovoCondominio();
+//		INC.setVisible(true);
 	}
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
