@@ -223,6 +223,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		//AMM.richiediDatiComdominio();
 		state=StatiInserireNuovoCondominio.base;
 		initComponents();
+		this.setVisible(true);
 	}
 
 	private void initComponents() {
