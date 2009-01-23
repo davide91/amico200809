@@ -73,7 +73,7 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	private boolean condominioGiaInserito(DatiCondominio datiCondominio) {
 		for ( Condominio condominio : m_dbCondomini.recuperaCondomini().getCondomini() )
-			if ( condominio.recuperaDatiCondominio() ==  datiCondominio )
+			if ( condominio.recuperaDatiCondominio().equals(datiCondominio) )
 				return false;
 		
 		return true;
