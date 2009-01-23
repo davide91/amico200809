@@ -401,7 +401,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 	
 	//commentato per vedere se rimangono gli inserimenti... cancellando il condominio, cancella tutti i suoi aggragati
-/*	public void testCONDOMINI_eliminaCondominio()
+	public void testCONDOMINI_eliminaCondominio()
 	{
 		tc = TuttiCondomini.inizializzaCondomini();
 		
@@ -412,6 +412,6 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		tc.eliminaCondominio(cond);
 		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 	}
-*/
+
 	
 }
