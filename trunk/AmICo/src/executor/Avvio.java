@@ -31,14 +31,8 @@ public class Avvio  {
 		GestoreCondomini.getInstance();
 		GestorePersone.getInstance();
 		DriverFileSystem.getInstance();
-		
-		/* TODO : penso ci sia da fare un singleton
-		 * in tutte e due le classi
-		 */
-		
-		TuttiCondomini.CONDOMINI;
-		TuttePersone.PERSONE;
-		
+		TuttiCondomini.getInstance();
+		TuttePersone.getInstance();
 	}
 	
 }
