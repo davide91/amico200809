@@ -173,11 +173,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	*/
 	
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
-		
-		/* TODO : qui è richiesto quoteProprieta.quoteOk(), ma credo che sia
-		 * un sinonimo di quoteProprieta.controlla()
-		 */
-		if ( !quoteProprieta.controlla() ) {
+		if ( quoteProprieta.somma() != 1000.0  ) {
 			m_accedereUnitaImmobiliari.ammissibile(false);
 			return;
 		}
