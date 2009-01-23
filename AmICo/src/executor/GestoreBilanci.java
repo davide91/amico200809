@@ -98,7 +98,7 @@ public class GestoreBilanci implements BaseExecutor {
 			break;
 
 		case base:
-			GestoreCondominioAperto.
+			//GestoreCondominioAperto.
 			break;
 		}
 		
