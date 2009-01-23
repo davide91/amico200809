@@ -97,7 +97,7 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	public void inserisciCondominio() {
 		m_inserireNuovoCondominio = new InserireNuovoCondominio();
-		m_condominio = new Condominio();
+//		m_condominio = new Condominio();
 		m_state = StatiGestoreCondominio.inserimentoCondominio;
 	}
 	
@@ -184,8 +184,8 @@ public class GestoreCondomini implements BaseExecutor {
 					break;
 				}
 				m_condominio = new Condominio();
-				m_condominio.modificaDati(m_datiCondominio);
 				m_dbCondomini.inserisciCondominio(m_condominio);
+				m_condominio.modificaDati(m_datiCondominio);
 				m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 				break;
 			case attesaConfermaTabellaMillesimale :
@@ -230,6 +230,10 @@ public class GestoreCondomini implements BaseExecutor {
 		UnitaImmobiliare newUnit = new UnitaImmobiliare();
 		newUnit.modificaDati(datiUnitaImmobliare);
 		
-		return uImmobiliari.getImmobili().contains(newUnit);
+		for ( UnitaImmobiliare unit : uImmobiliari.getImmobili() )
+			if ( unit.equals(newUnit) )
+				return false;
+		
+		return true;
 	}
 }
