@@ -234,6 +234,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			break;
 		}
 	}
+
+	public void passaATabelleMillesimali() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
