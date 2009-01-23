@@ -38,15 +38,10 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	
 	private UnitaImmobiliari unitaImmobiliari;
-	private DatiCondominio datiCondominio;
+	private DatiCondominio datiCondominio = new DatiCondominio();
 	private Percentuali tabellaGenerale;
 	private StatiInserireNuovoCondominio state;
 	
-	public void creaInserireNuovoCondominio(){
-		//AMM.richiediDatiComdominio();
-		state=StatiInserireNuovoCondominio.base;
-		
-	}
 	
 	public void inserisciDatiCondominio(DatiCondominio datiCondominio){
 		GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
@@ -191,6 +186,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			indirizzo.setProvincia((Provincia)provincia.getSelectedItem());
 			indirizzo.setVia(via.getText());
 			indirizzo.setInterno(null);
+			datiCondominio.setId(via.getText()+cap.getText());
 			datiCondominio.setIndirizzo(indirizzo);
 			GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
 			
@@ -219,7 +215,13 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JLabel scrittacap;
 	private JButton annulla;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
+	
+	
+	
 	public InserireNuovoCondominio() {
+		//AMM.richiediDatiComdominio();
+		state=StatiInserireNuovoCondominio.base;
 		initComponents();
 	}
 
