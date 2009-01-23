@@ -45,14 +45,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private TabellaMillesimale m_tabellaMillesimale;
 	private UnitaImmobiliare m_unitaImmobiliare;
 	
-
-	{
-		m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(this, 
-				m_condominio.recuperaTabelleMillesimali(), 
-				m_condominio.recuperaUnitaImmobiliari());
-		m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
-	}
-	
 	public GestoreCondominioAperto(Condominio condominio) {
 		m_condominio = condominio;
 		m_accedereCondominioAperto = new AccedereCondominioAperto(this,m_condominio);
@@ -86,11 +78,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.exportCondominio;
 	}
 	
-	public void inserisciNuovaPersona() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) {
 		if (!datiTabellaMillesimale.controlla()) {
 			m_accedereTabelleMillesimali.ammissibile(false);
@@ -101,9 +88,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_datiTabellaMillesimale = datiTabellaMillesimale;
 		m_accedereTabelleMillesimali.ammissibile(true);
 		m_state = StatiGestoreCondominioAperto.attesaConfermaInserimentoTabellaMillesimale;
-// TODO : from 3.2 -- REMOVEME
-//		m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(datiTabellaMillesimale));
-//		m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
 	}
 	
 	public void modificaPreferenze(Preferenze preferenze) {
@@ -112,10 +96,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void modificaProprieta(UnitaImmobiliare unitaImmobliare) {
 		m_unitaImmobiliare = unitaImmobliare;
-		/* TODO :
-		 * Nella SM viene usato TuttePersone.PERSONE, non conviene cercare 
-		 * solo le persone di quel condominio? 
-		 */
 		m_accedereUnitaImmobiliari.aggiornaPersone(m_dbPersone.recuperaPersone());
 		m_state = StatiGestoreCondominioAperto.modificaProprieta;
 	}
@@ -168,6 +148,14 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.gestionePreferenze;
 	}
 	
+	public void passaATabelleMillesimali()
+	{
+		m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(this, 
+				m_condominio.recuperaTabelleMillesimali(), 
+				m_condominio.recuperaUnitaImmobiliari());
+		m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
+	}
+	
 	
 	public void passaAUnitaImmobiliari() {
 		m_accedereUnitaImmobiliari = 
@@ -207,12 +195,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 					m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 					break;
 				}
-				/* TODO :
-				 * Nella SM : codnominio.inserisciTabellaMillesimale(creaTabellaMillesimale(datiT, millesimi).
-				 *  - I dati in DatiTabellaMillesimale non comprendono già i millesimi?
-				 *  - Se no, come passare i millesimi alla nuova TabellaMillesimale ?
-				 * 
-				 */
 				m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(m_datiTabellaMillesimale,m_nuoveQuote));
 				m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
 				m_state = 	StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
@@ -234,11 +216,5 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			break;
 		}
 	}
-
-	public void passaATabelleMillesimali() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }
