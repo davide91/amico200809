@@ -25,7 +25,7 @@ public class TuttePersone {
 	private static TuttePersone PERSONE = null;
 	private Session session;
 	
-	public static TuttePersone inizializzaPersone()
+	public static TuttePersone getInstance()
 	{
 		if(PERSONE==null)
 			PERSONE = new TuttePersone();

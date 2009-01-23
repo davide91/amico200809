@@ -22,7 +22,7 @@ public class TuttiCondomini {
 	private static TuttiCondomini CONDOMINI = null;
 	private Session session;
 	
-	public static TuttiCondomini inizializzaCondomini()
+	public static TuttiCondomini getInstance()
 	{
 		if ( CONDOMINI == null )
 			CONDOMINI = new TuttiCondomini();
