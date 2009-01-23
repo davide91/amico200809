@@ -61,7 +61,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public boolean eliminabile() {
-		for ( Bilancio bilancio : m_condominio.recuperaBilanciInEsercizio().getBilanci() ) {
+		for ( Bilancio bilancio : m_condominio.recuperaBilanci().getBilanci() ) {
 			if (!bilancio.terminabile()) return false;
 		}
 		return true;
