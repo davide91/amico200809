@@ -44,6 +44,8 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private int c;
 	
 	
+	
+	
 	public void inserisciDatiCondominio(DatiCondominio datiCondominio){
 		state=StatiInserireNuovoCondominio.controlloDatiCondominio;
 		GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
