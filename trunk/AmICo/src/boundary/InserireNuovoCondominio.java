@@ -76,14 +76,9 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			
 			if (b)
 			{
-				//AMM.richiediConferma();
 				state=StatiInserireNuovoCondominio.attesaConfermaDatiCondominio;
 				
-			//	JOptionPane option= new JOptionPane("sei sicuro?",JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
-			//	JDialog dialog = option.createDialog(this,"errore");
-			//	dialog.setVisible(true);
-				
-				c = JOptionPane.showConfirmDialog(this, "", "", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				
 				if (c==0){
 					state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
@@ -96,24 +91,31 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			}
 			else
 			{
-				state=StatiInserireNuovoCondominio.base;
-			
-			//	JOptionPane option = new JOptionPane("condominio inserito ko", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
-				c = JOptionPane.showConfirmDialog(this, "", "", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-		//		JDialog dialog = option.createDialog(this,"errore");
-		//		dialog.setVisible(true);
-				
-				//AMM.mostra(CondominioInseritoKO):
+				state=StatiInserireNuovoCondominio.base;	
+		
+				JOptionPane.showMessageDialog(this, "il condominio non e' stato inserito");
 			}
 			break;
 		case controlloTabellaMillesimaleProprieta:
 
 			if (b)
-				//AMM.richiediConferma();
+			{
 				state=StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale;
+				c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				if (c==0){
+// per ora niente
+				}
+				else {
+// per ora niente
+				}
+				
+			}
 			else
+			{
 				state=StatiInserireNuovoCondominio.base;
 				//AMM.mostra(TabellaMillesimaleInseritaKO):
+				JOptionPane.showMessageDialog(this, "tabella millesimale ko");
+			}
 			break;
 		default:
 			break;
@@ -143,8 +145,9 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void ko() {
 		if (state==StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale)
-		{	//AMM.mostra(condominioInseritoKO);
-		}
+			JOptionPane.showMessageDialog(this, "il condominio non e' stato inserito");
+
+		
 		GestoreCondomini.getInstance().procedi(false);
 		state=StatiInserireNuovoCondominio.base;
 			
@@ -160,7 +163,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			break;
 		case attesaConfermaTabellaMillesimale:
 			GestoreCondomini.getInstance().procedi(true);
-			//AMM.mostra(CondominioInseritoOK);
+			JOptionPane.showMessageDialog(this, "il condominio e' stato inserito correttamente");
 			break;
 		default:
 			break;
@@ -172,18 +175,12 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private void inserisciMouseMouseClicked(MouseEvent event) {
 
 		if(cap.getText().equals(""))
-		{
-			JOptionPane option = new JOptionPane("inserire CAP", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION );
-			JDialog dialog = option.createDialog(this,"errore");
-			dialog.setVisible(true);
-		}
+			JOptionPane.showMessageDialog(this, "inserire CAP");
+
+		
 		else if(via.getText().equals(""))
-		{
-			JOptionPane option = new JOptionPane("inserire Via", JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE );
-			JDialog dialog = option.createDialog(this,"errore");
-			dialog.setVisible(true);
-			
-		}
+			JOptionPane.showMessageDialog(this,"inserire Via");
+	
 			
 		else
 		{
@@ -195,8 +192,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			indirizzo.setInterno(null);
 			datiCondominio.setId(via.getText()+cap.getText());
 			datiCondominio.setIndirizzo(indirizzo);
-			inserisciDatiCondominio(datiCondominio);
-			//GestoreCondomini.getInstance().passaDatiCondominio(datiCondominio);
+			this.inserisciDatiCondominio(datiCondominio);
 			
 		}
 		
@@ -228,7 +224,6 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	
 	public InserireNuovoCondominio() {
-		//AMM.richiediDatiComdominio();
 		state=StatiInserireNuovoCondominio.base;
 		initComponents();
 		this.setVisible(true);

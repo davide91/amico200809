@@ -13,6 +13,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -120,19 +121,15 @@ public class AmICo extends JFrame implements BaseBoundary{
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
 		
-		if(lista.getSelectedIndex()>-1) {
-			// temporaneo
-		/*	AccedereCondominioAperto ACA =new AccedereCondominioAperto(null,null);
-			ACA.setTitle((String)lista.getSelectedValue());
-			ACA.setVisible(true); si cancella quello prima e si mette quello dopo per integrazione TODO*/
+		if(lista.getSelectedIndex()>-1) 
+		{
 			for (Condominio c : condomini.getCondomini())
 			{
 				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) )
-					new AccedereCondominioAperto(null,c);
-					//this.apriCondominio(c);
+					this.apriCondominio(c);
 			}
 		}
-		
+		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");
 		
 	}
 	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
