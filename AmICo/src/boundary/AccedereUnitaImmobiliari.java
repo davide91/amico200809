@@ -74,7 +74,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	}
 
 	public void  inserisciNuovaPersona() {
-		GCA.inserisciNuovaPersona();
+		//GCA.inserisciNuovaPersona(); TODO
 		state=StatiAccedereUnitaImmobiliari.inserimentoNuovaPersona;
 	}
 	
