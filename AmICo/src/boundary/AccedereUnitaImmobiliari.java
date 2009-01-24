@@ -2,8 +2,7 @@
 package boundary;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Bilateral;
@@ -19,10 +19,12 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Condominio;
+import store.POJO.Millesimo;
+import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
-
-import datatype.list.Persone;
 import datatype.list.Percentuali;
+import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereUnitaImmobiliari;
 import executor.GestoreCondominioAperto;
@@ -40,17 +42,27 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private Persone persone;
 	private StatiAccedereUnitaImmobiliari state;
 	
+	private Condominio condominio;
+	
 	
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
 	private JScrollPane jScrollPane0;
-	private JButton bmodifica;
+	private JButton bContinua;
+	private JButton bInserisciUnitaImmobiliare;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 
 	public AccedereUnitaImmobiliari() {
 		initComponents();
 		state=StatiAccedereUnitaImmobiliari.base;
+	}
+
+	public AccedereUnitaImmobiliari(Condominio condominio)
+	{
+		initComponents2();
+		this.condominio=condominio;
+		
 	}
 
 	public AccedereUnitaImmobiliari(GestoreCondominioAperto GCA, UnitaImmobiliari unita) {
@@ -82,6 +94,55 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		GCA.passaProprieta(nuovePersone, nuoveQuote);
 		state = StatiAccedereUnitaImmobiliari.controlloProprieta;
 	}
+	
+	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
+	{
+		this.unita=unita;
+
+		if(condominio!=null)
+		{
+			final Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
+			final UnitaImmobiliari unit=unita;
+
+			jTable0.setModel(
+			new AbstractTableModel()
+			{
+				private static final long serialVersionUID = 1L;
+						
+				public int getColumnCount() { return 6; }
+				public int getRowCount() { return unit.getImmobili().size(); }
+				public Object getValueAt (int row, int col)
+				{
+					if(col==0)
+						if(ui.hasNext())
+							return ui.next().getDatiUnitaImmobiliare().getId();
+					else if(col==1)
+						if(ui.hasNext())
+							return ui.next().getDatiUnitaImmobiliare().getCatCatastale().toString();
+					else if(col==2)
+						if(ui.hasNext())
+							return ui.next().getDatiUnitaImmobiliare().getDestUso().toString();
+					else if(col==3)	
+						if(ui.hasNext())
+							return Float.toString(ui.next().getDatiUnitaImmobiliare().getMetriQ());
+					else if(col==4)
+						if(ui.hasNext())
+							return ui.next().getDatiUnitaImmobiliare().getPosizioneInterna();
+					// da aggiungere tasto
+					return "";
+				}
+			//	public Class getColumnClass (int column) { return Object.class; } non credo serva
+				public String getColumnName (int column) { if(column==0) return "Identificatore";
+															else if(column==1) return "Categoria";
+															else if(column==2) return "Destinazione";
+															else if(column==3) return "Metratura";
+															else if(column==4) return "Posizione interna";
+															else return "visualizza proprietari";}
+			}
+			);
+		}
+	}
+	
 	
 	public void ammissibile(Boolean b) {
 		if (b){
@@ -125,20 +186,38 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		//AMM.mostra(unitaImmobiliareModificataOK);
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
-
-	private void initComponents() {
+	
+	private void initComponents2() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(0, 0, 22), new Leading(0, 192, 12, 12)));
-		add(getBmodifica(), new Constraints(new Leading(107, 186, 10, 10), new Leading(282, 10, 10)));
+		add(getBContinua(), new Constraints(new Leading(53, 10, 10), new Leading(243, 10, 10)));
+		add(getBInserisciUnitaImmobiliare(), new Constraints(new Leading(185, 10, 10), new Leading(243, 12, 12)));
 		setSize(404, 341);
 	}
 
-	private JButton getBmodifica() {
-		if (bmodifica == null) {
-			bmodifica = new JButton();
-			bmodifica.setText("Modifica proprieta unita");
+	
+	
+	private void initComponents() {
+		setLayout(new GroupLayout());
+		add(getJScrollPane0(), new Constraints(new Bilateral(0, 0, 22), new Leading(0, 192, 12, 12)));
+
+		setSize(404, 341);
+	}
+
+	private JButton getBInserisciUnitaImmobiliare() {
+		if (bInserisciUnitaImmobiliare == null) {
+			bInserisciUnitaImmobiliare = new JButton();
+			bInserisciUnitaImmobiliare.setText("Inserisci unita' immobiliare");
 		}
-		return bmodifica;
+		return bInserisciUnitaImmobiliare;
+	}
+
+	private JButton getBContinua() {
+		if (bContinua == null) {
+			bContinua = new JButton();
+			bContinua.setText("Continua");
+		}
+		return bContinua;
 	}
 
 	private JScrollPane getJScrollPane0() {
@@ -149,10 +228,12 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		return jScrollPane0;
 	}
 
-	private JTable getJTable0() {
-		if (jTable0 == null) {
+	private JTable getJTable0() 
+	{
+		if (jTable0 == null)
+		{
 			jTable0 = new JTable();
-			jTable0.setModel(new DefaultTableModel(new Object[][] { { "0x0", "0x1", }, { "1x0", "1x1", }, }, new String[] { "ID", "Categoria catastale", }) {
+			jTable0.setModel(new DefaultTableModel(new Object[][] { }, new String[] { "Unita", "Coefficente", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
 	

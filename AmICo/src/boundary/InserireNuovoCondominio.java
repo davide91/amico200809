@@ -175,15 +175,13 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	}
 	
 	private void inserisciMouseMouseClicked(MouseEvent event) {
+		
+		if(via.getText().equals(""))
+			JOptionPane.showMessageDialog(this,"inserire Via");
 
-		if(cap.getText().equals(""))
+		else if(cap.getText().equals(""))
 			JOptionPane.showMessageDialog(this, "inserire CAP");
 
-		
-		else if(via.getText().equals(""))
-			JOptionPane.showMessageDialog(this,"inserire Via");
-	
-			
 		else
 		{
 			Indirizzo indirizzo=new Indirizzo();
@@ -201,7 +199,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	}
 
 	private void annullaMouseMouseClicked(MouseEvent event) {
-		//this.annulla(); TODO
+		this.annulla();// TODO
 		this.dispose();
 	}
 
