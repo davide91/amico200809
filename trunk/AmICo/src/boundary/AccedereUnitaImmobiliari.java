@@ -4,7 +4,6 @@ package boundary;
 import java.awt.BorderLayout;
 import java.util.Iterator;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,8 +19,6 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Condominio;
-import store.POJO.Millesimo;
-import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
@@ -48,11 +45,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
 	private JScrollPane jScrollPane0;
-	private JButton bContinua;
-	private JButton bInserisciUnitaImmobiliare;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-
 	public AccedereUnitaImmobiliari() {
 		initComponents();
 		state=StatiAccedereUnitaImmobiliari.base;
@@ -199,25 +192,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJScrollPane0(), new Constraints(new Bilateral(0, 0, 22), new Leading(0, 192, 12, 12)));
-
-		setSize(404, 341);
-	}
-
-	private JButton getBInserisciUnitaImmobiliare() {
-		if (bInserisciUnitaImmobiliare == null) {
-			bInserisciUnitaImmobiliare = new JButton();
-			bInserisciUnitaImmobiliare.setText("Inserisci unita' immobiliare");
-		}
-		return bInserisciUnitaImmobiliare;
-	}
-
-	private JButton getBContinua() {
-		if (bContinua == null) {
-			bContinua = new JButton();
-			bContinua.setText("Continua");
-		}
-		return bContinua;
+		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Bilateral(12, 12, 26, 403)));
+		setSize(285, 184);
 	}
 
 	private JScrollPane getJScrollPane0() {
