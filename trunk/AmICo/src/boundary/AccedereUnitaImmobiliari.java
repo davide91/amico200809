@@ -3,6 +3,8 @@ package boundary;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
 import javax.swing.JButton;
@@ -15,6 +17,8 @@ import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
+
 
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
@@ -112,24 +116,36 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 				public Object getValueAt (int row, int col)
 				{
 					if(col==0)
+					{
 						if(ui.hasNext())
 							return ui.next().getDatiUnitaImmobiliare().getId();
+					}
 					else if(col==1)
+					{
 						if(ui.hasNext())
 							return ui.next().getDatiUnitaImmobiliare().getCatCatastale().toString();
+					}
 					else if(col==2)
+					{
 						if(ui.hasNext())
 							return ui.next().getDatiUnitaImmobiliare().getDestUso().toString();
+					}
 					else if(col==3)	
+					{
 						if(ui.hasNext())
 							return Float.toString(ui.next().getDatiUnitaImmobiliare().getMetriQ());
+					}
 					else if(col==4)
+					{
 						if(ui.hasNext())
 							return ui.next().getDatiUnitaImmobiliare().getPosizioneInterna();
-					// da aggiungere tasto
+					}
+					else return new JButton();
+
+					
 					return "";
 				}
-			//	public Class getColumnClass (int column) { return Object.class; } non credo serva
+				public Class getColumnClass (int column) { return getValueAt(0, column).getClass();}
 				public String getColumnName (int column) { if(column==0) return "Identificatore";
 															else if(column==1) return "Categoria";
 															else if(column==2) return "Destinazione";
@@ -229,47 +245,32 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	{
 		if (jTable0 == null)
 		{
-			jTable0 = new JTable();
+		   TableCellRenderer defaultRenderer;
 
-				jTable0.setModel(
-				new AbstractTableModel()
-				{
-					private static final long serialVersionUID = 1L;
-							
-					public int getColumnCount() { return 6; }
-					public int getRowCount() { return 1; }
-					public Object getValueAt (int row, int col)
-					{
-						return new TableCellRenderer()
-						{
-							  private TableCellRenderer __defaultRenderer;
+		   jTable0= new JTable();
+				   
+		   defaultRenderer = jTable0.getDefaultRenderer(JButton.class);
+		   jTable0.setDefaultRenderer(JButton.class,new JTableButtonRenderer(defaultRenderer));	   
+				   
+		   jTable0.setModel( new AbstractTableModel()
+			{
+				private static final long serialVersionUID = 1L;
+						
+				public int getColumnCount() { return 6; }
+				public int getRowCount() { return 1; }
+				public Object getValueAt (int row, int col){return  new JButton();}
+				public Class getColumnClass (int column) { return getValueAt(0, column).getClass();}
+				public String getColumnName (int column) { if(column==0) return "Identificatore";
+															else if(column==1) return "Categoria";
+															else if(column==2) return "Destinazione";
+															else if(column==3) return "Metratura";
+															else if(column==4) return "Posizione";
+															else return "proprietari";}
+			} );
 
-							  public void JTableButtonRenderer(TableCellRenderer renderer) {
-							    __defaultRenderer = renderer;
-							  }
 
-							  public Component getTableCellRendererComponent(JTable table, Object value,
-													 boolean isSelected,
-													 boolean hasFocus,
-													 int row, int column)
-							  {
-							    if(value instanceof Component)
-							      return (Component)value;
-							    return __defaultRenderer.getTableCellRendererComponent(
-								   table, value, isSelected, hasFocus, row, column);
-							  }
-						};
-					}
-				//	public Class getColumnClass (int column) { return Object.class; } non credo serva
-					public String getColumnName (int column) { if(column==0) return "Identificatore";
-																else if(column==1) return "Categoria";
-																else if(column==2) return "Destinazione";
-																else if(column==3) return "Metratura";
-																else if(column==4) return "Posizione";
-																else return "proprietari";}
-				}
-				);
 		}
+		jTable0.addMouseListener(new JTableButtonMouseListener(jTable0));
 		
 		return jTable0;
 	}
@@ -308,7 +309,5 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 			}
 		});
 	}
-
-	
 	
 }
