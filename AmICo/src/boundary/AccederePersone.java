@@ -16,12 +16,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+import org.dyno.visual.swing.layouts.Trailing;
 
 import store.POJO.Persona;
-import datatype.list.Condomini;
 import datatype.list.Persone;
 import enumeration.StatiAccederePersone;
 import executor.GestoreCondominioAperto;
@@ -38,10 +39,10 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	private JLabel jLabel0;
 	private JTable jTable0;
 	private JScrollPane jScrollPane0;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private GestoreCondominioAperto GCA;
 	private Persone persone;
 	private StatiAccederePersone state;
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
 	
 	public AccederePersone() {
@@ -59,9 +60,9 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(114, 10, 10), new Leading(27, 10, 10)));
-		add(getJScrollPane0(), new Constraints(new Leading(60, 285, 10, 10), new Leading(66, 158, 10, 10)));
-		add(getBvisualizza(), new Constraints(new Leading(126, 10, 10), new Leading(242, 12, 12)));
+		add(getBvisualizza(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 80, 236)));
+		add(getJLabel0(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
+		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Bilateral(42, 54, 26, 403)));
 		setSize(400, 300);
 	}
 
@@ -91,8 +92,8 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	private JLabel getJLabel0() {
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
-			jLabel0.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 14));
-			jLabel0.setText("Elenco dei cond�mini:");
+			jLabel0.setFont(new Font("Dialog", Font.BOLD, 14));
+			jLabel0.setText("Elenco dei condòmini");
 		}
 		return jLabel0;
 	}
@@ -100,7 +101,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	private JButton getBvisualizza() {
 		if (bvisualizza == null) {
 			bvisualizza = new JButton();
-			bvisualizza.setText("Visualizza dati anagrafici");
+			bvisualizza.setText("Dati anagrafici");
 		}
 		return bvisualizza;
 	}
