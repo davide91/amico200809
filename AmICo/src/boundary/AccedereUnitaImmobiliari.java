@@ -2,6 +2,7 @@
 package boundary;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.util.Iterator;
 
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
@@ -238,7 +240,25 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 					public int getRowCount() { return 1; }
 					public Object getValueAt (int row, int col)
 					{
-						return new JButton("ciao");
+						return new TableCellRenderer()
+						{
+							  private TableCellRenderer __defaultRenderer;
+
+							  public void JTableButtonRenderer(TableCellRenderer renderer) {
+							    __defaultRenderer = renderer;
+							  }
+
+							  public Component getTableCellRendererComponent(JTable table, Object value,
+													 boolean isSelected,
+													 boolean hasFocus,
+													 int row, int column)
+							  {
+							    if(value instanceof Component)
+							      return (Component)value;
+							    return __defaultRenderer.getTableCellRendererComponent(
+								   table, value, isSelected, hasFocus, row, column);
+							  }
+						};
 					}
 				//	public Class getColumnClass (int column) { return Object.class; } non credo serva
 					public String getColumnName (int column) { if(column==0) return "Identificatore";

@@ -160,8 +160,9 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public void ok() {
 		switch (state) {
 		case attesaConfermaDatiCondominio:
-			GestoreCondomini.getInstance().procedi(true);
 			state= StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
+			GestoreCondomini.getInstance().procedi(true);
+			
 			break;
 		case attesaConfermaTabellaMillesimale:
 			GestoreCondomini.getInstance().procedi(true);

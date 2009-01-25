@@ -59,6 +59,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 	private JMenuBar jMenuBar0;
 	private JList lista;
 	private JScrollPane jScrollPane0;
+	private JButton bEsci;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AmICo() {
 		state=StatiAmICo.base;
@@ -126,7 +127,10 @@ public class AmICo extends JFrame implements BaseBoundary{
 			for (Condominio c : condomini.getCondomini())
 			{
 				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) )
+				{
 					this.apriCondominio(c);
+					this.dispose();
+				}
 			}
 		}
 		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");
@@ -137,6 +141,13 @@ public class AmICo extends JFrame implements BaseBoundary{
 	}
 	private void jMenuItem1MouseMouseClicked(MouseEvent event) {
 	}
+	
+
+	private void jButton0MouseMouseClicked(MouseEvent event) {
+		GestoreCondomini.getInstance().esciDaAmico();
+		this.dispose();
+	}
+
 
 	public void ammissibile(Boolean b) {
 		// TODO Auto-generated method stub
@@ -210,9 +221,26 @@ public class AmICo extends JFrame implements BaseBoundary{
 		add(getBapri(), new Constraints(new Leading(238, 182, 10, 10), new Leading(108, 10, 10)));
 		add(getJScrollPane0(), new Constraints(new Leading(27, 146, 10, 10), new Leading(82, 189, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(27, 12, 12), new Leading(28, 10, 10)));
+		add(getBEsci(), new Constraints(new Leading(346, 10, 10), new Leading(247, 12, 12)));
 		setJMenuBar(getJMenuBar0());
 		setSize(445, 374);
 	}
+
+
+	private JButton getBEsci() {
+		if (bEsci == null) {
+			bEsci = new JButton();
+			bEsci.setText("esci");
+			bEsci.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					jButton0MouseMouseClicked(event);
+				}
+			});
+		}
+		return bEsci;
+	}
+
 
 	private JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {
@@ -371,6 +399,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 			}
 		});
 	}
+
 
 
 }
