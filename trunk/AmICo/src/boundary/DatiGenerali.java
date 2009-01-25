@@ -3,6 +3,7 @@ package boundary;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ import store.POJO.Condominio;
  * @author Federico
  *
  */
+
 public class DatiGenerali extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +37,9 @@ public class DatiGenerali extends JPanel {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	public DatiGenerali() {
+		initComponents();
+	}
 	
 	public DatiGenerali(Condominio condominio) {
 		initComponents();
@@ -50,23 +55,23 @@ public class DatiGenerali extends JPanel {
 	}
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getIdentificatore(), new Constraints(new Leading(68, 260, 10, 10), new Leading(38, 10, 10)));
-		add(getVia(), new Constraints(new Leading(68, 260, 12, 12), new Leading(65, 10, 10)));
-		add(getComune(), new Constraints(new Leading(68, 87, 10, 10), new Leading(91, 10, 10)));
-		add(getCap(), new Constraints(new Leading(279, 49, 12, 12), new Leading(91, 12, 12)));
-		add(getJLabel3(), new Constraints(new Leading(243, 10, 10), new Leading(93, 12, 12)));
-		add(getProvincia(), new Constraints(new Leading(68, 86, 12, 12), new Leading(117, 10, 10)));
-		add(getJLabel4(), new Constraints(new Leading(9, 12, 12), new Leading(121, 12, 12)));
-		add(getJLabel2(), new Constraints(new Leading(14, 12, 12), new Leading(95, 12, 12)));
-		add(getJLabel1(), new Constraints(new Leading(38, 12, 12), new Leading(69, 12, 12)));
-		add(getJLabel0(), new Constraints(new Leading(42, 12, 12), new Leading(42, 12, 12)));
-		setSize(400, 300);
+		add(getJLabel0(), new Constraints(new Leading(14, 12, 12), new Leading(16, 12, 12)));
+		add(getJLabel1(), new Constraints(new Leading(14, 12, 12), new Leading(38, 18, 12, 12)));
+		add(getVia(), new Constraints(new Leading(59, 287, 10, 10), new Leading(38, 12, 12)));
+		add(getIdentificatore(), new Constraints(new Leading(59, 287, 12, 12), new Leading(14, 12, 12)));
+		add(getJLabel2(), new Constraints(new Leading(12, 67, 12, 12), new Leading(60, 20, 10, 10)));
+		add(getJLabel3(), new Constraints(new Leading(223, 10, 10), new Leading(60, 20, 10, 10)));
+		add(getJLabel4(), new Constraints(new Leading(12, 12, 12), new Leading(86, 20, 12, 12)));
+		add(getComune(), new Constraints(new Leading(81, 134, 12, 12), new Leading(60, 20, 12, 12)));
+		add(getProvincia(), new Constraints(new Leading(81, 134, 10, 10), new Leading(86, 20, 12, 12)));
+		add(getCap(), new Constraints(new Leading(261, 85, 12, 12), new Leading(60, 20, 12, 12)));
+		setSize(351, 117);
 	}
 
 	private JLabel getJLabel4() {
 		if (jLabel4 == null) {
 			jLabel4 = new JLabel();
-			jLabel4.setText("Provincia:");
+			jLabel4.setText("Provincia");
 		}
 		return jLabel4;
 	}
@@ -74,7 +79,7 @@ public class DatiGenerali extends JPanel {
 	private JLabel getJLabel3() {
 		if (jLabel3 == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("CAP:");
+			jLabel3.setText("CAP");
 		}
 		return jLabel3;
 	}
@@ -82,7 +87,7 @@ public class DatiGenerali extends JPanel {
 	private JLabel getJLabel2() {
 		if (jLabel2 == null) {
 			jLabel2 = new JLabel();
-			jLabel2.setText("Comune:");
+			jLabel2.setText("Comune ");
 		}
 		return jLabel2;
 	}
@@ -90,7 +95,7 @@ public class DatiGenerali extends JPanel {
 	private JLabel getJLabel1() {
 		if (jLabel1 == null) {
 			jLabel1 = new JLabel();
-			jLabel1.setText("Via:");
+			jLabel1.setText("Via");
 		}
 		return jLabel1;
 	}
@@ -98,7 +103,8 @@ public class DatiGenerali extends JPanel {
 	private JLabel getJLabel0() {
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
-			jLabel0.setText("ID:");
+			jLabel0.setFont(new Font("Dialog", Font.BOLD, 12));
+			jLabel0.setText("ID");
 		}
 		return jLabel0;
 	}
