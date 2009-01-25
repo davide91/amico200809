@@ -2,20 +2,24 @@
 package boundary;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+import org.dyno.visual.swing.layouts.Trailing;
 
 /**
  * @author Federico
@@ -32,28 +36,63 @@ public class AccederePreferenze extends JPanel {
 	private JLabel jLabel1;
 	private JLabel jLabel3;
 	private JButton bmodpref;
+	private JSeparator jSeparator0;
+	private JSeparator jSeparator1;
+	private JLabel jLabel4;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccederePreferenze() {
 		initComponents();
 	}
 
 	private void initComponents() {
+		setMinimumSize(new Dimension(399, 176));
+		setMaximumSize(new Dimension(800, 300));
+		setRequestFocusEnabled(false);
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(34, 10, 10), new Leading(25, 10, 10)));
-		add(getBmodpref(), new Constraints(new Leading(135, 12, 12), new Leading(213, 44, 10, 10)));
-		add(getJSpinner0(), new Constraints(new Leading(262, 54, 10, 10), new Leading(102, 12, 12)));
-		add(getJTextField0(), new Constraints(new Leading(262, 54, 12, 12), new Leading(66, 12, 12)));
-		add(getJTextField1(), new Constraints(new Leading(261, 56, 12, 12), new Leading(146, 10, 10)));
-		add(getJLabel1(), new Constraints(new Leading(85, 12, 12), new Leading(70, 12, 12)));
-		add(getJLabel2(), new Constraints(new Leading(10, 12, 12), new Leading(108, 12, 12)));
-		add(getJLabel3(), new Constraints(new Leading(28, 12, 12), new Leading(144, 10, 10)));
-		setSize(400, 300);
+		add(getJLabel0(), new Constraints(new Leading(12, 12, 12), new Leading(12, 12, 12)));
+		add(getJSeparator0(), new Constraints(new Bilateral(12, 12, 454), new Leading(36, 10, 12, 12)));
+		add(getBmodpref(), new Constraints(new Trailing(12, 73, 10, 10), new Trailing(12, 21, 127, 127)));
+		add(getJSeparator1(), new Constraints(new Bilateral(12, 12, 459), new Trailing(39, 10, 127, 127)));
+		add(getJLabel1(), new Constraints(new Bilateral(12, 111, 146), new Leading(50, 18, 45, 45)));
+		add(getJLabel3(), new Constraints(new Bilateral(12, 111, 225), new Leading(97, 18, 10, 10)));
+		add(getJTextField1(), new Constraints(new Trailing(9, 93, 10, 10), new Leading(97, 10, 10)));
+		add(getJLabel2(), new Constraints(new Bilateral(12, 111, 256), new Leading(73, 18, 10, 10)));
+		add(getJSpinner0(), new Constraints(new Trailing(9, 93, 286, 297), new Leading(73, 10, 10)));
+		add(getJLabel4(), new Constraints(new Trailing(10, 14, 268, 268), new Leading(48, 20, 52, 61)));
+		add(getJTextField0(), new Constraints(new Trailing(36, 66, 274, 274), new Leading(50, 45, 45)));
+		setSize(485, 172);
+	}
+
+	private JLabel getJLabel4() {
+		if (jLabel4 == null) {
+			jLabel4 = new JLabel();
+			jLabel4.setText("%");
+			jLabel4.setMinimumSize(new Dimension(11, 14));
+			jLabel4.setPreferredSize(new Dimension(11, 14));
+			jLabel4.setMaximumSize(new Dimension(11, 14));
+		}
+		return jLabel4;
+	}
+
+	private JSeparator getJSeparator1() {
+		if (jSeparator1 == null) {
+			jSeparator1 = new JSeparator();
+		}
+		return jSeparator1;
+	}
+
+	private JSeparator getJSeparator0() {
+		if (jSeparator0 == null) {
+			jSeparator0 = new JSeparator();
+		}
+		return jSeparator0;
 	}
 
 	private JButton getBmodpref() {
 		if (bmodpref == null) {
 			bmodpref = new JButton();
-			bmodpref.setText("Modifica dati preferenze");
+			bmodpref.setText("Salva");
+			bmodpref.setToolTipText("Salva le preferenze finanziarie");
 		}
 		return bmodpref;
 	}
@@ -62,6 +101,7 @@ public class AccederePreferenze extends JPanel {
 		if (jLabel3 == null) {
 			jLabel3 = new JLabel();
 			jLabel3.setText("Soglia minima della cassa (in euro) :");
+			jLabel3.setFocusable(false);
 		}
 		return jLabel3;
 	}
@@ -69,7 +109,8 @@ public class AccederePreferenze extends JPanel {
 	private JLabel getJLabel1() {
 		if (jLabel1 == null) {
 			jLabel1 = new JLabel();
-			jLabel1.setText("Tasso % interessi mora:");
+			jLabel1.setText("Tasso interessi di mora :");
+			jLabel1.setFocusable(false);
 		}
 		return jLabel1;
 	}
@@ -77,7 +118,8 @@ public class AccederePreferenze extends JPanel {
 	private JLabel getJLabel2() {
 		if (jLabel2 == null) {
 			jLabel2 = new JLabel();
-			jLabel2.setText("Giorni di ritardo ammessi nei pagamenti:");
+			jLabel2.setText("Giorni di ritardo ammessi nei pagamenti :");
+			jLabel2.setFocusable(false);
 		}
 		return jLabel2;
 	}
@@ -94,6 +136,7 @@ public class AccederePreferenze extends JPanel {
 	private JTextField getJTextField0() {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
+			jTextField0.setMaximumSize(new Dimension(600, 400));
 		}
 		return jTextField0;
 	}
