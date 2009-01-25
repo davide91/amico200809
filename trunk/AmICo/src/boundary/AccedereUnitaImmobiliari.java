@@ -4,6 +4,7 @@ package boundary;
 import java.awt.BorderLayout;
 import java.util.Iterator;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -45,6 +46,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
 	private JScrollPane jScrollPane0;
+	private JButton bContinua;
+	private JButton bInserisciUnitaImmobiliare;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccedereUnitaImmobiliari() {
 		initComponents();
@@ -63,7 +66,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		this.unita=unita;
 		initComponents();
 		state = StatiAccedereUnitaImmobiliari.base;
-		//AMM.mostraUnitaImmobiliati(unita);
+		aggiornaUnitaImmobiliari(unita);
 	}
 	
 	public void modificaProprieta(UnitaImmobiliare unita) {
@@ -95,7 +98,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		if(condominio!=null)
 		{
 			final Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
-			final UnitaImmobiliari unit=unita;
+			final UnitaImmobiliari unit=this.unita;
 
 			jTable0.setModel(
 			new AbstractTableModel()
@@ -129,8 +132,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 															else if(column==1) return "Categoria";
 															else if(column==2) return "Destinazione";
 															else if(column==3) return "Metratura";
-															else if(column==4) return "Posizione interna";
-															else return "visualizza proprietari";}
+															else if(column==4) return "Posizione";
+															else return "proprietari";}
 			}
 			);
 		}
@@ -192,8 +195,24 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Bilateral(12, 12, 26, 403)));
-		setSize(285, 184);
+		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
+		setSize(322, 248);
+	}
+
+	private JButton getBInserisciUnitaImmobiliare() {
+		if (bInserisciUnitaImmobiliare == null) {
+			bInserisciUnitaImmobiliare = new JButton();
+			bInserisciUnitaImmobiliare.setText("Inserisci unita'  immobiliare");
+		}
+		return bInserisciUnitaImmobiliare;
+	}
+
+	private JButton getBContinua() {
+		if (bContinua == null) {
+			bContinua = new JButton();
+			bContinua.setText("Continua");
+		}
+		return bContinua;
 	}
 
 	private JScrollPane getJScrollPane0() {
@@ -209,15 +228,29 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		if (jTable0 == null)
 		{
 			jTable0 = new JTable();
-			jTable0.setModel(new DefaultTableModel(new Object[][] { }, new String[] { "Unita", "Coefficente", }) {
-				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
-	
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
+
+				jTable0.setModel(
+				new AbstractTableModel()
+				{
+					private static final long serialVersionUID = 1L;
+							
+					public int getColumnCount() { return 6; }
+					public int getRowCount() { return 1; }
+					public Object getValueAt (int row, int col)
+					{
+						return new JButton("ciao");
+					}
+				//	public Class getColumnClass (int column) { return Object.class; } non credo serva
+					public String getColumnName (int column) { if(column==0) return "Identificatore";
+																else if(column==1) return "Categoria";
+																else if(column==2) return "Destinazione";
+																else if(column==3) return "Metratura";
+																else if(column==4) return "Posizione";
+																else return "proprietari";}
 				}
-			});
+				);
 		}
+		
 		return jTable0;
 	}
 
@@ -246,7 +279,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setTitle("AccedereUnitaImmobiliari");
-				AccedereUnitaImmobiliari content = new AccedereUnitaImmobiliari();
+				AccedereUnitaImmobiliari content = new AccedereUnitaImmobiliari(new Condominio());
 				content.setPreferredSize(content.getSize());
 				frame.add(content, BorderLayout.CENTER);
 				frame.pack();
