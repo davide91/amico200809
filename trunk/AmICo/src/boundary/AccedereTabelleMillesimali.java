@@ -7,13 +7,12 @@ import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -22,16 +21,16 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+import org.dyno.visual.swing.layouts.Trailing;
 
-import store.POJO.Condominio;
 import store.POJO.Millesimo;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
-import datatype.DatiUnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
@@ -58,6 +57,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JList lista;
 	private JScrollPane jScrollPane0;
 	private JButton binseriscitabella;
+	private JSeparator jSeparator0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
 	{
@@ -82,12 +82,20 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(12, 104, 10, 10), new Leading(18, 10, 10)));
-		add(getMillesimi(), new Constraints(new Leading(137, 287, 10, 10), new Leading(18, 220, 10, 10)));
-		add(getBinseriscitabella(), new Constraints(new Leading(11, 12, 12), new Leading(258, 10, 10)));
 		add(getJScrollPane0(), new Constraints(new Leading(11, 108, 12, 12), new Leading(39, 199, 12, 12)));
-		add(getBmodificatabella(), new Constraints(new Leading(223, 10, 10), new Leading(258, 12, 12)));
-		setSize(452, 300);
+		add(getJLabel0(), new Constraints(new Leading(12, 140, 10, 10), new Leading(18, 10, 10)));
+		add(getMillesimi(), new Constraints(new Bilateral(131, 12, 22), new Leading(12, 226, 48, 48)));
+		add(getJSeparator0(), new Constraints(new Bilateral(11, 12, 581), new Trailing(42, 10, 50, 250)));
+		add(getBmodificatabella(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 50, 250)));
+		add(getBinseriscitabella(), new Constraints(new Trailing(152, 12, 12), new Trailing(12, 50, 250)));
+		setSize(604, 389);
+	}
+
+	private JSeparator getJSeparator0() {
+		if (jSeparator0 == null) {
+			jSeparator0 = new JSeparator();
+		}
+		return jSeparator0;
 	}
 
 	private JButton getBinseriscitabella() {
