@@ -5,22 +5,26 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+import org.dyno.visual.swing.layouts.Trailing;
 
 import store.POJO.Condominio;
 import datatype.DatiCondominio;
@@ -31,6 +35,7 @@ import enumeration.Comune;
 import enumeration.Provincia;
 import enumeration.StatiAmICo;
 import executor.GestoreCondomini;
+import extras.ImagePanel;
 
 /**
  * @author Federico
@@ -47,24 +52,31 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 	private Condomini condomini;
 	private StatiAmICo state;
+	private ImagePanel logoPanel;
 	
 	
 	private static final long serialVersionUID = 1L;
 	private JButton binserisci;
 	private JButton bapri;
+	private JButton bEsci;
 	private JLabel jLabel0;
-	private JMenuItem jMenuItem0;
-	private JMenuItem jMenuItem1;
-	private JMenu file;
-	private JMenuBar jMenuBar0;
 	private JList lista;
 	private JScrollPane jScrollPane0;
-	private JButton bEsci;
+	private JLabel jLabel1;
+	private JSeparator jSeparator0;
+	private JButton jButton0;
+	private ButtonGroup buttonGroup1;
+	private JSeparator jSeparator1;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public AmICo() {
 		state=StatiAmICo.base;
 		
 		initComponents();
+		
+		//add(getLogoPanel(), new Constraints(new Trailing(12, 329, 10, 10), new Leading(117, 374, 48, 48)));
+		
+		
+		setResizable(false);
 	}
 
 
@@ -111,8 +123,6 @@ public class AmICo extends JFrame implements BaseBoundary{
 		GestoreCondomini.getInstance().esciDaAmico();
 	}
 	
-	
-
 	private void binserisciMouseMouseClicked(MouseEvent event) {
 		// FIXME 
 		this.inserisciCondominio();
@@ -122,33 +132,26 @@ public class AmICo extends JFrame implements BaseBoundary{
 
 	private void bapriMouseMouseClicked(MouseEvent event) {
 		
-		if(lista.getSelectedIndex()>-1) 
+		if(lista.getSelectedIndex()>-1) 	
 		{
 			for (Condominio c : condomini.getCondomini())
 			{
-				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) )
-				{
-					this.apriCondominio(c);
-					this.dispose();
+				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) ) {
+					apriCondominio(c);
+					dispose();
 				}
+					
 			}
 		}
 		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");
 		
 	}
-	private void jMenuItem0MouseMouseClicked(MouseEvent event) {
-		this.dispose();
-	}
-	private void jMenuItem1MouseMouseClicked(MouseEvent event) {
-	}
-	
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 		GestoreCondomini.getInstance().esciDaAmico();
 		this.dispose();
 	}
-
-
+	
 	public void ammissibile(Boolean b) {
 		// TODO Auto-generated method stub
 		
@@ -217,20 +220,61 @@ public class AmICo extends JFrame implements BaseBoundary{
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getBinserisci(), new Constraints(new Leading(240, 182, 12, 12), new Leading(179, 10, 10)));
-		add(getBapri(), new Constraints(new Leading(238, 182, 10, 10), new Leading(108, 10, 10)));
-		add(getJScrollPane0(), new Constraints(new Leading(27, 146, 10, 10), new Leading(82, 189, 10, 10)));
-		add(getJLabel0(), new Constraints(new Leading(27, 12, 12), new Leading(28, 10, 10)));
-		add(getBEsci(), new Constraints(new Leading(346, 10, 10), new Leading(247, 12, 12)));
-		setJMenuBar(getJMenuBar0());
-		setSize(445, 374);
+		add(getJLabel1(), new Constraints(new Trailing(12, 97, 12, 12), new Leading(14, 44, 10, 10)));
+		add(getJSeparator0(), new Constraints(new Bilateral(14, 12, 474), new Leading(64, 10, 78, 78)));
+		add(getJLabel0(), new Constraints(new Leading(14, 146, 12, 12), new Leading(80, 12, 12)));
+		add(getLogoPanel(), new Constraints(new Trailing(12, 306, 10, 10), new Leading(110, 209, 10, 10)));
+		add(getJSeparator1(), new Constraints(new Bilateral(12, 12, 720), new Leading(497, 10, 12, 12)));
+		add(getJScrollPane0(), new Constraints(new Bilateral(12, 330, 22), new Leading(110, 381, 48, 48)));
+		add(getBapri(), new Constraints(new Trailing(113, 104, 358, 595), new Leading(359, 10, 10)));
+		add(getBinserisci(), new Constraints(new Trailing(112, 105, 358, 595), new Leading(393, 10, 10)));
+		add(getJButton0(), new Constraints(new Trailing(112, 105, 358, 595), new Leading(429, 10, 10)));
+		add(getBEsci(), new Constraints(new Trailing(12, 83, 19, 18), new Leading(503, 12, 12)));
+		initButtonGroup1();
+		setSize(744, 532);
+	}
+
+
+	private JSeparator getJSeparator1() {
+		if (jSeparator1 == null) {
+			jSeparator1 = new JSeparator();
+		}
+		return jSeparator1;
+	}
+
+
+	private void initButtonGroup1() {
+		buttonGroup1 = new ButtonGroup();
+		buttonGroup1.add(getBapri());
+		buttonGroup1.add(getBinserisci());
+		buttonGroup1.add(getJButton0());
+	}
+
+
+	private JButton getJButton0() {
+		if (jButton0 == null) {
+			jButton0 = new JButton();
+			jButton0.setText("Importa");
+		}
+		return jButton0;
+	}
+
+
+	private JPanel getLogoPanel() {
+		if (logoPanel == null) {
+			logoPanel = new ImagePanel();
+			logoPanel.setAlignmentY(0.5f);
+			logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.LINE_AXIS));
+			logoPanel.setImage("images/house_logo.png");
+		}
+		return logoPanel;
 	}
 
 
 	private JButton getBEsci() {
 		if (bEsci == null) {
 			bEsci = new JButton();
-			bEsci.setText("esci");
+			bEsci.setText("Esci");
 			bEsci.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -239,6 +283,24 @@ public class AmICo extends JFrame implements BaseBoundary{
 			});
 		}
 		return bEsci;
+	}
+
+
+	private JSeparator getJSeparator0() {
+		if (jSeparator0 == null) {
+			jSeparator0 = new JSeparator();
+		}
+		return jSeparator0;
+	}
+
+	private JLabel getJLabel1() {
+		if (jLabel1 == null) {
+			jLabel1 = new JLabel();
+			jLabel1.setFont(new Font("Dialog", Font.BOLD | java.awt.Font.ITALIC, 22));
+			jLabel1.setHorizontalAlignment(SwingConstants.TRAILING);
+			jLabel1.setText("AmICo");
+		}
+		return jLabel1;
 	}
 
 
@@ -257,66 +319,20 @@ public class AmICo extends JFrame implements BaseBoundary{
 		return lista;
 	}
 
-	private JMenuBar getJMenuBar0() {
-		if (jMenuBar0 == null) {
-			jMenuBar0 = new JMenuBar();
-			jMenuBar0.add(getFile());
-		}
-		return jMenuBar0;
-	}
-
-	private JMenu getFile() {
-		if (file == null) {
-			file = new JMenu();
-			file.setText("File");
-			file.setOpaque(false);
-			file.add(getJMenuItem0());
-			file.add(getJMenuItem1());
-		}
-		return file;
-	}
-
-	private JMenuItem getJMenuItem1() {
-		if (jMenuItem1 == null) {
-			jMenuItem1 = new JMenuItem();
-			jMenuItem1.setText("esci");
-			jMenuItem1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					jMenuItem1MouseMouseClicked(event);
-				}
-			});
-		}
-		return jMenuItem1;
-	}
-
-	private JMenuItem getJMenuItem0() {
-		if (jMenuItem0 == null) {
-			jMenuItem0 = new JMenuItem();
-			jMenuItem0.setText("Importare condominio");
-			jMenuItem0.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					jMenuItem0MouseMouseClicked(event);
-				}
-			});
-		}
-		return jMenuItem0;
-	}
-
 	private JLabel getJLabel0() {
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
-			jLabel0.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 14));
-			jLabel0.setText("Ecco i condomini registrati nel sistema:");
+			jLabel0.setFont(new Font("Dialog", Font.BOLD | java.awt.Font.ITALIC, 20));
+			jLabel0.setText("Condomìni ");
 		}
 		return jLabel0;
 	}
 
+
 	private JButton getBapri() {
 		if (bapri == null) {
 			bapri = new JButton();
-			bapri.setText("Apri condominio");
+			bapri.setText("Apri");
 			bapri.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -327,10 +343,11 @@ public class AmICo extends JFrame implements BaseBoundary{
 		return bapri;
 	}
 
+
 	private JButton getBinserisci() {
 		if (binserisci == null) {
 			binserisci = new JButton();
-			binserisci.setText("Inserisci nuovo condominio");
+			binserisci.setText("Nuovo");
 			binserisci.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -340,6 +357,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 		}
 		return binserisci;
 	}
+
 
 	private static void installLnF() {
 		try {
@@ -396,10 +414,10 @@ public class AmICo extends JFrame implements BaseBoundary{
 				frame.setTitle("AmICo");
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
+
 			}
 		});
 	}
-
 
 
 }
