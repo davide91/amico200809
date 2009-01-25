@@ -2,26 +2,28 @@
 package boundary;
 
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+import org.dyno.visual.swing.layouts.Trailing;
 
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
@@ -210,20 +212,14 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JComboBox comune;
 	private JTextField cap;
 	private JComboBox provincia;
-	private JMenuItem jMenuItem0;
-	private JMenu file;
-	private JMenuBar jMenuBar0;
 	private JLabel scrittavia;
 	private JButton inserisci;
 	private JLabel scrittaprovincia;
 	private JLabel scrittacomune;
 	private JLabel scrittacap;
 	private JButton annulla;
+	private JSeparator jSeparator0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	
-	
-	
-	
 	public InserireNuovoCondominio() {
 		state=StatiInserireNuovoCondominio.base;
 		initComponents();
@@ -231,20 +227,33 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	}
 
 	private void initComponents() {
+		setMinimumSize(new Dimension(300, 200));
+		setPreferredSize(new Dimension(300, 200));
+		setFont(new Font("Dialog", Font.PLAIN, 12));
+		setForeground(Color.black);
 		setLayout(new GroupLayout());
-		add(getVia(), new Constraints(new Leading(96, 117, 10, 10), new Leading(10, 12, 12)));
-		add(getInserisci(), new Constraints(new Leading(100, 10, 10), new Leading(121, 10, 10)));
-		add(getAnnulla(), new Constraints(new Leading(315, 10, 10), new Leading(123, 10, 10)));
-		add(getScrittavia(), new Constraints(new Leading(18, 29, 12, 12), new Leading(14, 12, 12)));
-		add(getProvincia(), new Constraints(new Leading(97, 116, 12, 12), new Leading(34, 22, 12, 12)));
-		add(getComune(), new Constraints(new Leading(310, 116, 12, 12), new Leading(33, 12, 12)));
-		add(getScrittaprovincia(), new Constraints(new Leading(12, 12, 12), new Leading(40, 16, 12, 12)));
-		add(getCap(), new Constraints(new Leading(97, 114, 12, 12), new Leading(65, 12, 12)));
-		add(getScrittacap(), new Constraints(new Leading(18, 12, 12), new Leading(67, 12, 12)));
-		add(getScrittacomune(), new Constraints(new Leading(245, 10, 10), new Leading(43, 13, 12, 12)));
-		setJMenuBar(getJMenuBar0());
-		setSize(480, 230);
+		add(getScrittavia(), new Constraints(new Leading(12, 29, 12, 12), new Leading(12, 12, 12)));
+		add(getScrittacap(), new Constraints(new Leading(12, 12, 12), new Leading(62, 18, 12, 12)));
+		add(getCap(), new Constraints(new Leading(97, 67, 12, 12), new Leading(62, 12, 12)));
+		add(getScrittaprovincia(), new Constraints(new Leading(12, 12, 12), new Leading(32, 22, 12, 12)));
+		add(getInserisci(), new Constraints(new Leading(284, 10, 10), new Trailing(12, 67, 67)));
+		add(getAnnulla(), new Constraints(new Leading(382, 12, 12), new Trailing(12, 67, 67)));
+		add(getJSeparator0(), new Constraints(new Bilateral(12, 12, 452), new Trailing(42, 7, 67, 67)));
+		add(getVia(), new Constraints(new Bilateral(97, 12, 4), new Leading(10, 12, 12)));
+		add(getComune(), new Constraints(new Bilateral(306, 12, 147), new Leading(31, 55, 61)));
+		add(getScrittacomune(), new Constraints(new Leading(243, 171, 171), new Leading(31, 22, 55, 61)));
+		add(getProvincia(), new Constraints(new Leading(97, 134, 165, 165), new Leading(32, 22, 12, 12)));
+		setSize(492, 275);
 	}
+
+
+	private JSeparator getJSeparator0() {
+		if (jSeparator0 == null) {
+			jSeparator0 = new JSeparator();
+		}
+		return jSeparator0;
+	}
+
 
 	private JButton getAnnulla() {
 		if (annulla == null) {
@@ -263,26 +272,29 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JLabel getScrittacap() {
 		if (scrittacap == null) {
 			scrittacap = new JLabel();
-			scrittacap.setText("CAP:");
+			scrittacap.setText("CAP");
 		}
 		return scrittacap;
 	}
 
+
 	private JLabel getScrittacomune() {
 		if (scrittacomune == null) {
 			scrittacomune = new JLabel();
-			scrittacomune.setText("Comune:");
+			scrittacomune.setText("Comune");
 		}
 		return scrittacomune;
 	}
 
+
 	private JLabel getScrittaprovincia() {
 		if (scrittaprovincia == null) {
 			scrittaprovincia = new JLabel();
-			scrittaprovincia.setText("Provincia:");
+			scrittaprovincia.setText("Provincia");
 		}
 		return scrittaprovincia;
 	}
+
 
 	private JButton getInserisci() {
 		if (inserisci == null) {
@@ -301,36 +313,11 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JLabel getScrittavia() {
 		if (scrittavia == null) {
 			scrittavia = new JLabel();
-			scrittavia.setText("Via:");
+			scrittavia.setText("Via");
 		}
 		return scrittavia;
 	}
 
-	private JMenuBar getJMenuBar0() {
-		if (jMenuBar0 == null) {
-			jMenuBar0 = new JMenuBar();
-			jMenuBar0.add(getFile());
-		}
-		return jMenuBar0;
-	}
-
-	private JMenu getFile() {
-		if (file == null) {
-			file = new JMenu();
-			file.setText("File");
-			file.setOpaque(false);
-			file.add(getJMenuItem0());
-		}
-		return file;
-	}
-
-	private JMenuItem getJMenuItem0() {
-		if (jMenuItem0 == null) {
-			jMenuItem0 = new JMenuItem();
-			jMenuItem0.setText("esci");
-		}
-		return jMenuItem0;
-	}
 
 	private JComboBox getProvincia() {
 		if (provincia == null) {
