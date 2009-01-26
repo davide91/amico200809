@@ -20,7 +20,7 @@ public class DatiUnitaImmobiliare {
 	
 	public DatiUnitaImmobiliare()
 	{
-		
+	
 	}
 	
 	public DatiUnitaImmobiliare(String id, CategoriaCatastale cat, String pos, Float metri, DestinazioneUso dest)

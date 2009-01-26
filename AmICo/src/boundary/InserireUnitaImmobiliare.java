@@ -92,6 +92,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		add(getMetratura(), new Constraints(new Leading(374, 79, 10, 10), new Leading(35, 22, 12, 12)));
 		add(getPosizioneInterna(), new Constraints(new Leading(462, 79, 10, 10), new Leading(35, 23, 12, 12)));
 		setSize(561, 170);
+		setVisible(true);
 	}
 
 	private JTextField getCategoria() {
