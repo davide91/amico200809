@@ -98,6 +98,7 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 
 	private void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
 		
+		
 	}
 	
 	private void bAggiungiPropietariMouseMouseClicked(MouseEvent event) {
