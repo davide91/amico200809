@@ -156,7 +156,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		return campoavvisi;
 	}
 
-	private JPanel getPannello() {
+	public JPanel getPannello() {
 		if (pannello == null) {
 			pannello = new JPanel(new FlowLayout());
 		//	pannello.setLayout(new GroupLayout());
@@ -299,15 +299,11 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 					+ " on this platform:" + e.getMessage());
 		}
 	}
+
+	
 	private void bdaticondominioMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
-		
-		JTabbedPane pannelloTab = new JTabbedPane();
-		pannelloTab.addTab("Dati Generali",new DatiGenerali(condominio));
-		pannelloTab.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari());
-		pannelloTab.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
-		pannelloTab.addTab("Preferenze", new AccederePreferenze());
-		pannello.add(pannelloTab);
+		this.passaAUnitaImmobiliari();
 		
 		pannello.revalidate();
 		pannello.repaint();
