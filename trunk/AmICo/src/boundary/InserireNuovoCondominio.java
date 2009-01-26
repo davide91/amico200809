@@ -77,7 +77,6 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public void ammissibile(Boolean b) {
 		switch (state) {
 		case controlloDatiCondominio:
-			
 			if (b)
 			{
 				state=StatiInserireNuovoCondominio.attesaConfermaDatiCondominio;
