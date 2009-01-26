@@ -2,15 +2,15 @@
 package boundary;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
+
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -18,9 +18,8 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+
 
 
 
@@ -48,7 +47,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private Persone persone;
 	private StatiAccedereUnitaImmobiliari state;
 	
-	private Condominio condominio;
+	private ButtonGroup group = new ButtonGroup();
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -59,17 +58,16 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	public AccedereUnitaImmobiliari() {
 		initComponents();
 		state=StatiAccedereUnitaImmobiliari.base;
-	//	aggiornaUnitaImmobiliari(unita);
 	}
 
 	public AccedereUnitaImmobiliari(GestoreCondominioAperto GCA, UnitaImmobiliari unita) {
 		this.GCA=GCA;
-		this.unita=unita;
+	//	this.unita=unita;
 		initComponents();
 		state = StatiAccedereUnitaImmobiliari.base;
 		aggiornaUnitaImmobiliari(unita);
 	}
-	
+
 	public void modificaProprieta(UnitaImmobiliare unita) {
 		GCA.modificaProprieta(unita);
 		state=StatiAccedereUnitaImmobiliari.modificaProprieta;
@@ -94,62 +92,34 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
 	{
+		int cont=0;
+		
 		this.unita=unita;
 
-		if(condominio!=null)
-		{
-			final Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
-			final UnitaImmobiliari unit=this.unita;
+		Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
+		UnitaImmobiliare unit;
 
-			table.setModel(
-			new AbstractTableModel()
-			{
-				private static final long serialVersionUID = 1L;
-						
-				public int getColumnCount() { return 6; }
-				public int getRowCount() { return unit.getImmobili().size(); }
-				public Object getValueAt (int row, int col)
-				{
-					if(col==0)
-					{
-						if(ui.hasNext())
-							return ui.next().getDatiUnitaImmobiliare().getId();
-					}
-					else if(col==1)
-					{
-						if(ui.hasNext())
-							return ui.next().getDatiUnitaImmobiliare().getCatCatastale().toString();
-					}
-					else if(col==2)
-					{
-						if(ui.hasNext())
-							return ui.next().getDatiUnitaImmobiliare().getDestUso().toString();
-					}
-					else if(col==3)	
-					{
-						if(ui.hasNext())
-							return Float.toString(ui.next().getDatiUnitaImmobiliare().getMetriQ());
-					}
-					else if(col==4)
-					{
-						if(ui.hasNext())
-							return ui.next().getDatiUnitaImmobiliare().getPosizioneInterna();
-					}
-					else return new JRadioButton();
+		
+			DefaultTableModel dm = new DefaultTableModel();
+			
+		    dm.setDataVector(
+		      new Object[][]{},
+		      new Object[]{"Identificatore","Categoria","Destinazione","Metratura","Posizione","Seleziona"}
+		      );
 
-					
-					return "";
-				}
-				public Class getColumnClass (int column) { return getValueAt(0, column).getClass();}
-				public String getColumnName (int column) { if(column==0) return "Identificatore";
-															else if(column==1) return "Categoria";
-															else if(column==2) return "Destinazione";
-															else if(column==3) return "Metratura";
-															else if(column==4) return "Posizione";
-															else return "proprietari";}
-			}
-			);
-		}
+		    while(ui.hasNext())
+		    {
+		    	unit=ui.next();
+		    	cont++;
+		    	dm.addRow(new Object[]{unit.getDatiUnitaImmobiliare().getId(),unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),unit.getDatiUnitaImmobiliare().getDestUso(),unit.getDatiUnitaImmobiliare().getMetriQ(),unit.getDatiUnitaImmobiliare().getPosizioneInterna(),new JRadioButton()});
+		    }
+		    for(int i=0;i<cont;i++)
+		    {
+		    	group.add((JRadioButton)dm.getValueAt(i,5));
+		    }
+		    table.setModel(dm);
+		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 	}
 	
 	
@@ -216,54 +186,22 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		{
 		    DefaultTableModel dm = new DefaultTableModel();
 		    dm.setDataVector(
-		      new Object[][]{
-		        {"Group 1",new JRadioButton()},
-		        {"Group 1",new JRadioButton()},
-		        {"Group 1",new JRadioButton()},
-		        {"Group 2",new JRadioButton()},
-		        {"Group 2",new JRadioButton()}},
-		      new Object[]{"String","JRadioButton"}
+		      new Object[][]{},
+		      new Object[]{"Identificatore","Categoria","Destinazione","Metratura","Posizione","Seleziona"}
 		      );
-	
-		    table = new JTable(dm){
-		      public void tableChanged(TableModelEvent e) {
+
+		    table = new JTable(dm)
+		    {
+		      public void tableChanged(TableModelEvent e)
+		      {
 		        super.tableChanged(e);
 		        repaint();
 		      }
 		    };
-		   ButtonGroup group1 = new ButtonGroup();
-		    group1.add((JRadioButton)dm.getValueAt(0,1));
-		    group1.add((JRadioButton)dm.getValueAt(1,1));
-		    group1.add((JRadioButton)dm.getValueAt(2,1));
-		    ButtonGroup group2 = new ButtonGroup();
-		    group2.add((JRadioButton)dm.getValueAt(3,1));
-		    group2.add((JRadioButton)dm.getValueAt(4,1));
-		    table.getColumn("JRadioButton").setCellRenderer(new RadioButtonRenderer());
-		    table.getColumn("JRadioButton").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+		    
+		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 
-		   
-		
-	//	   defaultRenderer = table.getDefaultRenderer(JButton.class);
-	//	   table.setDefaultRenderer(JButton.class,new RadioButtonRenderer());	
-		   
-		   
-				   /*
-		   table.setModel( new AbstractTableModel()
-			{
-				private static final long serialVersionUID = 1L;
-						
-				public int getColumnCount() { return 6; }
-				public int getRowCount() { return 1; }
-				public Object getValueAt (int row, int col){return new JRadioButton();}
-				public Class getColumnClass (int column) { return getValueAt(0, column).getClass();}
-				public String getColumnName (int column) { if(column==0) return "Identificatore";
-															else if(column==1) return "Categoria";
-															else if(column==2) return "Destinazione";
-															else if(column==3) return "Metratura";
-															else if(column==4) return "Posizione";
-															else return "proprietari";}
-			} );
-				    	*/
 
 		}
 		
