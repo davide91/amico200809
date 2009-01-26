@@ -58,6 +58,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void chiudiCondominio() {
 		GestoreCondomini.getInstance().operazioneTerminata();
+		m_amico.setVisible(true);
 	}
 	
 	public boolean eliminabile() {
@@ -68,8 +69,12 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void eliminaCondominio() {
-		m_accedereCondominioAperto.ammissibile(eliminabile());
-		m_state = StatiGestoreCondominioAperto.attesaConfermaEliminazione;
+		if(eliminabile())
+			{m_state = StatiGestoreCondominioAperto.attesaConfermaEliminazione;
+			m_accedereCondominioAperto.ammissibile(true);
+		}
+		else m_accedereCondominioAperto.ammissibile(false);
+		
 	}
 	
 	public void esportaCondominio(URL path) {
@@ -202,6 +207,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			}
 			m_dbCondomini.eliminaCondominio(m_condominio);
 			m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
+			m_amico.setVisible(true);
 			break;
 		case attesaConfermaProprieta :
 			if (!procedere) {

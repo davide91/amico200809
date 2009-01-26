@@ -39,8 +39,6 @@ import executor.GestoreCondominioAperto;
  */
 public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
-
-
 	private GestoreCondominioAperto GCA;
 	private UnitaImmobiliari unita;
 	private Persone persone;
@@ -257,8 +255,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 				private static final long serialVersionUID = 1L;
 						
 				public int getColumnCount() { return 6; }
-				public int getRowCount() { return 1; }
-				public Object getValueAt (int row, int col){return  new JButton();}
+				public int getRowCount() { return 0; }
+				public Object getValueAt (int row, int col){return  "";}
 				public Class getColumnClass (int column) { return getValueAt(0, column).getClass();}
 				public String getColumnName (int column) { if(column==0) return "Identificatore";
 															else if(column==1) return "Categoria";
