@@ -1,5 +1,6 @@
 package executor;
 
+
 import java.io.File;
 import java.net.URL;
 
@@ -31,6 +32,7 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	public static GestoreCondomini getInstance()
 	{
+		
 		if ( m_gestoreCondominio == null ) 
 			m_gestoreCondominio = new GestoreCondomini();
 		return m_gestoreCondominio;
