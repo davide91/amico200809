@@ -237,15 +237,10 @@ public class GestoreCondomini implements BaseExecutor {
 		 */
 	}
 	
-	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 
-		UnitaImmobiliari uImmobiliari = m_condominio.recuperaUnitaImmobiliari();
-		UnitaImmobiliare newUnit = new UnitaImmobiliare();
-		newUnit.modificaDati(datiUnitaImmobliare);
-		
-		for ( UnitaImmobiliare unit : uImmobiliari.getImmobili() )
-			if ( unit.equals(newUnit) )
-				return false;
-		
-		return true;
+	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 		
+		for ( UnitaImmobiliare unit : m_condominio.recuperaUnitaImmobiliari().getImmobili() )
+			if ( unit.getDatiUnitaImmobiliare().equals(datiUnitaImmobliare))
+				return true;
+		return false;
 	}
 }
