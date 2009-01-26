@@ -323,7 +323,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
 			jLabel0.setFont(new Font("Dialog", Font.BOLD | java.awt.Font.ITALIC, 20));
-			jLabel0.setText("Condomìni ");
+			jLabel0.setText("Condomini ");
 		}
 		return jLabel0;
 	}

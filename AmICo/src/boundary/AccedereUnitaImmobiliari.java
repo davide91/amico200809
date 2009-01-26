@@ -170,7 +170,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 					break;
 						
 		JOptionPane.showMessageDialog(this, ""+i);
-		//new modificaProprieta(unita.getImmobili().get(i-1))
+		//new ModificaProprieta(unita.getImmobili().get(i-1),persone)
 		
 	}
 	
