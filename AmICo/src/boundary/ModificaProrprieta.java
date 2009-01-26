@@ -1,6 +1,9 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -14,16 +17,17 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 public class ModificaProrprieta extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final String PREFERRED_LOOK_AND_FEEL = null;
-
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public ModificaProrprieta() {
 		initComponents();
 		this.setVisible(true);
 	}
 
 	private void initComponents() {
+		setFont(new Font("Dialog", Font.PLAIN, 12));
+		setForeground(Color.black);
 		setLayout(new GroupLayout());
-		setSize(400, 300);
+		setSize(384, 232);
 	}
 
 	private static void installLnF() {

@@ -7,13 +7,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -48,21 +52,14 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	
 	
 	private static final long serialVersionUID = 1L;
-	private JTable jTable0;
+	private JTable table;
 	private JScrollPane jScrollPane0;
-	private JButton bContinua;
-	private JButton bInserisciUnitaImmobiliare;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	public AccedereUnitaImmobiliari() {
 		initComponents();
 		state=StatiAccedereUnitaImmobiliari.base;
-	}
-
-	public AccedereUnitaImmobiliari(Condominio condominio)
-	{
-		initComponents2();
-		this.condominio=condominio;
-		
+	//	aggiornaUnitaImmobiliari(unita);
 	}
 
 	public AccedereUnitaImmobiliari(GestoreCondominioAperto GCA, UnitaImmobiliari unita) {
@@ -104,7 +101,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 			final Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
 			final UnitaImmobiliari unit=this.unita;
 
-			jTable0.setModel(
+			table.setModel(
 			new AbstractTableModel()
 			{
 				private static final long serialVersionUID = 1L;
@@ -138,7 +135,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 						if(ui.hasNext())
 							return ui.next().getDatiUnitaImmobiliare().getPosizioneInterna();
 					}
-					else return new JButton();
+					else return new JRadioButton();
 
 					
 					return "";
@@ -199,66 +196,65 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 	
-	private void initComponents2() {
-		setLayout(new GroupLayout());
-		add(getJScrollPane0(), new Constraints(new Bilateral(0, 0, 22), new Leading(0, 192, 12, 12)));
-		add(getBContinua(), new Constraints(new Leading(53, 10, 10), new Leading(243, 10, 10)));
-		add(getBInserisciUnitaImmobiliare(), new Constraints(new Leading(185, 10, 10), new Leading(243, 12, 12)));
-		setSize(404, 341);
-	}
-
-	
-	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
-		add(getBContinua(), new Constraints(new Leading(53, 10, 10), new Leading(243, 10, 10)));
-		add(getBInserisciUnitaImmobiliare(), new Constraints(new Leading(185, 10, 10), new Leading(243, 12, 12)));
 		setSize(322, 248);
-	}
-
-	private JButton getBInserisciUnitaImmobiliare() {
-		if (bInserisciUnitaImmobiliare == null) {
-			bInserisciUnitaImmobiliare = new JButton();
-			bInserisciUnitaImmobiliare.setText("Inserisci unita'  immobiliare");
-		}
-		return bInserisciUnitaImmobiliare;
-	}
-
-	private JButton getBContinua() {
-		if (bContinua == null) {
-			bContinua = new JButton();
-			bContinua.setText("Continua");
-		}
-		return bContinua;
 	}
 
 	private JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {
 			jScrollPane0 = new JScrollPane();
-			jScrollPane0.setViewportView(getJTable0());
+			jScrollPane0.setViewportView(getTable());
 		}
 		return jScrollPane0;
 	}
 
-	private JTable getJTable0() 
+	private JTable getTable() 
 	{
-		if (jTable0 == null)
+		if (table == null)
 		{
-		   TableCellRenderer defaultRenderer;
+		    DefaultTableModel dm = new DefaultTableModel();
+		    dm.setDataVector(
+		      new Object[][]{
+		        {"Group 1",new JRadioButton()},
+		        {"Group 1",new JRadioButton()},
+		        {"Group 1",new JRadioButton()},
+		        {"Group 2",new JRadioButton()},
+		        {"Group 2",new JRadioButton()}},
+		      new Object[]{"String","JRadioButton"}
+		      );
+	
+		    table = new JTable(dm){
+		      public void tableChanged(TableModelEvent e) {
+		        super.tableChanged(e);
+		        repaint();
+		      }
+		    };
+		   ButtonGroup group1 = new ButtonGroup();
+		    group1.add((JRadioButton)dm.getValueAt(0,1));
+		    group1.add((JRadioButton)dm.getValueAt(1,1));
+		    group1.add((JRadioButton)dm.getValueAt(2,1));
+		    ButtonGroup group2 = new ButtonGroup();
+		    group2.add((JRadioButton)dm.getValueAt(3,1));
+		    group2.add((JRadioButton)dm.getValueAt(4,1));
+		    table.getColumn("JRadioButton").setCellRenderer(new RadioButtonRenderer());
+		    table.getColumn("JRadioButton").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 
-		   jTable0= new JTable();
-				   
-		   defaultRenderer = jTable0.getDefaultRenderer(JButton.class);
-		   jTable0.setDefaultRenderer(JButton.class,new JTableButtonRenderer(defaultRenderer));	   
-				   
-		   jTable0.setModel( new AbstractTableModel()
+		   
+		
+	//	   defaultRenderer = table.getDefaultRenderer(JButton.class);
+	//	   table.setDefaultRenderer(JButton.class,new RadioButtonRenderer());	
+		   
+		   
+				   /*
+		   table.setModel( new AbstractTableModel()
 			{
 				private static final long serialVersionUID = 1L;
 						
 				public int getColumnCount() { return 6; }
-				public int getRowCount() { return 0; }
-				public Object getValueAt (int row, int col){return  "";}
+				public int getRowCount() { return 1; }
+				public Object getValueAt (int row, int col){return new JRadioButton();}
 				public Class getColumnClass (int column) { return getValueAt(0, column).getClass();}
 				public String getColumnName (int column) { if(column==0) return "Identificatore";
 															else if(column==1) return "Categoria";
@@ -267,12 +263,14 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 															else if(column==4) return "Posizione";
 															else return "proprietari";}
 			} );
-
+				    	*/
 
 		}
-		jTable0.addMouseListener(new JTableButtonMouseListener(jTable0));
 		
-		return jTable0;
+		   
+		   
+		   
+		return table;
 	}
 
 	private static void installLnF() {
@@ -300,7 +298,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 				JFrame frame = new JFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setTitle("AccedereUnitaImmobiliari");
-				AccedereUnitaImmobiliari content = new AccedereUnitaImmobiliari(new Condominio());
+				AccedereUnitaImmobiliari content = new AccedereUnitaImmobiliari();
 				content.setPreferredSize(content.getSize());
 				frame.add(content, BorderLayout.CENTER);
 				frame.pack();
