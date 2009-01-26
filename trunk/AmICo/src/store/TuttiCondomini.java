@@ -48,7 +48,6 @@ public class TuttiCondomini {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();		
 			c.setStatoCondominio(StatoCondominio.inCompilazione);
-	//		CONDOMINI.inserisciCondominio(c);
 			session.persist(c);
 		session.getTransaction().commit();
 	}
@@ -57,7 +56,6 @@ public class TuttiCondomini {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		//	CONDOMINI.elimina(c);
 			session.delete(c);
 		session.getTransaction().commit();
 	}
