@@ -20,7 +20,11 @@ public class DatiUnitaImmobiliare {
 	
 	public DatiUnitaImmobiliare()
 	{
-	
+		id="";
+		catCatastale = CategoriaCatastale.A10;
+		posizioneInterna ="";
+		metriQ = (float)0.0;
+		destUso = DestinazioneUso.appartamento;
 	}
 	
 	public DatiUnitaImmobiliare(String id, CategoriaCatastale cat, String pos, Float metri, DestinazioneUso dest)
