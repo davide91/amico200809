@@ -2,12 +2,12 @@
 package boundary;
 
 import java.awt.BorderLayout;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.swing.ButtonGroup;
-
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,15 +20,11 @@ import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import store.POJO.Condominio;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
@@ -53,6 +49,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JScrollPane jScrollPane0;
+	private JButton bVisualizzaProprietari;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
 	public AccedereUnitaImmobiliari() {
@@ -114,9 +111,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		    	dm.addRow(new Object[]{unit.getDatiUnitaImmobiliare().getId(),unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),unit.getDatiUnitaImmobiliare().getDestUso(),unit.getDatiUnitaImmobiliare().getMetriQ(),unit.getDatiUnitaImmobiliare().getPosizioneInterna(),new JRadioButton()});
 		    }
 		    for(int i=0;i<cont;i++)
-		    {
 		    	group.add((JRadioButton)dm.getValueAt(i,5));
-		    }
+
 		    table.setModel(dm);
 		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
@@ -166,10 +162,46 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 	
+	private void mouseMouseClicked(MouseEvent event) {
+		int i=0;
+		if(group.getSelection()!= null)
+			for(;i<group.getButtonCount();i++)
+				if(group.getElements().equals(group.getSelection()) )
+					break;
+						
+		JOptionPane.showMessageDialog(this, ""+i);
+		//new modificaProprieta(unita.getImmobili().get(i))
+		
+	}
+	
+	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
-		setSize(322, 248);
+		add(getBVisualizzaProprietari(), new Constraints(new Leading(177, 10, 10), new Leading(213, 12, 12)));
+
+	
+		initGroup();
+		setSize(322, 256);
+	}
+
+	private void initGroup() {
+		group = new ButtonGroup();
+	}
+
+	private JButton getBVisualizzaProprietari() {
+		if (bVisualizzaProprietari == null) {
+			bVisualizzaProprietari = new JButton();
+			bVisualizzaProprietari.setText("Visualizza proprietari");
+			
+			bVisualizzaProprietari.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					mouseMouseClicked(event);
+				}
+			});
+		}
+		return bVisualizzaProprietari;
 	}
 
 	private JScrollPane getJScrollPane0() {
@@ -192,22 +224,19 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 		    table = new JTable(dm)
 		    {
-		      public void tableChanged(TableModelEvent e)
-		      {
-		        super.tableChanged(e);
-		        repaint();
-		      }
-		    };
-		    
+				private static final long serialVersionUID = 1L;
+
+				public void tableChanged(TableModelEvent e)
+			    {
+					super.tableChanged(e);
+			        repaint();
+			    }
+		    };   
 		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 
-
 		}
-		
-		   
-		   
-		   
+
 		return table;
 	}
 
@@ -245,5 +274,6 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 			}
 		});
 	}
-	
+
+
 }
