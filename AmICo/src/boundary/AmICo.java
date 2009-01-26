@@ -138,7 +138,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 			{
 				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) ) {
 					apriCondominio(c);
-					dispose();
+					setVisible(false);
 				}
 					
 			}

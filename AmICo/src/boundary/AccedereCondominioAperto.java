@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -28,6 +29,8 @@ import datatype.EsitoEliminabile;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
 import enumeration.StatiAccedereCondominioAperto;
+import enumeration.StatiInserireNuovoCondominio;
+import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 
 
@@ -381,7 +384,16 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 
 	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub	
+		if(b)
+		{
+				int c = JOptionPane.showConfirmDialog(this, "vuoi eliminare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			
+			if (c==0)ok();
+
+			else ko();
+
+		}
+			
 		
 	}
 	public void ammissibile(EsitoEliminabile esito){
@@ -413,13 +425,14 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	public void ko() {
 		GCA.procedi(false);
-		//AMM.mostra(CondominioEliminatoKO);
+		JOptionPane.showMessageDialog(this, "impossibile eliminare condominio");
 		state=StatiAccedereCondominioAperto.base;
 	}
 
 	public void ok() {
 		GCA.procedi(true);
-		//AMM.mostra(condominioEliminatoOK);
+		JOptionPane.showMessageDialog(this, "condominio eliminato");
+		this.dispose();
 	}
 
 	
