@@ -101,7 +101,7 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	public void inserisciCondominio() {
 		m_inserireNuovoCondominio = new InserireNuovoCondominio();
-//		m_condominio = new Condominio();
+		m_condominio = new Condominio();
 		m_state = StatiGestoreCondominio.inserimentoCondominio;
 	}
 	
@@ -109,7 +109,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 		m_unitaImmobiliare = new UnitaImmobiliare();
 		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
-		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare();
+		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare(TuttePersone.getInstance().recuperaPersone());
 	}
 	
 	public void operazioneAnnullata() {
@@ -154,25 +154,26 @@ public class GestoreCondomini implements BaseExecutor {
 		
 	public void passaDatiUnitaImmobliare(DatiUnitaImmobiliare datiUnitaImmobliare) {
 		if ( unitaImmobiliareGiaInserita(datiUnitaImmobliare) ) {
+			m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 			m_inserireUnitaImmobiliare.ammissibile(false);
 			m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 			return;
 		}
-		
+		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_inserireUnitaImmobiliare.ammissibile(true);
-		m_state = StatiGestoreCondominio.inserimentoProprieta;
-		m_inserireUnitaImmobiliare.aggiornaPersone(m_dbPersone.recuperaPersone());
+//		m_inserireUnitaImmobiliare.aggiornaPersone(m_dbPersone.recuperaPersone());
 	}
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
+		m_state = StatiGestoreCondominio.attesaConferma;
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
 /*		Scomparso nel design 3.3, proabile ricomparsa in futuro...	
  * 	
  * 		m_inserireUnitaImmobiliare.ammissibile(true);
  * 
  */
-		m_state = StatiGestoreCondominio.attesaConferma;
+		
 	}
 	
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) {
@@ -217,10 +218,13 @@ public class GestoreCondomini implements BaseExecutor {
 					 * m_inserireUnitaImmobiliare.fallito();
 					 */					
 					m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
-					break;
+					
 				}
+				else {
 				m_inserireUnitaImmobiliare.fatto();
 				m_inserireNuovoCondominio.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
+				}
+				m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 				break;
 		}
 	}

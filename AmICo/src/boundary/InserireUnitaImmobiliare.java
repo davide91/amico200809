@@ -1,6 +1,9 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,21 +16,67 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.TuttePersone;
 import store.POJO.Persona;
+import store.POJO.UnitaImmobiliare;
+import datatype.DatiUnitaImmobiliare;
+import datatype.list.Percentuali;
 import datatype.list.Persone;
+import datatype.list.UnitaImmobiliari;
+import enumeration.CategoriaCatastale;
 import enumeration.DestinazioneUso;
+import enumeration.StatiInserireNuovoCondominio;
+import enumeration.StatiInserireUnitaImmobiliari;
+import executor.GestoreCondomini;
+import executor.GestoreCondominioAperto;
+import executor.GestorePersone;
 
 public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone {
 
+//	private UnitaImmobiliari unitaImmobiliari;
+	private Persone persone;
+	private StatiInserireUnitaImmobiliari state;
 	
-	public InserireUnitaImmobiliare() {
+	public InserireUnitaImmobiliare(Persone persone) {
+		state=StatiInserireUnitaImmobiliari.base;
+		this.persone=persone;
 		initComponents();
+	}
+	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati){
+		state=StatiInserireUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
+		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
+		
+	}
+	
+	public void inserisciNuovaPersona(){
+		state= StatiInserireUnitaImmobiliari.inserimentoNuovaPersona;
+		GestorePersone.getInstance().inserisciPersona(this);
+		
+	}
+	
+	public void specificaProprietari(Persone persone, Percentuali percentuali){
+		if (proprietaOK(persone, percentuali)){
+			state=StatiInserireUnitaImmobiliari.attesaConfermaProprieta;
+			GestoreCondomini.getInstance().passaProprieta(persone, percentuali);
+			//AMM.richiestaConferma();
+		}
+		else {
+			//AMM.mostra(proprietaKO);
+		}
 	}
 
 
 	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub
-		
+		if (b){
+			state=StatiInserireUnitaImmobiliari.inserimentoProprietari;
+			//AMM:mostraPersone(persone);
+			
+		}
+		else {
+			state=StatiInserireUnitaImmobiliari.base;
+			//AMM.mostra(UnitaImmobiliareGiaInserita);
+		} 
+			
 	}
 
 	public void annulla() {
@@ -41,8 +90,8 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	}
 
 	public void fatto() {
-		// TODO Auto-generated method stub
-		
+		state=StatiInserireUnitaImmobiliari.inserimentoProprietari;
+		//AMM:mostraPersone(persone);
 	}
 
 	public void finito() {
@@ -51,12 +100,14 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	}
 
 	public void ko() {
-		// TODO Auto-generated method stub
+		GestoreCondomini.getInstance().procedi(false);
+		//AMM.mostra(unitaImmobiliareInseritaKO);
 		
 	}
 
 	public void ok() {
-		// TODO Auto-generated method stub
+		GestoreCondomini.getInstance().procedi(true);
+		//AMM.mostra(unitaImmobiliareInseritaOK);
 		
 	}
 
@@ -66,7 +117,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	}
 
 	public void aggiornaPersone(Persone persone) {
-		// TODO Auto-generated method stub
+		this.persone=persone;
 		
 	}
 
@@ -79,10 +130,11 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	private JTextField posizioneInterna;
 	private JButton bConferma;
 	private JButton bAnnulla;
-	private JTextField categoria;
+	private JComboBox categoria;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 	private void initComponents() {
+		setTitle("Inserire Unità Immobiliare");
 		setLayout(new GroupLayout());
 		add(getBConferma(), new Constraints(new Leading(100, 10, 10), new Leading(93, 10, 10)));
 		add(getBAnnulla(), new Constraints(new Leading(326, 10, 10), new Leading(93, 12, 12)));
@@ -95,9 +147,12 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		setVisible(true);
 	}
 
-	private JTextField getCategoria() {
+	private JComboBox getCategoria() {
 		if (categoria == null) {
-			categoria = new JTextField();
+			categoria = new JComboBox();
+			categoria.setModel(new DefaultComboBoxModel( CategoriaCatastale.values() ) );
+			categoria.setDoubleBuffered(false);
+			categoria.setBorder(null);
 		}
 		return categoria;
 	}
@@ -114,8 +169,20 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		if (bConferma == null) {
 			bConferma = new JButton();
 			bConferma.setText("Conferma");
+			
+			bConferma.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					confermaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bConferma;
+	}
+
+	protected void confermaMouseMouseClicked(MouseEvent event) {
+		inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
+		
 	}
 
 	private JTextField getPosizioneInterna() {
@@ -173,12 +240,16 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				InserireUnitaImmobiliare frame = new InserireUnitaImmobiliare();
+				InserireUnitaImmobiliare frame = new InserireUnitaImmobiliare(TuttePersone.getInstance().recuperaPersone());
 				frame.setTitle("InserireUnitaImmobiliare");
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
 		});
+	}
+	public boolean proprietaOK(Persone persone, Percentuali quote) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

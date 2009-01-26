@@ -227,6 +227,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	}
 
 	private void initComponents() {
+		setTitle("Inserire Nuovo Condominio");
 		setMinimumSize(new Dimension(300, 200));
 		setPreferredSize(new Dimension(300, 200));
 		setFont(new Font("Dialog", Font.PLAIN, 12));
