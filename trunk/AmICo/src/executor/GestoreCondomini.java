@@ -108,8 +108,8 @@ public class GestoreCondomini implements BaseExecutor {
 	public void inserisciUnitaImmobiliare() {
 		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 		m_unitaImmobiliare = new UnitaImmobiliare();
-		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
-		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare();
+//		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
+//		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare();
 	}
 	
 	public void operazioneAnnullata() {
