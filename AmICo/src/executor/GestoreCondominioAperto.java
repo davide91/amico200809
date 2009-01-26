@@ -205,8 +205,9 @@ public class GestoreCondominioAperto implements BaseExecutor {
 				m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
 				break;
 			}
-			m_dbCondomini.eliminaCondominio(m_condominio);
-			m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
+			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
+		//	m_dbCondomini.eliminaCondominio(m_condominio);
+			m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 			m_amico.setVisible(true);
 			break;
 		case attesaConfermaProprieta :
