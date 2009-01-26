@@ -3,8 +3,6 @@
  */
 package test.testStore;
 
-import com.sun.java_cup.internal.parse_action;
-
 import datatype.CodiceFiscale;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
