@@ -386,7 +386,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	public void ammissibile(Boolean b) {
 		if(b)
 		{
-				int c = JOptionPane.showConfirmDialog(this, "vuoi eliminare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int c = JOptionPane.showConfirmDialog(this, "vuoi eliminare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
 			if (c==0)ok();
 

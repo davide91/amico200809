@@ -23,6 +23,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
 import store.POJO.Persona;
+import datatype.list.Percentuali;
 import datatype.list.Persone;
 import enumeration.StatiAccederePersone;
 import executor.GestoreCondominioAperto;
@@ -193,6 +194,11 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		this.persone =persone;
 		//AMM.mostraPersone(persone);
 		
+	}
+
+	public boolean proprietaOK(Persone persone, Percentuali quote) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -231,7 +231,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 		add(getJButton0(), new Constraints(new Trailing(112, 105, 358, 595), new Leading(429, 10, 10)));
 		add(getBEsci(), new Constraints(new Trailing(12, 83, 19, 18), new Leading(503, 12, 12)));
 		initButtonGroup1();
-		setSize(744, 532);
+		setSize(744, 580);
 	}
 
 
