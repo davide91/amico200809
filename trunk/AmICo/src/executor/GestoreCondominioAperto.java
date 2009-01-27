@@ -2,6 +2,8 @@ package executor;
 
 import java.net.URL;
 
+import javax.swing.JTabbedPane;
+
 import store.TuttePersone;
 import store.TuttiCondomini;
 import store.POJO.Bilancio;
@@ -10,9 +12,11 @@ import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import boundary.AccedereCondominioAperto;
 import boundary.AccederePersone;
+import boundary.AccederePreferenze;
 import boundary.AccedereTabelleMillesimali;
 import boundary.AccedereUnitaImmobiliari;
 import boundary.AmICo;
+import boundary.DatiGenerali;
 import boundary.DriverFileSystem;
 import calculator.CalcolaAvvisi;
 import calculator.FormatoAmICo;
@@ -21,6 +25,7 @@ import datatype.Preferenze;
 import datatype.list.Avvisi;
 import datatype.list.Persone;
 import datatype.list.Percentuali;
+import datatype.list.UnitaImmobiliari;
 import enumeration.StatiGestoreCondominioAperto;
 
 public class GestoreCondominioAperto implements BaseExecutor {
@@ -140,8 +145,10 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	*/
 	
 	public void passaADatiCondomini() {
-		m_accederePersone = new AccederePersone(this, m_condominio.recuperaCondomini());
 		m_state = StatiGestoreCondominioAperto.gestioneDatiCondomini;
+		m_accederePersone = new AccederePersone(this, m_condominio.recuperaCondomini());
+		m_accedereCondominioAperto.getPannello().add(m_accederePersone);
+
 	}
 	
 	public void passaAPagamenti() {
@@ -163,6 +170,14 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	
 	public void passaAUnitaImmobiliari() {
+		
+		JTabbedPane pannelloTab = new JTabbedPane();
+		pannelloTab.addTab("Dati Generali",new DatiGenerali(m_condominio));
+		pannelloTab.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari()));
+		pannelloTab.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
+		pannelloTab.addTab("Preferenze", new AccederePreferenze());
+		m_accedereCondominioAperto.getPannello().add(pannelloTab);
+		
 		m_accedereUnitaImmobiliari = 
 			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
 		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;

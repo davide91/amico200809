@@ -121,7 +121,11 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		
 	}
 
-	
+	protected void confermaMouseMouseClicked(MouseEvent event) {
+		inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
+		this.dispose();
+		
+	}
 	
 	private static final long serialVersionUID = 1L;
 	private JTextField id;
@@ -178,11 +182,6 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 			});
 		}
 		return bConferma;
-	}
-
-	protected void confermaMouseMouseClicked(MouseEvent event) {
-		inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
-		
 	}
 
 	private JTextField getPosizioneInterna() {
