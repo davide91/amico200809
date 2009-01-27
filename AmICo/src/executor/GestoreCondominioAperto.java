@@ -74,8 +74,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void eliminaCondominio() {
-		if(eliminabile())
-			{m_state = StatiGestoreCondominioAperto.attesaConfermaEliminazione;
+		if(eliminabile()) {
+			m_state = StatiGestoreCondominioAperto.attesaConfermaEliminazione;
 			m_accedereCondominioAperto.ammissibile(true);
 		}
 		else m_accedereCondominioAperto.ammissibile(false);
@@ -101,7 +101,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void modificaPreferenze(Preferenze preferenze) {
-		
+		m_condominio.modificaPreferenze(preferenze);
+		m_accedereCondominioAperto.passaPreferenze(preferenze);
 	}
 	
 	public void modificaProprieta(UnitaImmobiliare unitaImmobliare) {
@@ -134,6 +135,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void passaACassa() {
+		
 		m_gestoreCassa = new GestoreCassa(m_condominio.recuperaCassa());
 		m_state = StatiGestoreCondominioAperto.gestioneCassa;
 	}
@@ -147,8 +149,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	public void passaADatiCondomini() {
 		m_state = StatiGestoreCondominioAperto.gestioneDatiCondomini;
 		m_accederePersone = new AccederePersone(this, m_condominio.recuperaCondomini());
+		
 		m_accedereCondominioAperto.getPannello().add(m_accederePersone);
-
 	}
 	
 	public void passaAPagamenti() {
@@ -178,7 +180,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		pannelloTab.addTab("Preferenze", new AccederePreferenze());
 		m_accedereCondominioAperto.getPannello().add(pannelloTab);
 		
-		m_accedereUnitaImmobiliari = 
+		m_accedereUnitaImmobiliari = 	
 			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
 		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 	}
@@ -220,17 +222,19 @@ public class GestoreCondominioAperto implements BaseExecutor {
 				m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
 				break;
 			}
-			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
-		//	m_dbCondomini.eliminaCondominio(m_condominio);
-			m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
+			m_dbCondomini.eliminaCondominio(m_condominio);
+			
+			/* FIXME : Linea non presente nel design 3.5.4 */
+			m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
+			
 			m_amico.setVisible(true);
 			break;
 		case attesaConfermaProprieta :
-			if (!procedere) {
-				m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
-				break;
-			}
-			m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);		
+			m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
+			
+			if (procedere) 
+				m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);		
+			
 			break;
 		}
 	}
