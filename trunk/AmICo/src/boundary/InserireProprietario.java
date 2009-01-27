@@ -37,6 +37,7 @@ public class InserireProprietario extends JFrame {
 		AP=ap;
 		initComponents();
 		this.setVisible(true);
+		this.setTitle("Inserire proprietario");
 	}
 	
 	

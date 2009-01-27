@@ -42,6 +42,7 @@ public class AccedereProprietari extends JFrame {
 	private Persone persone;
 	private ButtonGroup group;
 	private ConfermaUnitaImmobiliari CUI;
+	private InserireProprietario IP;
 	
 	
 	
@@ -55,6 +56,7 @@ public class AccedereProprietari extends JFrame {
 
 		aggiornaTabella(unita);
 		this.setVisible(true);		
+		this.setTitle("Inserimento proprietari");
 		
 	
 	}
@@ -114,7 +116,7 @@ public class AccedereProprietari extends JFrame {
 	
 
 	private void bAggiungiProprietarioMouseMouseClicked(MouseEvent event) {
-		new InserireProprietario(this,persone);
+		IP=new InserireProprietario(this,persone);
 	}
 
 
