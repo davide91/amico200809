@@ -195,7 +195,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		{
 			Indirizzo indirizzo=new Indirizzo();
 			indirizzo.setCap(cap.getText());
-			indirizzo.setComune((String)comune.getSelectedItem());
+			indirizzo.setComune(comune.getText());
 			indirizzo.setProvincia((Provincia)provincia.getSelectedItem());
 			indirizzo.setVia(via.getText());
 			indirizzo.setInterno(null);
@@ -213,7 +213,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField via;
-	private JComboBox comune;
+	private JTextField comune;
 	private JTextField cap;
 	private JComboBox provincia;
 	private JLabel scrittavia;
@@ -337,12 +337,9 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		return cap;
 	}
 
-	private JComboBox getComune() {
+	private JTextField getComune() {
 		if (comune == null) {
-			comune = new JComboBox();
-			comune.setModel(new DefaultComboBoxModel( String.values() ) );
-			comune.setDoubleBuffered(false);
-			comune.setBorder(null);
+			comune = new JTextField();
 		}
 		return comune;
 	}
