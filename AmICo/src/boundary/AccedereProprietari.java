@@ -5,20 +5,30 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+import java.util.Iterator;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.PersonaFisica;
+import store.POJO.PersonaGiuridica;
+import store.POJO.Proprieta;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Persone;
 
@@ -30,37 +40,96 @@ public class AccedereProprietari extends JFrame {
 	
 	private UnitaImmobiliare unita;
 	private Persone persone;
+	private ButtonGroup group;
+	private ConfermaUnitaImmobiliari CUI;
 	
 	
 	
-	
-	public AccedereProprietari(UnitaImmobiliare ui,Persone p) {
+	public AccedereProprietari(ConfermaUnitaImmobiliari cui,UnitaImmobiliare ui,Persone p) {
 		initComponents();
-		nomeUnita.setText(unita.getDatiUnitaImmobiliare().getId());
+		initGroup();
 		unita=ui;
 		persone=p;
-	//	this.setVisible(true);		
+		CUI=cui;
+		nomeUnita.setText(unita.getDatiUnitaImmobiliare().getId());
+
+		aggiornaTabella(unita);
+		this.setVisible(true);		
 		
 	
 	}
-	
-	
+
 	public AccedereProprietari() {
 		initComponents();
 	}
+	
+	private void initGroup() {
+		group = new ButtonGroup();
+	}
+	
+	public void aggiornaTabella(UnitaImmobiliare unita)
+	{
+		int cont=0;
+		
+		this.unita=unita;
+		
+		initGroup();
+		
+		Iterator<Proprieta> p=this.unita.getQuoteDiPossesso().iterator();;
+		Proprieta prop;
 
+		
+			DefaultTableModel dm = new DefaultTableModel();
+			
+		    dm.setDataVector(
+		      new Object[][]{},
+		      new Object[]{"Nome","Cognome","Quota","Seleziona"}
+		      );
+
+		    while(p.hasNext())
+		    {
+		    	prop=p.next();
+		    	cont++;
+		    	if(prop.getProprietario()  instanceof PersonaFisica)
+		    		dm.addRow(new Object[]{
+		    				((PersonaFisica)prop.getProprietario()).getDati().getNome(),
+		    				((PersonaFisica)prop.getProprietario()).getDati().getCognome(),
+		    			prop.getQuota(),
+		    			new JRadioButton() });
+		    	else if(prop.getProprietario()  instanceof PersonaGiuridica)
+		    		dm.addRow(new Object[]{
+		    				((PersonaGiuridica)prop.getProprietario()).getDati().getpIva(),
+		    				"",
+		    				prop.getQuota(),
+		    				new JRadioButton() });
+		    		
+		    }
+		    for(int i=0;i<cont;i++)
+		    	group.add((JRadioButton)dm.getValueAt(i,5));
+
+		    table.setModel(dm);
+		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+	}
+	
 
 	private void bAggiungiProprietarioMouseMouseClicked(MouseEvent event) {
+		new InserireProprietario(this,persone);
 	}
 
 
 	private void bRimuoviProprietarioMouseMouseClicked(MouseEvent event) {
+		int i;
+		if (group!=null)
+		{
+			Enumeration e=group.getElements();
+			for (i=0; e.hasMoreElements();i++ )
+		           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
+		        	   JOptionPane.showMessageDialog(this, ""+(i));
+		}
+		//rimuovi unita.getQuoteDiPossesso().remove ???
+		
 	}
-
-
-	private void bInserisciPersonaMouseMouseClicked(MouseEvent event) {
-	}
-
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
 	}
@@ -75,7 +144,6 @@ public class AccedereProprietari extends JFrame {
 	private JButton bOK;
 	private JButton bAggiungiProprietario;
 	private JButton bRimuoviProprietario;
-	private JButton bInserisciPersona;
 	private JLabel nomeUnita;
 	private JTable table;
 	private JScrollPane jScrollPane0;
@@ -84,14 +152,13 @@ public class AccedereProprietari extends JFrame {
 		setFont(new Font("Dialog", Font.PLAIN, 12));
 		setForeground(Color.black);
 		setLayout(new GroupLayout());
-		add(getBAnnulla(), new Constraints(new Leading(234, 10, 10), new Leading(354, 10, 10)));
 		add(getNomeUnita(), new Constraints(new Leading(34, 150, 12, 12), new Leading(10, 22, 10, 10)));
 		add(getBAggiungiProprietario(), new Constraints(new Leading(38, 10, 10), new Leading(312, 12, 12)));
 		add(getBRimuoviProprietario(), new Constraints(new Leading(216, 10, 10), new Leading(312, 12, 12)));
-		add(getBInserisciPersona(), new Constraints(new Leading(395, 10, 10), new Leading(312, 12, 12)));
 		add(getJScrollPane0(), new Constraints(new Leading(28, 502, 12, 12), new Leading(45, 251, 10, 10)));
-		add(getBOK(), new Constraints(new Leading(79, 12, 12), new Leading(354, 12, 12)));
-		setSize(581, 426);
+		add(getBAnnulla(), new Constraints(new Leading(455, 10, 10), new Leading(312, 12, 12)));
+		add(getBOK(), new Constraints(new Leading(375, 10, 10), new Leading(312, 12, 12)));
+		setSize(581, 383);
 	}
 
 
@@ -105,17 +172,29 @@ public class AccedereProprietari extends JFrame {
 
 
 	private JTable getJTable0() {
-		if (table == null) {
-			table = new JTable();
-			table.setModel(new DefaultTableModel(new Object[][] { { "0x0", "0x1", }, { "1x0", "1x1", }, }, new String[] { "Title 0", "Title 1", }) {
+		if (table == null)
+		{
+		    DefaultTableModel dm = new DefaultTableModel();
+		    dm.setDataVector(
+		      new Object[][]{},
+		      new Object[]{"Nome","Cognome","Quota","Seleziona"}
+		      );
+
+		    table = new JTable(dm)
+		    {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
-	
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
+
+				public void tableChanged(TableModelEvent e)
+			    {
+					super.tableChanged(e);
+			        repaint();
+			    }
+		    };   
+		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+
 		}
+
 		return table;
 	}
 
@@ -127,19 +206,6 @@ public class AccedereProprietari extends JFrame {
 		return nomeUnita;
 	}
 
-	private JButton getBInserisciPersona() {
-		if (bInserisciPersona == null) {
-			bInserisciPersona = new JButton();
-			bInserisciPersona.setText("Iinserisci persona");
-			bInserisciPersona.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					bInserisciPersonaMouseMouseClicked(event);
-				}
-			});
-		}
-		return bInserisciPersona;
-	}
 
 
 	private JButton getBRimuoviProprietario() {
