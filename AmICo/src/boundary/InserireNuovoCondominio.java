@@ -30,7 +30,6 @@ import datatype.Indirizzo;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
-import enumeration.String;
 import enumeration.Provincia;
 import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;

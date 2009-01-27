@@ -1,6 +1,5 @@
 package datatype;
 
-import enumeration.String;
 import enumeration.Provincia;
 
 public class Indirizzo {
@@ -56,8 +55,8 @@ public class Indirizzo {
 		return via;
 	}
 
-	public void setVia(String via) {
-		this.via = via;
+	public void setVia(String string) {
+		this.via = string;
 	}
 
 	public String getInterno() {
