@@ -1,6 +1,8 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
 import javax.swing.DefaultComboBoxModel;
@@ -19,8 +21,6 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
-import store.POJO.Proprieta;
-
 import datatype.list.Persone;
 
 /**
@@ -64,6 +64,20 @@ public class InserireProprietario extends JFrame {
 	}
 	
 
+	private void bInserisciMouseMouseClicked(MouseEvent event) {
+		
+	}
+
+
+	private void bAnnullaMouseMouseClicked(MouseEvent event) {
+		this.dispose();
+	}
+
+
+	private void bInserisciNuovaPersonaMouseMouseClicked(MouseEvent event) {
+		AP.inserisciNuovaPersona();
+	}
+
 	private static final long serialVersionUID = 1L;
 	private JComboBox persona;
 	private JTextField quota;
@@ -73,8 +87,6 @@ public class InserireProprietario extends JFrame {
 	private JLabel jLabel0;
 	private JLabel jLabel1;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-
-
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getBInserisci(), new Constraints(new Leading(39, 10, 10), new Leading(136, 12, 12)));
@@ -86,6 +98,7 @@ public class InserireProprietario extends JFrame {
 		add(getJLabel0(), new Constraints(new Leading(43, 179, 12, 12), new Leading(20, 12, 12)));
 		setSize(602, 197);
 	}
+
 
 	private JLabel getJLabel1() {
 		if (jLabel1 == null) {
@@ -131,25 +144,46 @@ public class InserireProprietario extends JFrame {
 		if (bInserisciNuovaPersona == null) {
 			bInserisciNuovaPersona = new JButton();
 			bInserisciNuovaPersona.setText("Inserisci nuova persona");
+			bInserisciNuovaPersona.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bInserisciNuovaPersonaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bInserisciNuovaPersona;
 	}
+
 
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
 			bAnnulla.setText("Annulla");
+			bAnnulla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bAnnullaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bAnnulla;
 	}
+
 
 	private JButton getBInserisci() {
 		if (bInserisci == null) {
 			bInserisci = new JButton();
 			bInserisci.setText("Inserisci");
+			bInserisci.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bInserisciMouseMouseClicked(event);
+				}
+			});
 		}
 		return bInserisci;
 	}
+
 
 	private JTextField getQuota() {
 		if (quota == null) {
@@ -188,5 +222,7 @@ public class InserireProprietario extends JFrame {
 			}
 		});
 	}
+
+
 
 }

@@ -11,24 +11,30 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Persona;
+import datatype.CodiceFiscale;
 import datatype.DatiCorretti;
 import datatype.DatiErrati;
 import datatype.DatiPersona;
+import datatype.DatiPersonaFisica;
+import datatype.DatiPersonaGiuridica;
+import datatype.Email;
 import datatype.EsitoControlloDati;
 import datatype.EsitoControlloDatiPersona;
+import datatype.Indirizzo;
+import datatype.PartitaIva;
 import datatype.list.Persone;
+import enumeration.Provincia;
 import executor.GestorePersone;
 
 /**
@@ -38,18 +44,24 @@ import executor.GestorePersone;
 public class InserirePersona extends JFrame implements BaseBoundary{
 
 	private GestorePersone GP;
+	
 	private ButtonGroup group;
 	
 	public InserirePersona() {
-		this.GP=GestorePersone.getInstance();
 		initComponents();
+		initgroup();
+		
+		this.GP=GestorePersone.getInstance();
+	}
+
+	private void initgroup()
+	{
 		group=new ButtonGroup();
 		group.add(radioPF);
 		group.add(radioPG);
 		radioPF.setSelected(true);
 		radioPFMouseMouseClicked(null);
 	}
-
 	
 	public void ok() {
 		GP.procedi(true);
@@ -62,14 +74,16 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	
 	public void inserisciDatiPersona(DatiPersona datiP) {
 		EsitoControlloDati esito= datiP.controlla();
-		 if (esito instanceof DatiErrati) {
-			//AMM.mostra(esito);
-			 System.out.println("");
-		 if(esito instanceof DatiCorretti) {
-			GP.inserisciDatiPersona(datiP);
+		 if (esito instanceof DatiErrati){
+				JOptionPane.showMessageDialog(this,"Dati errati");
+				System.out.println("");
 		 }
 		 
-		}
+		 if(esito instanceof DatiCorretti) {
+			 GP.inserisciDatiPersona(datiP);
+		 }
+		 
+		
 	}
 	
 	public void ammissibile(Boolean b) {
@@ -124,6 +138,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		cap.setEditable(true);
 		provincia.setEditable(true);
 		cellulare.setEditable(true);
+		interno.setEditable(true);
 	}
 
 	private void radioPGMouseMouseClicked(MouseEvent event)
@@ -140,16 +155,45 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		cap.setEditable(false);
 		provincia.setEditable(false);
 		cellulare.setEditable(false);
+		interno.setEditable(false);
 	}
 
 
 	private void bannullaMouseMouseClicked(MouseEvent event) {
+		this.dispose();
 	}
-
 
 	private void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
 	}
-
+	
+	private void bokMouseMouseClicked(MouseEvent event) {
+		
+		DatiPersona datiP=new DatiPersona();
+		
+		datiP.setFax(fax.getText());
+		Email mail =new Email(eMail.getText());
+		datiP.setMail(mail);
+		datiP.setTel(telefono.getText());
+		if(group.getSelection().equals(radioPF))
+		{
+			((DatiPersonaFisica)datiP).setNome(nome.getText());
+			((DatiPersonaFisica)datiP).setCognome(cognome.getText());
+			((DatiPersonaFisica)datiP).setCell(cellulare.getText());
+			CodiceFiscale cf=new CodiceFiscale();
+			cf.setCodiceFis(codiceFiscale.getText());
+			((DatiPersonaFisica)datiP).setCf(cf);
+			((DatiPersonaFisica)datiP).setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
+		}
+		else
+		{
+			((DatiPersonaGiuridica)datiP).setpIva(new PartitaIva(partitaIVA.getText()));
+			((DatiPersonaGiuridica)datiP).setRagioneSociale(ragioneSociale.getText());
+			Indirizzo i=new Indirizzo();
+			i.setVia(indirizzoFiscale.getText());
+			((DatiPersonaGiuridica)datiP).setIndFiscale(i);
+		}
+		inserisciDatiPersona(datiP);
+}
 
 	
 	private static final long serialVersionUID = 1L;
@@ -215,8 +259,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JLabel jLabel21;
 	private JLabel jLabel22;
 	private JButton bPersonaDiRiferimento;
+
+	private JTextField interno;
+
+	private JLabel jLabel23;
+
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getRadioPF(), new Constraints(new Leading(479, 10, 10), new Leading(12, 8, 8)));
@@ -281,7 +329,31 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getJLabel20(), new Constraints(new Leading(12, 12, 12), new Leading(497, 12, 12)));
 		add(getJLabel22(), new Constraints(new Leading(12, 12, 12), new Leading(567, 12, 12)));
 		add(getBPersonaDiRiferimento(), new Constraints(new Leading(488, 10, 10), new Leading(562, 12, 12)));
+		add(getInterno(), new Constraints(new Leading(496, 101, 10, 10), new Leading(102, 12, 12)));
+		add(getJLabel23(), new Constraints(new Leading(437, 10, 10), new Leading(100, 22, 12, 12)));
+		initGroup();
 		setSize(672, 688);
+	}
+
+	private JLabel getJLabel23() {
+		if (jLabel23 == null) {
+			jLabel23 = new JLabel();
+			jLabel23.setText("interno:");
+		}
+		return jLabel23;
+	}
+
+	private JTextField getInterno() {
+		if (interno == null) {
+			interno = new JTextField();
+		}
+		return interno;
+	}
+
+	private void initGroup() {
+		group = new ButtonGroup();
+		group.add(getRadioPF());
+		group.add(getRadioPG());
 	}
 
 	private JButton getBPersonaDiRiferimento() {
@@ -541,10 +613,15 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		if (bok == null) {
 			bok = new JButton();
 			bok.setText("OK");
+			bok.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bokMouseMouseClicked(event);
+				}
+			});
 		}
 		return bok;
 	}
-
 
 	private JTextField getIndirizzoFiscale() {
 		if (indirizzoFiscale == null) {
@@ -605,7 +682,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JComboBox getProvincia() {
 		if (provincia == null) {
 			provincia = new JComboBox();
-			provincia.setModel(new DefaultComboBoxModel(new Object[] { "item0", "item1", "item2", "item3" }));
+			provincia.setModel(new DefaultComboBoxModel(Provincia.values() ));
 			provincia.setDoubleBuffered(false);
 			provincia.setBorder(null);
 		}
@@ -863,8 +940,4 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			}
 		});
 	}
-
-
-
-	
 }

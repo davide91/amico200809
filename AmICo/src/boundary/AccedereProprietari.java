@@ -31,6 +31,8 @@ import store.POJO.PersonaGiuridica;
 import store.POJO.Proprieta;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Persone;
+import enumeration.StatiInserireUnitaImmobiliari;
+import executor.GestorePersone;
 
 /**
  * @author Federico
@@ -67,6 +69,11 @@ public class AccedereProprietari extends JFrame {
 	
 	private void initGroup() {
 		group = new ButtonGroup();
+	}
+	
+	public void inserisciNuovaPersona(){
+		CUI.inserisciNuovaPersona();
+		
 	}
 	
 	public void aggiornaTabella(UnitaImmobiliare unita)
