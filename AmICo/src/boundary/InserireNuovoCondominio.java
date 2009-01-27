@@ -63,6 +63,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public void inserisciUnitaImmobiliare(){
 		state = StatiInserireNuovoCondominio.inserimentoUnitaImmobiliare;
 		GestoreCondomini.getInstance().inserisciUnitaImmobiliare();
+		
 	}
 	
 	
@@ -145,11 +146,13 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public void fatto() {
 		state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
 		CFI=new ConfermaUnitaImmobiliari(this,unitaImmobiliari);
+		this.setVisible(false);
 		
 	}
 
 	public void finito() {
-		state = StatiInserireNuovoCondominio.base;
+		state = StatiInserireNuovoCondominio.inserimentoTabellaMillesimale;
+		GestoreCondomini.getInstance().finito();
 		
 	}
 
