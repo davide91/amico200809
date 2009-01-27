@@ -15,6 +15,6 @@ public enum StatiInserireNuovoCondominio {
 	inserimentoUnitaImmobiliare,
 	controlloTabellaMillesimaleProprieta,
 	attesaConfermaTabellaMillesimale,
-	attesaInserimentoCondominio
+	attesaInserimentoCondominio, inserimentoTabellaMillesimale
 
 }

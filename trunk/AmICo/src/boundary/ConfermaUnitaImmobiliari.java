@@ -28,6 +28,7 @@ import org.dyno.visual.swing.layouts.Trailing;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
+import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 
 /**
@@ -45,6 +46,7 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	private JTable table;
 	private JScrollPane jScrollPane0;
 	private JButton bContinua;
+	private JButton bAnnulla;
 	private JButton bInserisciUnitaImmobiliare;
 	private static final long serialVersionUID = 1L;
 	private JButton bAggiungiPropietari;
@@ -108,6 +110,9 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	private void bContinuaMouseMouseClicked(MouseEvent event) {
 		if(group.getButtonCount()<2)
 			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita' immobiliari");
+		else {
+			INC.finito();
+		}
 	}
 
 	private void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
@@ -141,6 +146,7 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 		add(getBModificaUnita(), new Constraints(new Trailing(12, 327, 327), new Leading(219, 12, 12)));
 		add(getBAggiungiPropietari(), new Constraints(new Leading(280, 10, 10), new Leading(219, 12, 12)));
 		add(getBContinua(), new Constraints(new Leading(20, 10, 10), new Leading(288, 10, 10)));
+		add(getBAnnulla(), new Constraints(new Leading(200, 10, 10), new Leading(288, 10, 10)));
 		initGroup();
 		setSize(612, 358);
 	}
@@ -239,6 +245,25 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 			});
 		}
 		return bContinua;
+	}
+	
+	private JButton getBAnnulla() {
+		if (bAnnulla == null) {
+			bAnnulla = new JButton();
+			bAnnulla.setText("Annulla");
+			bAnnulla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bAnnullaMouseMouseClicked(event);
+				}
+			});
+		}
+		return bAnnulla;
+	}
+
+	protected void bAnnullaMouseMouseClicked(MouseEvent event) {
+	  INC.annulla();
+		
 	}
 
 	private static void installLnF() {
