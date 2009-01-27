@@ -28,8 +28,10 @@ import org.dyno.visual.swing.layouts.Trailing;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
+import enumeration.StatiInserireUnitaImmobiliari;
 import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
+import executor.GestorePersone;
 
 /**
  * @author Federico
@@ -68,6 +70,12 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	public ConfermaUnitaImmobiliari()
 	{
 		initComponents();
+	}
+	
+	public void inserisciNuovaPersona(){
+	//	state= StatiInserireUnitaImmobiliari.inserimentoNuovaPersona;
+	//	GestorePersone.getInstance().inserisciPersona(this);
+		
 	}
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
