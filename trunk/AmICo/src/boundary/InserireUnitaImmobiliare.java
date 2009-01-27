@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -31,6 +32,19 @@ import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 import executor.GestorePersone;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone {
 
 //	private UnitaImmobiliari unitaImmobiliari;
@@ -128,6 +142,11 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	}
 	
 	private static final long serialVersionUID = 1L;
+	private JLabel labelId=new JLabel("Id Unita'");
+	private JLabel labelCategoria=new JLabel("Cat. Catastale");
+	private JLabel labelPosizioneInterna=new JLabel("Posizione Interna");
+	private JLabel labelMetratura=new JLabel("Metratura");
+	private JLabel labelDestinazione=new JLabel("Destinazione d'uso");
 	private JTextField id;
 	private JComboBox destinazione;
 	private JTextField metratura;
@@ -140,14 +159,21 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	private void initComponents() {
 		setTitle("Inserire Unità Immobiliare");
 		setLayout(new GroupLayout());
-		add(getBConferma(), new Constraints(new Leading(100, 10, 10), new Leading(93, 10, 10)));
-		add(getBAnnulla(), new Constraints(new Leading(326, 10, 10), new Leading(93, 12, 12)));
-		add(getCategoria(), new Constraints(new Leading(149, 99, 10, 10), new Leading(36, 22, 12, 12)));
-		add(getId(), new Constraints(new Leading(16, 113, 10, 10), new Leading(35, 23, 12, 12)));
-		add(getDestinazione(), new Constraints(new Leading(260, 96, 12, 12), new Leading(35, 12, 12)));
-		add(getMetratura(), new Constraints(new Leading(374, 79, 10, 10), new Leading(35, 22, 12, 12)));
-		add(getPosizioneInterna(), new Constraints(new Leading(462, 79, 10, 10), new Leading(35, 23, 12, 12)));
-		setSize(561, 170);
+		add(labelId,  new Constraints(new Leading(16, 116, 10, 10), new Leading(20, 23, 12, 12)));
+		add(labelCategoria,  new Constraints(new Leading(149, 120, 10, 10), new Leading(20, 23, 12, 12)));
+		add(labelDestinazione,  new Constraints(new Leading(280, 180, 12, 12), new Leading(20, 23, 12, 12)));
+		add(labelMetratura,  new Constraints(new Leading(480, 100, 10, 10), new Leading(20, 23, 12, 12)));
+		add(labelPosizioneInterna,  new Constraints(new Leading(600, 160, 10, 10), new Leading(20, 23, 12, 12)));
+		
+		
+		add(getBConferma(), new Constraints(new Leading(200, 10, 10), new Leading(93, 10, 10)));
+		add(getBAnnulla(), new Constraints(new Leading(400, 10, 10), new Leading(93, 12, 12)));
+		add(getCategoria(), new Constraints(new Leading(149, 120, 10, 10), new Leading(50, 22, 12, 12)));
+		add(getId(), new Constraints(new Leading(16, 116, 10, 10), new Leading(50, 23, 12, 12)));
+		add(getDestinazione(), new Constraints(new Leading(280, 180, 12, 12), new Leading(50,22, 12, 12)));
+		add(getMetratura(), new Constraints(new Leading(480, 100, 10, 10), new Leading(50, 22, 12, 12)));
+		add(getPosizioneInterna(), new Constraints(new Leading(600, 160, 10, 10), new Leading(50, 23, 12, 12)));
+		this.setSize(792, 182);
 		setVisible(true);
 	}
 
