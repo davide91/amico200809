@@ -1,19 +1,19 @@
 package datatype;
 
-import enumeration.Comune;
+import enumeration.String;
 import enumeration.Provincia;
 
 public class Indirizzo {
 	private String via;
 	private String interno;
-	private Comune comune;
+	private String comune;
 	private Provincia provincia;
 	private String cap;
 	
 	public Indirizzo(){
 	}
 	
-	public Indirizzo(String via, String interno, Comune com, Provincia prov, String cap)
+	public Indirizzo(String via, String interno, String com, Provincia prov, String cap)
 	{
 		this.via = via;
 		this.interno = interno;
@@ -68,11 +68,11 @@ public class Indirizzo {
 		this.interno = interno;
 	}
 
-	public Comune getComune() {
+	public String getComune() {
 		return comune;
 	}
 
-	public void setComune(Comune comune) {
+	public void setComune(String comune) {
 		this.comune = comune;
 	}
 

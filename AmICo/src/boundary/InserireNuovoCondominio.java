@@ -30,7 +30,7 @@ import datatype.Indirizzo;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
-import enumeration.Comune;
+import enumeration.String;
 import enumeration.Provincia;
 import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
@@ -196,7 +196,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		{
 			Indirizzo indirizzo=new Indirizzo();
 			indirizzo.setCap(cap.getText());
-			indirizzo.setComune((Comune)comune.getSelectedItem());
+			indirizzo.setComune((String)comune.getSelectedItem());
 			indirizzo.setProvincia((Provincia)provincia.getSelectedItem());
 			indirizzo.setVia(via.getText());
 			indirizzo.setInterno(null);
@@ -341,7 +341,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JComboBox getComune() {
 		if (comune == null) {
 			comune = new JComboBox();
-			comune.setModel(new DefaultComboBoxModel( Comune.values() ) );
+			comune.setModel(new DefaultComboBoxModel( String.values() ) );
 			comune.setDoubleBuffered(false);
 			comune.setBorder(null);
 		}
