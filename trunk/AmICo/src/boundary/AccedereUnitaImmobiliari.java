@@ -44,7 +44,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	private Persone persone;
 	private StatiAccedereUnitaImmobiliari state;
 	
-	private ButtonGroup group = new ButtonGroup();
+	private ButtonGroup group;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -111,7 +111,6 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		    {
 		    	unit=ui.next();
 		    	cont++;
-		    	JRadioButton jrb;
 		    	dm.addRow(new Object[]{
 		    			unit.getDatiUnitaImmobiliare().getId(),
 		    			unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),

@@ -47,7 +47,7 @@ public class DatiGenerali extends JPanel {
 		if(condominio!= null)
 		{		
 			cap.setText(condominio.getDatiC().getIndirizzo().getCap());
-			comune.setText(condominio.getDatiC().getIndirizzo().getComune().toString());
+			comune.setText(condominio.getDatiC().getIndirizzo().getComune());
 			provincia.setText(condominio.getDatiC().getIndirizzo().getProvincia().toString());
 			via.setText( condominio.getDatiC().getIndirizzo().getVia());
 			identificatore.setText( condominio.getDatiC().getId());

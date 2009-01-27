@@ -157,7 +157,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 	private void initComponents() {
-		setTitle("Inserire Unit√† Immobiliare");
+		setTitle("Inserire Unita'† Immobiliare");
 		setLayout(new GroupLayout());
 		add(labelId,  new Constraints(new Leading(16, 116, 10, 10), new Leading(20, 23, 12, 12)));
 		add(labelCategoria,  new Constraints(new Leading(149, 120, 10, 10), new Leading(20, 23, 12, 12)));

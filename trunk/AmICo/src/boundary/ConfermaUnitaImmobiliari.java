@@ -40,8 +40,9 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	private ButtonGroup group;
 	private GestoreCondominioAperto GCA;
 	private UnitaImmobiliari unita;
-//	private Persone persone;
-	InserireNuovoCondominio INC;
+	private Persone persone;
+	private InserireNuovoCondominio INC;
+	private AccedereProprietari AP;
 	
 	private JTable table;
 	private JScrollPane jScrollPane0;
@@ -56,6 +57,7 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
 		initComponents();
 		initGroup();
+		persone=new Persone();// provvisorio TODO
 		this.INC=INC;
 		unita=u;
 		aggiornaUnitaImmobiliari(u);
@@ -124,8 +126,7 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	   JOptionPane.showMessageDialog(this, ""+(i));
-		//new AggiungiProprietari(unita.getImmobili().get(i),persone)
+	        	  AP = new AccedereProprietari(this,unita.getImmobili().get(i),persone);
 		
 	}
 
