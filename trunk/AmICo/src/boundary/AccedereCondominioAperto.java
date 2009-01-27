@@ -12,7 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -29,8 +28,6 @@ import datatype.EsitoEliminabile;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
 import enumeration.StatiAccedereCondominioAperto;
-import enumeration.StatiInserireNuovoCondominio;
-import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 
 
