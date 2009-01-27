@@ -64,6 +64,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		initComponents();
 		state = StatiAccedereUnitaImmobiliari.base;
 		aggiornaUnitaImmobiliari(unita);
+
 	}
 
 	public void modificaProprieta(UnitaImmobiliare unita) {
