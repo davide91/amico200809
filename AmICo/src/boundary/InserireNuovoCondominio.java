@@ -28,6 +28,7 @@ import org.dyno.visual.swing.layouts.Trailing;
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
 import datatype.list.Percentuali;
+import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.Comune;
 import enumeration.Provincia;
@@ -38,14 +39,18 @@ import executor.GestoreCondomini;
 
 public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
-	
+	private ConfermaUnitaImmobiliari CFI;
 	private UnitaImmobiliari unitaImmobiliari;
 	private DatiCondominio datiCondominio = new DatiCondominio();
 	private Percentuali tabellaGenerale;
 	private StatiInserireNuovoCondominio state;
 	private int c;
 	
-	
+	public InserireNuovoCondominio() {
+		state=StatiInserireNuovoCondominio.base;
+		initComponents();
+		this.setVisible(true);
+	}
 	
 	
 	public void inserisciDatiCondominio(DatiCondominio datiCondominio){
@@ -56,7 +61,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	
 	public void inserisciUnitaImmobiliare(){
-		state= StatiInserireNuovoCondominio.inserimentoUnitaImmobiliare;
+		state = StatiInserireNuovoCondominio.inserimentoUnitaImmobiliare;
 		GestoreCondomini.getInstance().inserisciUnitaImmobiliare();
 	}
 	
@@ -70,6 +75,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unitaImmobiliari) {
 		this.unitaImmobiliari=unitaImmobiliari;
+		CFI.aggiornaUnitaImmobiliari(unitaImmobiliari);
 		//AMM.mostraUnitaImmobiliari(unitaImmobiliari);
 	}
 	
@@ -138,6 +144,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void fatto() {
 		state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
+		CFI=new ConfermaUnitaImmobiliari(this,unitaImmobiliari);
 		
 	}
 
@@ -172,12 +179,10 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		default:
 			break;
 		}
-
-		
 	}
-	
-	private void inserisciMouseMouseClicked(MouseEvent event) {
-		
+
+	private void inserisciMouseMouseClicked(MouseEvent event)
+	{
 		if(via.getText().equals(""))
 			JOptionPane.showMessageDialog(this,"inserire Via");
 
@@ -195,9 +200,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			datiCondominio.setId(via.getText()+cap.getText());
 			datiCondominio.setIndirizzo(indirizzo);
 			this.inserisciDatiCondominio(datiCondominio);
-			
 		}
-		
 	}
 
 	private void annullaMouseMouseClicked(MouseEvent event) {
@@ -219,11 +222,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JButton annulla;
 	private JSeparator jSeparator0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public InserireNuovoCondominio() {
-		state=StatiInserireNuovoCondominio.base;
-		initComponents();
-		this.setVisible(true);
-	}
+
 
 	private void initComponents() {
 		setTitle("Inserire Nuovo Condominio");

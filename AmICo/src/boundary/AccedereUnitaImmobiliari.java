@@ -4,6 +4,7 @@ package boundary;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
@@ -92,7 +93,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		int cont=0;
 		
 		this.unita=unita;
-
+		initGroup();
+		
 		Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
 		UnitaImmobiliare unit;
 
@@ -108,7 +110,14 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		    {
 		    	unit=ui.next();
 		    	cont++;
-		    	dm.addRow(new Object[]{unit.getDatiUnitaImmobiliare().getId(),unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),unit.getDatiUnitaImmobiliare().getDestUso(),unit.getDatiUnitaImmobiliare().getMetriQ(),unit.getDatiUnitaImmobiliare().getPosizioneInterna(),new JRadioButton()});
+		    	JRadioButton jrb;
+		    	dm.addRow(new Object[]{
+		    			unit.getDatiUnitaImmobiliare().getId(),
+		    			unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),
+		    			unit.getDatiUnitaImmobiliare().getDestUso(),
+		    			unit.getDatiUnitaImmobiliare().getMetriQ(),
+		    			unit.getDatiUnitaImmobiliare().getPosizioneInterna(),
+		    			new JRadioButton() });
 		    }
 		    for(int i=0;i<cont;i++)
 		    	group.add((JRadioButton)dm.getValueAt(i,5));
@@ -163,15 +172,12 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	}
 	
 	private void mouseMouseClicked(MouseEvent event) {
-		int i=0;
-		if(group.getSelection()!= null)
-			for(;i<group.getButtonCount();i++)
-				if(group.getElements().equals(group.getSelection()) )
-					break;
-						
-		JOptionPane.showMessageDialog(this, ""+i);
-		//new ModificaProprieta(unita.getImmobili().get(i-1),persone)
-		
+		int i;
+		Enumeration e=group.getElements();
+		for (i=0; e.hasMoreElements();i++ )
+	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
+	        	   JOptionPane.showMessageDialog(this, ""+(i));
+	           		//new ModificaProprieta(this,unita.getImmobili().get(i-1),persone)
 	}
 	
 	

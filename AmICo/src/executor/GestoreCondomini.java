@@ -7,6 +7,7 @@ import java.net.URL;
 import calculator.FormatoAmICo;
 
 import boundary.AmICo;
+import boundary.ConfermaUnitaImmobiliari;
 import boundary.DriverFileSystem;
 import boundary.InserireNuovoCondominio;
 import boundary.InserireUnitaImmobiliare;
@@ -159,9 +160,10 @@ public class GestoreCondomini implements BaseExecutor {
 			m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 			return;
 		}
-		m_state = StatiGestoreCondominio.inserimentoProprieta;
+	//	m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_inserireUnitaImmobiliare.ammissibile(true);
+		m_inserireNuovoCondominio.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 //		m_inserireUnitaImmobiliare.aggiornaPersone(m_dbPersone.recuperaPersone());
 	}
 		
@@ -194,7 +196,8 @@ public class GestoreCondomini implements BaseExecutor {
 				m_condominio = new Condominio();
 				m_dbCondomini.inserisciCondominio(m_condominio);
 				m_condominio.modificaDati(m_datiCondominio);
-				inserisciUnitaImmobiliare();
+				m_inserireNuovoCondominio.fatto();
+			//	inserisciUnitaImmobiliare();
 				
 				break;
 			case attesaConfermaTabellaMillesimale :

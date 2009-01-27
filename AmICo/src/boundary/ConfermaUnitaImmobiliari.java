@@ -3,6 +3,7 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
@@ -35,10 +36,11 @@ import executor.GestoreCondominioAperto;
  */
 public class ConfermaUnitaImmobiliari extends JFrame {
 
-	private ButtonGroup group = new ButtonGroup();
+	private ButtonGroup group;
 	private GestoreCondominioAperto GCA;
 	private UnitaImmobiliari unita;
-	private Persone persone;
+//	private Persone persone;
+	InserireNuovoCondominio INC;
 	
 	private JTable table;
 	private JScrollPane jScrollPane0;
@@ -49,12 +51,15 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	private JButton bModificaUnita;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
-	public ConfermaUnitaImmobiliari(UnitaImmobiliari u,Persone p) {
+	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
 		initComponents();
+		initGroup();
+		this.INC=INC;
 		unita=u;
-		persone=p;
 		aggiornaUnitaImmobiliari(u);
+		this.setVisible(true);
 	}
+	
 	public ConfermaUnitaImmobiliari()
 	{
 		initComponents();
@@ -65,63 +70,67 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 		int cont=0;
 		
 		this.unita=unita;
-
-		Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
-		UnitaImmobiliare unit;
-
-		
-			DefaultTableModel dm = new DefaultTableModel();
+		initGroup();
+		if(unita != null)
+		{
+			Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
+			UnitaImmobiliare unit;
+	
 			
-		    dm.setDataVector(
-		      new Object[][]{},
-		      new Object[]{"Identificatore","Categoria","Destinazione","Metratura","Posizione","Seleziona"}
-		      );
-
-		    while(ui.hasNext())
-		    {
-		    	unit=ui.next();
-		    	cont++;
-		    	dm.addRow(new Object[]{unit.getDatiUnitaImmobiliare().getId(),unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),unit.getDatiUnitaImmobiliare().getDestUso(),unit.getDatiUnitaImmobiliare().getMetriQ(),unit.getDatiUnitaImmobiliare().getPosizioneInterna(),new JRadioButton()});
-		    }
-		    for(int i=0;i<cont;i++)
-		    	group.add((JRadioButton)dm.getValueAt(i,5));
-
-		    table.setModel(dm);
-		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
-		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+				DefaultTableModel dm = new DefaultTableModel();
+				
+			    dm.setDataVector(
+			      new Object[][]{},
+			      new Object[]{"Identificatore","Categoria","Destinazione","Metratura","Posizione","Seleziona"}
+			      );
+	
+			    while(ui.hasNext())
+			    {
+			    	unit=ui.next();
+			    	cont++;
+			    	dm.addRow(new Object[]{
+			    			unit.getDatiUnitaImmobiliare().getId(),
+			    			unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),
+			    			unit.getDatiUnitaImmobiliare().getDestUso(),
+			    			unit.getDatiUnitaImmobiliare().getMetriQ(),
+			    			unit.getDatiUnitaImmobiliare().getPosizioneInterna(),
+			    			new JRadioButton()});
+			    }
+			    for(int i=0;i<cont;i++)
+			    	group.add((JRadioButton)dm.getValueAt(i,5));
+	
+			    table.setModel(dm);
+			    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+			    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+		}
 	}
 	
 	private void bContinuaMouseMouseClicked(MouseEvent event) {
 		if(group.getButtonCount()<2)
-			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita'");
+			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita' immobiliari");
 	}
 
 	private void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
-		
-		
+		INC.inserisciUnitaImmobiliare();
 	}
 	
 	private void bAggiungiPropietariMouseMouseClicked(MouseEvent event) {
-		int i=0;
-		if(group.getSelection()!= null)
-			for(;i<group.getButtonCount();i++)
-				if(group.getElements().equals(group.getSelection()) )
-					break;
-						
-		JOptionPane.showMessageDialog(this, ""+i);
-		//new AggiungiProprietari(unita.getImmobili().get(i-1),persone)
+		int i;
+		Enumeration e=group.getElements();
+		for (i=0; e.hasMoreElements();i++ )
+	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
+	        	   JOptionPane.showMessageDialog(this, ""+(i));
+		//new AggiungiProprietari(unita.getImmobili().get(i),persone)
 		
 	}
 
 	private void bModificaUnitaMouseMouseClicked(MouseEvent event) {
-		int i=0;
-		if(group.getSelection()!= null)
-			for(;i<group.getButtonCount();i++)
-				if(group.getElements().equals(group.getSelection()) )
-					break;
-						
-		JOptionPane.showMessageDialog(this, ""+i);
-		//new ModificaUnitaImmobiliare(unita.getImmobili().get(i-1))
+		int i;
+		Enumeration e=group.getElements();
+		for (i=0; e.hasMoreElements();i++ )
+	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
+	        	   JOptionPane.showMessageDialog(this, ""+(i));
+		//new ModificaUnitaImmobiliare(unita.getImmobili().get(i))
 		
 	}
 
