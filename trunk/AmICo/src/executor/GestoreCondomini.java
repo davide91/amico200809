@@ -1,6 +1,5 @@
 package executor;
 
-
 import java.io.File;
 import java.net.URL;
 
@@ -64,8 +63,6 @@ public class GestoreCondomini implements BaseExecutor {
 		
 		m_state = StatiGestoreCondominio.gestoreCondomini;
 		m_driverFS = DriverFileSystem.getInstance();
-		
-		
 	}
 	
 	public void apriCondominio(Condominio condominio) {
@@ -101,8 +98,7 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	public void inserisciCondominio() {
-		m_inserireNuovoCondominio = new InserireNuovoCondominio();
-		m_condominio = new Condominio();
+		m_inserireNuovoCondominio = new InserireNuovoCondominio();	
 		m_state = StatiGestoreCondominio.inserimentoCondominio;
 	}
 	
@@ -110,7 +106,8 @@ public class GestoreCondomini implements BaseExecutor {
 		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 		m_unitaImmobiliare = new UnitaImmobiliare();
 		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
-		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare(TuttePersone.getInstance().recuperaPersone());
+		
+		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare(m_dbPersone.recuperaPersone());
 	}
 	
 	public void operazioneAnnullata() {
@@ -121,8 +118,14 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	public void operazioneTerminata() {
-		// Solo per lo stato "condominioAperto"
-		m_state = StatiGestoreCondominio.gestoreCondomini;
+		switch (m_state) {
+		case condominioAperto :
+			m_state = StatiGestoreCondominio.inserimentoProprieta;
+			break;
+		case inserimentoUnitaImmobiliari :
+			m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
+			break;
+		}
 	}
 	
 	public void operazioneTerminata(File file) {
@@ -148,8 +151,7 @@ public class GestoreCondomini implements BaseExecutor {
 		else{
 			m_state = StatiGestoreCondominio.attesaConfermaDatiCondominio;
 			m_datiCondominio = datiCondominio;
-		m_inserireNuovoCondominio.ammissibile(true);
-		
+			m_inserireNuovoCondominio.ammissibile(true);
 		}
 	}
 		
@@ -160,25 +162,24 @@ public class GestoreCondomini implements BaseExecutor {
 			m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 			return;
 		}
-	//	m_state = StatiGestoreCondominio.inserimentoProprieta;
+
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_inserireUnitaImmobiliare.ammissibile(true);
+		
+		/* Non presente in 3.5.4 */
 		m_inserireNuovoCondominio.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
-//		m_inserireUnitaImmobiliare.aggiornaPersone(m_dbPersone.recuperaPersone());
+		
+		m_state = StatiGestoreCondominio.inserimentoProprieta;
+
 	}
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
 		m_state = StatiGestoreCondominio.attesaConferma;
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
-/*		Scomparso nel design 3.3, proabile ricomparsa in futuro...	
- * 	
- * 		m_inserireUnitaImmobiliare.ammissibile(true);
- * 
- */
-		
 	}
 	
-	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) {
+	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) 
+	{
 		m_tabellaMillesimaleProprieta = new TabellaMillesimale(datiTabellaMillesimale, millesimi);
 		m_inserireNuovoCondominio.ammissibile(true);
 		m_state = StatiGestoreCondominio.attesaConfermaTabellaMillesimale;
@@ -196,8 +197,9 @@ public class GestoreCondomini implements BaseExecutor {
 				m_condominio = new Condominio();
 				m_dbCondomini.inserisciCondominio(m_condominio);
 				m_condominio.modificaDati(m_datiCondominio);
+
+				/* Riga non presente nel design 3.5.4*/
 				m_inserireNuovoCondominio.fatto();
-			//	inserisciUnitaImmobiliare();
 				
 				break;
 			case attesaConfermaTabellaMillesimale :
@@ -208,24 +210,16 @@ public class GestoreCondomini implements BaseExecutor {
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
 				m_amico.aggiornaCondomini(m_dbCondomini.recuperaCondomini());
-				m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
 				m_amico.fatto();
+				m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
 				m_state = StatiGestoreCondominio.condominioAperto;
 				break;
 			case attesaConferma :
-				if ( !procedere ) {
-					/* Se chiamo IUI.fatto() per caso ottimale, *dovrei* chiamare
-					 * IUI.fallito() in caso negativo.
-					 * Scomparso nel design 3.3, potrebbe tornare
-					 *
-					 * m_inserireUnitaImmobiliare.fallito();
-					 */					
+				if ( !procedere )	
 					m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
-					
-				}
 				else {
-				m_inserireUnitaImmobiliare.fatto();
-				m_inserireNuovoCondominio.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
+					m_inserireUnitaImmobiliare.fatto();
+					m_inserireNuovoCondominio.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
 				}
 				m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 				break;
