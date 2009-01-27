@@ -31,7 +31,6 @@ import datatype.DatiCondominio;
 import datatype.Indirizzo;
 import datatype.Path;
 import datatype.list.Condomini;
-import enumeration.String;
 import enumeration.Provincia;
 import enumeration.StatiAmICo;
 import executor.GestoreCondomini;
@@ -392,7 +391,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 				Indirizzo indi=new Indirizzo();
 				
 				indi.setCap("16156");
-				indi.setComune(String.AGLIE);
+				indi.setComune("Sto azzo di Comune");
 				indi.setProvincia(Provincia.Alessandria);
 				indi.setVia("via gavino");
 				
