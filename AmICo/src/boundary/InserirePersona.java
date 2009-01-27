@@ -1,15 +1,22 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -31,18 +38,22 @@ import executor.GestorePersone;
 public class InserirePersona extends JFrame implements BaseBoundary{
 
 	private GestorePersone GP;
+	private ButtonGroup group;
 	
-	public void creaInserirePersona(){
+	public InserirePersona() {
 		this.GP=GestorePersone.getInstance();
-		//AMM.richiediDatiPersona()
+		initComponents();
+		group=new ButtonGroup();
+		group.add(radioPF);
+		group.add(radioPG);
+		radioPF.setSelected(true);
+		radioPFMouseMouseClicked(null);
 	}
-	
+
 	
 	public void ok() {
 		GP.procedi(true);
 	}
-	
-	
 
 	public void ko() {
 		GP.procedi(false);
@@ -99,6 +110,47 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		// TODO Auto-generated method stub
 		
 	}
+	private void radioPFMouseMouseClicked(MouseEvent event)
+	{
+		ragioneSociale.setEditable(false);
+		partitaIVA.setEditable(false);
+		indirizzoFiscale.setEditable(false);
+		bPersonaDiRiferimento.setEnabled(false);
+		cognome.setEditable(true);
+		nome.setEditable(true);
+		codiceFiscale.setEditable(true);
+		domicilio.setEditable(true);
+		comune.setEditable(true);
+		cap.setEditable(true);
+		provincia.setEditable(true);
+		cellulare.setEditable(true);
+	}
+
+	private void radioPGMouseMouseClicked(MouseEvent event)
+	{
+		ragioneSociale.setEditable(true);
+		partitaIVA.setEditable(true);
+		indirizzoFiscale.setEditable(true);
+		bPersonaDiRiferimento.setEnabled(true);
+		cognome.setEditable(false);
+		nome.setEditable(false);
+		codiceFiscale.setEditable(false);
+		domicilio.setEditable(false);
+		comune.setEditable(false);
+		cap.setEditable(false);
+		provincia.setEditable(false);
+		cellulare.setEditable(false);
+	}
+
+
+	private void bannullaMouseMouseClicked(MouseEvent event) {
+	}
+
+
+	private void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
+	}
+
+
 	
 	private static final long serialVersionUID = 1L;
 	private JTextField nome;
@@ -108,7 +160,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JTextField telefono;
 	private JRadioButton radioPF;
 	private JRadioButton radioPG;
-	private JComboBox comune;
 	private JComboBox provincia;
 	private JCheckBox comS;
 	private JCheckBox comM;
@@ -134,16 +185,38 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JTextField eMail;
 	private JTextField fax;
 	private JTextField ragioneSociale;
-	private JComboBox personaDiRiferimento;
 	private JTextField partitaIVA;
 	private JTextField indirizzoFiscale;
 	private JButton bok;
 	private JButton bannulla;
+	private JLabel jLabel0;
+	private JLabel jLabel1;
+	private JLabel jLabel2;
+	private JLabel jLabel3;
+	private JTextField cap;
+	private JTextField comune;
+	private JLabel jLabel4;
+	private JLabel jLabel5;
+	private JLabel jLabel6;
+	private JLabel jLabel7;
+	private JLabel jLabel8;
+	private JLabel jLabel9;
+	private JLabel jLabel10;
+	private JLabel jLabel11;
+	private JLabel jLabel14;
+	private JLabel jLabel13;
+	private JLabel jLabel12;
+	private JLabel jLabel15;
+	private JLabel jLabel16;
+	private JLabel jLabel17;
+	private JLabel jLabel18;
+	private JLabel jLabel19;
+	private JLabel jLabel20;
+	private JLabel jLabel21;
+	private JLabel jLabel22;
+	private JButton bPersonaDiRiferimento;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public InserirePersona() {
-		initComponents();
-	}
-
+	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getRadioPF(), new Constraints(new Leading(479, 10, 10), new Leading(12, 8, 8)));
@@ -151,14 +224,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getNome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(44, 12, 12)));
 		add(getCognome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(14, 12, 12)));
 		add(getDomicilio(), new Constraints(new Leading(108, 110, 12, 12), new Leading(104, 12, 12)));
-		add(getComune(), new Constraints(new Leading(108, 110, 12, 12), new Leading(132, 12, 12)));
 		add(getProvincia(), new Constraints(new Leading(313, 104, 10, 10), new Leading(134, 12, 12)));
 		add(getCodiceFiscale(), new Constraints(new Leading(108, 110, 12, 12), new Leading(72, 10, 10)));
 		add(getTelefono(), new Constraints(new Leading(108, 309, 12, 12), new Leading(175, 12, 12)));
 		add(getCellulare(), new Constraints(new Leading(108, 309, 12, 12), new Leading(211, 12, 12)));
 		add(getEMail(), new Constraints(new Leading(108, 308, 12, 12), new Leading(247, 12, 12)));
 		add(getFax(), new Constraints(new Leading(108, 308, 12, 12), new Leading(283, 12, 12)));
-		add(getPersonaDiRiferimento(), new Constraints(new Leading(554, 10, 10), new Leading(516, 12, 12)));
 		add(getComP(), new Constraints(new Leading(189, 10, 10), new Leading(384, 10, 10)));
 		add(getVerbaliP(), new Constraints(new Leading(189, 10, 10), new Leading(408, 10, 10)));
 		add(getConvP(), new Constraints(new Leading(189, 10, 10), new Leading(434, 10, 10)));
@@ -184,7 +255,270 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getIndirizzoFiscale(), new Constraints(new Leading(108, 308, 12, 12), new Leading(565, 12, 12)));
 		add(getBok(), new Constraints(new Leading(138, 10, 10), new Leading(613, 10, 10)));
 		add(getBannulla(), new Constraints(new Leading(432, 10, 10), new Leading(613, 12, 12)));
+		add(getJLabel0(), new Constraints(new Leading(7, 10, 10), new Leading(16, 12, 12)));
+		add(getJLabel1(), new Constraints(new Leading(7, 12, 12), new Leading(46, 12, 12)));
+		add(getJLabel3(), new Constraints(new Leading(7, 12, 12), new Leading(108, 12, 12)));
+		add(getComune(), new Constraints(new Leading(108, 112, 12, 12), new Leading(140, 12, 12)));
+		add(getJLabel4(), new Constraints(new Leading(7, 12, 12), new Leading(144, 12, 12)));
+		add(getCap(), new Constraints(new Leading(315, 108, 10, 10), new Leading(104, 12, 12)));
+		add(getJLabel5(), new Constraints(new Leading(256, 10, 10), new Leading(108, 12, 12)));
+		add(getJLabel6(), new Constraints(new Leading(251, 12, 12), new Leading(140, 12, 12)));
+		add(getJLabel2(), new Constraints(new Leading(7, 12, 12), new Leading(74, 12, 12)));
+		add(getJLabel8(), new Constraints(new Leading(7, 50, 12, 12), new Leading(213, 12, 12)));
+		add(getJLabel7(), new Constraints(new Leading(7, 12, 12), new Leading(177, 12, 12)));
+		add(getJLabel9(), new Constraints(new Leading(7, 12, 12), new Leading(247, 12, 12)));
+		add(getJLabel10(), new Constraints(new Leading(7, 12, 12), new Leading(285, 12, 12)));
+		add(getJLabel11(), new Constraints(new Leading(14, 12, 12), new Leading(387, 12, 12)));
+		add(getJLabel14(), new Constraints(new Leading(12, 12, 12), new Leading(465, 12, 12)));
+		add(getJLabel13(), new Constraints(new Leading(12, 12, 12), new Leading(437, 12, 12)));
+		add(getJLabel12(), new Constraints(new Leading(12, 12, 12), new Leading(411, 12, 12)));
+		add(getJLabel15(), new Constraints(new Leading(185, 12, 12), new Leading(351, 10, 10)));
+		add(getJLabel16(), new Constraints(new Leading(240, 12, 12), new Leading(351, 12, 12)));
+		add(getJLabel17(), new Constraints(new Leading(296, 12, 12), new Leading(351, 12, 12)));
+		add(getJLabel18(), new Constraints(new Leading(335, 12, 12), new Leading(351, 12, 12)));
+		add(getJLabel19(), new Constraints(new Leading(396, 25, 12, 12), new Leading(351, 12, 12)));
+		add(getJLabel21(), new Constraints(new Leading(12, 12, 12), new Leading(531, 12, 12)));
+		add(getJLabel20(), new Constraints(new Leading(12, 12, 12), new Leading(497, 12, 12)));
+		add(getJLabel22(), new Constraints(new Leading(12, 12, 12), new Leading(567, 12, 12)));
+		add(getBPersonaDiRiferimento(), new Constraints(new Leading(488, 10, 10), new Leading(562, 12, 12)));
 		setSize(672, 688);
+	}
+
+	private JButton getBPersonaDiRiferimento() {
+		if (bPersonaDiRiferimento == null) {
+			bPersonaDiRiferimento = new JButton();
+			bPersonaDiRiferimento.setText("Persona di riferimento");
+			bPersonaDiRiferimento.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bPersonaDiRiferimentoMouseMouseClicked(event);
+				}
+			});
+		}
+		return bPersonaDiRiferimento;
+	}
+
+
+	private JLabel getJLabel22() {
+		if (jLabel22 == null) {
+			jLabel22 = new JLabel();
+			jLabel22.setText("Indirizzo fiscale:");
+		}
+		return jLabel22;
+	}
+
+
+	private JLabel getJLabel21() {
+		if (jLabel21 == null) {
+			jLabel21 = new JLabel();
+			jLabel21.setText("Partita IVA:");
+		}
+		return jLabel21;
+	}
+
+
+	private JLabel getJLabel20() {
+		if (jLabel20 == null) {
+			jLabel20 = new JLabel();
+			jLabel20.setText("Ragione sociale:");
+		}
+		return jLabel20;
+	}
+
+
+	private JLabel getJLabel19() {
+		if (jLabel19 == null) {
+			jLabel19 = new JLabel();
+			jLabel19.setText("FAX");
+		}
+		return jLabel19;
+	}
+
+
+	private JLabel getJLabel18() {
+		if (jLabel18 == null) {
+			jLabel18 = new JLabel();
+			jLabel18.setText("Telefono");
+		}
+		return jLabel18;
+	}
+
+
+	private JLabel getJLabel17() {
+		if (jLabel17 == null) {
+			jLabel17 = new JLabel();
+			jLabel17.setText("Mail");
+		}
+		return jLabel17;
+	}
+
+
+	private JLabel getJLabel16() {
+		if (jLabel16 == null) {
+			jLabel16 = new JLabel();
+			jLabel16.setText("SMS");
+		}
+		return jLabel16;
+	}
+
+
+	private JLabel getJLabel15() {
+		if (jLabel15 == null) {
+			jLabel15 = new JLabel();
+			jLabel15.setText("Postel");
+		}
+		return jLabel15;
+	}
+
+
+	private JLabel getJLabel12() {
+		if (jLabel12 == null) {
+			jLabel12 = new JLabel();
+			jLabel12.setText("Verbali assemblea");
+		}
+		return jLabel12;
+	}
+
+
+	private JLabel getJLabel13() {
+		if (jLabel13 == null) {
+			jLabel13 = new JLabel();
+			jLabel13.setText("Convocazioni assemblea");
+		}
+		return jLabel13;
+	}
+
+
+	private JLabel getJLabel14() {
+		if (jLabel14 == null) {
+			jLabel14 = new JLabel();
+			jLabel14.setText("Avvisi");
+		}
+		return jLabel14;
+	}
+
+
+	private JLabel getJLabel11() {
+		if (jLabel11 == null) {
+			jLabel11 = new JLabel();
+			jLabel11.setText("Comunicazioni");
+		}
+		return jLabel11;
+	}
+
+
+	private JLabel getJLabel10() {
+		if (jLabel10 == null) {
+			jLabel10 = new JLabel();
+			jLabel10.setText("Fax:");
+		}
+		return jLabel10;
+	}
+
+
+	private JLabel getJLabel9() {
+		if (jLabel9 == null) {
+			jLabel9 = new JLabel();
+			jLabel9.setText("E Mail");
+		}
+		return jLabel9;
+	}
+
+
+	private JLabel getJLabel8() {
+		if (jLabel8 == null) {
+			jLabel8 = new JLabel();
+			jLabel8.setText("Cellulare:");
+		}
+		return jLabel8;
+	}
+
+
+	private JLabel getJLabel7() {
+		if (jLabel7 == null) {
+			jLabel7 = new JLabel();
+			jLabel7.setText("Telefono:");
+		}
+		return jLabel7;
+	}
+
+
+	private JLabel getJLabel6() {
+		if (jLabel6 == null) {
+			jLabel6 = new JLabel();
+			jLabel6.setText("Provincia:");
+		}
+		return jLabel6;
+	}
+
+
+	private JLabel getJLabel5() {
+		if (jLabel5 == null) {
+			jLabel5 = new JLabel();
+			jLabel5.setText("CAP:");
+		}
+		return jLabel5;
+	}
+
+
+	private JLabel getJLabel4() {
+		if (jLabel4 == null) {
+			jLabel4 = new JLabel();
+			jLabel4.setText("Comune:");
+		}
+		return jLabel4;
+	}
+
+
+	private JTextField getComune() {
+		if (comune == null) {
+			comune = new JTextField();
+		}
+		return comune;
+	}
+
+
+	private JTextField getCap() {
+		if (cap == null) {
+			cap = new JTextField();
+		}
+		return cap;
+	}
+
+
+	private JLabel getJLabel3() {
+		if (jLabel3 == null) {
+			jLabel3 = new JLabel();
+			jLabel3.setText("Domicilio");
+		}
+		return jLabel3;
+	}
+
+
+	private JLabel getJLabel2() {
+		if (jLabel2 == null) {
+			jLabel2 = new JLabel();
+			jLabel2.setText("Codice fiscale:");
+		}
+		return jLabel2;
+	}
+
+
+	private JLabel getJLabel1() {
+		if (jLabel1 == null) {
+			jLabel1 = new JLabel();
+			jLabel1.setText("Nome:");
+		}
+		return jLabel1;
+	}
+
+
+	private JLabel getJLabel0() {
+		if (jLabel0 == null) {
+			jLabel0 = new JLabel();
+			jLabel0.setText("Cognome:");
+		}
+		return jLabel0;
 	}
 
 
@@ -192,6 +526,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		if (bannulla == null) {
 			bannulla = new JButton();
 			bannulla.setText("Annulla");
+			bannulla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bannullaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bannulla;
 	}
@@ -219,17 +559,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			partitaIVA = new JTextField();
 		}
 		return partitaIVA;
-	}
-
-
-	private JComboBox getPersonaDiRiferimento() {
-		if (personaDiRiferimento == null) {
-			personaDiRiferimento = new JComboBox();
-			personaDiRiferimento.setModel(new DefaultComboBoxModel(new Object[] { "item0", "item1", "item2", "item3" }));
-			personaDiRiferimento.setDoubleBuffered(false);
-			personaDiRiferimento.setBorder(null);
-		}
-		return personaDiRiferimento;
 	}
 
 
@@ -460,17 +789,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	}
 
 
-	private JComboBox getComune() {
-		if (comune == null) {
-			comune = new JComboBox();
-			comune.setModel(new DefaultComboBoxModel(new Object[] { "item0", "item1", "item2", "item3" }));
-			comune.setDoubleBuffered(false);
-			comune.setBorder(null);
-		}
-		return comune;
-	}
-
-
 	private JTextField getCodiceFiscale() {
 		if (codiceFiscale == null) {
 			codiceFiscale = new JTextField();
@@ -483,19 +801,29 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		if (radioPG == null) {
 			radioPG = new JRadioButton();
 			radioPG.setText("Persona Giuridica");
+			radioPG.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					radioPGMouseMouseClicked(event);
+				}
+			});
 		}
 		return radioPG;
 	}
-
 
 	private JRadioButton getRadioPF() {
 		if (radioPF == null) {
 			radioPF = new JRadioButton();
 			radioPF.setText("Persona Fisica");
+			radioPF.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					radioPFMouseMouseClicked(event);
+				}
+			});
 		}
 		return radioPF;
 	}
-
 
 	private JTextField getNome() {
 		if (nome == null) {
@@ -536,4 +864,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		});
 	}
 
+
+
+	
 }

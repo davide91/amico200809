@@ -62,6 +62,7 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 		unita=u;
 		aggiornaUnitaImmobiliari(u);
 		this.setVisible(true);
+		this.setTitle("Inserimento unita' immobiliari");
 	}
 	
 	public ConfermaUnitaImmobiliari()

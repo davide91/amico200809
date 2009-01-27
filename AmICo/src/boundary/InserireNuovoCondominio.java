@@ -117,7 +117,6 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 				else {
 // per ora niente
 				}
-				
 			}
 			else
 			{
@@ -129,42 +128,34 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		default:
 			break;
 		}
-		
 	}
 
 	public void annulla() {
 		GestoreCondomini.getInstance().operazioneAnnullata();
-		
 	}
 
 	public void fallito() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void fatto() {
 		state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
 		CFI=new ConfermaUnitaImmobiliari(this,unitaImmobiliari);
 		this.setVisible(false);
-		
 	}
 
 	public void finito() {
 		state = StatiInserireNuovoCondominio.inserimentoTabellaMillesimale;
 		GestoreCondomini.getInstance().finito();
-		
 	}
 
 	public void ko() {
 		if (state==StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale)
 			JOptionPane.showMessageDialog(this, "il condominio non e' stato inserito");
 
-		
 		GestoreCondomini.getInstance().procedi(false);
 		state=StatiInserireNuovoCondominio.base;
 			
-		
-		
 	}
 
 	public void ok() {
