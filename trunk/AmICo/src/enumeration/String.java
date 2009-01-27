@@ -1,6 +1,6 @@
 package enumeration;
 
-public enum Comune{
+public enum String{
 		AGLIE,
 		AIRASCA,
 		ALA_DI_STURA,

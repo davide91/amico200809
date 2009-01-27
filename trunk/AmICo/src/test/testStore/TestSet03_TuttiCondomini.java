@@ -38,7 +38,7 @@ import datatype.list.PersoneFisiche;
 import datatype.list.Percentuali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.CategoriaCatastale;
-import enumeration.Comune;
+import enumeration.String;
 import enumeration.DestinazioneUso;
 import enumeration.Provincia;
 import enumeration.StatoBilancio;
@@ -67,7 +67,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 		
-		Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
+		Indirizzo ind = new Indirizzo("Papagliano","34",String.ALMESE,Provincia.Alessandria,"15100");
 		
 		Condominio c = new Condominio();
 		this.tc.inserisciCondominio(c);
@@ -84,7 +84,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 	
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 		
-		Indirizzo ind = new Indirizzo("Papagliano","34",Comune.ALMESE,Provincia.Alessandria,"15100");
+		Indirizzo ind = new Indirizzo("Papagliano","34",String.ALMESE,Provincia.Alessandria,"15100");
 		
 		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
 		
@@ -160,11 +160,11 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
 		
 		//creo la persona e la inserisco
-		Indirizzo ind = new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060");
+		Indirizzo ind = new Indirizzo("adua","3",String.AGLIE,Provincia.Alessandria,"15060");
 		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",ind,"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		tp.inserisciPersona(dpf);
 		
-		Indirizzo ind1 = new Indirizzo("adua","3",Comune.AGLIE,Provincia.Alessandria,"15060");
+		Indirizzo ind1 = new Indirizzo("adua","3",String.AGLIE,Provincia.Alessandria,"15060");
 		DatiPersonaFisica dpf1 = new DatiPersonaFisica(new CodiceFiscale("codFisc1"),"Elena","Bianchi","328-4724731",ind1,"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		tp.inserisciPersona(dpf1);
 		
