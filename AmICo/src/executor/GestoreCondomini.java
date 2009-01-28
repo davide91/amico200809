@@ -2,6 +2,7 @@ package executor;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 
 import calculator.FormatoAmICo;
 
@@ -111,10 +112,23 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	public void operazioneAnnullata() {
-		if ( m_state == StatiGestoreCondominio.inserimentoCondominio ) {
+		switch (m_state) {
+		case inserimentoCondominio :
+		{
 			m_dbCondomini.eliminaCondominio(m_condominio);
 			m_state = StatiGestoreCondominio.gestoreCondomini;
 		}
+			break;
+		
+		default: m_state= StatiGestoreCondominio.inserimentoCondominio;
+			for (UnitaImmobiliare unita : m_condominio.recuperaUnitaImmobiliari().getImmobili()) {
+			m_condominio.eliminaUnitaImmobiliare(unita);
+		}
+			
+			break;
+		}
+			
+		
 	}
 	
 	public void operazioneTerminata() {

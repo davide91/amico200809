@@ -132,6 +132,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void annulla() {
 		GestoreCondomini.getInstance().operazioneAnnullata();
+		setVisible(true);
 	}
 
 	public void fallito() {
