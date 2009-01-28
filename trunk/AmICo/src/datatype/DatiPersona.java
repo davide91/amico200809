@@ -27,7 +27,8 @@ public class DatiPersona {
 	
 	public EsitoControlloDati controlla()
 	{
-		return null;
+		//return null; cambiato da federico
+		return new DatiCorretti();
 	}
 
 	public String getTel() {

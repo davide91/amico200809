@@ -44,7 +44,6 @@ import executor.GestorePersone;
 public class InserirePersona extends JFrame implements BaseBoundary{
 
 	private GestorePersone GP;
-	
 	private ButtonGroup group;
 	
 	public InserirePersona() {
@@ -77,20 +76,23 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	
 	public void inserisciDatiPersona(DatiPersona datiP) {
 		EsitoControlloDati esito= datiP.controlla();
-		 if (esito instanceof DatiErrati){
+	/*	 if (esito instanceof DatiErrati){
 				JOptionPane.showMessageDialog(this,"Dati errati");
-				System.out.println("");
+			//	System.out.println("");
 		 }
 		 
-		 if(esito instanceof DatiCorretti) {
+		 if(esito instanceof DatiCorretti) {*/
 			 GP.inserisciDatiPersona(datiP);
-		 }
+	//	 }
 		 
 		
 	}
 	
 	public void ammissibile(Boolean b) {
-		
+		if(b)
+			JOptionPane.showMessageDialog(this, "persona inserita");
+		else
+			JOptionPane.showMessageDialog(this, "persona non inserita");
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona personaGiaInserita) {
@@ -163,6 +165,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 
 
 	private void bannullaMouseMouseClicked(MouseEvent event) {
+		annulla();
 		this.dispose();
 	}
 
@@ -170,32 +173,38 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	}
 	
 	private void bokMouseMouseClicked(MouseEvent event) {
-		
-		DatiPersona datiP=new DatiPersona();
-		
-		datiP.setFax(fax.getText());
-		Email mail =new Email(eMail.getText());
-		datiP.setMail(mail);
-		datiP.setTel(telefono.getText());
+
 		if(radioPF.isSelected())
 		{
-			((DatiPersonaFisica)datiP).setNome(nome.getText());
-			((DatiPersonaFisica)datiP).setCognome(cognome.getText());
-			((DatiPersonaFisica)datiP).setCell(cellulare.getText());
+			DatiPersonaFisica datiP=new DatiPersonaFisica();
+			datiP.setFax(fax.getText());
+			Email mail =new Email(eMail.getText());
+			datiP.setMail(mail);
+			datiP.setTel(telefono.getText());
+			datiP.setNome(nome.getText());
+			datiP.setCognome(cognome.getText());
+			datiP.setCell(cellulare.getText());
 			CodiceFiscale cf=new CodiceFiscale();
 			cf.setCodiceFis(codiceFiscale.getText());
-			((DatiPersonaFisica)datiP).setCf(cf);
-			((DatiPersonaFisica)datiP).setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
+			datiP.setCf(cf);
+			datiP.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
+			inserisciDatiPersona(datiP);
 		}
 		else if(radioPF.isSelected())
 		{
-			((DatiPersonaGiuridica)datiP).setpIva(new PartitaIva(partitaIVA.getText()));
-			((DatiPersonaGiuridica)datiP).setRagioneSociale(ragioneSociale.getText());
+			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
+			datiP.setFax(fax.getText());
+			Email mail =new Email(eMail.getText());
+			datiP.setMail(mail);
+			datiP.setTel(telefono.getText());
+			datiP.setpIva(new PartitaIva(partitaIVA.getText()));
+			datiP.setRagioneSociale(ragioneSociale.getText());
 			Indirizzo i=new Indirizzo();
 			i.setVia(indirizzoFiscale.getText());
-			((DatiPersonaGiuridica)datiP).setIndFiscale(i);
+			datiP.setIndFiscale(i);
+			inserisciDatiPersona(datiP);
 		}
-		inserisciDatiPersona(datiP);
+
 }
 
 	
