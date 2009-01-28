@@ -7,6 +7,6 @@ package enumeration;
  * @author peregrino
  *
  */
-public enum StatiInserireUnitaImmobiliari {
+public enum StatiConfermaUnitaImmobiliari {
 	base, attesaConfermaDatiUnitaImmobiliare, inserimentoProprietari, attesaConfermaProprieta, inserimentoNuovaPersona
 }

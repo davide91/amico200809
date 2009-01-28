@@ -6,6 +6,7 @@ import java.util.List;
 
 import calculator.FormatoAmICo;
 
+import boundary.AccedereProprietari;
 import boundary.AmICo;
 import boundary.ConfermaUnitaImmobiliari;
 import boundary.DriverFileSystem;
@@ -108,16 +109,16 @@ public class GestoreCondomini implements BaseExecutor {
 		m_unitaImmobiliare = new UnitaImmobiliare();
 		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
 		
-		m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare(m_dbPersone.recuperaPersone());
+	//	m_inserireUnitaImmobiliare = new InserireUnitaImmobiliare(m_dbPersone.recuperaPersone());
 	}
 	
 	public void operazioneAnnullata() {
-		switch (m_state) {
+	/*	switch (m_state) {
 		case inserimentoCondominio :
 		{
-			m_dbCondomini.eliminaCondominio(m_condominio);
+	*/		m_dbCondomini.eliminaCondominio(m_condominio);
 			m_state = StatiGestoreCondominio.gestoreCondomini;
-		}
+	/*	}
 			break;
 		
 		default: m_state= StatiGestoreCondominio.inserimentoCondominio;
@@ -127,8 +128,7 @@ public class GestoreCondomini implements BaseExecutor {
 			
 			break;
 		}
-			
-		
+		*/	
 	}
 	
 	public void operazioneTerminata() {
@@ -177,14 +177,12 @@ public class GestoreCondomini implements BaseExecutor {
 			return;
 		}
 
+		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_inserireUnitaImmobiliare.ammissibile(true);
 		
 		/* Non presente in 3.5.4 */
 		m_inserireNuovoCondominio.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
-		
-		m_state = StatiGestoreCondominio.inserimentoProprieta;
-
 	}
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {

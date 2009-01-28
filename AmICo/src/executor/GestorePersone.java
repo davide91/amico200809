@@ -5,9 +5,12 @@ package executor;
 
 import store.TuttePersone;
 import store.POJO.Persona;
+import store.POJO.PersonaFisica;
+import store.POJO.PersonaGiuridica;
 import boundary.AccedentiPersone;
 import boundary.InserirePersona;
 import boundary.ModificarePersona;
+import datatype.DatiPagamento;
 import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
@@ -64,9 +67,10 @@ public class GestorePersone implements BaseExecutor {
 	public void inserisciPersona(AccedentiPersone richiedente){
 		RICH=richiedente;
 		IP=new InserirePersona();
-		IP.creaInserirePersona();
+	//	IP.creaInserirePersona();
 		state=StatiGestorePersone.inserimentoPersona;
 	}
+	
 	public void modificaDatiPersona(DatiPersona datiP) {
 		datiPersona=datiP;
 		if (datiP instanceof DatiPersonaFisica) {
@@ -94,34 +98,28 @@ public class GestorePersone implements BaseExecutor {
 	}
 
 	
-	private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaFisica datiPF) {
-		Persone pf = TP.recuperaPersone(datiPF.getNome(), datiPF.getCognome());
-		if(!pf.isEmpty()){
-			PersoneConStessoNome PCSN = new PersoneConStessoNome();
-			PCSN.creaEsitoOmonimi(pf);
-			return PCSN;
+	private boolean personaGiaInserita(DatiPersona datiP) {
+		Persone pf = TuttePersone.getInstance().recuperaPersone();
+		for (Persona p : pf.getPersone()) {
+			if(p instanceof PersonaFisica)
+			{
+				if(((PersonaFisica)p).getDati().equals((DatiPersonaFisica)datiP))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if(((PersonaGiuridica)p).getDati().equals((DatiPersonaGiuridica)datiP))
+				{
+					return true;
+				}
+			}	
 		}
-		pf= TP.recuperaPersone(datiPF.getDomicilio());
-		if(!pf.isEmpty()){
-			PersoneConStessoIndirizzo PCSI = new PersoneConStessoIndirizzo();
-			PCSI.creaEsitoCoabitanti(pf);
-			return PCSI;
-		}
-		Inseribile INS = new Inseribile();
-		INS.creaEsitoOK();
-		return INS;
-		
+		return false;
 	}
 	
-   private EsitoControlloDatiPersona personaGiaInserita(DatiPersonaGiuridica datiPG) {
-/*		Persone pg=TuttePersone.PERSONE.recuperaPersone(datiPG.getPIva());
-		if(!pg.isEmpty()){
-			PersoneConStessaPartitaIVA PCSI = new PersoneConStessoIndirizzo();
-			PCSI.creaEsitoCoabitanti(pf);
-			return PCSI;
-	*/
-	return null;
-}
+  
 
 public void annullato() {
 	// TODO Auto-generated method stub

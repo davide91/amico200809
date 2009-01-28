@@ -25,10 +25,14 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
+import store.TuttePersone;
+import store.POJO.Persona;
 import store.POJO.UnitaImmobiliare;
+import datatype.DatiUnitaImmobiliare;
+import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
-import enumeration.StatiInserireUnitaImmobiliari;
+import enumeration.StatiConfermaUnitaImmobiliari;
 import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 import executor.GestorePersone;
@@ -37,7 +41,7 @@ import executor.GestorePersone;
  * @author Federico
  *
  */
-public class ConfermaUnitaImmobiliari extends JFrame {
+public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone {
 
 	private ButtonGroup group;
 	private GestoreCondominioAperto GCA;
@@ -45,6 +49,9 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	private Persone persone;
 	private InserireNuovoCondominio INC;
 	private AccedereProprietari AP;
+	private StatiConfermaUnitaImmobiliari state;
+	private InserireUnitaImmobiliare IUI;
+	
 	
 	private JTable table;
 	private JScrollPane jScrollPane0;
@@ -57,6 +64,7 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
 	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
+		state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
 		initGroup();
 		persone=new Persone();// provvisorio TODO
@@ -69,14 +77,27 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	
 	public ConfermaUnitaImmobiliari()
 	{
+		state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
 	}
 	
 	public void inserisciNuovaPersona(){
-	//	state= StatiInserireUnitaImmobiliari.inserimentoNuovaPersona;
-	//	GestorePersone.getInstance().inserisciPersona(this);
-		
+		state= StatiConfermaUnitaImmobiliari.inserimentoNuovaPersona;
+		GestorePersone.getInstance().inserisciPersona(this);
 	}
+	
+	
+	public void specificaProprietari(Persone persone, Percentuali percentuali){
+		if (proprietaOK(persone, percentuali)){
+			state=StatiConfermaUnitaImmobiliari.attesaConfermaProprieta;
+			GestoreCondomini.getInstance().passaProprieta(persone, percentuali);
+			//AMM.richiestaConferma();
+		}
+		else {
+			//AMM.mostra(proprietaKO);
+		}
+	}
+
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
 	{
@@ -127,16 +148,19 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	}
 
 	private void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
+		state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
 		INC.inserisciUnitaImmobiliare();
+		IUI = new InserireUnitaImmobiliare(this,persone);
+		this.setVisible(false);
 	}
 	
 	private void bAggiungiPropietariMouseMouseClicked(MouseEvent event) {
 		int i;
 		Enumeration e=group.getElements();
-		for (i=0; e.hasMoreElements();i++ )
+	/*	for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
 	        	  AP = new AccedereProprietari(this,unita.getImmobili().get(i),persone);
-		
+	*/	
 	}
 
 	private void bModificaUnitaMouseMouseClicked(MouseEvent event) {
@@ -272,10 +296,11 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	}
 
 	protected void bAnnullaMouseMouseClicked(MouseEvent event) {
-	  setVisible(false);
-	  INC.annulla();
-	  
-		
+		int c = JOptionPane.showConfirmDialog(this, "Annullare operazione?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		if (c==0){
+			INC.annulla();	
+			this.dispose();
+		}
 	}
 
 	private static void installLnF() {
@@ -307,6 +332,25 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 				frame.setVisible(true);
 			}
 		});
+	}
+
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersone(Persone persone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean proprietaOK(Persone persone, Percentuali quote) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
+		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
 	}
 
 }

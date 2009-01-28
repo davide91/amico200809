@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -26,13 +25,14 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Millesimo;
+import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
 import store.POJO.Proprieta;
 import store.POJO.UnitaImmobiliare;
+import datatype.list.Percentuali;
 import datatype.list.Persone;
-import enumeration.StatiInserireUnitaImmobiliari;
-import executor.GestorePersone;
 
 /**
  * @author Federico
@@ -46,37 +46,107 @@ public class AccedereProprietari extends JFrame {
 	private ConfermaUnitaImmobiliari CUI;
 	private InserireProprietario IP;
 	
+	private Persone proprietari = new Persone();
+	private Percentuali quote = new Percentuali();
 	
 	
-	public AccedereProprietari(ConfermaUnitaImmobiliari cui,UnitaImmobiliare ui,Persone p) {
+	public AccedereProprietari(ConfermaUnitaImmobiliari cui,Persone p) {
 		initComponents();
 		initGroup();
-		unita=ui;
 		persone=p;
 		CUI=cui;
+		nomeUnita.setText(unita.getDatiUnitaImmobiliare().getId());
+
+		this.setVisible(true);		
+		this.setTitle("Inserimento proprietari");
+	}
+
+/*	public AccedereProprietari() {
+		initComponents();
+	}
+	
+	public AccedereProprietari(Persone persone) {
+		this.persone=persone;
+		initComponents();
+		initGroup();
+		//aggiornaTabella(unita);
+		this.setVisible(true);		
+		this.setTitle("Inserimento proprietari");
+		
+	}
+/*
+	public AccedereProprietari(UnitaImmobiliare immobiliare,Persone recuperaPersone) {
+		initComponents();
+		initGroup();
+		unita=immobiliare;
+		persone=recuperaPersone;
 		nomeUnita.setText(unita.getDatiUnitaImmobiliare().getId());
 
 		aggiornaTabella(unita);
 		this.setVisible(true);		
 		this.setTitle("Inserimento proprietari");
-		
-	
 	}
-
-	public AccedereProprietari() {
-		initComponents();
-	}
-	
+*/
 	private void initGroup() {
 		group = new ButtonGroup();
 	}
 	
-	public void inserisciNuovaPersona(){
+	public void inserisciNuovaPersona(){	
 		CUI.inserisciNuovaPersona();
-		
 	}
 	
-	public void aggiornaTabella(UnitaImmobiliare unita)
+	public void aggiornaTabella(Persona pers, float quota)
+	{
+		int cont=0;
+		
+		proprietari.inserisciPersona(pers);
+		quote.inserisciReale(quota);
+		
+	
+		initGroup();
+		
+		Iterator<Persona> p =this.proprietari.getPersone().iterator();
+		Persona perso;
+		
+		Iterator<Float> q=this.quote.getListaQuote().iterator();
+		float quo;
+		
+		
+			DefaultTableModel dm = new DefaultTableModel();
+			
+		    dm.setDataVector(
+		      new Object[][]{},
+		      new Object[]{"Nome","Cognome","Quota","Seleziona"}
+		      );
+
+		    while(p.hasNext())
+		    {
+		    	perso=p.next();
+		    	quo = q.next();
+		    	cont++;
+		    	if(perso instanceof PersonaFisica)
+		    		dm.addRow(new Object[]{
+		    				((PersonaFisica)perso).getDati().getNome(),
+		    				((PersonaFisica)perso).getDati().getCognome(),
+		    			quo,
+		    			new JRadioButton() });
+		    	else if(perso  instanceof PersonaGiuridica)
+		    		dm.addRow(new Object[]{
+		    				((PersonaGiuridica)perso).getDati().getpIva().getPartIva(),
+		    				"",
+		    				quo,
+		    				new JRadioButton() });
+		    		
+		    }
+		    for(int i=0;i<cont;i++)
+		    	group.add((JRadioButton)dm.getValueAt(i,3));
+
+		    table.setModel(dm);
+		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+	}
+	
+/*	public void aggiornaTabella(UnitaImmobiliare unita)
 	{
 		int cont=0;
 		
@@ -120,7 +190,7 @@ public class AccedereProprietari extends JFrame {
 		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 	}
-	
+*/
 
 	private void bAggiungiProprietarioMouseMouseClicked(MouseEvent event) {
 		IP=new InserireProprietario(this,persone);
@@ -141,6 +211,7 @@ public class AccedereProprietari extends JFrame {
 	}
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
+		
 	}
 
 
@@ -295,7 +366,7 @@ public class AccedereProprietari extends JFrame {
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
 	 */
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -307,7 +378,7 @@ public class AccedereProprietari extends JFrame {
 			}
 		});
 	}
-
+*/
 
 
 }
