@@ -272,7 +272,9 @@ public class ConfermaUnitaImmobiliari extends JFrame {
 	}
 
 	protected void bAnnullaMouseMouseClicked(MouseEvent event) {
+	  setVisible(false);
 	  INC.annulla();
+	  
 		
 	}
 
