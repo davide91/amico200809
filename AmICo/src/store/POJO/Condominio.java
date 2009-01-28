@@ -1,14 +1,12 @@
 package store.POJO;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
 
 import store.util.HibernateUtil;
 import datatype.DatiCondominio;
-import datatype.Euro;
 import datatype.Preferenze;
 import datatype.list.Bilanci;
 import datatype.list.Pagamenti;
