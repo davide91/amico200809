@@ -121,16 +121,16 @@ public class GestorePersone implements BaseExecutor {
 	
   
 
-public void annullato() {
-	// TODO Auto-generated method stub
+	public void annullato() {
+		// TODO Auto-generated method stub
+		
+	}
 	
-}
-
-
-public void operazioneTerminata() {
-	// TODO Auto-generated method stub
 	
-}
+	public void operazioneTerminata() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 

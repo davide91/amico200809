@@ -91,8 +91,11 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	public void ammissibile(Boolean b) {
 		if(b)
 			JOptionPane.showMessageDialog(this, "persona inserita");
+
 		else
 			JOptionPane.showMessageDialog(this, "persona non inserita");
+		
+		GP.procedi(true);
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona personaGiaInserita) {
