@@ -54,7 +54,7 @@ public class InserireProprietario extends JFrame {
 		while(i.hasNext())
 		{
 			if(i.next() instanceof PersonaFisica)
-			x.addElement(((PersonaFisica)i.next()).getDati().getNome()+((PersonaFisica)i.next()).getDati().getCognome());
+				x.addElement(((PersonaFisica)i.next()).getDati().getNome()+((PersonaFisica)i.next()).getDati().getCognome());
 			else if(i.next() instanceof PersonaGiuridica)
 				x.addElement(((PersonaGiuridica)i.next()).getDati().getpIva());
 		}

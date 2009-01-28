@@ -52,7 +52,10 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		initgroup();
 		
 		this.GP=GestorePersone.getInstance();
+		this.setVisible(true);
 	}
+
+	
 
 	private void initgroup()
 	{
@@ -174,7 +177,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		Email mail =new Email(eMail.getText());
 		datiP.setMail(mail);
 		datiP.setTel(telefono.getText());
-		if(group.getSelection().equals(radioPF))
+		if(radioPF.isSelected())
 		{
 			((DatiPersonaFisica)datiP).setNome(nome.getText());
 			((DatiPersonaFisica)datiP).setCognome(cognome.getText());
@@ -184,7 +187,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			((DatiPersonaFisica)datiP).setCf(cf);
 			((DatiPersonaFisica)datiP).setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
 		}
-		else
+		else if(radioPF.isSelected())
 		{
 			((DatiPersonaGiuridica)datiP).setpIva(new PartitaIva(partitaIVA.getText()));
 			((DatiPersonaGiuridica)datiP).setRagioneSociale(ragioneSociale.getText());
