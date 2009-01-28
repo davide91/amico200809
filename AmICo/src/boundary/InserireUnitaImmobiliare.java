@@ -10,20 +10,17 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import store.TuttePersone;
 import store.POJO.Persona;
 import datatype.DatiUnitaImmobiliare;
 import datatype.list.Persone;
 import enumeration.CategoriaCatastale;
 import enumeration.DestinazioneUso;
-import enumeration.StatiConfermaUnitaImmobiliari;
 import executor.GestoreCondomini;
 
 
@@ -94,7 +91,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 	}
 
 	public void fatto() {
-		//AMM:mostraPersone(persone);
+				//AMM:mostraPersone(persone);
 	}
 
 	public void finito() {
@@ -126,6 +123,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 
 	protected void confermaMouseMouseClicked(MouseEvent event) {
 		inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
+		//CUI.setVisible(true);
 		this.dispose();
 		
 	}

@@ -48,9 +48,10 @@ public class GestoreCondomini implements BaseExecutor {
 	private DriverFileSystem m_driverFS;
 	private GestoreCondominioAperto m_gestoreCondominioAperto;
 	private InserireNuovoCondominio m_inserireNuovoCondominio;
-	private InserireUnitaImmobiliare m_inserireUnitaImmobiliare;
+	//private InserireUnitaImmobiliare m_inserireUnitaImmobiliare;
 	private StatiGestoreCondominio m_state;
-	
+	private ConfermaUnitaImmobiliari m_confermaUnitaImmobiliari;
+
 	private TabellaMillesimale m_tabellaMillesimaleProprieta;
 	
 	private UnitaImmobiliare m_unitaImmobiliare;
@@ -172,17 +173,17 @@ public class GestoreCondomini implements BaseExecutor {
 	public void passaDatiUnitaImmobliare(DatiUnitaImmobiliare datiUnitaImmobliare) {
 		if ( unitaImmobiliareGiaInserita(datiUnitaImmobliare) ) {
 			m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
-			m_inserireUnitaImmobiliare.ammissibile(false);
+			m_confermaUnitaImmobiliari.ammissibile(false);
 			m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 			return;
 		}
 
 		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
-		m_inserireUnitaImmobiliare.ammissibile(true);
+		m_confermaUnitaImmobiliari.ammissibile(true);
 		
 		/* Non presente in 3.5.4 */
-		m_inserireNuovoCondominio.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
+		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 	}
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
@@ -212,6 +213,7 @@ public class GestoreCondomini implements BaseExecutor {
 
 				/* Riga non presente nel design 3.5.4*/
 				m_inserireNuovoCondominio.fatto();
+				m_confermaUnitaImmobiliari = new ConfermaUnitaImmobiliari(m_inserireNuovoCondominio,m_condominio.recuperaUnitaImmobiliari());
 				
 				break;
 			case attesaConfermaTabellaMillesimale :
@@ -230,8 +232,8 @@ public class GestoreCondomini implements BaseExecutor {
 				if ( !procedere )	
 					m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 				else {
-					m_inserireUnitaImmobiliare.fatto();
-					m_inserireNuovoCondominio.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
+					m_confermaUnitaImmobiliari.fatto();
+					m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
 				}
 				m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 				break;
