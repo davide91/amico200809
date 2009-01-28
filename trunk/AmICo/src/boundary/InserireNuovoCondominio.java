@@ -28,7 +28,6 @@ import org.dyno.visual.swing.layouts.Trailing;
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
 import datatype.list.Percentuali;
-import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.Provincia;
 import enumeration.StatiInserireNuovoCondominio;
@@ -38,7 +37,7 @@ import executor.GestoreCondomini;
 
 public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
-	private ConfermaUnitaImmobiliari CFI;
+	private ConfermaUnitaImmobiliari CUI;
 	private UnitaImmobiliari unitaImmobiliari;
 	private DatiCondominio datiCondominio = new DatiCondominio();
 	private Percentuali tabellaGenerale;
@@ -62,7 +61,6 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public void inserisciUnitaImmobiliare(){
 		state = StatiInserireNuovoCondominio.inserimentoUnitaImmobiliare;
 		GestoreCondomini.getInstance().inserisciUnitaImmobiliare();
-		
 	}
 	
 	
@@ -75,7 +73,8 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unitaImmobiliari) {
 		this.unitaImmobiliari=unitaImmobiliari;
-		CFI.aggiornaUnitaImmobiliari(unitaImmobiliari);
+		CUI.aggiornaUnitaImmobiliari(unitaImmobiliari);
+		
 		//AMM.mostraUnitaImmobiliari(unitaImmobiliari);
 	}
 	
@@ -132,7 +131,8 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void annulla() {
 		GestoreCondomini.getInstance().operazioneAnnullata();
-		setVisible(true);
+		this.dispose();
+		//setVisible(true);
 	}
 
 	public void fallito() {
@@ -141,7 +141,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void fatto() {
 		state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
-		CFI=new ConfermaUnitaImmobiliari(this,unitaImmobiliari);
+		CUI=new ConfermaUnitaImmobiliari(this,unitaImmobiliari);
 		this.setVisible(false);
 	}
 

@@ -65,7 +65,8 @@ public class InserireProprietario extends JFrame {
 	
 
 	private void bInserisciMouseMouseClicked(MouseEvent event) {
-		
+		AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
+		this.dispose();
 	}
 
 
@@ -123,15 +124,13 @@ public class InserireProprietario extends JFrame {
 			if(persone!=null)
 			{
 				DefaultComboBoxModel x=new DefaultComboBoxModel();
-				Iterator<Persona> i= persone.getPersone().iterator();
-				while(i.hasNext())
-				{
-					if(i.next() instanceof PersonaFisica)
-					x.addElement(((PersonaFisica)i.next()).getDati().getNome()+((PersonaFisica)i.next()).getDati().getCognome());
-					else if(i.next() instanceof PersonaGiuridica)
-						x.addElement(((PersonaGiuridica)i.next()).getDati().getpIva());
-				}
 				
+				for (Persona p : persone.getPersone()) {
+					if(p instanceof PersonaFisica)
+						x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
+						else if(p instanceof PersonaGiuridica)
+							x.addElement(((PersonaGiuridica)p).getDati().getpIva().getPartIva());
+				}
 				persona.setModel(x);
 			}
 			persona.setDoubleBuffered(false);

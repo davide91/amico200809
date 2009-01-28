@@ -19,18 +19,12 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.TuttePersone;
 import store.POJO.Persona;
-import store.POJO.UnitaImmobiliare;
 import datatype.DatiUnitaImmobiliare;
-import datatype.list.Percentuali;
 import datatype.list.Persone;
-import datatype.list.UnitaImmobiliari;
 import enumeration.CategoriaCatastale;
 import enumeration.DestinazioneUso;
-import enumeration.StatiInserireNuovoCondominio;
-import enumeration.StatiInserireUnitaImmobiliari;
+import enumeration.StatiConfermaUnitaImmobiliari;
 import executor.GestoreCondomini;
-import executor.GestoreCondominioAperto;
-import executor.GestorePersone;
 
 
 /**
@@ -45,24 +39,23 @@ import executor.GestorePersone;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone {
+public class InserireUnitaImmobiliare extends JFrame{
 
 //	private UnitaImmobiliari unitaImmobiliari;
 	private Persone persone;
-	private StatiInserireUnitaImmobiliari state;
+	private ConfermaUnitaImmobiliari CUI;
 	
-	public InserireUnitaImmobiliare(Persone persone) {
-		state=StatiInserireUnitaImmobiliari.base;
+	public InserireUnitaImmobiliare(ConfermaUnitaImmobiliari conf, Persone persone) {
 		this.persone=persone;
+		this.CUI=conf;
 		initComponents();
 	}
+	
 	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati){
-		state=StatiInserireUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
-		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
-		
+		CUI.inserisciDatiUnitaUImmobiliare(dati);
 	}
 	
-	public void inserisciNuovaPersona(){
+	/*public void inserisciNuovaPersona(){
 		state= StatiInserireUnitaImmobiliari.inserimentoNuovaPersona;
 		GestorePersone.getInstance().inserisciPersona(this);
 		
@@ -79,18 +72,15 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		}
 	}
 
-
+*/
 	public void ammissibile(Boolean b) {
 		if (b){
-			state=StatiInserireUnitaImmobiliari.inserimentoProprietari;
-			//AMM:mostraPersone(persone);
-			
+			AccedereProprietari AP = new AccedereProprietari(CUI,persone);
 		}
 		else {
-			state=StatiInserireUnitaImmobiliari.base;
+			setVisible(true);
 			//AMM.mostra(UnitaImmobiliareGiaInserita);
-		} 
-			
+		} 	
 	}
 
 	public void annulla() {
@@ -99,12 +89,11 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	}
 
 	public void fallito() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub implements AccedentiPersone 
 		
 	}
 
 	public void fatto() {
-		state=StatiInserireUnitaImmobiliari.inserimentoProprietari;
 		//AMM:mostraPersone(persone);
 	}
 
@@ -157,7 +146,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 	private void initComponents() {
-		setTitle("Inserire Unita'  Immobiliare");
+		setTitle("Inserire Unita' Immobiliare");
 		setLayout(new GroupLayout());
 		add(labelId,  new Constraints(new Leading(16, 116, 10, 10), new Leading(20, 23, 12, 12)));
 		add(labelCategoria,  new Constraints(new Leading(149, 120, 10, 10), new Leading(20, 23, 12, 12)));
@@ -167,7 +156,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		
 		
 		add(getBConferma(), new Constraints(new Leading(200, 10, 10), new Leading(93, 10, 10)));
-		//add(getBAnnulla(), new Constraints(new Leading(400, 10, 10), new Leading(93, 12, 12)));
+		add(getBAnnulla(), new Constraints(new Leading(400, 10, 10), new Leading(93, 12, 12)));
 		add(getCategoria(), new Constraints(new Leading(149, 120, 10, 10), new Leading(50, 22, 12, 12)));
 		add(getId(), new Constraints(new Leading(16, 116, 10, 10), new Leading(50, 23, 12, 12)));
 		add(getDestinazione(), new Constraints(new Leading(280, 180, 12, 12), new Leading(50,22, 12, 12)));
@@ -186,7 +175,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		}
 		return categoria;
 	}
-/*
+
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
@@ -194,7 +183,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 		}
 		return bAnnulla;
 	}
-*/
+
 	private JButton getBConferma() {
 		if (bConferma == null) {
 			bConferma = new JButton();
@@ -261,7 +250,7 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
 	 */
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -272,11 +261,11 @@ public class InserireUnitaImmobiliare extends JFrame implements AccedentiPersone
 			}
 		});
 	}
-	public boolean proprietaOK(Persone persone, Percentuali quote) {
+	/*public boolean proprietaOK(Persone persone, Percentuali quote) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+	*/
 	
 }
 

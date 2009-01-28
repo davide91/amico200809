@@ -3,6 +3,11 @@
  */
 package test.testStore;
 
+import junit.framework.TestCase;
+import store.TuttePersone;
+import store.POJO.Persona;
+import store.POJO.PersonaFisica;
+import store.POJO.PersonaGiuridica;
 import datatype.CodiceFiscale;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
@@ -10,13 +15,7 @@ import datatype.Email;
 import datatype.Indirizzo;
 import datatype.PartitaIva;
 import datatype.list.Persone;
-import enumeration.String;
 import enumeration.Provincia;
-import store.TuttePersone;
-import store.POJO.Persona;
-import store.POJO.PersonaFisica;
-import store.POJO.PersonaGiuridica;
-import junit.framework.TestCase;
 
 /**
  * @author bruno
@@ -40,7 +39,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		assertEquals(0, persone.recuperaPersone().size());
 		
 		//cinserisco una persona
-		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",(new Indirizzo("adua","3",String.AGLIE,Provincia.Alessandria,"15060")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
+		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",(new Indirizzo("adua","3","Francavilla Bisio",Provincia.AG,"15060")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		tp.inserisciPersona(dpf);
 		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 	}
@@ -53,7 +52,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 		
 		//Dati con i quali confronteremo la persona recuperata
-		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",(new Indirizzo("adua","3",String.AGLIE,Provincia.Alessandria,"15060")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
+		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc"),"bruno","mazzarello","328-4724731",(new Indirizzo("adua","3","Francavilla Bisio",Provincia.AG,"15060")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		
 		//recuperiamo la persona
 		Persona p = tp.recuperaPersone().recuperaPersone().get(0);
@@ -76,7 +75,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		assertEquals(1, persone.recuperaPersone().size());
 		
 		//Dati con i quali modificherò la persona recuperata
-		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc_Mod"),"bruno_Mod","mazzarello_Mod","328-4724731_Mod",(new Indirizzo("adua_Mod","3",String.ALMESE,Provincia.Alessandria,"15060_Mod")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
+		DatiPersonaFisica dpf = new DatiPersonaFisica(new CodiceFiscale("codFisc_Mod"),"bruno_Mod","mazzarello_Mod","328-4724731_Mod",(new Indirizzo("adua_Mod","3","Francavilla Bisio",Provincia.AL,"15060_Mod")),"0143-50187",new Email("mazzibruno@libero.it"),"ff");
 		
 		//recuperiamo la persona
 		Persona p = persone.recuperaPersone().get(0);
@@ -94,7 +93,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		assertEquals(1, tp.recuperaPersone().recuperaPersone().size());
 		
 		//ci inserisco una persona giuridica
-		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3",String.AGLIE,Provincia.Alessandria,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
+		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3","Francavilla Bisio",Provincia.AG,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
 		tp.inserisciPersona(dpg);
 		
 		//deve essere due perchè una era inserita prima
@@ -110,7 +109,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		assertEquals(2, tp.recuperaPersone().recuperaPersone().size());
 		
 		//Dati con i quali confronteremo la persona recuperata
-		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3",String.AGLIE,Provincia.Alessandria,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
+		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3","Francavilla Bisio",Provincia.AG,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
 			
 		//recuperiamo la persona
 		Persona p = tp.recuperaPersone().recuperaPersone().get(1);
@@ -133,7 +132,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		assertEquals(2, persone.recuperaPersone().size());
 		
 		//Dati con i quali confronteremo la persona recuperata
-		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3",String.AGLIE,Provincia.Alessandria,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
+		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3","Francavilla Bisio",Provincia.AL,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
 			
 		//recuperiamo la persona Fisica
 		Persona pf = persone.recuperaPersone().get(0);
@@ -151,7 +150,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		}
 	}
 	
-		public void testPERSONE_EliminazionePersonaFisica()
+/*		public void testPERSONE_EliminazionePersonaFisica()
 	{
 		tp = new TuttePersone();
 		Persone persone = tp.recuperaPersone();
@@ -182,4 +181,5 @@ public class TestSet02_TuttePersone extends TestCase {
 		
 		assertEquals(0, tp.recuperaPersone().recuperaPersone().size());
 	}
+	*/
 }
