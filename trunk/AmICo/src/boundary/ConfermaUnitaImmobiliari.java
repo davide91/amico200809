@@ -52,16 +52,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	private StatiConfermaUnitaImmobiliari state;
 	private InserireUnitaImmobiliare IUI;
 	
-	
-	private JTable table;
-	private JScrollPane jScrollPane0;
-	private JButton bContinua;
-	private JButton bAnnulla;
-	private JButton bInserisciUnitaImmobiliare;
-	private static final long serialVersionUID = 1L;
-	private JButton bAggiungiPropietari;
-	private JButton bModificaUnita;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+
 	
 	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
 		state = StatiConfermaUnitaImmobiliari.base;
@@ -85,7 +76,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		state= StatiConfermaUnitaImmobiliari.inserimentoNuovaPersona;
 		GestorePersone.getInstance().inserisciPersona(this);
 	}
-	
+
 	
 	public void specificaProprietari(Persone persone, Percentuali percentuali){
 		if (proprietaOK(persone, percentuali)){
@@ -139,6 +130,34 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		}
 	}
 	
+	public void aggiornaPersone(Persone persone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean proprietaOK(Persone persone, Percentuali quote) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
+		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
+	}
+
+	public void ammissibile(boolean b) {
+		IUI.ammissibile(b);
+		
+	}
+
+	public void fatto() {
+		IUI.fatto();
+		
+	}
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	private void bContinuaMouseMouseClicked(MouseEvent event) {
 		if(group.getButtonCount()<2)
 			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita' immobiliari");
@@ -155,9 +174,9 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	}
 	
 	private void bAggiungiPropietariMouseMouseClicked(MouseEvent event) {
-		int i;
+	/*	int i;
 		Enumeration e=group.getElements();
-	/*	for (i=0; e.hasMoreElements();i++ )
+		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
 	        	  AP = new AccedereProprietari(this,unita.getImmobili().get(i),persone);
 	*/	
@@ -172,7 +191,20 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		//new ModificaUnitaImmobiliare(unita.getImmobili().get(i))
 		
 	}
+	
 
+	
+	private JTable table;
+	private JScrollPane jScrollPane0;
+	private JButton bContinua;
+	private JButton bAnnulla;
+	private JButton bInserisciUnitaImmobiliare;
+	private static final long serialVersionUID = 1L;
+	private JButton bAggiungiPropietari;
+	private JButton bModificaUnita;
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
+	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
@@ -334,23 +366,8 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		});
 	}
 
-	public void aggiornaPersona(Persona persona) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void aggiornaPersone(Persone persone) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public boolean proprietaOK(Persone persone, Percentuali quote) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
-		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
-	}
 
 }

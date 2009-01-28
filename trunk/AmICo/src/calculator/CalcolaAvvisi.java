@@ -29,7 +29,7 @@ public class CalcolaAvvisi {
 	
 	private static void calcolaPagamentiScaduti() {
 		Pagamenti pagamenti = m_condominio.recuperaPagamenti();
-		
+		/* problema prima andava ora non +!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		Iterator<Pagamento> pagamentiIter = pagamenti.iterator();
 	
 		
@@ -43,7 +43,7 @@ public class CalcolaAvvisi {
 		
 		
 
-		
+		*/
 		
 
 	}

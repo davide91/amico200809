@@ -37,7 +37,7 @@ import executor.GestoreCondomini;
 
 public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
-	private ConfermaUnitaImmobiliari CUI;
+	//private ConfermaUnitaImmobiliari CUI;
 	private UnitaImmobiliari unitaImmobiliari;
 	private DatiCondominio datiCondominio = new DatiCondominio();
 	private Percentuali tabellaGenerale;
@@ -70,14 +70,14 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		
 	}
 	
-	
+	/*
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unitaImmobiliari) {
 		this.unitaImmobiliari=unitaImmobiliari;
 		CUI.aggiornaUnitaImmobiliari(unitaImmobiliari);
 		
 		//AMM.mostraUnitaImmobiliari(unitaImmobiliari);
 	}
-	
+	*/
 	
 	public void ammissibile(Boolean b) {
 		switch (state) {
@@ -141,7 +141,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void fatto() {
 		state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
-		CUI=new ConfermaUnitaImmobiliari(this,unitaImmobiliari);
+	//	CUI=new ConfermaUnitaImmobiliari(this,unitaImmobiliari);
 		this.setVisible(false);
 	}
 
