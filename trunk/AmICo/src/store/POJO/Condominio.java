@@ -200,7 +200,7 @@ public class Condominio {
 	
 	public Pagamenti recuperaPagamenti()
 	{
-		return null;
+		return new Pagamenti();
 	}
 	
 	public void modificaPreferenze(Preferenze pref)
