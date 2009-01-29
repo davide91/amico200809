@@ -52,8 +52,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	private StatiConfermaUnitaImmobiliari state;
 	private InserireUnitaImmobiliare IUI;
 	
-
-	
 	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
 		state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
