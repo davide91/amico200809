@@ -102,21 +102,31 @@ public class GestorePersone implements BaseExecutor {
 	
 	private boolean personaGiaInserita(DatiPersona datiP) {
 		Persone pf = TuttePersone.getInstance().recuperaPersone();
-		for (Persona p : pf.getPersone()) {
-			if(p instanceof PersonaFisica)
-			{
-				if(((PersonaFisica)p).getDati().equals((DatiPersonaFisica)datiP))
+		
+		if(datiP instanceof DatiPersonaFisica)
+		{
+			for (Persona p : pf.getPersone()) {
+				if(p instanceof PersonaFisica)
 				{
-					return true;
+					if(((PersonaFisica)p).getDati().equals((DatiPersonaFisica)datiP))
+					{
+						return true;
+					}
 				}
 			}
-			else
-			{
-				if(((PersonaGiuridica)p).getDati().equals((DatiPersonaGiuridica)datiP))
+		}
+		else
+		{
+			for (Persona p : pf.getPersone()) {
+				if(p instanceof PersonaGiuridica)
 				{
-					return true;
+					if(((PersonaGiuridica)p).getDati().equals((DatiPersonaGiuridica)datiP))
+					{
+						return true;
+					}
 				}
-			}	
+			}
+			
 		}
 		return false;
 	}

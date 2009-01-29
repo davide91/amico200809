@@ -67,6 +67,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 	private ButtonGroup buttonGroup1;
 	private JSeparator jSeparator1;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	public AmICo() {
 		state=StatiAmICo.base;
 		
