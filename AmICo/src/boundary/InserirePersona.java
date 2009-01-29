@@ -53,7 +53,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		this.GP=GestorePersone.getInstance();
 		this.setVisible(true);
 	}
-
 	
 
 	private void initgroup()
@@ -92,6 +91,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		if(b){
 			JOptionPane.showMessageDialog(this, "persona inserita");
 			GP.procedi(true);
+			this.dispose();
 		}
 		else {
 			JOptionPane.showMessageDialog(this, "persona non inserita");

@@ -40,11 +40,12 @@ import executor.GestoreCondomini;
 public class InserireUnitaImmobiliare extends JFrame{
 
 //	private UnitaImmobiliari unitaImmobiliari;
-	private Persone persone;
+	//private Persone persone;
 	private ConfermaUnitaImmobiliari CUI;
 	
-	public InserireUnitaImmobiliare(ConfermaUnitaImmobiliari conf, Persone persone) {
-		this.persone=persone;
+	public InserireUnitaImmobiliare(ConfermaUnitaImmobiliari conf/*, Persone persone*/)
+	{
+		//this.persone=persone;
 		this.CUI=conf;
 		initComponents();
 	}
@@ -73,10 +74,11 @@ public class InserireUnitaImmobiliare extends JFrame{
 */
 	public void ammissibile(Boolean b) {
 		if (b){
-			AccedereProprietari AP = new AccedereProprietari(CUI,persone);
+			CUI.creaAccedereProprietari();
 		}
 		else {
-			setVisible(true);
+			JOptionPane.showMessageDialog(this, "unita immobiliare gia inserita");
+			CUI.bInserisciUnitaImmobiliareMouseMouseClicked(null);
 			//AMM.mostra(UnitaImmobiliareGiaInserita);
 		} 	
 	}
@@ -103,7 +105,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 	public void ko() {
 		GestoreCondomini.getInstance().procedi(false);
 		//AMM.mostra(unitaImmobiliareInseritaKO);
-		
 	}
 
 	public void ok() {
@@ -113,10 +114,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 
 	public void aggiornaPersona(Persona persona) {
 		// TODO Auto-generated method stub
-	}
-
-	public void aggiornaPersone(Persone persone) {
-		this.persone=persone;
 	}
 
 	protected void confermaMouseMouseClicked(MouseEvent event) {

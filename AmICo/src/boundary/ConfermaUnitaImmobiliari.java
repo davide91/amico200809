@@ -33,6 +33,7 @@ import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiConfermaUnitaImmobiliari;
+import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 import executor.GestorePersone;
@@ -44,7 +45,7 @@ import executor.GestorePersone;
 public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone {
 
 	private ButtonGroup group;
-	private GestoreCondominioAperto GCA;
+//	private GestoreCondominioAperto GCA;
 	private UnitaImmobiliari unita;
 	private Persone persone;
 	private InserireNuovoCondominio INC;
@@ -74,6 +75,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		state= StatiConfermaUnitaImmobiliari.inserimentoNuovaPersona;
 		GestorePersone.getInstance().inserisciPersona(this);
 	}
+	
 
 	
 	public void specificaProprietari(Persone persone, Percentuali percentuali){
@@ -87,6 +89,10 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		}
 	}
 
+	public void creaAccedereProprietari()
+	{
+		AP = new AccedereProprietari(this,persone);
+	}
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
 	{
@@ -128,13 +134,34 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		}
 	}
 	
+	public void ok() {
+		if(state==StatiConfermaUnitaImmobiliari.attesaConfermaProprieta)
+		{
+			state=StatiConfermaUnitaImmobiliari.base;
+			GestoreCondomini.getInstance().procedi(true);
+			JOptionPane.showMessageDialog(this, "unita e quote inserite correttamente");
+		}
+	}
+	
+	public void ko() {
+		if(state==StatiConfermaUnitaImmobiliari.attesaConfermaProprieta)
+		{
+			state=StatiConfermaUnitaImmobiliari.base;
+			GestoreCondomini.getInstance().procedi(false);
+			JOptionPane.showMessageDialog(this, "unita e quote non inserite");
+		}
+	}
+	
+
 	public void aggiornaPersone(Persone persone) {
-		// TODO Auto-generated method stub
-		
+		this.persone=persone;
+		AP.aggiornaPersone(persone);
 	}
 
-	public boolean proprietaOK(Persone persone, Percentuali quote) {
-		// TODO Auto-generated method stub
+	public boolean proprietaOK(Persone proprietari, Percentuali quote) {
+		state=StatiConfermaUnitaImmobiliari.attesaConfermaProprieta;
+		GestoreCondomini.getInstance().passaProprieta(proprietari, quote);
+		
 		return false;
 	}
 
@@ -160,14 +187,19 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		if(group.getButtonCount()<2)
 			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita' immobiliari");
 		else {
-			INC.finito();
+			int c = JOptionPane.showConfirmDialog(this, "Attenzione stai terminando l'operazione di inserimento di unita' immobiliari dopo non sara' piu' possibile aggiungerne altre /n vuoi continuare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if(c==0)
+			{
+				INC.finito();
+				this.dispose();
+			}
 		}
 	}
 
-	private void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
+	public void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
 		state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
 		INC.inserisciUnitaImmobiliare();
-		IUI = new InserireUnitaImmobiliare(this,persone);
+		IUI = new InserireUnitaImmobiliare(this/*,persone*/);
 		this.setVisible(false);
 	}
 	
@@ -180,7 +212,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	*/	
 	}
 
-	private void bModificaUnitaMouseMouseClicked(MouseEvent event) {
+	private void bEliminaUnitaMouseMouseClicked(MouseEvent event) {
 		int i;
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
@@ -199,7 +231,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	private JButton bInserisciUnitaImmobiliare;
 	private static final long serialVersionUID = 1L;
 	private JButton bAggiungiPropietari;
-	private JButton bModificaUnita;
+	private JButton bEliminaUnita;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
 	
@@ -207,7 +239,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
 		add(getBInserisciUnitaImmobiliare(), new Constraints(new Leading(16, 10, 10), new Leading(219, 12, 12)));
-		add(getBModificaUnita(), new Constraints(new Trailing(12, 327, 327), new Leading(219, 12, 12)));
+		add(getBEliminaUnita(), new Constraints(new Trailing(12, 327, 327), new Leading(219, 12, 12)));
 		add(getBAggiungiPropietari(), new Constraints(new Leading(280, 10, 10), new Leading(219, 12, 12)));
 		add(getBContinua(), new Constraints(new Leading(20, 10, 10), new Leading(288, 10, 10)));
 		add(getBAnnulla(), new Constraints(new Leading(200, 10, 10), new Leading(288, 10, 10)));
@@ -215,18 +247,18 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		setSize(612, 358);
 	}
 
-	private JButton getBModificaUnita() {
-		if (bModificaUnita == null) {
-			bModificaUnita = new JButton();
-			bModificaUnita.setText("Modifica unita'");
-			bModificaUnita.addMouseListener(new MouseAdapter() {
+	private JButton getBEliminaUnita() {
+		if (bEliminaUnita == null) {
+			bEliminaUnita = new JButton();
+			bEliminaUnita.setText("Elimina unita'");
+			bEliminaUnita.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
-					bModificaUnitaMouseMouseClicked(event);
+					bEliminaUnitaMouseMouseClicked(event);
 				}
 			});
 		}
-		return bModificaUnita;
+		return bEliminaUnita;
 	}
 
 	private void initGroup() {

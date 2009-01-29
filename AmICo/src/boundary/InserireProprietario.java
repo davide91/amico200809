@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -21,7 +22,10 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
+import datatype.DatiUnitaImmobiliare;
 import datatype.list.Persone;
+import enumeration.CategoriaCatastale;
+import enumeration.DestinazioneUso;
 
 /**
  * @author Federico
@@ -45,28 +49,35 @@ public class InserireProprietario extends JFrame {
 		initComponents();
 	}
 	
-	public void aggiornaPersone(Persone p)
+	public void aggiornaPersone(Persone per)
 	{
-		persone=p;
+		persone=per;
 		
 		DefaultComboBoxModel x=new DefaultComboBoxModel();
 		Iterator<Persona> i= persone.getPersone().iterator();
-		while(i.hasNext())
-		{
-			if(i.next() instanceof PersonaFisica)
-				x.addElement(((PersonaFisica)i.next()).getDati().getNome()+((PersonaFisica)i.next()).getDati().getCognome());
-			else if(i.next() instanceof PersonaGiuridica)
-				x.addElement(((PersonaGiuridica)i.next()).getDati().getpIva());
+
+			
+		for (Persona p : persone.getPersone()) {
+			if(p instanceof PersonaFisica)
+				x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
+				else if(p instanceof PersonaGiuridica)
+					x.addElement(((PersonaGiuridica)p).getDati().getpIva().getPartIva());
 		}
-		
+					
 		persona.setModel(x);
 		
 	}
 	
 
 	private void bInserisciMouseMouseClicked(MouseEvent event) {
-		AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
-		this.dispose();
+		try
+		{
+			AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
+			this.dispose();
+		}catch(NumberFormatException nfe)
+		{
+			JOptionPane.showMessageDialog(this, "Formato quote di possesso errato!\n Utilizzare solo cifre ");
+		}
 	}
 
 
