@@ -33,5 +33,4 @@ public class Pagamenti {
 	public void setBilanci(List<Pagamento> pagamenti) {
 		this.pagamenti = pagamenti;
 	}
-	
 }

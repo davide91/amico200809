@@ -9,18 +9,31 @@ package datatype;
  */
 public class CassaSottoSogliaMinima extends Avviso{
 
-	private Euro valore = new Euro();
+	private Euro attuale = new Euro();
+	private Euro soglia = new Euro();
+	private String nomeCassa = new String();
 	
-	public CassaSottoSogliaMinima(Euro e)
+	public CassaSottoSogliaMinima(String nomeCassa, Euro attuale, Euro soglia)
 	{
-		valore = e;
+		this.attuale = attuale;
+		this.soglia = soglia;
+		this.nomeCassa = nomeCassa;
 	}
 
-	public Euro getValore() {
-		return valore;
+	public Euro getAttuale() {
+		return attuale;
 	}
 
-	public void setValore(Euro valore) {
-		this.valore = valore;
+	public void setAttuale(Euro valore) {
+		this.attuale = valore;
 	}
+	
+	public Euro getSoglia() {
+		return soglia;
+	}
+	
+	public void setSoglia(Euro valore) {
+		soglia = valore;
+	}
+	
 }
