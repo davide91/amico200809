@@ -40,7 +40,7 @@ public class GestoreCondomini implements BaseExecutor {
 		return m_gestoreCondominio;
 	}
 	
-	private  AmICo m_amico;
+	private AmICo m_amico;
 	private Condominio m_condominio;
 	private DatiCondominio m_datiCondominio;
 	private TuttiCondomini m_dbCondomini;
@@ -183,7 +183,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_confermaUnitaImmobiliari.ammissibile(true);
 		
-		/* Non presente in 3.5.4 */
+		/* Non presente in 3.5.4 ma serve*/
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 	}
 		
