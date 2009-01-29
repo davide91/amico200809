@@ -33,6 +33,7 @@ import store.POJO.Proprieta;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
+import executor.GestoreCondomini;
 
 /**
  * @author Federico
@@ -94,6 +95,12 @@ public class AccedereProprietari extends JFrame {
 	public void inserisciNuovaPersona(){	
 		CUI.inserisciNuovaPersona();
 	}
+
+	public void aggiornaPersone(Persone persone) {
+		this.persone=persone;
+		IP.aggiornaPersone(persone);
+	}
+
 	
 	public void aggiornaTabella(Persona pers, float quota)
 	{
@@ -211,11 +218,16 @@ public class AccedereProprietari extends JFrame {
 	}
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
+		CUI.proprietaOK(proprietari, quote);
+		CUI.setVisible(true);
+		this.dispose();
 		
 	}
 
 
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
+		GestoreCondomini.getInstance().operazioneAnnullata();
+		this.dispose();
 	}
 
 

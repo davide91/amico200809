@@ -53,6 +53,7 @@ public class GestorePersone implements BaseExecutor {
 	
 	public void inserisciDatiPersona(DatiPersona datiP){
 		datiPersona=datiP;
+		state=StatiGestorePersone.attesaConfermaInserimento;
 		if (datiP instanceof DatiPersonaFisica) {
 			IP.ammissibile(!personaGiaInserita((DatiPersonaFisica)datiP));	
 		if (datiP instanceof DatiPersonaGiuridica) {
@@ -60,7 +61,7 @@ public class GestorePersone implements BaseExecutor {
 			}
 		}
 		
-		state=StatiGestorePersone.attesaConfermaInserimento;
+	
 		
 	}
 	
@@ -69,12 +70,12 @@ public class GestorePersone implements BaseExecutor {
 		RICH=richiedente;
 		state=StatiGestorePersone.inserimentoPersona;
 		IP=new InserirePersona();
-	//	IP.creaInserirePersona();
-		
+
 	}
 	
 	public void modificaDatiPersona(DatiPersona datiP) {
 		datiPersona=datiP;
+		state=StatiGestorePersone.attesaConfermaModifica;
 		if (datiP instanceof DatiPersonaFisica) {
 			MP.ammissibile(personaGiaInserita((DatiPersonaFisica)datiP));	
 		if (datiP instanceof DatiPersonaGiuridica) {
@@ -82,7 +83,7 @@ public class GestorePersone implements BaseExecutor {
 			}
 		}
 		
-		state=StatiGestorePersone.attesaConfermaModifica;
+		
 		
 	}
 	
@@ -90,9 +91,10 @@ public class GestorePersone implements BaseExecutor {
 	public void modificaPersona(AccedentiPersone richiedente, Persona persona) {
 		RICH=richiedente;
 		personaMod=persona;
+		state=StatiGestorePersone.modificaPersona;
 		MP=new ModificarePersona(persona);
 		
-		state=StatiGestorePersone.modificaPersona;
+	
 	}
 	
 	public void operazioneAnnullata() {
@@ -143,8 +145,6 @@ public class GestorePersone implements BaseExecutor {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 public void procedi(boolean b) {
 	switch (state) {
