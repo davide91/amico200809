@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -108,23 +109,26 @@ public class InserireUnitaImmobiliare extends JFrame{
 	public void ok() {
 		GestoreCondomini.getInstance().procedi(true);
 		//AMM.mostra(unitaImmobiliareInseritaOK);
-		
 	}
 
 	public void aggiornaPersona(Persona persona) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void aggiornaPersone(Persone persone) {
 		this.persone=persone;
-		
 	}
 
 	protected void confermaMouseMouseClicked(MouseEvent event) {
-		inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
+		try
+		{
+			inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
+			this.dispose();
+		}catch(NumberFormatException nfe)
+		{
+			JOptionPane.showMessageDialog(this, "Formato metratura errato!\n Utilizzare solo cifre \n Utilizzare . (punto) al posto di ,(virgola) ");
+		}
 		//CUI.setVisible(true);
-		this.dispose();
 		
 	}
 	
