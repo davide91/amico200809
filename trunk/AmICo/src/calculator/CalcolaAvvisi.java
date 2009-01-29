@@ -38,18 +38,23 @@ public class CalcolaAvvisi {
 
 		Iterator<Pagamento> pagamentiIter = pagamenti.getPagamenti().iterator();
 
-
 		Data currData = 
 			new Data(
 					new Date(
 							GregorianCalendar.getInstance().getTime().getTime()));
 		
+		int ritardo = m_condominio.getPreferenze().getRitardoAmmesso();
+		
 		while(pagamentiIter.hasNext())
 		{
-			Data scadenza = pagamentiIter.next().getDatiPagamento().getScadenza();
-
-			if ( scadenza.minoreUguale(currData))  
+			Data scadenza = new Data(
+					pagamentiIter.next().getDatiPagamento().getScadenza());
+			
+			scadenza.add(Calendar.DAY_OF_MONTH, ritardo);
+			
+			if ( currData.maggioreUguale(scadenza) )  
 			{
+				
 				/*
 				 * Pagamento scaduto
 				 * 
