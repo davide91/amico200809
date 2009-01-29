@@ -55,12 +55,7 @@ public class CalcolaAvvisi {
 				 * 
 				 */
 			}
-			
-
-			
 		}
-		
-
 	}
 	
 	private static void calcolaCassaSottoSogliaMinima() {
