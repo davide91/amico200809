@@ -4,7 +4,7 @@ import enumeration.Provincia;
 
 public class Indirizzo {
 	private String via;
-	private String interno;
+	private String interno = " ";
 	private String comune;
 	private Provincia provincia;
 	private String cap;
@@ -15,7 +15,7 @@ public class Indirizzo {
 	public Indirizzo(String via, String interno, String com, Provincia prov, String cap)
 	{
 		this.via = via;
-		this.interno = interno;
+	//	this.interno = interno;
 		this.comune = com;
 		this.provincia = prov;
 		this.cap = cap;
@@ -41,14 +41,19 @@ public class Indirizzo {
 			return true;
 		if (getClass() != obj.getClass())
 			return false;
-		final Indirizzo other = (Indirizzo)obj;
+		final Indirizzo o = (Indirizzo)obj;
 		
-		if (this.via == null || this.interno == null || this.comune == null || this.provincia == null || this.cap == null) {
-			if (other.via == null || other.interno == null || other.comune == null || other.provincia == null || other.cap == null)
-				return false;
-		} else if (!(this.via.equals(other.via) && this.interno.equals(other.interno) && this.comune.equals(other.comune) && this.provincia.equals(other.provincia) && this.cap.equals(other.cap)))
+		if (!o.getCap().equals(getCap()))
 			return false;
-		return true;
+		if (!o.getComune().equals(getComune()))
+			return false;
+	//	if (!o.getInterno().equals(getInterno()))
+	//		return false;
+		if (o.getProvincia()!=getProvincia())
+			return false;
+		if (!o.getVia().equals(getVia()))
+			return false;
+		 return true;
 	}
 
 	public String getVia() {

@@ -100,8 +100,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			else
 			{
 				state=StatiInserireNuovoCondominio.base;	
-		
-				JOptionPane.showMessageDialog(this, "il condominio non e' stato inserito");
+				JOptionPane.showMessageDialog(this, "Condominio già Presente");
 			}
 			break;
 		case controlloTabellaMillesimaleProprieta:
@@ -152,7 +151,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void ko() {
 		if (state==StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale)
-			JOptionPane.showMessageDialog(this, "il condominio non e' stato inserito");
+			JOptionPane.showMessageDialog(this, "Condominio non inserito");
 
 		GestoreCondomini.getInstance().procedi(false);
 		state=StatiInserireNuovoCondominio.base;
@@ -168,7 +167,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			break;
 		case attesaConfermaTabellaMillesimale:
 			GestoreCondomini.getInstance().procedi(true);
-			JOptionPane.showMessageDialog(this, "il condominio e' stato inserito correttamente");
+			JOptionPane.showMessageDialog(this, "Condominio inserito correttamente");
 			break;
 		default:
 			break;
