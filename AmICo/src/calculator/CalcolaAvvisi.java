@@ -1,8 +1,14 @@
 package calculator;
 
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
+
+import datatype.Data;
 import datatype.DatiPagamento;
 import datatype.Euro;
+import datatype.Preferenze;
 import datatype.list.Avvisi;
 import datatype.list.Pagamenti;
 import store.POJO.Cassa;
@@ -29,21 +35,30 @@ public class CalcolaAvvisi {
 	
 	private static void calcolaPagamentiScaduti() {
 		Pagamenti pagamenti = m_condominio.recuperaPagamenti();
-		/* problema prima andava ora non +!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		Iterator<Pagamento> pagamentiIter = pagamenti.iterator();
-	
+
+		Iterator<Pagamento> pagamentiIter = pagamenti.getPagamenti().iterator();
+
+
+		Data currData = 
+			new Data(
+					new Date(
+							GregorianCalendar.getInstance().getTime().getTime()));
 		
-		while (pagamentiIter.hasNext())
+		while(pagamentiIter.hasNext())
 		{
-			DatiPagamento dati = pagamentiIter.next().getDatiPagamento();
+			Data scadenza = pagamentiIter.next().getDatiPagamento().getScadenza();
+
+			if ( scadenza.minoreUguale(currData))  
+			{
+				/*
+				 * Pagamento scaduto
+				 * 
+				 */
+			}
 			
+
 			
 		}
-		
-		
-		
-
-		*/
 		
 
 	}
