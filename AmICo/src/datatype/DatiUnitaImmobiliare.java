@@ -21,7 +21,7 @@ public class DatiUnitaImmobiliare {
 	public DatiUnitaImmobiliare()
 	{
 		id="";
-		catCatastale = CategoriaCatastale.A10;
+		catCatastale = CategoriaCatastale.A2;
 		posizioneInterna ="";
 		metriQ = (float)0.0;
 		destUso = DestinazioneUso.appartamento;
