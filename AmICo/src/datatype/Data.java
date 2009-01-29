@@ -13,35 +13,40 @@ import java.util.GregorianCalendar;
  */
 public class Data {
 	
-	private GregorianCalendar data = new GregorianCalendar();
+	private GregorianCalendar m_data = new GregorianCalendar();
 	
-	public Data(Date data)  // prende una data in java.sql.date e crea l'istnza
+	public Data(Date data)  // prende una data in java.sql.date e crea l'istanza
 	{
-		data.setTime(data.getTime());
+		m_data.setTime(data);
+	}
+	
+	public Data(Data data)
+	{
+		m_data.setTime(data.getTime());
 	}
 	
 	public Data(int day, int month, int year)
 	{
-		data.set(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+		m_data.set(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
 	}
 	
 	public void creaData(int gg,int mm,int aa)
 	{
-		data = new GregorianCalendar(aa,mm,gg);
+		m_data = new GregorianCalendar(aa,mm,gg);
 	}
 	public Calendar getCalendar() {
-		return data;
+		return m_data;
 	}
 	
 	public Data(String s)
 	{
 		try{
 			String[] ss=s.split("/");
-			data.set(Integer.valueOf(ss[2]), (Integer.valueOf(ss[1])-1), Integer.valueOf(ss[0]));
+			m_data.set(Integer.valueOf(ss[2]), (Integer.valueOf(ss[1])-1), Integer.valueOf(ss[0]));
 		}
 		catch (Exception e)
 		{
-			data.set(0, 0, 0);
+			m_data.set(0, 0, 0);
 		}
 	}
 
@@ -50,14 +55,14 @@ public class Data {
 	}
 
 	public void setCalendar(GregorianCalendar calendar) {
-		this.data = calendar;
+		this.m_data = calendar;
 	}	
 	
 	public boolean equals(Data d)
 	{
-		if( this.data.get(GregorianCalendar.DAY_OF_MONTH)==d.getCalendar().get(GregorianCalendar.DAY_OF_MONTH) &&
-			this.data.get(GregorianCalendar.MONTH)==(d.getCalendar().get(GregorianCalendar.MONTH)) &&
-			this.data.get(GregorianCalendar.YEAR)==d.getCalendar().get(GregorianCalendar.YEAR))
+		if( m_data.get(GregorianCalendar.DAY_OF_MONTH)==d.getCalendar().get(GregorianCalendar.DAY_OF_MONTH) &&
+			m_data.get(GregorianCalendar.MONTH)==(d.getCalendar().get(GregorianCalendar.MONTH)) &&
+			m_data.get(GregorianCalendar.YEAR)==d.getCalendar().get(GregorianCalendar.YEAR))
 			return true;
 		else
 			return false;
@@ -66,20 +71,30 @@ public class Data {
 	@Override
 	public int hashCode()
 	{
-		return data.hashCode();
+		return m_data.hashCode();
 	}
 	
 	public boolean minoreUguale(Data d)
 	{
-		return this.data.before(d.getCalendar());	
+		return m_data.before(d.getCalendar());	
 	}
 	
 	public boolean maggioreUguale(Data d)//this maggiore di d
 	{
-		return this.data.after(d.getCalendar());
+		return m_data.after(d.getCalendar());
 	}
 
 	public void creaCurrenDate() {
-		data = new GregorianCalendar();
+		m_data = new GregorianCalendar();
+	}
+	
+	public Date getTime()
+	{
+		return new Date(m_data.getTime().getTime());
+	}
+	
+	public void add(int field, int amount)
+	{
+		m_data.add(field,amount);
 	}
 }
