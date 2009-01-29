@@ -82,17 +82,20 @@ public class AmICo extends JFrame implements BaseBoundary{
 	public void apriCondominio(Condominio condominio){
 		GestoreCondomini.getInstance().apriCondominio(condominio);
 		state=StatiAmICo.inserimentoCondominio;
+		setVisible(false);
 		
 	}
 	
 	public void  inserisciCondominio() {
 		GestoreCondomini.getInstance().inserisciCondominio();
 		state=StatiAmICo.inserimentoCondominio;
+		setVisible(false);
 	}
 	
 	public void  importaCondominio() {
 		//AMM.richiediSelezioneFile();
 		state = StatiAmICo.importazioneCondominio;
+		setVisible(false);
 	}
 	
 	public void aggiornaCondomini(Condomini condomini){

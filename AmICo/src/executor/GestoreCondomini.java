@@ -117,8 +117,9 @@ public class GestoreCondomini implements BaseExecutor {
 	/*	switch (m_state) {
 		case inserimentoCondominio :
 		{
-	*/		m_dbCondomini.eliminaCondominio(m_condominio);
+	*/	//	if (m_condominio != null) TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 			m_state = StatiGestoreCondominio.gestoreCondomini;
+			m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 	/*	}
 			break;
 		
