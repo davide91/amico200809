@@ -91,6 +91,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 
 	public void creaAccedereProprietari()
 	{
+		state = StatiConfermaUnitaImmobiliari.inserimentoProprietari;
 		AP = new AccedereProprietari(this,persone);
 	}
 	
@@ -166,12 +167,15 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	}
 
 	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
+		state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
 		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
 	}
 
 	public void ammissibile(boolean b) {
-		IUI.ammissibile(b);
-		
+		if(state == StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare)
+		{
+			IUI.ammissibile(b);
+		}
 	}
 
 	public void fatto() {

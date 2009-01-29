@@ -48,6 +48,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	public void ammissibile(EsitoControlloDatiPersona 	controlloDati) {
 		//AMM.richiediConferma(controlloDati);
 	}
+	
 	public void ammissibile(Boolean b) {
 		
 	}

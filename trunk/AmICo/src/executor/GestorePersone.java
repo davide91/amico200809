@@ -60,9 +60,6 @@ public class GestorePersone implements BaseExecutor {
 			IP.ammissibile(!personaGiaInserita((DatiPersonaGiuridica) datiP));
 			}
 		}
-		
-	
-		
 	}
 	
 	public void inserisciPersona(AccedentiPersone richiedente){
@@ -82,9 +79,6 @@ public class GestorePersone implements BaseExecutor {
 			MP.ammissibile(personaGiaInserita((DatiPersonaGiuridica) datiP));
 			}
 		}
-		
-		
-		
 	}
 	
 	
