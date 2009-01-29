@@ -14,5 +14,5 @@ import executor.Avvio;
  */
 public class Avvisi {
 
-	List<Avviso> listaAvvisi = new ArrayList<Avviso>();
+	//List<Avviso> listaAvvisi = new ArrayList<Avviso>();
 }

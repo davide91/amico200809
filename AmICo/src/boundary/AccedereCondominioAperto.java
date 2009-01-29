@@ -70,8 +70,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		setVisible(true);
 		
 		state=StatiAccedereCondominioAperto.base;
-		
-		
 	}
 
 	private void initComponents() {
