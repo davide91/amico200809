@@ -40,7 +40,7 @@ public class GestoreCondomini implements BaseExecutor {
 		return m_gestoreCondominio;
 	}
 	
-	private AmICo m_amico;
+	private  AmICo m_amico;
 	private Condominio m_condominio;
 	private DatiCondominio m_datiCondominio;
 	private TuttiCondomini m_dbCondomini;
@@ -75,8 +75,9 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	private boolean condominioGiaInserito(DatiCondominio datiCondominio) {
+		//siccome l'ID condominio è univoco anche sul DB risulat che il condominio è già inserito anche se ha solo l'id uguale
 		for ( Condominio condominio : m_dbCondomini.recuperaCondomini().getCondomini() )
-			if ( condominio.recuperaDatiCondominio().equals(datiCondominio) )
+			if (condominio.recuperaDatiCondominio().equals(datiCondominio) || condominio.recuperaDatiCondominio().getId().equals(datiCondominio.getId()))
 				return true;
 		
 		return false;
@@ -119,6 +120,7 @@ public class GestoreCondomini implements BaseExecutor {
 		{
 	*/	//	if (m_condominio != null) TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 			m_state = StatiGestoreCondominio.gestoreCondomini;
+			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 			m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 	/*	}
 			break;
@@ -183,7 +185,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_confermaUnitaImmobiliari.ammissibile(true);
 		
-		/* Non presente in 3.5.4 ma serve*/
+		/* Non presente in 3.5.4 */
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 	}
 		
@@ -249,9 +251,10 @@ public class GestoreCondomini implements BaseExecutor {
 		 */
 	}
 	
-	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 		
-		for ( UnitaImmobiliare unit : m_condominio.recuperaUnitaImmobiliari().getImmobili() )
-			if ( unit.getDatiUnitaImmobiliare().equals(datiUnitaImmobliare))
+	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 	
+		//siccome l'id è univoco sul db consiedero l'unità già inserita anche se ha solo l'id uguale
+		for ( UnitaImmobiliare unit : m_condominio.recuperaUnitaImmobiliari().getImmobili())
+			if ( unit.getDatiUnitaImmobiliare().equals(datiUnitaImmobliare) || unit.getDatiUnitaImmobiliare().getId().equals(datiUnitaImmobliare.getId()))
 				return true;
 		return false;
 	}
