@@ -45,7 +45,6 @@ import executor.GestorePersone;
 public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone {
 
 	private ButtonGroup group;
-//	private GestoreCondominioAperto GCA;
 	private UnitaImmobiliari unita;
 	private Persone persone;
 	private InserireNuovoCondominio INC;

@@ -75,10 +75,10 @@ public class InserireUnitaImmobiliare extends JFrame{
 	public void ammissibile(Boolean b) {
 		if (b){
 			CUI.creaAccedereProprietari();
+			this.dispose();
 		}
 		else {
 			JOptionPane.showMessageDialog(this, "unita immobiliare gia inserita");
-			CUI.bInserisciUnitaImmobiliareMouseMouseClicked(null);
 			//AMM.mostra(UnitaImmobiliareGiaInserita);
 		} 	
 	}
@@ -120,7 +120,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 		try
 		{
 			inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
-			this.dispose();
 		}catch(NumberFormatException nfe)
 		{
 			JOptionPane.showMessageDialog(this, "Formato metratura errato!\n Utilizzare solo cifre \n Utilizzare . (punto) al posto di ,(virgola) ");
