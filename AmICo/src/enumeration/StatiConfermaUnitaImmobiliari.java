@@ -8,5 +8,9 @@ package enumeration;
  *
  */
 public enum StatiConfermaUnitaImmobiliari {
-	base, attesaConfermaDatiUnitaImmobiliare, inserimentoProprietari, attesaConfermaProprieta, inserimentoNuovaPersona
+	base, 
+	attesaConfermaDatiUnitaImmobiliare, 
+	inserimentoProprietari, 
+	attesaConfermaProprieta, 
+	inserimentoNuovaPersona
 }
