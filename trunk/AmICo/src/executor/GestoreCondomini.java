@@ -2,31 +2,25 @@ package executor;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
 
-import calculator.FormatoAmICo;
-
-import boundary.AccedereProprietari;
-import boundary.AmICo;
-import boundary.ConfermaUnitaImmobiliari;
-import boundary.DriverFileSystem;
-import boundary.InserireNuovoCondominio;
-import boundary.InserireUnitaImmobiliare;
-import boundary.AccederePersone;
-import boundary.InserirePersona;
-import datatype.DatiCondominio;
-import datatype.DatiTabellaMillesimale;
-import datatype.DatiUnitaImmobiliare;
-import datatype.list.Condomini;
-import datatype.list.Persone;
-import datatype.list.Percentuali;
-import datatype.list.UnitaImmobiliari;
-import enumeration.StatiGestoreCondominio;
 import store.TuttePersone;
 import store.TuttiCondomini;
 import store.POJO.Condominio;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
+import boundary.AmICo;
+import boundary.ConfermaUnitaImmobiliari;
+import boundary.DriverFileSystem;
+import boundary.InserireNuovoCondominio;
+import calculator.FormatoAmICo;
+import datatype.DatiCondominio;
+import datatype.DatiTabellaMillesimale;
+import datatype.DatiUnitaImmobiliare;
+import datatype.list.Condomini;
+import datatype.list.Millesimi;
+import datatype.list.Percentuali;
+import datatype.list.Persone;
+import enumeration.StatiGestoreCondominio;
 
 public class GestoreCondomini implements BaseExecutor {
 
@@ -194,7 +188,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
 	}
 	
-	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) 
+	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Millesimi millesimi) 
 	{
 		m_tabellaMillesimaleProprieta = new TabellaMillesimale(datiTabellaMillesimale, millesimi);
 		m_inserireNuovoCondominio.ammissibile(true);
