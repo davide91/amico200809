@@ -25,6 +25,7 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
+import store.TuttePersone;
 import store.POJO.Persona;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiUnitaImmobiliare;
@@ -32,7 +33,9 @@ import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiConfermaUnitaImmobiliari;
+import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
+import executor.GestoreCondominioAperto;
 import executor.GestorePersone;
 
 /**
@@ -53,7 +56,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
 		initGroup();
-		persone=new Persone();// provvisorio TODO
+		persone=   new Persone();// provvisorio TODO
 		this.INC=INC;
 		unita=u;
 		aggiornaUnitaImmobiliari(u);
@@ -164,6 +167,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 
 	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
 		state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
+		
 		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
 	}
 

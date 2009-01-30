@@ -62,8 +62,9 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void chiudiCondominio() {
-		GestoreCondomini.getInstance().operazioneTerminata();
 		m_amico.setVisible(true);
+		GestoreCondomini.getInstance().operazioneTerminata();
+		
 	}
 	
 	public boolean eliminabile() {
