@@ -1,32 +1,11 @@
-//VS4E -- DO NOT REMOVE THIS LINE!
+/*
+ * AmICo1.java
+ *
+ * Created on 30-gen-2009, 18.45.44
+ */
+
 package boundary;
 
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import org.dyno.visual.swing.layouts.Bilateral;
-import org.dyno.visual.swing.layouts.Constraints;
-import org.dyno.visual.swing.layouts.GroupLayout;
-import org.dyno.visual.swing.layouts.Leading;
-import org.dyno.visual.swing.layouts.Trailing;
-
-import store.POJO.Condominio;
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
 import datatype.Path;
@@ -35,127 +14,78 @@ import enumeration.Provincia;
 import enumeration.StatiAmICo;
 import executor.GestoreCondomini;
 import extras.ImagePanel;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import store.POJO.Condominio;
 
 /**
- * @author Federico
  *
+ * @author thewally
  */
-public class AmICo extends JFrame implements BaseBoundary{
+public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 
-	public static AmICo amico;
+    public static AmICo amico;
 	public static AmICo getInstance(){
-		if (amico==null) 
+		if (amico==null)
 			amico=new AmICo();
 		return amico;
 	}
-	
-	private Condomini condomini;
+
+    private Condomini condomini;
 	private StatiAmICo state;
-	private ImagePanel logoPanel;
-	
-	
-	private static final long serialVersionUID = 1L;
-	private JButton binserisci;
-	private JButton bapri;
-	private JButton bEsci;
-	private JLabel jLabel0;
-	private JList lista;
-	private JScrollPane jScrollPane0;
-	private JLabel jLabel1;
-	private JSeparator jSeparator0;
-	private JButton jButton0;
-	private ButtonGroup buttonGroup1;
-	private JSeparator jSeparator1;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	
-	public AmICo() {
-		state=StatiAmICo.base;
-		
-		initComponents();
-		
-		//add(getLogoPanel(), new Constraints(new Trailing(12, 329, 10, 10), new Leading(117, 374, 48, 48)));
-		
-		
-		setResizable(false);
-	}
 
 
-	public void apriCondominio(Condominio condominio){
+    /** Creates new form AmICo1 */
+    private AmICo() {
+        initComponents();
+    }
+
+    public void apriCondominio(Condominio condominio){
 		GestoreCondomini.getInstance().apriCondominio(condominio);
 		state=StatiAmICo.inserimentoCondominio;
 		setVisible(false);
-		
+
 	}
-	
+
 	public void  inserisciCondominio() {
 		GestoreCondomini.getInstance().inserisciCondominio();
 		state=StatiAmICo.inserimentoCondominio;
 		setVisible(false);
 	}
-	
+
 	public void  importaCondominio() {
 		//AMM.richiediSelezioneFile();
 		state = StatiAmICo.importazioneCondominio;
 		setVisible(false);
 	}
-	
+
 	public void aggiornaCondomini(Condomini condomini){
 		this.condomini=condomini;
-		
+
 		DefaultListModel listModel = new DefaultListModel();
-		
+
 		for (Condominio c : condomini.getCondomini())
-		{
 			listModel.addElement( c.getDatiC().getId() );
-			//System.out.println(c.getDatiC().getId());
-		}
+
 		lista.setModel(listModel);
 		setTitle("AmICo");
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
-		
+
+
 	}
-	
+
 	public void selezioneFile(Path path) {
 	//	GestoreCondomini.getInstance().importaCondominio(path);
 		state=StatiAmICo.selezionePath;
 	}
-	
+
 	public void esciDaAmICo(){
 		GestoreCondomini.getInstance().esciDaAmico();
 	}
-	
-	private void binserisciMouseMouseClicked(MouseEvent event) {
-		// FIXME 
-		this.inserisciCondominio();
-//		InserireNuovoCondominio INC=new InserireNuovoCondominio();
-//		INC.setVisible(true);
-	}
 
-	private void bapriMouseMouseClicked(MouseEvent event) {
-		
-		if(lista.getSelectedIndex()>-1) 	
-		{
-			for (Condominio c : condomini.getCondomini())
-			{
-				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) ) {
-					apriCondominio(c);
-					setVisible(false);
-				}
-					
-			}
-		}
-		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");
-		
-	}
-
-	private void jButton0MouseMouseClicked(MouseEvent event) {
-		GestoreCondomini.getInstance().esciDaAmico();
-		this.dispose();
-	}
-	
-	public void ammissibile(Boolean b) {
+    public void ammissibile(Boolean b) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -164,6 +94,7 @@ public class AmICo extends JFrame implements BaseBoundary{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	public void fallito() {
 		switch (state) {
@@ -177,16 +108,16 @@ public class AmICo extends JFrame implements BaseBoundary{
 		}
 		state=StatiAmICo.base;
 		//AMM.mostraCondomini(condomini);
-		
+
 	}
 
 	public void fatto() {
-		
+
 		switch (state) {
 		case condominioAperto:
-			//AMM.mostra(condominio chiuso);	
+			//AMM.mostra(condominio chiuso);
 			break;
-		case inserimentoCondominio: 
+		case inserimentoCondominio:
 			//AMM.mostra(condominioinseritoOK);
 			break;
 		case selezionePath:
@@ -198,193 +129,206 @@ public class AmICo extends JFrame implements BaseBoundary{
 		}
 		state=StatiAmICo.base;
 		//AMM.mostraCondomini(condomini);
-		
-		
+
+
 	}
 
 	public void finito() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void ko() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void ok() {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
-
-	
-	
-	private void initComponents() {
-		setLayout(new GroupLayout());
-		add(getJLabel1(), new Constraints(new Trailing(12, 97, 12, 12), new Leading(14, 44, 10, 10)));
-		add(getJSeparator0(), new Constraints(new Bilateral(14, 12, 474), new Leading(64, 10, 78, 78)));
-		add(getJLabel0(), new Constraints(new Leading(14, 146, 12, 12), new Leading(80, 12, 12)));
-		add(getLogoPanel(), new Constraints(new Trailing(12, 306, 10, 10), new Leading(110, 209, 10, 10)));
-		add(getJSeparator1(), new Constraints(new Bilateral(12, 12, 720), new Leading(497, 10, 12, 12)));
-		add(getJScrollPane0(), new Constraints(new Bilateral(12, 330, 22), new Leading(110, 381, 48, 48)));
-		add(getBapri(), new Constraints(new Trailing(113, 104, 358, 595), new Leading(359, 10, 10)));
-		add(getBinserisci(), new Constraints(new Trailing(112, 105, 358, 595), new Leading(393, 10, 10)));
-		add(getJButton0(), new Constraints(new Trailing(112, 105, 358, 595), new Leading(429, 10, 10)));
-		add(getBEsci(), new Constraints(new Trailing(12, 83, 19, 18), new Leading(503, 12, 12)));
-		initButtonGroup1();
-		setSize(744, 580);
 	}
 
 
-	private JSeparator getJSeparator1() {
-		if (jSeparator1 == null) {
-			jSeparator1 = new JSeparator();
-		}
-		return jSeparator1;
-	}
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        bEsci = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lista = new javax.swing.JList();
+        logoPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        binserisci = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        bapri = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
-	private void initButtonGroup1() {
-		buttonGroup1 = new ButtonGroup();
-		buttonGroup1.add(getBapri());
-		buttonGroup1.add(getBinserisci());
-		buttonGroup1.add(getJButton0());
-	}
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        bEsci.setText("Esci");
 
-	private JButton getJButton0() {
-		if (jButton0 == null) {
-			jButton0 = new JButton();
-			jButton0.setText("Importa");
-		}
-		return jButton0;
-	}
+        jLabel1.setFont(new java.awt.Font("Dialog", 2, 24));
+        jLabel1.setText("AmICo");
 
+        jLabel2.setText("Condomìni");
 
-	private JPanel getLogoPanel() {
-		if (logoPanel == null) {
-			logoPanel = new ImagePanel();
-			logoPanel.setAlignmentY(0.5f);
-			logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.LINE_AXIS));
-			logoPanel.setImage("images/house_logo.png");
-		}
-		return logoPanel;
-	}
+        lista.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lista);
 
+        logoImage = new ImagePanel();
+        logoImage.setImage("images/home_logo.png");
+        logoPanel.setLayout(new javax.swing.BoxLayout(logoPanel, javax.swing.BoxLayout.LINE_AXIS));
+        logoPanel.add(logoImage);
 
-	private JButton getBEsci() {
-		if (bEsci == null) {
-			bEsci = new JButton();
-			bEsci.setText("Esci");
-			bEsci.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					jButton0MouseMouseClicked(event);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 83, Short.MAX_VALUE)
+        );
+
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+        jPanel2.add(jLabel4, new java.awt.GridBagConstraints());
+
+        binserisci.setText("Inserisci");
+        binserisci.setToolTipText("Inserisci un nuvo condominio");
+        binserisci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                binserisciActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        jPanel2.add(binserisci, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 5;
+        gridBagConstraints.ipady = 14;
+        jPanel2.add(jLabel3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        jPanel2.add(jLabel5, gridBagConstraints);
+
+        bapri.setText("Apri");
+        bapri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bapriActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(bapri, gridBagConstraints);
+        jPanel2.add(jLabel6, new java.awt.GridBagConstraints());
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(logoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, 0))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bEsci)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap())))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bEsci, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void binserisciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_binserisciActionPerformed
+        inserisciCondominio();
+    }//GEN-LAST:event_binserisciActionPerformed
+
+    private void bapriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bapriActionPerformed
+        if(lista.getSelectedIndex()>-1)
+		{
+			for (Condominio c : condomini.getCondomini())
+			{
+				if( c.getDatiC().getId().equals((String)lista.getSelectedValue() ) ) {
+					apriCondominio(c);
+					setVisible(false);
 				}
-			});
+
+			}
 		}
-		return bEsci;
-	}
+		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");
+    }//GEN-LAST:event_bapriActionPerformed
 
-
-	private JSeparator getJSeparator0() {
-		if (jSeparator0 == null) {
-			jSeparator0 = new JSeparator();
-		}
-		return jSeparator0;
-	}
-
-	private JLabel getJLabel1() {
-		if (jLabel1 == null) {
-			jLabel1 = new JLabel();
-			jLabel1.setFont(new Font("Dialog", Font.BOLD | java.awt.Font.ITALIC, 22));
-			jLabel1.setHorizontalAlignment(SwingConstants.TRAILING);
-			jLabel1.setText("AmICo");
-		}
-		return jLabel1;
-	}
-
-
-	private JScrollPane getJScrollPane0() {
-		if (jScrollPane0 == null) {
-			jScrollPane0 = new JScrollPane();
-			jScrollPane0.setViewportView(getLista());
-		}
-		return jScrollPane0;
-	}
-
-	private JList getLista() {
-		if (lista == null) {
-			lista = new JList();
-		}
-		return lista;
-	}
-
-	private JLabel getJLabel0() {
-		if (jLabel0 == null) {
-			jLabel0 = new JLabel();
-			jLabel0.setFont(new Font("Dialog", Font.BOLD | java.awt.Font.ITALIC, 20));
-			jLabel0.setText("Condomini ");
-		}
-		return jLabel0;
-	}
-
-
-	private JButton getBapri() {
-		if (bapri == null) {
-			bapri = new JButton();
-			bapri.setText("Apri");
-			bapri.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					bapriMouseMouseClicked(event);
-				}
-			});
-		}
-		return bapri;
-	}
-
-
-	private JButton getBinserisci() {
-		if (binserisci == null) {
-			binserisci = new JButton();
-			binserisci.setText("Nuovo");
-			binserisci.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					binserisciMouseMouseClicked(event);
-				}
-			});
-		}
-		return binserisci;
-	}
-
-
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
-
-	
-	
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 *//*
-	public static void main(String[] args) {
-		installLnF();
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Condominio c = new Condominio();
@@ -393,25 +337,25 @@ public class AmICo extends JFrame implements BaseBoundary{
 				DatiCondominio datiC= new DatiCondominio();
 				DatiCondominio datiC2= new DatiCondominio();
 				Indirizzo indi=new Indirizzo();
-				
+
 				indi.setCap("16156");
 				indi.setComune("Sto azzo di Comune");
-				indi.setProvincia(Provincia.Alessandria);
+				indi.setProvincia(Provincia.AL);
 				indi.setVia("via gavino");
-				
+
 				c2.CreaCondominio();
 				c2.setDatiC(datiC2);
 				c2.getDatiC().setId("via merano");
-				
-				
+
+
 				c.CreaCondominio();
 				c.setDatiC(datiC);
 				c.getDatiC().setId("via gavino");
 				c.getDatiC().setIndirizzo(indi);
-				
+
 				cond.inserisciCondominio(c);
 				cond.inserisciCondominio(c2);
-				
+
 				AmICo frame = new AmICo();
 				frame.aggiornaCondomini(cond);
 				frame.setTitle("AmICo");
@@ -419,8 +363,27 @@ public class AmICo extends JFrame implements BaseBoundary{
 				frame.setVisible(true);
 
 			}
-		});
-	}
+    });
+    }
 
-*/
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bEsci;
+    private javax.swing.JButton bapri;
+    private javax.swing.JButton binserisci;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JList lista;
+    private javax.swing.JPanel logoPanel;
+    private ImagePanel logoImage;
+    // End of variables declaration//GEN-END:variables
+
 }
