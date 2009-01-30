@@ -78,11 +78,11 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		//GCA.inserisciNuovaPersona(); TODO
 		state=StatiAccedereUnitaImmobiliari.inserimentoNuovaPersona;
 	}
-	
+	/*
 	public void specificaProprieta(Persone nuovePersone, Percentuali nuoveQuote) {
 		GCA.passaProprieta(nuovePersone, nuoveQuote);
 		state = StatiAccedereUnitaImmobiliari.controlloProprieta;
-	}
+	}*/
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
 	{
@@ -95,31 +95,31 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		UnitaImmobiliare unit;
 
 		
-			DefaultTableModel dm = new DefaultTableModel();
+		DefaultTableModel dm = new DefaultTableModel();
 			
-		    dm.setDataVector(
-		      new Object[][]{},
-		      new Object[]{"Identificatore","Categoria","Destinazione","Metratura","Posizione","Seleziona"}
-		      );
+		dm.setDataVector(
+				new Object[][]{},
+				new Object[]{"Identificatore","Categoria","Destinazione","Metratura","Posizione","Seleziona"}
+			);
 
-		    while(ui.hasNext())
-		    {
-		    	unit=ui.next();
-		    	cont++;
-		    	dm.addRow(new Object[]{
-		    			unit.getDatiUnitaImmobiliare().getId(),
-		    			unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),
-		    			unit.getDatiUnitaImmobiliare().getDestUso(),
-		    			unit.getDatiUnitaImmobiliare().getMetriQ(),
-		    			unit.getDatiUnitaImmobiliare().getPosizioneInterna(),
-		    			new JRadioButton() });
-		    }
-		    for(int i=0;i<cont;i++)
-		    	group.add((JRadioButton)dm.getValueAt(i,5));
+		while(ui.hasNext())
+		{
+			unit=ui.next();
+		   	cont++;
+		  	dm.addRow(new Object[]{
+		    	unit.getDatiUnitaImmobiliare().getId(),
+		    	unit.getDatiUnitaImmobiliare().getCatCatastale().toString(),
+		    	unit.getDatiUnitaImmobiliare().getDestUso(),
+		    	unit.getDatiUnitaImmobiliare().getMetriQ(),
+		    	unit.getDatiUnitaImmobiliare().getPosizioneInterna(),
+		   	new JRadioButton() });
+		}
+		for(int i=0;i<cont;i++)
+			group.add((JRadioButton)dm.getValueAt(i,5));
 
-		    table.setModel(dm);
-		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
-		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+		table.setModel(dm);
+		table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 	}
 	
 	

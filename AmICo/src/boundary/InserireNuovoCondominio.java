@@ -27,6 +27,7 @@ import org.dyno.visual.swing.layouts.Trailing;
 
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
+import datatype.list.Millesimi;
 import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
@@ -66,7 +67,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	}
 	
 	
-	public void inserisciTabellaMillesimaleProprieta(Percentuali millesimi) {
+	public void inserisciTabellaMillesimaleProprieta(Millesimi millesimi) {
 		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi); 
 		state=StatiInserireNuovoCondominio.controlloTabellaMillesimaleProprieta;
 		
