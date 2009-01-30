@@ -36,6 +36,7 @@ public class CalcolaAvvisi {
 		
 		m_condominio = condominio;
 	
+		
 		m_avvisi = new Avvisi();
 
 		/*
@@ -55,9 +56,13 @@ public class CalcolaAvvisi {
 			new Data(
 					new Date(
 							GregorianCalendar.getInstance().getTime().getTime()));
-		
-		int ritardo = m_condominio.getPreferenze().getRitardoAmmesso();
-		
+		int ritardo;
+		try {
+		 ritardo= m_condominio.getPreferenze().getRitardoAmmesso();
+		}
+		catch (NullPointerException npe){
+			ritardo=0;
+		}
 		while(pagamentiIter.hasNext())
 		{
 			Data dataScadenza = new Data(
@@ -98,7 +103,13 @@ public class CalcolaAvvisi {
 		 * 
 		 */
 		
-		Euro sogliaMin = m_condominio.getPreferenze().getSogliaMinimaCassa();
+		Euro sogliaMin; 
+		try{
+		sogliaMin= m_condominio.getPreferenze().getSogliaMinimaCassa();
+		}
+		catch (NullPointerException npe) {
+			sogliaMin=new Euro((float)0.0);
+		}
 		Iterator<Cassa> cassaIter = m_condominio.getCassa().iterator();
 		while(cassaIter.hasNext())
 		{
