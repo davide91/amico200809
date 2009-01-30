@@ -164,7 +164,6 @@ public class GestoreCondomini implements BaseExecutor {
 	public void passaDatiCondominio(DatiCondominio datiCondominio) {
 		if ( condominioGiaInserito(datiCondominio) ) {
 			m_inserireNuovoCondominio.ammissibile(false);
-			
 		}
 		else{
 			m_state = StatiGestoreCondominio.attesaConfermaDatiCondominio;
@@ -177,7 +176,7 @@ public class GestoreCondomini implements BaseExecutor {
 		if ( unitaImmobiliareGiaInserita(datiUnitaImmobliare) ) {
 			m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 			m_confermaUnitaImmobiliari.ammissibile(false);
-			m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
+		//	m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 			return;
 		}
 

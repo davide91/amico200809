@@ -80,22 +80,42 @@ public class Bilancio {
 
 	public void eliminaVoceBilancio(VoceBilancio vb)
 	{
-		voci.remove(vb);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			voci.remove(vb);
+		session.getTransaction().commit();
 	}
 	
 	public void mettiInEsercizio()
-	{
-		dati.setStato(StatoBilancio.inEsercizio);
+	{	
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			dati.setStato(StatoBilancio.inEsercizio);
+		session.getTransaction().commit();
 	}
 	
 	public void terminaEsercizio()
 	{
-		dati.setStato(StatoBilancio.consuntivo);
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			dati.setStato(StatoBilancio.consuntivo);
+		session.getTransaction().commit();
 	}
 	
 	public void inserisciPianoPagamenti(PianoPagamenti pp)
 	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+			link(pp);
+			
+		session.getTransaction().commit();
+	}
+	
+	private void link(PianoPagamenti pp)
+	{
+		pp.setBilancio(this);
 		pianoPagamenti.add(pp);
+		session.update(this);
 	}
 	
 	public VociBilancio recuperaVociBilancio()
