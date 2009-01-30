@@ -34,6 +34,7 @@ import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereTabelleMillesimali;
+import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 
 /**
@@ -43,17 +44,15 @@ import executor.GestoreCondominioAperto;
 public class InserisciTabelleMillesimali extends JFrame implements BaseBoundary{
 
 	private TabelleMillesimali tabelleMillesimali;
-	private GestoreCondominioAperto GCA;
 	private StatiAccedereTabelleMillesimali state;
 	private UnitaImmobiliari unita;
 	private DatiTabellaMillesimale datiTabella;
 
 
-	public InserisciTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
+	public InserisciTabelleMillesimali(UnitaImmobiliari unita)
 	{
-		this.tabelleMillesimali=tabelleMillesimali;
 		this.unita=unita;
-		this.GCA=GCA;
+		
 		
 		state=StatiAccedereTabelleMillesimali.base;
 		initComponents();
@@ -102,6 +101,7 @@ public class InserisciTabelleMillesimali extends JFrame implements BaseBoundary{
 		add(getBinseriscitabella(), new Constraints(new Leading(123, 10, 10), new Trailing(12, 50, 250)));
 		add(getBmodificatabella(), new Constraints(new Leading(294, 10, 10), new Trailing(12, 50, 250)));
 		setSize(604, 389);
+		setVisible(true);
 	}
 
 	private JButton getBContinua() {
@@ -232,7 +232,7 @@ public class InserisciTabelleMillesimali extends JFrame implements BaseBoundary{
 	}
 	public void inserisciMillesimi(Percentuali millesimi){
 		if (millesimi.somma()==1000){
-			GCA.inserisciTabellaMillesimale(datiTabella, millesimi);
+			GestoreCondomini.getInstance().inserisciTabellaMillesimale(datiTabella, millesimi);
 			state=StatiAccedereTabelleMillesimali.attesaControlloMillesimi;
 		}
 	}
@@ -267,16 +267,16 @@ public class InserisciTabelleMillesimali extends JFrame implements BaseBoundary{
 	}
 
 	public void finito() {
-		GCA.operazioneTerminata();
+		GestoreCondomini.getInstance().operazioneTerminata();
 	}
 
 	public void ko() {
 		switch (state) {
 		case attesaConfermaInserimento:
-		//	GCA.modificaTabellaMillesimale(tabellaMillesimale, datiTabella.getDescrizione(), )
+		//	GestoreCondomini.getInstance().modificaTabellaMillesimale(tabellaMillesimale, datiTabella.getDescrizione(), )
 			break;
 		case attesaConfermaMillesimi:
-			GCA.procedi(false);
+			GestoreCondomini.getInstance().procedi(false);
 			//AMM.mostra(TabellaMillesimaleInseritaKO);
 			break;
 		default:
@@ -287,7 +287,7 @@ public class InserisciTabelleMillesimali extends JFrame implements BaseBoundary{
 	}
 
 	public void ok() {
-		GCA.procedi(true);
+		GestoreCondomini.getInstance().procedi(true);
 		//AMM.mostra(TabellaMillesimaleInseritaOK);
 		state=StatiAccedereTabelleMillesimali.base;
 	}

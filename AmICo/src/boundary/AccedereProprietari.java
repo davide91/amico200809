@@ -118,7 +118,7 @@ public class AccedereProprietari extends JFrame {
 		Iterator<Float> q=this.quote.getListaQuote().iterator();
 		float quo;
 		
-		
+			somma.setText("Al 100% manca "+ (100-quote.somma())+"%");
 			DefaultTableModel dm = new DefaultTableModel();
 			
 		    dm.setDataVector(
@@ -218,9 +218,12 @@ public class AccedereProprietari extends JFrame {
 	}
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
+		if (quote.somma()==100.0){
 		CUI.proprietaOK(proprietari, quote);
 		CUI.setVisible(true);
 		this.dispose();
+		}
+		else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
 		
 	}
 
@@ -238,9 +241,12 @@ public class AccedereProprietari extends JFrame {
 	private JButton bRimuoviProprietario;
 	private JLabel nomeUnita;
 	private JTable table;
+	
+	private JLabel somma = new JLabel("Al 100% manca 100 %");
 	private JScrollPane jScrollPane0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
+		
 		setFont(new Font("Dialog", Font.PLAIN, 12));
 		setForeground(Color.black);
 		setLayout(new GroupLayout());
@@ -250,6 +256,7 @@ public class AccedereProprietari extends JFrame {
 		add(getJScrollPane0(), new Constraints(new Leading(28, 502, 12, 12), new Leading(45, 251, 10, 10)));
 		add(getBAnnulla(), new Constraints(new Leading(455, 10, 10), new Leading(312, 12, 12)));
 		add(getBOK(), new Constraints(new Leading(375, 10, 10), new Leading(312, 12, 12)));
+		add(somma, new Constraints(new Leading(350, 10, 10), new Leading(20, 12, 12)));
 		setSize(581, 383);
 	}
 

@@ -28,10 +28,12 @@ import org.dyno.visual.swing.layouts.Trailing;
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
 import datatype.list.Percentuali;
+import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.Provincia;
 import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
+import executor.GestoreCondominioAperto;
 
 
 
@@ -65,7 +67,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
 	
 	public void inserisciTabellaMillesimaleProprieta(Percentuali millesimi) {
-//		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi); TODO
+		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi); 
 		state=StatiInserireNuovoCondominio.controlloTabellaMillesimaleProprieta;
 		
 	}
@@ -123,6 +125,8 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 				JOptionPane.showMessageDialog(this, "tabella millesimale ko");
 			}
 			break;
+			
+		
 		default:
 			break;
 		}
@@ -146,8 +150,8 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void finito() {
 		state = StatiInserireNuovoCondominio.inserimentoTabellaMillesimale;
-		new AccedereTabelleMillesimali();
-		GestoreCondomini.getInstance().finito();
+		//InserisciTabelleMillesimali ITM= new  InserisciTabelleMillesimali(null, );
+		GestoreCondomini.getInstance().operazioneTerminata();
 	}
 
 	public void ko() {
