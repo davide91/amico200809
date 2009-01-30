@@ -12,6 +12,7 @@ import boundary.AmICo;
 import boundary.ConfermaUnitaImmobiliari;
 import boundary.DriverFileSystem;
 import boundary.InserireNuovoCondominio;
+import boundary.InserisciTabelleMillesimali;
 import calculator.FormatoAmICo;
 import datatype.DatiCondominio;
 import datatype.DatiTabellaMillesimale;
@@ -20,6 +21,8 @@ import datatype.list.Condomini;
 import datatype.list.Millesimi;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
+import datatype.list.TabelleMillesimali;
+import datatype.list.UnitaImmobiliari;
 import enumeration.StatiGestoreCondominio;
 
 public class GestoreCondomini implements BaseExecutor {
@@ -42,7 +45,7 @@ public class GestoreCondomini implements BaseExecutor {
 	private DriverFileSystem m_driverFS;
 	private GestoreCondominioAperto m_gestoreCondominioAperto;
 	private InserireNuovoCondominio m_inserireNuovoCondominio;
-	//private InserireUnitaImmobiliare m_inserireUnitaImmobiliare;
+	private InserisciTabelleMillesimali m_inserisciTabelleMillesimali;
 	private StatiGestoreCondominio m_state;
 	private ConfermaUnitaImmobiliari m_confermaUnitaImmobiliari;
 
@@ -136,10 +139,11 @@ public class GestoreCondomini implements BaseExecutor {
 			break;
 		case inserimentoUnitaImmobiliari :
 			m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
+			 m_inserisciTabelleMillesimali= new InserisciTabelleMillesimali(m_condominio.recuperaUnitaImmobiliari());
 			break;
 		}
 	}
-	
+	 
 	public void operazioneTerminata(File file) {
 		if ( !FormatoAmICo.fileInFormatoAmICo(file) ) {
 			m_amico.fallito();
@@ -251,5 +255,10 @@ public class GestoreCondomini implements BaseExecutor {
 			if ( unit.getDatiUnitaImmobiliare().equals(datiUnitaImmobliare) || unit.getDatiUnitaImmobiliare().getId().equals(datiUnitaImmobliare.getId()))
 				return true;
 		return false;
+	}
+
+	public void passaTabellaMillesimaleProprieta(Percentuali millesimi) {
+		// TODO Auto-generated method stub
+		
 	}
 }
