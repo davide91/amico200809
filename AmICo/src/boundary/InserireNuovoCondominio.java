@@ -146,6 +146,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void finito() {
 		state = StatiInserireNuovoCondominio.inserimentoTabellaMillesimale;
+		new AccedereTabelleMillesimali();
 		GestoreCondomini.getInstance().finito();
 	}
 
