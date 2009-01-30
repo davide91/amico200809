@@ -103,6 +103,8 @@ public class CalcolaAvvisi {
 		 * 
 		 */
 		
+	
+		
 		Euro sogliaMin; 
 		try{
 		sogliaMin= m_condominio.getPreferenze().getSogliaMinimaCassa();

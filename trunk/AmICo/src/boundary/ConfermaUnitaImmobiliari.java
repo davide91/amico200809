@@ -52,14 +52,16 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	private StatiConfermaUnitaImmobiliari state;
 	private InserireUnitaImmobiliare IUI;
 	
-	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
-		state = StatiConfermaUnitaImmobiliari.base;
+//	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
+	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, Persone p) {
+	state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
 		initGroup();
 		persone=   new Persone();// provvisorio TODO
 		this.INC=INC;
-		unita=u;
-		aggiornaUnitaImmobiliari(u);
+		//unita=u;
+		persone=p;
+		//aggiornaUnitaImmobiliari(u);
 		this.setVisible(true);
 		this.setTitle("Inserimento unita' immobiliari");
 	}
@@ -174,7 +176,12 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	public void ammissibile(boolean b) {
 		if(state == StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare)
 		{
+			if (!b) {
+				state=StatiConfermaUnitaImmobiliari.base;
+				
+			}
 			IUI.ammissibile(b);
+			
 		}
 	}
 

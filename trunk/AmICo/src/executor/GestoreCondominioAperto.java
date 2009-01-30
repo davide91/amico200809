@@ -59,8 +59,21 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_driverFileSystem = DriverFileSystem.getInstance();
 		m_amico = AmICo.getInstance();
 		m_dbPersone = TuttePersone.getInstance();
+		inserisciTabbedPanel();
 	}
 	
+	
+	public void inserisciTabbedPanel(){
+
+		JTabbedPane pannelloTab = new JTabbedPane();
+		pannelloTab.addTab("Dati Generali",new DatiGenerali(m_condominio));
+		pannelloTab.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari()));
+		pannelloTab.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
+		pannelloTab.addTab("Preferenze", new AccederePreferenze());
+		m_accedereCondominioAperto.getPannello().add(pannelloTab);
+		
+		
+	}
 	public void chiudiCondominio() {
 		m_amico.setVisible(true);
 		GestoreCondomini.getInstance().operazioneTerminata();
@@ -173,13 +186,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	
 	public void passaAUnitaImmobiliari() {
-		
-		JTabbedPane pannelloTab = new JTabbedPane();
-		pannelloTab.addTab("Dati Generali",new DatiGenerali(m_condominio));
-		pannelloTab.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari()));
-		pannelloTab.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali());
-		pannelloTab.addTab("Preferenze", new AccederePreferenze());
-		m_accedereCondominioAperto.getPannello().add(pannelloTab);
 		
 		m_accedereUnitaImmobiliari = 	
 			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
