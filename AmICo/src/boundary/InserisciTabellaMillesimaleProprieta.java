@@ -1,18 +1,20 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Bilateral;
@@ -21,11 +23,9 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
-import store.POJO.TabellaMillesimale;
+import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
 import datatype.list.Millesimi;
-import datatype.list.Percentuali;
-import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereTabelleMillesimali;
 import executor.GestoreCondomini;
@@ -38,38 +38,27 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 
 	private StatiAccedereTabelleMillesimali state;
 	private UnitaImmobiliari unita;
-	private DatiTabellaMillesimale datiTabella;
+	private Millesimi m;
+	private String nome,descrizione;
 
+	
+    DefaultTableModel dm = new DefaultTableModel();
 
-	public InserisciTabellaMillesimaleProprieta(UnitaImmobiliari unita)
+	public InserisciTabellaMillesimaleProprieta(UnitaImmobiliari unita)// per ora inserisce solo una tabella e non termina
 	{
 		this.unita=unita;
 		state=StatiAccedereTabelleMillesimali.base;
 		initComponents();
+		
+		setVisible(true);
+		this.setTitle("inserimento tabella millesimale");
 	}
 
 	public InserisciTabellaMillesimaleProprieta() {
 		initComponents();
 	}
-	
-	
-	
-	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM){
-		datiTabella=DTM;
-		//AMM.mostraUnitaImmobiliar(unita);
-		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
-	}
-	public void modificaTabellaMillesimale(TabellaMillesimale TM , DatiTabellaMillesimale DTM, Percentuali millesimi)
-	{
-		if (millesimi.somma()==1000){
-			//AMM.richiestaConferma();
-			state=StatiAccedereTabelleMillesimali.attesaConfermaInserimento;
-			
-			
-		}
-		
-	}
-	
+
+	/*
 	public void inserisciMillesimi(Millesimi millesimi){
 		if (millesimi.somma()==1000){
 			state=StatiAccedereTabelleMillesimali.attesaControlloMillesimi;
@@ -77,7 +66,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 			
 		}
 	}
-	
+	*/
 
 	public void ammissibile(Boolean b) {
 		if (b){
@@ -133,8 +122,39 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		state=StatiAccedereTabelleMillesimali.base;
 	}
 
+	private void continuaMouseMouseClicked(MouseEvent event)
+	{
+		ArrayList<Float> lista = new ArrayList<Float>();
+		
+		for (int i=0;i<unita.getImmobili().size();i++)
+		{
+			if(dm.getValueAt(i,1)=="")
+			{
+				JOptionPane.showMessageDialog(this, "inserire prima tutti i millesimi");
+				return;
+			}
+
+			lista.add(Float.parseFloat((String)dm.getValueAt(i,1)) );
+
+		}
+		m.setListaMillesimi(lista);
+		
+		if(m.somma()==1000)
+		{		
+			DatiTabellaMillesimale dati= new DatiTabellaMillesimale();
+			dati.setNome(nome);
+			dati.setDescrizione(descrizione);
+			GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,m);
+		}
+		else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
+			
+		
+	}
 	
-	
+	private void annullaMouseMouseClicked(MouseEvent event)
+	{
+		GestoreCondomini.getInstance().operazioneTerminata();
+	}
 
 	
 	
@@ -143,30 +163,36 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	private static final long serialVersionUID = 1L;
 	private JTable tabella;
 	private JScrollPane millesimi;
-	private JLabel jLabel0;
-	private JButton bmodificatabella;
-	private JButton binseriscitabella;
-	private JSeparator jSeparator0;
 	private JButton bContinua;
+	private JSeparator jSeparator0;
+	private JButton bAnnulla;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
+		setFont(new Font("Dialog", Font.PLAIN, 12));
+		setForeground(Color.black);
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(12, 140, 10, 10), new Leading(18, 10, 10)));
-		add(getMillesimi(), new Constraints(new Bilateral(131, 12, 22), new Leading(12, 226, 48, 48)));
 		add(getJSeparator0(), new Constraints(new Bilateral(11, 12, 581), new Trailing(42, 10, 50, 250)));
-		add(getBContinua(), new Constraints(new Leading(455, 96, 10, 10), new Trailing(12, 50, 250)));
-		add(getBinseriscitabella(), new Constraints(new Leading(123, 10, 10), new Trailing(12, 50, 250)));
-		add(getBmodificatabella(), new Constraints(new Leading(294, 10, 10), new Trailing(12, 50, 250)));
-		setSize(604, 389);
-		setVisible(true);
+		add(getBAnnulla(), new Constraints(new Leading(455, 96, 10, 10), new Trailing(12, 50, 250)));
+		add(getBContinua(), new Constraints(new Leading(123, 10, 10), new Trailing(12, 50, 250)));
+		add(getMillesimi(), new Constraints(new Bilateral(12, 6, 22), new Leading(12, 226, 55, 64)));
+		setSize(605, 355);
 	}
 
-	private JButton getBContinua() {
-		if (bContinua == null) {
-			bContinua = new JButton();
-			bContinua.setText("Annulla");
+	private JButton getBAnnulla() {
+		if (bAnnulla == null) {
+			bAnnulla = new JButton();
+			bAnnulla.setText("Annulla");
+			bAnnulla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					annullaMouseMouseClicked(event);
+				}
+			});
+			
+			
+			
 		}
-		return bContinua;
+		return bAnnulla;
 	}
 
 	private JSeparator getJSeparator0() {
@@ -176,31 +202,20 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		return jSeparator0;
 	}
 
-	private JButton getBinseriscitabella() {
-		if (binseriscitabella == null) {
-			binseriscitabella = new JButton();
-			binseriscitabella.setText("Inserisci tabella");
+	private JButton getBContinua() {
+		if (bContinua == null) {
+			bContinua = new JButton();
+			bContinua.setText("Continua");
+			bContinua.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					continuaMouseMouseClicked(event);
+				}
+			});
 		}
-		return binseriscitabella;
+		return bContinua;
 	}
 
-
-	private JButton getBmodificatabella() {
-		if (bmodificatabella == null) {
-			bmodificatabella = new JButton();
-			bmodificatabella.setText("Modifica tabella");
-		}
-		return bmodificatabella;
-	}
-
-	private JLabel getJLabel0() {
-		if (jLabel0 == null) {
-			jLabel0 = new JLabel();
-			jLabel0.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 14));
-			jLabel0.setText("Nome Tabella");
-		}
-		return jLabel0;
-	}
 
 	private JScrollPane getMillesimi() {
 		if (millesimi == null) {
@@ -212,15 +227,19 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 
 	private JTable getTabella() {
 		if (tabella == null) {
-			tabella = new JTable();
-			tabella.setModel(new DefaultTableModel(new Object[][] { }, new String[] { "Unita", "Coefficente", }) {
-				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
-	
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
+		//    DefaultTableModel dm = new DefaultTableModel();
+		    dm.setDataVector(
+		      new String[][]{},
+		      new String[]{ "Unita'", "Coefficente", }
+		      );
+
+		    
+		    for (UnitaImmobiliare u : unita.getImmobili()) {
+				dm.addRow(new String[]{u.getDatiUnitaImmobiliare().getId(),""});
+			}
+		    tabella = new JTable(dm);
+
+
 		}
 		return tabella;
 	}
@@ -248,39 +267,11 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				
-				TabelleMillesimali tm=new TabelleMillesimali();
-				TabellaMillesimale tab2=new TabellaMillesimale();
-				DatiTabellaMillesimale dati2=new DatiTabellaMillesimale();
-				
-				dati2.setNome("ciao2");
-				
-				tab2.setDati(dati2);
-				
+				new InserisciTabellaMillesimaleProprieta(new UnitaImmobiliari());
 
-				TabellaMillesimale tab=new TabellaMillesimale();
-				DatiTabellaMillesimale dati=new DatiTabellaMillesimale();
-				
-				
-				dati.setNome("ciao");
-				
-				tab.setDati(dati);
-				
-				tm.inserisciTabellaMillesimale(tab);
-				tm.inserisciTabellaMillesimale(tab2);
-				
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("AccedereTabelleMillesimali");
-				AccedereTabelleMillesimali content = new AccedereTabelleMillesimali(null,tm,null);
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
 			}
 		});
 	}
 
-
+	 
 }
