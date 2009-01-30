@@ -12,7 +12,7 @@ import boundary.AmICo;
 import boundary.ConfermaUnitaImmobiliari;
 import boundary.DriverFileSystem;
 import boundary.InserireNuovoCondominio;
-import boundary.InserisciTabelleMillesimali;
+import boundary.InserisciTabellaMillesimaleProprieta;
 import calculator.FormatoAmICo;
 import datatype.DatiCondominio;
 import datatype.DatiTabellaMillesimale;
@@ -45,7 +45,7 @@ public class GestoreCondomini implements BaseExecutor {
 	private DriverFileSystem m_driverFS;
 	private GestoreCondominioAperto m_gestoreCondominioAperto;
 	private InserireNuovoCondominio m_inserireNuovoCondominio;
-	private InserisciTabelleMillesimali m_inserisciTabelleMillesimali;
+	private InserisciTabellaMillesimaleProprieta m_inserisciTabelleMillesimali;
 	private StatiGestoreCondominio m_state;
 	private ConfermaUnitaImmobiliari m_confermaUnitaImmobiliari;
 
@@ -137,9 +137,9 @@ public class GestoreCondomini implements BaseExecutor {
 		case condominioAperto :
 			m_state = StatiGestoreCondominio.inserimentoProprieta;
 			break;
-		case inserimentoUnitaImmobiliari :
+		case inserimentoProprieta :
 			m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
-			 m_inserisciTabelleMillesimali= new InserisciTabelleMillesimali(m_condominio.recuperaUnitaImmobiliari());
+			 m_inserisciTabelleMillesimali= new InserisciTabellaMillesimaleProprieta(m_condominio.recuperaUnitaImmobiliari());
 			break;
 		}
 	}
@@ -188,7 +188,7 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
-		m_state = StatiGestoreCondominio.attesaConferma;
+	//	m_state = StatiGestoreCondominio.attesaConferma;
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
 	}
 	
@@ -198,7 +198,6 @@ public class GestoreCondomini implements BaseExecutor {
 		m_inserireNuovoCondominio.ammissibile(true);
 		m_state = StatiGestoreCondominio.attesaConfermaTabellaMillesimale;
 	}
-
 	
 	public void procedi(boolean procedere) {
 		switch (m_state) {
@@ -257,8 +256,5 @@ public class GestoreCondomini implements BaseExecutor {
 		return false;
 	}
 
-	public void passaTabellaMillesimaleProprieta(Percentuali millesimi) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

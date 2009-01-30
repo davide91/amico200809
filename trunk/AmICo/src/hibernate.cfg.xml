@@ -30,7 +30,7 @@
 		
 		<!-- Drop and re-create the database schema on startup -->
 		<!-- <property name="hbm2ddl.auto">create</property>   -->
-		
+
 		<mapping resource="store/POJO/Bilancio.hbm.xml"/>
 		<mapping resource="store/POJO/Cassa.hbm.xml"></mapping>
 		<mapping resource="store/POJO/Condominio.hbm.xml"/>
