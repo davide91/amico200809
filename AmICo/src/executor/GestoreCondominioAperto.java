@@ -23,6 +23,7 @@ import calculator.FormatoAmICo;
 import datatype.DatiTabellaMillesimale;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
+import datatype.list.Millesimi;
 import datatype.list.Persone;
 import datatype.list.Percentuali;
 import datatype.list.UnitaImmobiliari;
@@ -44,6 +45,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private GestoreBilanci m_gestoreBilanci;
 	private GestoreCassa m_gestoreCassa;
 	private GestorePagamenti m_gestorePagamenti;
+	private Millesimi m_nuoviMillesimi;
 	private Percentuali m_nuoveQuote;
 	private Persone m_nuoviProprietari;
 	private StatiGestoreCondominioAperto m_state;
@@ -125,7 +127,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.modificaProprieta;
 	}
 	
-	public void modificaTabellaMillesimale(TabellaMillesimale tabellaMillesimale, String descr, Percentuali nuoviMillesimi) {
+	public void modificaTabellaMillesimale(TabellaMillesimale tabellaMillesimale, String descr, Millesimi nuoviMillesimi) {
 		m_tabellaMillesimale = tabellaMillesimale;
 		m_tabellaMillesimale.modificaTabella(descr, nuoviMillesimi);
 		m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
@@ -201,13 +203,13 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	*/
 	
-	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
+	public void passaProprieta(Persone persone, Millesimi quoteProprieta) {
 		if ( quoteProprieta.somma() != 1000.0  ) {
 			m_accedereUnitaImmobiliari.ammissibile(false);
 			return;
 		}
 		m_nuoviProprietari = persone;
-		m_nuoveQuote = quoteProprieta;
+		m_nuoviMillesimi = quoteProprieta;
 		m_accedereUnitaImmobiliari.ammissibile(true);
 		m_state = StatiGestoreCondominioAperto.attesaConfermaProprieta;	
 		
@@ -220,7 +222,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 					m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 					break;
 				}
-				m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(m_datiTabellaMillesimale,m_nuoveQuote));
+				m_condominio.inserisciTabellaMillesimale(new TabellaMillesimale(m_datiTabellaMillesimale,m_nuoviMillesimi));
 				m_accedereTabelleMillesimali.aggiornaTabelleMillesimali(m_condominio.recuperaTabelleMillesimali());
 				m_state = 	StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 				break;	

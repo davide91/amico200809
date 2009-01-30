@@ -7,6 +7,7 @@ import boundary.AccedereBilancioAperto;
 import boundary.DriverFileSystem;
 import datatype.DatiBilancio;
 import datatype.DatiVoceBilancio;
+import enumeration.FormatoFile;
 import enumeration.StatiGestoreBilancio;
 import enumeration.TipoBilancio;
 import store.POJO.Bilancio;
