@@ -11,7 +11,6 @@ import store.POJO.Condominio;
 import store.util.HibernateUtil;
 import datatype.list.Condomini;
 import enumeration.StatoCondominio;
-import executor.Avvio;
 
 /**
  * @author bruno
@@ -36,7 +35,6 @@ public class TuttiCondomini {
 		
 		List Cond = session.createQuery("from Condominio").list();
 		
-//		CONDOMINI.setCondomini(Cond);
 		session.getTransaction().commit();
 		Condomini c = new Condomini();
 		c.setCondomini(Cond);

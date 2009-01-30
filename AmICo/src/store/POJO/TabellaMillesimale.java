@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import store.util.HibernateUtil;
 
 import datatype.DatiTabellaMillesimale;
+import datatype.list.Millesimi;
 import datatype.list.Percentuali;
 
 /**
@@ -31,38 +32,44 @@ public class TabellaMillesimale {
 		
 	}
 	
-	public TabellaMillesimale(DatiTabellaMillesimale DTM, Percentuali perc)
+	public TabellaMillesimale(DatiTabellaMillesimale DTM, Millesimi mill)
 	{
-		creaTabellaMillesimale(DTM, perc);
+		creaTabellaMillesimale(DTM, mill);
 	}
 	
-	public void creaTabellaMillesimale(DatiTabellaMillesimale DTM, Percentuali perc)
+	public void creaTabellaMillesimale(DatiTabellaMillesimale DTM, Millesimi mille)
 	{
 		dati = DTM;
-		creaTabellaProprietaGenerale(perc);
+		for (int i=0;i< mille.getListaMillesimi().size();i++) {
+			Millesimo mill = new Millesimo();
+			mill.setQuota(mille.getListaMillesimi().get(i));
+			millesimi.add(mill);
+		}
 	}
 
-	public void creaTabellaProprietaGenerale(Percentuali perc)
+	public void creaTabellaProprietaGenerale(Millesimi mille)
+	{
+		dati = new DatiTabellaMillesimale();
+		dati.setNome("Proprietà Generale");
+		dati.setDescrizione("Tabella richiesta dal codice civile per dividere le spese generali");
+		creaTabellaMillesimale(dati, mille);
+	}
+	
+	public void modificaTabella(String nome, Millesimi mille)
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 	
 			millesimi.clear();
 			
-			for (int i=0;i< perc.getListaQuote().size();i++) {
+			for (int i=0;i< mille.getListaMillesimi().size();i++) {
 				Millesimo mill = new Millesimo();
-				mill.setQuota(perc.getListaQuote().get(i));
+				mill.setQuota(mille.getListaMillesimi().get(i));
 				millesimi.add(mill);
 			}
 	
 		session.update(this);
 		session.getTransaction().commit();
-	}
-	
-	public void modificaTabella(String nome, Percentuali perc)
-	{
-		dati.setNome(nome);
-		creaTabellaProprietaGenerale(perc);
 	}
 	
 	@Override
