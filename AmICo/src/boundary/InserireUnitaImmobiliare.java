@@ -75,12 +75,13 @@ public class InserireUnitaImmobiliare extends JFrame{
 	public void ammissibile(Boolean b) {
 		if (b){
 			CUI.creaAccedereProprietari();
-			this.dispose();
+		
 		}
 		else {
 			JOptionPane.showMessageDialog(this, "unita immobiliare gia inserita");
-			//AMM.mostra(UnitaImmobiliareGiaInserita);
+			CUI.setVisible(true);
 		} 	
+		this.dispose();
 	}
 
 	public void annulla() {

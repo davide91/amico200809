@@ -118,9 +118,9 @@ public class GestoreCondomini implements BaseExecutor {
 	/*	switch (m_state) {
 		case inserimentoCondominio :
 		{
-	*/	//	if (m_condominio != null) TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
-			m_state = StatiGestoreCondominio.gestoreCondomini;
-			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
+	*/		m_state = StatiGestoreCondominio.gestoreCondomini;
+	
+			if (m_condominio != null) TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 			m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 	/*	}
 			break;
@@ -215,7 +215,7 @@ public class GestoreCondomini implements BaseExecutor {
 
 				/* Riga non presente nel design 3.5.4*/
 				m_inserireNuovoCondominio.fatto();
-				m_confermaUnitaImmobiliari = new ConfermaUnitaImmobiliari(m_inserireNuovoCondominio,m_condominio.recuperaUnitaImmobiliari());
+				m_confermaUnitaImmobiliari = new ConfermaUnitaImmobiliari(m_inserireNuovoCondominio, TuttePersone.getInstance().recuperaPersone());
 				
 				break;
 			case attesaConfermaTabellaMillesimale :
