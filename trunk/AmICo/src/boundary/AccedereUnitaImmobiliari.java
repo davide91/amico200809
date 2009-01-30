@@ -46,12 +46,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	
 	private ButtonGroup group;
 	
-	
-	private static final long serialVersionUID = 1L;
-	private JTable table;
-	private JScrollPane jScrollPane0;
-	private JButton bVisualizzaProprietari;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+
 	
 	public AccedereUnitaImmobiliari() {
 		initComponents();
@@ -181,6 +176,13 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	}
 	
 	
+	
+	private static final long serialVersionUID = 1L;
+	private JTable table;
+	private JScrollPane jScrollPane0;
+	private JButton bVisualizzaProprietari;
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
@@ -240,7 +242,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		    };   
 		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
-
+		    
 		}
 
 		return table;
