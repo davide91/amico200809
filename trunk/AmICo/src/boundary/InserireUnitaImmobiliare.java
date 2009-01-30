@@ -19,7 +19,6 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Persona;
 import datatype.DatiUnitaImmobiliare;
-import datatype.list.Persone;
 import enumeration.CategoriaCatastale;
 import enumeration.DestinazioneUso;
 import executor.GestoreCondomini;
@@ -126,6 +125,10 @@ public class InserireUnitaImmobiliare extends JFrame{
 			JOptionPane.showMessageDialog(this, "Formato metratura errato!\n Utilizzare solo cifre \n Utilizzare . (punto) al posto di ,(virgola) ");
 		}
 		//CUI.setVisible(true);
+	}
+	
+	private void annullaMouseMouseClicked(MouseEvent event) {
+		// TODO Auto-generated method stub
 		
 	}
 	
@@ -155,7 +158,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 		
 		
 		add(getBConferma(), new Constraints(new Leading(200, 10, 10), new Leading(93, 10, 10)));
-		add(getBAnnulla(), new Constraints(new Leading(400, 10, 10), new Leading(93, 12, 12)));
+	//	add(getBAnnulla(), new Constraints(new Leading(400, 10, 10), new Leading(93, 12, 12)));
 		add(getCategoria(), new Constraints(new Leading(149, 120, 10, 10), new Leading(50, 22, 12, 12)));
 		add(getId(), new Constraints(new Leading(16, 116, 10, 10), new Leading(50, 23, 12, 12)));
 		add(getDestinazione(), new Constraints(new Leading(280, 180, 12, 12), new Leading(50,22, 12, 12)));
@@ -179,6 +182,13 @@ public class InserireUnitaImmobiliare extends JFrame{
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
 			bAnnulla.setText("Annulla");
+			
+			bAnnulla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					annullaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bAnnulla;
 	}
