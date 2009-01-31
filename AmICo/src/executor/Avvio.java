@@ -22,12 +22,11 @@ public class Avvio  {
 	 */
 	public static void main(String[] args) {
 		showSplashScreen();
-		try {
-		      Thread.sleep(1000);
+
+	//	Thread.sleep(1000);
 		   
-		      Avvio.inizializzaAmICo();
-		}
-	    catch(InterruptedException ex) {}
+		Avvio.inizializzaAmICo();
+
 	}
 	
 
@@ -61,10 +60,10 @@ public class Avvio  {
 		 * <code>EventQueue.invokeLater</code>, in order to remove the splash
 		 * screen in a thread-safe manner.
 		 */
-	  private static final class SplashScreenCloser implements Runnable 
+	/*  private static final class SplashScreenCloser implements Runnable 
 	  {
 	    public void run(){
 	      fSplashScreen.dispose();
 	    }
-	  }
+	  }*/
 }
