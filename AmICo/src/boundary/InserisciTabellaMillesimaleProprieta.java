@@ -143,11 +143,18 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		
 		if(m.somma()==1000)
 		{		
-			DatiTabellaMillesimale dati= new DatiTabellaMillesimale();
-			dati.setNome(nome.getText());
-			dati.setDescrizione(descrizione.getText());
-			GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,m);
-			
+			if(nome.getText()=="")
+				JOptionPane.showMessageDialog(this, "inserire prima il nome");
+			else if (descrizione.getText()=="") 				
+				JOptionPane.showMessageDialog(this, "inserire prima la descrizione della tabella millesimale");
+			else
+			{
+				DatiTabellaMillesimale dati= new DatiTabellaMillesimale();
+				dati.setNome(nome.getText());
+				dati.setDescrizione(descrizione.getText());
+				GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,m);
+			}
+
 			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
 			if (c==0)

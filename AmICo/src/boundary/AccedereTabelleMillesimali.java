@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -283,55 +284,19 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		{
 			if( t.getDati().getNome().equals( (String)lista.getSelectedValue() ) )
 			{
-
-
-			    dm.setDataVector(
-			      new String[][]{},
-			      new String[]{ "Unita'", "Coefficente", }
-			      );
-
-			    
-			    final Iterator<Millesimo> m=t.getMillesimi().iterator();
-				final Iterator<UnitaImmobiliare> ui=t.getCondominio().getUnitaImmobiliari().iterator();
-			    
-			    while(m.hasNext())
-					dm.addRow(new Object[]{ui.next().getDatiUnitaImmobiliare().getId(),m.next().getQuota()});
-				
-			    jTable0 = new JTable(dm);
+				dm.setDataVector
+				(
+						new String[][]{},
+						new String[]{ "Unita'", "Coefficente", }
+				);
 				
 				
-			/*	
-				if(t.getMillesimi()!=null && t.getCondominio()!=null)
-				{
-					final Iterator<Millesimo> m=t.getMillesimi().iterator();
-					final Iterator<UnitaImmobiliare> ui=t.getCondominio().getUnitaImmobiliari().iterator();
+				Iterator<UnitaImmobiliare> ui=t.getCondominio().getUnitaImmobiliari().iterator();
 				
-					jTable0.setModel(
-					new AbstractTableModel()
-					{
-						private static final long serialVersionUID = 1L;
-						
-						public int getColumnCount() { return 2; }
-						public int getRowCount() { return t.getMillesimi().size(); }
-						public Object getValueAt (int row, int col) {
-							if(col==0)
-								if(m.hasNext())
-									return ui.next().getDatiUnitaImmobiliare().getId();
-							if(m.hasNext())
-								return Float.toString(m.next().getQuota());
-							
-							return "";
-						}
-					//	public Class getColumnClass (int column) { return Object.class; } non credo serva
-						public String getColumnName (int column) { if(column==0) return "Unita";
-																	else return "Coefficiente";}
-					}
-					);
-				}*/
-							
-							
-							
-							//new DefaultTableModel(new String[][] {  {"",""},{"",""}  }, new String[] { "Unita", "Coefficente", }) );
+				for (Millesimo m : t.getMillesimi())
+					dm.addRow(new String[]{ui.next().getDatiUnitaImmobiliare().getId(),m.getQuota()+""});
+				
+				jTable0.setModel(dm);
 			}
 		}
 		
