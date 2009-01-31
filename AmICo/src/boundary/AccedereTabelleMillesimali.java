@@ -31,6 +31,7 @@ import store.POJO.Millesimo;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
+import datatype.list.Millesimi;
 import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
@@ -48,6 +49,9 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private StatiAccedereTabelleMillesimali state;
 	private UnitaImmobiliari unita;
 	private DatiTabellaMillesimale datiTabella;
+	private DefaultTableModel dm = new DefaultTableModel();
+	
+	
 	
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
@@ -275,10 +279,28 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	
 	private void listaListSelectionValueChanged(ListSelectionEvent event) {// TODO da testare
 		
-		for (final TabellaMillesimale t : tabelleMillesimali.getTabelle())
+		for (TabellaMillesimale t : tabelleMillesimali.getTabelle())
 		{
 			if( t.getDati().getNome().equals( (String)lista.getSelectedValue() ) )
 			{
+
+
+			    dm.setDataVector(
+			      new String[][]{},
+			      new String[]{ "Unita'", "Coefficente", }
+			      );
+
+			    
+			    final Iterator<Millesimo> m=t.getMillesimi().iterator();
+				final Iterator<UnitaImmobiliare> ui=t.getCondominio().getUnitaImmobiliari().iterator();
+			    
+			    while(m.hasNext())
+					dm.addRow(new Object[]{ui.next().getDatiUnitaImmobiliare().getId(),m.next().getQuota()});
+				
+			    jTable0 = new JTable(dm);
+				
+				
+			/*	
 				if(t.getMillesimi()!=null && t.getCondominio()!=null)
 				{
 					final Iterator<Millesimo> m=t.getMillesimi().iterator();
@@ -305,7 +327,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 																	else return "Coefficiente";}
 					}
 					);
-				}
+				}*/
 							
 							
 							

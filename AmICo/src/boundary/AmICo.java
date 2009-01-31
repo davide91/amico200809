@@ -327,7 +327,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 
     /**
     * @param args the command line arguments
-    */
+    
     public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -364,7 +364,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 
 			}
     });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bEsci;
