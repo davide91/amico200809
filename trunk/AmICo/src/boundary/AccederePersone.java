@@ -7,13 +7,16 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Bilateral;
@@ -23,6 +26,9 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
 import store.POJO.Persona;
+import store.POJO.PersonaFisica;
+import store.POJO.PersonaGiuridica;
+import store.POJO.Proprieta;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
 import enumeration.StatiAccederePersone;
@@ -38,7 +44,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	private static final long serialVersionUID = 1L;
 	private JButton bvisualizza;
 	private JLabel jLabel0;
-	private JTable jTable0;
+	private JTable table;
 	private JScrollPane jScrollPane0;
 	private GestoreCondominioAperto GCA;
 	private Persone persone;
@@ -62,30 +68,61 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		add(getBvisualizza(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 80, 236)));
 		add(getJLabel0(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Bilateral(42, 54, 26)));
-		setSize(400, 300);
+		setSize(543, 300);
 	}
 
 	private JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {
 			jScrollPane0 = new JScrollPane();
-			jScrollPane0.setViewportView(getJTable0());
+			jScrollPane0.setViewportView(getTable());
 		}
 		return jScrollPane0;
 	}
 
-	private JTable getJTable0() {
-		if (jTable0 == null) {
-			jTable0 = new JTable();
-			jTable0.setModel(new DefaultTableModel(new Object[][] { { "0x0", "0x1", }, { "1x0", "1x1", }, }, new String[] { "Title 0", "Title 1", }) {
+	private JTable getTable () {
+		if (table == null) {
+			table  = new JTable();
+		    DefaultTableModel dm = new DefaultTableModel();
+		    dm.setDataVector(
+		      new Object[][]{},
+		      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
+		      );
+
+		    for (Persona p : persone.getPersone())
+		    {
+					for(Proprieta p2: p.getProprieta() )
+					{
+						if(p instanceof PersonaFisica)
+							dm.addRow(new Object[]{
+								((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome(),
+								p2.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+								p2.getQuota(),
+								new JRadioButton()  });
+						
+						else if(p instanceof PersonaGiuridica)
+							dm.addRow(new Object[]{
+								((PersonaGiuridica)p).getDati().getpIva(),
+								p2.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+								p2.getQuota(),
+								new JRadioButton()  });
+					}	
+			}
+		    table = new JTable(dm)
+		    {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
-	
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
+
+				public void tableChanged(TableModelEvent e)
+			    {
+					super.tableChanged(e);
+			        repaint();
+			    }
+		    };   
+		    table.setModel(dm);
+		    
+		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 		}
-		return jTable0;
+		return table ;
 	}
 
 	private JLabel getJLabel0() {

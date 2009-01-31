@@ -1,13 +1,14 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,8 +24,6 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Persona;
 import datatype.CodiceFiscale;
-import datatype.DatiCorretti;
-import datatype.DatiErrati;
 import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
@@ -222,26 +221,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JRadioButton radioPF;
 	private JRadioButton radioPG;
 	private JComboBox provincia;
-	private JCheckBox comS;
-	private JCheckBox comM;
-	private JCheckBox comT;
-	private JCheckBox comP;
-	private JCheckBox comF;
-	private JCheckBox verbaliP;
-	private JCheckBox verbaliS;
-	private JCheckBox verbaliM;
-	private JCheckBox verbaliT;
-	private JCheckBox verbaliF;
-	private JCheckBox convP;
-	private JCheckBox convS;
-	private JCheckBox convM;
-	private JCheckBox convT;
-	private JCheckBox convF;
-	private JCheckBox avvisiP;
-	private JCheckBox avvisiS;
-	private JCheckBox avvisiM;
-	private JCheckBox avvisiT;
-	private JCheckBox avvisiF;
 	private JTextField cellulare;
 	private JTextField eMail;
 	private JTextField fax;
@@ -263,15 +242,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JLabel jLabel8;
 	private JLabel jLabel9;
 	private JLabel jLabel10;
-	private JLabel jLabel11;
-	private JLabel jLabel14;
-	private JLabel jLabel13;
-	private JLabel jLabel12;
-	private JLabel jLabel15;
-	private JLabel jLabel16;
-	private JLabel jLabel17;
-	private JLabel jLabel18;
-	private JLabel jLabel19;
 	private JLabel jLabel20;
 	private JLabel jLabel21;
 	private JLabel jLabel22;
@@ -280,9 +250,10 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JTextField interno;
 
 	private JLabel jLabel23;
-
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
+		setFont(new Font("Dialog", Font.PLAIN, 12));
+		setForeground(Color.black);
 		setLayout(new GroupLayout());
 		add(getRadioPF(), new Constraints(new Leading(479, 10, 10), new Leading(12, 8, 8)));
 		add(getRadioPG(), new Constraints(new Leading(479, 8, 8), new Leading(38, 8, 8)));
@@ -295,31 +266,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getCellulare(), new Constraints(new Leading(108, 309, 12, 12), new Leading(211, 12, 12)));
 		add(getEMail(), new Constraints(new Leading(108, 308, 12, 12), new Leading(247, 12, 12)));
 		add(getFax(), new Constraints(new Leading(108, 308, 12, 12), new Leading(283, 12, 12)));
-		add(getComP(), new Constraints(new Leading(189, 10, 10), new Leading(384, 10, 10)));
-		add(getVerbaliP(), new Constraints(new Leading(189, 10, 10), new Leading(408, 10, 10)));
-		add(getConvP(), new Constraints(new Leading(189, 10, 10), new Leading(434, 10, 10)));
-		add(getAvvisiP(), new Constraints(new Leading(189, 10, 10), new Leading(459, 10, 10)));
-		add(getAvvisiS(), new Constraints(new Leading(240, 10, 10), new Leading(459, 10, 10)));
-		add(getConvS(), new Constraints(new Leading(240, 10, 10), new Leading(434, 10, 10)));
-		add(getVerbaliS(), new Constraints(new Leading(240, 10, 10), new Leading(408, 10, 10)));
-		add(getComS(), new Constraints(new Leading(240, 10, 10), new Leading(384, 10, 10)));
-		add(getComM(), new Constraints(new Leading(295, 10, 10), new Leading(384, 10, 10)));
-		add(getComT(), new Constraints(new Leading(346, 10, 10), new Leading(384, 10, 10)));
-		add(getComF(), new Constraints(new Leading(396, 8, 8), new Leading(384, 10, 10)));
-		add(getVerbaliF(), new Constraints(new Leading(396, 8, 8), new Leading(408, 10, 10)));
-		add(getVerbaliT(), new Constraints(new Leading(346, 10, 10), new Leading(408, 10, 10)));
-		add(getVerbaliM(), new Constraints(new Leading(295, 10, 10), new Leading(408, 10, 10)));
-		add(getConvM(), new Constraints(new Leading(295, 10, 10), new Leading(434, 10, 10)));
-		add(getConvT(), new Constraints(new Leading(346, 10, 10), new Leading(434, 10, 10)));
-		add(getConvF(), new Constraints(new Leading(396, 8, 8), new Leading(434, 10, 10)));
-		add(getAvvisiF(), new Constraints(new Leading(396, 8, 8), new Leading(459, 10, 10)));
-		add(getAvvisiT(), new Constraints(new Leading(346, 10, 10), new Leading(459, 10, 10)));
-		add(getAvvisiM(), new Constraints(new Leading(295, 10, 10), new Leading(459, 10, 10)));
-		add(getRagioneSociale(), new Constraints(new Leading(108, 309, 12, 12), new Leading(495, 10, 10)));
-		add(getPartitaIVA(), new Constraints(new Leading(108, 308, 12, 12), new Leading(529, 10, 10)));
-		add(getIndirizzoFiscale(), new Constraints(new Leading(108, 308, 12, 12), new Leading(565, 12, 12)));
-		add(getBok(), new Constraints(new Leading(138, 10, 10), new Leading(613, 10, 10)));
-		add(getBannulla(), new Constraints(new Leading(432, 10, 10), new Leading(613, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(7, 10, 10), new Leading(16, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(7, 12, 12), new Leading(46, 12, 12)));
 		add(getJLabel3(), new Constraints(new Leading(7, 12, 12), new Leading(108, 12, 12)));
@@ -333,24 +279,21 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getJLabel7(), new Constraints(new Leading(7, 12, 12), new Leading(177, 12, 12)));
 		add(getJLabel9(), new Constraints(new Leading(7, 12, 12), new Leading(247, 12, 12)));
 		add(getJLabel10(), new Constraints(new Leading(7, 12, 12), new Leading(285, 12, 12)));
-		add(getJLabel11(), new Constraints(new Leading(14, 12, 12), new Leading(387, 12, 12)));
-		add(getJLabel14(), new Constraints(new Leading(12, 12, 12), new Leading(465, 12, 12)));
-		add(getJLabel13(), new Constraints(new Leading(12, 12, 12), new Leading(437, 12, 12)));
-		add(getJLabel12(), new Constraints(new Leading(12, 12, 12), new Leading(411, 12, 12)));
-		add(getJLabel15(), new Constraints(new Leading(185, 12, 12), new Leading(351, 10, 10)));
-		add(getJLabel16(), new Constraints(new Leading(240, 12, 12), new Leading(351, 12, 12)));
-		add(getJLabel17(), new Constraints(new Leading(296, 12, 12), new Leading(351, 12, 12)));
-		add(getJLabel18(), new Constraints(new Leading(335, 12, 12), new Leading(351, 12, 12)));
-		add(getJLabel19(), new Constraints(new Leading(396, 25, 12, 12), new Leading(351, 12, 12)));
-		add(getJLabel21(), new Constraints(new Leading(12, 12, 12), new Leading(531, 12, 12)));
-		add(getJLabel20(), new Constraints(new Leading(12, 12, 12), new Leading(497, 12, 12)));
-		add(getJLabel22(), new Constraints(new Leading(12, 12, 12), new Leading(567, 12, 12)));
-		add(getBPersonaDiRiferimento(), new Constraints(new Leading(488, 10, 10), new Leading(562, 12, 12)));
 		add(getInterno(), new Constraints(new Leading(496, 101, 10, 10), new Leading(102, 12, 12)));
 		add(getJLabel23(), new Constraints(new Leading(437, 10, 10), new Leading(100, 22, 12, 12)));
+		add(getRagioneSociale(), new Constraints(new Leading(108, 309, 12, 12), new Leading(317, 12, 12)));
+		add(getJLabel20(), new Constraints(new Leading(7, 12, 12), new Leading(319, 12, 12)));
+		add(getPartitaIVA(), new Constraints(new Leading(108, 308, 12, 12), new Leading(353, 12, 12)));
+		add(getJLabel21(), new Constraints(new Leading(7, 12, 12), new Leading(357, 12, 12)));
+		add(getIndirizzoFiscale(), new Constraints(new Leading(108, 308, 12, 12), new Leading(389, 12, 12)));
+		add(getJLabel22(), new Constraints(new Leading(7, 12, 12), new Leading(391, 12, 12)));
+		add(getBok(), new Constraints(new Leading(110, 10, 10), new Leading(436, 10, 10)));
+		add(getBannulla(), new Constraints(new Leading(348, 12, 12), new Leading(436, 12, 12)));
+		add(getBPersonaDiRiferimento(), new Constraints(new Leading(450, 10, 10), new Leading(383, 12, 12)));
 		initGroup();
-		setSize(672, 688);
+		setSize(632, 515);
 	}
+
 
 	private JLabel getJLabel23() {
 		if (jLabel23 == null) {
@@ -372,6 +315,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		group.add(getRadioPF());
 		group.add(getRadioPG());
 	}
+
 
 	private JButton getBPersonaDiRiferimento() {
 		if (bPersonaDiRiferimento == null) {
@@ -412,87 +356,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			jLabel20.setText("Ragione sociale:");
 		}
 		return jLabel20;
-	}
-
-
-	private JLabel getJLabel19() {
-		if (jLabel19 == null) {
-			jLabel19 = new JLabel();
-			jLabel19.setText("FAX");
-		}
-		return jLabel19;
-	}
-
-
-	private JLabel getJLabel18() {
-		if (jLabel18 == null) {
-			jLabel18 = new JLabel();
-			jLabel18.setText("Telefono");
-		}
-		return jLabel18;
-	}
-
-
-	private JLabel getJLabel17() {
-		if (jLabel17 == null) {
-			jLabel17 = new JLabel();
-			jLabel17.setText("Mail");
-		}
-		return jLabel17;
-	}
-
-
-	private JLabel getJLabel16() {
-		if (jLabel16 == null) {
-			jLabel16 = new JLabel();
-			jLabel16.setText("SMS");
-		}
-		return jLabel16;
-	}
-
-
-	private JLabel getJLabel15() {
-		if (jLabel15 == null) {
-			jLabel15 = new JLabel();
-			jLabel15.setText("Postel");
-		}
-		return jLabel15;
-	}
-
-
-	private JLabel getJLabel12() {
-		if (jLabel12 == null) {
-			jLabel12 = new JLabel();
-			jLabel12.setText("Verbali assemblea");
-		}
-		return jLabel12;
-	}
-
-
-	private JLabel getJLabel13() {
-		if (jLabel13 == null) {
-			jLabel13 = new JLabel();
-			jLabel13.setText("Convocazioni assemblea");
-		}
-		return jLabel13;
-	}
-
-
-	private JLabel getJLabel14() {
-		if (jLabel14 == null) {
-			jLabel14 = new JLabel();
-			jLabel14.setText("Avvisi");
-		}
-		return jLabel14;
-	}
-
-
-	private JLabel getJLabel11() {
-		if (jLabel11 == null) {
-			jLabel11 = new JLabel();
-			jLabel11.setText("Comunicazioni");
-		}
-		return jLabel11;
 	}
 
 
@@ -720,166 +583,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			cognome = new JTextField();
 		}
 		return cognome;
-	}
-
-
-	private JCheckBox getAvvisiF() {
-		if (avvisiF == null) {
-			avvisiF = new JCheckBox();
-		}
-		return avvisiF;
-	}
-
-
-	private JCheckBox getAvvisiT() {
-		if (avvisiT == null) {
-			avvisiT = new JCheckBox();
-		}
-		return avvisiT;
-	}
-
-
-	private JCheckBox getAvvisiM() {
-		if (avvisiM == null) {
-			avvisiM = new JCheckBox();
-		}
-		return avvisiM;
-	}
-
-
-	private JCheckBox getAvvisiS() {
-		if (avvisiS == null) {
-			avvisiS = new JCheckBox();
-		}
-		return avvisiS;
-	}
-
-
-	private JCheckBox getAvvisiP() {
-		if (avvisiP == null) {
-			avvisiP = new JCheckBox();
-		}
-		return avvisiP;
-	}
-
-
-	private JCheckBox getConvF() {
-		if (convF == null) {
-			convF = new JCheckBox();
-		}
-		return convF;
-	}
-
-
-	private JCheckBox getConvT() {
-		if (convT == null) {
-			convT = new JCheckBox();
-		}
-		return convT;
-	}
-
-
-	private JCheckBox getConvM() {
-		if (convM == null) {
-			convM = new JCheckBox();
-		}
-		return convM;
-	}
-
-
-	private JCheckBox getConvS() {
-		if (convS == null) {
-			convS = new JCheckBox();
-		}
-		return convS;
-	}
-
-
-	private JCheckBox getConvP() {
-		if (convP == null) {
-			convP = new JCheckBox();
-		}
-		return convP;
-	}
-
-
-	private JCheckBox getVerbaliF() {
-		if (verbaliF == null) {
-			verbaliF = new JCheckBox();
-		}
-		return verbaliF;
-	}
-
-
-	private JCheckBox getVerbaliT() {
-		if (verbaliT == null) {
-			verbaliT = new JCheckBox();
-		}
-		return verbaliT;
-	}
-
-
-	private JCheckBox getVerbaliM() {
-		if (verbaliM == null) {
-			verbaliM = new JCheckBox();
-		}
-		return verbaliM;
-	}
-
-
-	private JCheckBox getVerbaliS() {
-		if (verbaliS == null) {
-			verbaliS = new JCheckBox();
-		}
-		return verbaliS;
-	}
-
-
-	private JCheckBox getVerbaliP() {
-		if (verbaliP == null) {
-			verbaliP = new JCheckBox();
-		}
-		return verbaliP;
-	}
-
-
-	private JCheckBox getComF() {
-		if (comF == null) {
-			comF = new JCheckBox();
-		}
-		return comF;
-	}
-
-
-	private JCheckBox getComP() {
-		if (comP == null) {
-			comP = new JCheckBox();
-		}
-		return comP;
-	}
-
-
-	private JCheckBox getComT() {
-		if (comT == null) {
-			comT = new JCheckBox();
-		}
-		return comT;
-	}
-
-
-	private JCheckBox getComM() {
-		if (comM == null) {
-			comM = new JCheckBox();
-		}
-		return comM;
-	}
-
-
-	private JCheckBox getComS() {
-		if (comS == null) {
-			comS = new JCheckBox();
-		}
-		return comS;
 	}
 
 
