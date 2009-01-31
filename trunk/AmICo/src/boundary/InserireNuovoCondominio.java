@@ -72,14 +72,6 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		
 	}
 	
-	/*
-	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unitaImmobiliari) {
-		this.unitaImmobiliari=unitaImmobiliari;
-		CUI.aggiornaUnitaImmobiliari(unitaImmobiliari);
-		
-		//AMM.mostraUnitaImmobiliari(unitaImmobiliari);
-	}
-	*/
 	
 	public void ammissibile(Boolean b) {
 		switch (state) {

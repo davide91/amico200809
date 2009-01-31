@@ -43,8 +43,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	private UnitaImmobiliari unita;
 	private Millesimi m;
 
-	
-    DefaultTableModel dm = new DefaultTableModel();
+    private DefaultTableModel dm = new DefaultTableModel();
 
 	public InserisciTabellaMillesimaleProprieta(UnitaImmobiliari unita)// per ora inserisce solo una tabella e non termina
 	{
@@ -287,8 +286,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	}
 
 	private JTable getTabella() {
-		if (tabella == null) {
-		//    DefaultTableModel dm = new DefaultTableModel();
+		if (tabella == null) 
+		{
 		    dm.setDataVector(
 		      new String[][]{},
 		      new String[]{ "Unita'", "Coefficente", }

@@ -52,16 +52,15 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	private StatiConfermaUnitaImmobiliari state;
 	private InserireUnitaImmobiliare IUI;
 	
-//	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, UnitaImmobiliari u) {
 	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, Persone p) {
 	state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
 		initGroup();
 		persone=   new Persone();// provvisorio TODO
 		this.INC=INC;
-		//unita=u;
+
 		persone=p;
-		//aggiornaUnitaImmobiliari(u);
+
 		this.setVisible(true);
 		this.setTitle("Inserimento unita' immobiliari");
 	}
@@ -214,15 +213,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		IUI = new InserireUnitaImmobiliare(this/*,persone*/);
 		this.setVisible(false);
 	}
-	
-	private void bAggiungiPropietariMouseMouseClicked(MouseEvent event) {
-	/*	int i;
-		Enumeration e=group.getElements();
-		for (i=0; e.hasMoreElements();i++ )
-	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	  AP = new AccedereProprietari(this,unita.getImmobili().get(i),persone);
-	*/	
-	}
 
 	private void bEliminaUnitaMouseMouseClicked(MouseEvent event) {
 		int i;
@@ -242,7 +232,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	private JButton bAnnulla;
 	private JButton bInserisciUnitaImmobiliare;
 	private static final long serialVersionUID = 1L;
-	private JButton bAggiungiPropietari;
 	private JButton bEliminaUnita;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
@@ -251,8 +240,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
 		add(getBInserisciUnitaImmobiliare(), new Constraints(new Leading(16, 10, 10), new Leading(219, 12, 12)));
-		add(getBEliminaUnita(), new Constraints(new Trailing(12, 327, 327), new Leading(219, 12, 12)));
-		add(getBAggiungiPropietari(), new Constraints(new Leading(280, 10, 10), new Leading(219, 12, 12)));
+		add(getBEliminaUnita(), new Constraints(new Leading(280, 10, 10), new Leading(219, 12, 12)));
 		add(getBContinua(), new Constraints(new Leading(20, 10, 10), new Leading(288, 10, 10)));
 		add(getBAnnulla(), new Constraints(new Leading(200, 10, 10), new Leading(288, 10, 10)));
 		initGroup();
@@ -277,19 +265,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		group = new ButtonGroup();
 	}
 
-	private JButton getBAggiungiPropietari() {
-		if (bAggiungiPropietari == null) {
-			bAggiungiPropietari = new JButton();
-			bAggiungiPropietari.setText("Aggiungi proprietari");
-			bAggiungiPropietari.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					bAggiungiPropietariMouseMouseClicked(event);
-				}
-			});
-		}
-		return bAggiungiPropietari;
-	}
 
 	private JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {

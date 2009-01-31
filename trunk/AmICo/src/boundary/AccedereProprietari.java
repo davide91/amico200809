@@ -106,8 +106,11 @@ public class AccedereProprietari extends JFrame {
 	{
 		int cont=0;
 		
-		proprietari.inserisciPersona(pers);
-		quote.inserisciReale(quota);
+		if(quota!=0 && pers!=null)
+		{
+			proprietari.inserisciPersona(pers);
+			quote.inserisciReale(quota);
+		}
 		
 	
 		initGroup();
@@ -211,9 +214,13 @@ public class AccedereProprietari extends JFrame {
 			Enumeration e=group.getElements();
 			for (i=0; e.hasMoreElements();i++ )
 		           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-		        	   JOptionPane.showMessageDialog(this, ""+(i));
+		           {
+		        	   quote.removeAt(i);
+		        	   proprietari.getPersone().remove(i);
+		        	   this.aggiornaTabella(null,0);
+		        	   
+		           }
 		}
-		//rimuovi unita.getQuoteDiPossesso().remove ???
 		
 	}
 
