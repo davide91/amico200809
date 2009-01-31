@@ -41,15 +41,10 @@ import executor.GestorePersone;
  */
 public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPersone{
 
-	private static final long serialVersionUID = 1L;
-	private JButton bvisualizza;
-	private JLabel jLabel0;
-	private JTable table;
-	private JScrollPane jScrollPane0;
 	private GestoreCondominioAperto GCA;
 	private Persone persone;
 	private StatiAccederePersone state;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	public AccederePersone() {
 		initComponents();
 		state=StatiAccederePersone.base;
@@ -62,6 +57,81 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		initComponents();
 		state = StatiAccederePersone.base;
 	}
+	
+	
+
+	
+	public void modificaCondomino(Persona persona) {
+		GestorePersone.getInstance().modificaPersona(this, persona);
+		state=StatiAccederePersone.modificaPersone;
+	}
+	
+	public void aggiornaCondomini(Persone persone	) {
+		
+	}
+	
+
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void annulla() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fatto() {
+		state=StatiAccederePersone.base;
+		
+	}
+
+	public void finito() {
+		GCA.operazioneTerminata();
+		
+	}
+
+	public void ko() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ok() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void aggiornaPersone(Persone persone) {
+		this.persone =persone;
+		//AMM.mostraPersone(persone);
+		
+	}
+
+	public boolean proprietaOK(Persone persone, Percentuali quote) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+	
+	private static final long serialVersionUID = 1L;
+	private JButton bvisualizza;
+	private JLabel jLabel0;
+	private JTable table;
+	private JScrollPane jScrollPane0;
+
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
@@ -154,12 +224,13 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		}
 	}
 
+
 	/**
 	 * Main entry of the class.
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -176,66 +247,5 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 			}
 		});
 	}
-	
-	public void modificaCondomino(Persona persona) {
-		GestorePersone.getInstance().modificaPersona(this, persona);
-		state=StatiAccederePersone.modificaPersone;
-	}
-	
-	public void aggiornaCondomini(Persone persone	) {
-		
-	}
-	
-
-	public void ammissibile(Boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void annulla() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void fallito() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void fatto() {
-		state=StatiAccederePersone.base;
-		
-	}
-
-	public void finito() {
-		GCA.operazioneTerminata();
-		
-	}
-
-	public void ko() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void ok() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void aggiornaPersona(Persona persona) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void aggiornaPersone(Persone persone) {
-		this.persone =persone;
-		//AMM.mostraPersone(persone);
-		
-	}
-
-	public boolean proprietaOK(Persone persone, Percentuali quote) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+ */
 }
