@@ -9,10 +9,13 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -39,7 +42,6 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	private StatiAccedereTabelleMillesimali state;
 	private UnitaImmobiliari unita;
 	private Millesimi m;
-	private String nome,descrizione;
 
 	
     DefaultTableModel dm = new DefaultTableModel();
@@ -52,6 +54,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		
 		setVisible(true);
 		this.setTitle("inserimento tabella millesimale");
+		m=new Millesimi();
 	}
 
 	public InserisciTabellaMillesimaleProprieta() {
@@ -142,9 +145,20 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		if(m.somma()==1000)
 		{		
 			DatiTabellaMillesimale dati= new DatiTabellaMillesimale();
-			dati.setNome(nome);
-			dati.setDescrizione(descrizione);
+			dati.setNome(nome.getText());
+			dati.setDescrizione(descrizione.getText());
 			GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,m);
+			
+			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			
+			if (c==0)
+				{
+					GestoreCondomini.getInstance().procedi(true);
+					this.dispose();
+				
+				}
+			else GestoreCondomini.getInstance().procedi(false);
+
 		}
 		else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
 			
@@ -157,16 +171,21 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	}
 
 	
-	
-	
-	
 	private static final long serialVersionUID = 1L;
 	private JTable tabella;
 	private JScrollPane millesimi;
 	private JButton bContinua;
 	private JSeparator jSeparator0;
 	private JButton bAnnulla;
+	
+	private JTextPane descrizione;
+	private JScrollPane jScrollPane0;
+	private JTextField nome;
+	private JLabel jLabel0;
+	private JLabel jLabel1;
+	
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	private void initComponents() {
 		setFont(new Font("Dialog", Font.PLAIN, 12));
 		setForeground(Color.black);
@@ -174,9 +193,55 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		add(getJSeparator0(), new Constraints(new Bilateral(11, 12, 581), new Trailing(42, 10, 50, 250)));
 		add(getBAnnulla(), new Constraints(new Leading(455, 96, 10, 10), new Trailing(12, 50, 250)));
 		add(getBContinua(), new Constraints(new Leading(123, 10, 10), new Trailing(12, 50, 250)));
-		add(getMillesimi(), new Constraints(new Bilateral(12, 6, 22), new Leading(12, 226, 55, 64)));
-		setSize(605, 355);
+		add(getMillesimi(), new Constraints(new Bilateral(12, 150, 22), new Leading(50, 226, 55, 64)));
+		
+		add(getJLabel1(), new Constraints(new Leading(448, 10, 10), new Leading(14, 12, 12)));
+		add(getJScrollPane0(), new Constraints(new Trailing(13, 100, 60, 166), new Leading(14, 271, 10, 10)));
+		add(getNome(), new Constraints(new Leading(312, 110, 10, 10), new Leading(14, 12, 12)));
+		add(getJLabel0(), new Constraints(new Leading(266, 10, 10), new Leading(16, 12, 12)));
+		setSize(645, 380);
 	}
+	
+
+	private JLabel getJLabel1() {
+		if (jLabel1 == null) {
+			jLabel1 = new JLabel();
+			jLabel1.setText("Descrizione:");
+		}
+		return jLabel1;
+	}
+
+	private JLabel getJLabel0() {
+		if (jLabel0 == null) {
+			jLabel0 = new JLabel();
+			jLabel0.setText("Nome:");
+		}
+		return jLabel0;
+	}
+
+	private JTextField getNome() {
+		if (nome == null) {
+			nome = new JTextField();
+		}
+		return nome;
+	}
+
+	private JScrollPane getJScrollPane0() {
+		if (jScrollPane0 == null) {
+			jScrollPane0 = new JScrollPane();
+			jScrollPane0.setViewportView(getDescrizione());
+		}
+		return jScrollPane0;
+	}
+
+	private JTextPane getDescrizione() {
+		if (descrizione == null) {
+			descrizione = new JTextPane();
+		}
+		return descrizione;
+	}
+	
+	
 
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
@@ -188,9 +253,6 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 					annullaMouseMouseClicked(event);
 				}
 			});
-			
-			
-			
 		}
 		return bAnnulla;
 	}
@@ -216,7 +278,6 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		return bContinua;
 	}
 
-
 	private JScrollPane getMillesimi() {
 		if (millesimi == null) {
 			millesimi = new JScrollPane();
@@ -238,8 +299,6 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 				dm.addRow(new String[]{u.getDatiUnitaImmobiliare().getId(),""});
 			}
 		    tabella = new JTable(dm);
-
-
 		}
 		return tabella;
 	}
