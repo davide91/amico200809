@@ -170,7 +170,18 @@ public class GestoreCondomini implements BaseExecutor {
 			m_inserireNuovoCondominio.ammissibile(true);
 		}
 	}
+	// non c'e' nel design serve per eliminare unita' imoobiliare in creazione
+	public void eliminaUnitaImmobiliare(String dati)
+	{
+		for (UnitaImmobiliare ui : m_condominio.getUnitaImmobiliari())
+		{
+			if( ui.getDatiUnitaImmobiliare().getId().equals(dati) )
+				m_condominio.eliminaUnitaImmobiliare(ui);
+		}
+		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 		
+	}
+	
 	public void passaDatiUnitaImmobliare(DatiUnitaImmobiliare datiUnitaImmobliare) {
 		if ( unitaImmobiliareGiaInserita(datiUnitaImmobliare) ) {
 			m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;

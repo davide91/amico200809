@@ -45,12 +45,14 @@ import executor.GestorePersone;
 public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone {
 
 	private ButtonGroup group;
-	private UnitaImmobiliari unita;
+	private UnitaImmobiliari unitaImmobiliari;
 	private Persone persone;
 	private InserireNuovoCondominio INC;
 	private AccedereProprietari AP;
 	private StatiConfermaUnitaImmobiliari state;
 	private InserireUnitaImmobiliare IUI;
+	private DefaultTableModel dm;
+	
 	
 	public ConfermaUnitaImmobiliari(InserireNuovoCondominio INC, Persone p) {
 	state = StatiConfermaUnitaImmobiliari.base;
@@ -99,15 +101,17 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	{
 		int cont=0;
 		
-		this.unita=unita;
+		this.unitaImmobiliari=unita;
 		initGroup();
 		if(unita != null)
 		{
-			Iterator<UnitaImmobiliare> ui=this.unita.getImmobili().iterator();
+			Iterator<UnitaImmobiliare> ui=this.unitaImmobiliari.getImmobili().iterator();
 			UnitaImmobiliare unit;
+			
+			dm= new DefaultTableModel();
 	
 			
-				DefaultTableModel dm = new DefaultTableModel();
+
 				
 			    dm.setDataVector(
 			      new Object[][]{},
@@ -219,8 +223,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	   JOptionPane.showMessageDialog(this, ""+(i));
-		//new ModificaUnitaImmobiliare(unita.getImmobili().get(i))
+	        	   GestoreCondomini.getInstance().eliminaUnitaImmobiliare((String)dm.getValueAt(i, 0));//GestoreCondomini.getInstance().eliminaUnitaImmobiliare(unitaImmobiliari.getImmobili().get(i).getDatiUnitaImmobiliare());
 		
 	}
 	
@@ -369,7 +372,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	 
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -382,7 +385,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 			}
 		});
 	}
-
+*/
 
 
 
