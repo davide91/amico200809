@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -28,7 +27,6 @@ import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
 import datatype.Email;
-import datatype.EsitoControlloDati;
 import datatype.EsitoControlloDatiPersona;
 import datatype.Indirizzo;
 import datatype.PartitaIva;
@@ -73,8 +71,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	}
 	
 	public void inserisciDatiPersona(DatiPersona datiP) {
-		EsitoControlloDati esito= datiP.controlla();
-	/*	 if (esito instanceof DatiErrati){
+	/*	EsitoControlloDati esito= datiP.controlla();
+		 if (esito instanceof DatiErrati){
 				JOptionPane.showMessageDialog(this,"Dati errati");
 			//	System.out.println("");
 		 }
@@ -138,7 +136,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		ragioneSociale.setEditable(false);
 		partitaIVA.setEditable(false);
 		indirizzoFiscale.setEditable(false);
-		bPersonaDiRiferimento.setEnabled(false);
+	//	bPersonaDiRiferimento.setEnabled(false);
 		cognome.setEditable(true);
 		nome.setEditable(true);
 		codiceFiscale.setEditable(true);
@@ -155,7 +153,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		ragioneSociale.setEditable(true);
 		partitaIVA.setEditable(true);
 		indirizzoFiscale.setEditable(true);
-		bPersonaDiRiferimento.setEnabled(true);
+	//	bPersonaDiRiferimento.setEnabled(true);
 		cognome.setEditable(false);
 		nome.setEditable(false);
 		codiceFiscale.setEditable(false);
@@ -171,9 +169,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private void bannullaMouseMouseClicked(MouseEvent event) {
 		annulla();
 		this.dispose();
-	}
-
-	private void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
 	}
 	
 	private void bokMouseMouseClicked(MouseEvent event) {
@@ -245,7 +240,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JLabel jLabel20;
 	private JLabel jLabel21;
 	private JLabel jLabel22;
-	private JButton bPersonaDiRiferimento;
+//	private JButton bPersonaDiRiferimento;
 
 	private JTextField interno;
 
@@ -289,7 +284,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getJLabel22(), new Constraints(new Leading(7, 12, 12), new Leading(391, 12, 12)));
 		add(getBok(), new Constraints(new Leading(110, 10, 10), new Leading(436, 10, 10)));
 		add(getBannulla(), new Constraints(new Leading(348, 12, 12), new Leading(436, 12, 12)));
-		add(getBPersonaDiRiferimento(), new Constraints(new Leading(450, 10, 10), new Leading(383, 12, 12)));
+	//	add(getBPersonaDiRiferimento(), new Constraints(new Leading(450, 10, 10), new Leading(383, 12, 12)));
 		initGroup();
 		setSize(632, 515);
 	}
@@ -316,7 +311,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		group.add(getRadioPG());
 	}
 
-
+/*
 	private JButton getBPersonaDiRiferimento() {
 		if (bPersonaDiRiferimento == null) {
 			bPersonaDiRiferimento = new JButton();
@@ -330,7 +325,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return bPersonaDiRiferimento;
 	}
-
+*/
 
 	private JLabel getJLabel22() {
 		if (jLabel22 == null) {
@@ -630,6 +625,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	}
 
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -647,7 +643,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -659,5 +655,5 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 				frame.setVisible(true);
 			}
 		});
-	}
+	} */
 }

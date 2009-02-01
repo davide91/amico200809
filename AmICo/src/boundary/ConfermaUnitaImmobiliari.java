@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -23,9 +22,7 @@ import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
-import org.dyno.visual.swing.layouts.Trailing;
 
-import store.TuttePersone;
 import store.POJO.Persona;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiUnitaImmobiliare;
@@ -33,9 +30,7 @@ import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiConfermaUnitaImmobiliari;
-import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
-import executor.GestoreCondominioAperto;
 import executor.GestorePersone;
 
 /**
@@ -218,6 +213,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		this.setVisible(false);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void bEliminaUnitaMouseMouseClicked(MouseEvent event) {
 		int i;
 		Enumeration e=group.getElements();
@@ -355,6 +351,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;

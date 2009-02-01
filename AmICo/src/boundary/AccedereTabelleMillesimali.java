@@ -1,25 +1,20 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Bilateral;
@@ -32,7 +27,6 @@ import store.POJO.Millesimo;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
-import datatype.list.Millesimi;
 import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
@@ -48,6 +42,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private TabelleMillesimali tabelleMillesimali;
 	private GestoreCondominioAperto GCA;
 	private StatiAccedereTabelleMillesimali state;
+	@SuppressWarnings("unused")
 	private UnitaImmobiliari unita;
 	private DatiTabellaMillesimale datiTabella;
 	private DefaultTableModel dm = new DefaultTableModel();
@@ -174,6 +169,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		return jTable0;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
