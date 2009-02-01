@@ -26,12 +26,11 @@ public class Avvio  {
 	//	Thread.sleep(1000);
 		   
 		Avvio.inizializzaAmICo();
-
 	}
 	
 
 	public static void esciDaAmICo() {
-
+		
 	}
 	
 	public static void inizializzaAmICo() {
@@ -48,8 +47,8 @@ public class Avvio  {
 		 */
 	private static void showSplashScreen() 
 	{
-		fSplashScreen = new SplashScreen("images/splash-AmICo.jpg");
-		fSplashScreen.splash();
+		//fSplashScreen = new SplashScreen("images/splash-AmICo.jpg");
+		//fSplashScreen.splash();
 	}
 	  
 
