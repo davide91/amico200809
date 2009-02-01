@@ -307,9 +307,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 
 	private void bdaticondominiMouseMouseClicked(MouseEvent event) {
-		
-		
-		
 		pannello.removeAll();
 		this.passaADatiCondomini(); 
 		pannello.revalidate();
@@ -382,11 +379,9 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 			if (c==0)ok();
 
 			else ko();
-
 		}
-			
-		
 	}
+	
 	public void ammissibile(EsitoEliminabile esito){
 		//AMM.richiediConferma(esito);
 		state=StatiAccedereCondominioAperto.attesaConfermaEliminazione;

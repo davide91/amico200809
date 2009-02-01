@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import datatype.Avviso;
 import datatype.CassaSottoSogliaMinima;
@@ -107,21 +108,26 @@ public class CalcolaAvvisi {
 		
 		Euro sogliaMin; 
 		try{
-		sogliaMin= m_condominio.getPreferenze().getSogliaMinimaCassa();
+			sogliaMin= m_condominio.getPreferenze().getSogliaMinimaCassa();
 		}
 		catch (NullPointerException npe) {
 			sogliaMin=new Euro((float)0.0);
 		}
+		
 		Iterator<Cassa> cassaIter = m_condominio.getCassa().iterator();
 		while(cassaIter.hasNext())
 		{
 			if( cassaIter.next().getSaldo().getEuro() < sogliaMin.getEuro() )
 			{
 				/* FIXME : Cassa.toString() per identificare una cassa dall'altra */
-				CassaSottoSogliaMinima avviso = 
-					new CassaSottoSogliaMinima(cassaIter.next().toString(),
-							cassaIter.next().getSaldo(), sogliaMin);
-				m_avvisi.add((Avviso)avviso);
+				try{
+					CassaSottoSogliaMinima avviso = new CassaSottoSogliaMinima(cassaIter.next().toString(),	cassaIter.next().getSaldo(), sogliaMin);
+					m_avvisi.add((Avviso)avviso);
+				}
+				catch(NoSuchElementException nsee)
+				{
+					CassaSottoSogliaMinima avviso = new CassaSottoSogliaMinima("Cassa creata da eccezione",	new Euro((float)500.0),new Euro((float)1500.0) );
+				}
 			}
 		}
 
