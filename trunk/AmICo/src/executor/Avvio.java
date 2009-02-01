@@ -3,12 +3,12 @@
  */
 package executor;
 
+import java.awt.EventQueue;
+
 import store.TuttePersone;
 import store.TuttiCondomini;
-import boundary.AmICo;
 import boundary.DriverFileSystem;
 import boundary.SplashScreen;
-import executor.GestorePersone;
 
 /**
  * @author thewally
@@ -26,6 +26,8 @@ public class Avvio  {
 	//	Thread.sleep(1000);
 		   
 		Avvio.inizializzaAmICo();
+		
+		EventQueue.invokeLater(new SplashScreenCloser());
 	}
 	
 
@@ -47,8 +49,8 @@ public class Avvio  {
 		 */
 	private static void showSplashScreen() 
 	{
-		//fSplashScreen = new SplashScreen("images/splash-AmICo.jpg");
-		//fSplashScreen.splash();
+		fSplashScreen = new SplashScreen("images/splash-AmICo.jpg");
+		fSplashScreen.splash();
 	}
 	  
 
@@ -59,10 +61,10 @@ public class Avvio  {
 		 * <code>EventQueue.invokeLater</code>, in order to remove the splash
 		 * screen in a thread-safe manner.
 		 */
-	/*  private static final class SplashScreenCloser implements Runnable 
+	  private static final class SplashScreenCloser implements Runnable 
 	  {
 	    public void run(){
 	      fSplashScreen.dispose();
 	    }
-	  }*/
+	  }
 }
