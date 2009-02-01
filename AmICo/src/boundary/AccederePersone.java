@@ -3,18 +3,16 @@ package boundary;
 
 // questa classe si dovrebbe chiamare AccedereCondomini ma per motivi di ambiguita' si e' cambiato in AccederePersone
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +26,6 @@ import org.dyno.visual.swing.layouts.Trailing;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
-import store.POJO.Proprieta;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
 import enumeration.StatiAccederePersone;
@@ -56,6 +53,8 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		//AMM.mostraPersone(persone);
 		initComponents();
 		state = StatiAccederePersone.base;
+		
+		JOptionPane.showMessageDialog(this, "Attenzione alla creazione in persone non vengono inserite le proprieta' e le unita' quindi non si possono mostrare");
 	}
 	
 	
@@ -160,7 +159,22 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 
 		    for (Persona p : persone.getPersone())
 		    {
-					for(Proprieta p2: p.getProprieta() )
+		    	
+		    	if(p instanceof PersonaFisica)
+					dm.addRow(new Object[]{
+						((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome(),
+						"",
+						"",
+						new JRadioButton()  });
+				
+				else if(p instanceof PersonaGiuridica)
+					dm.addRow(new Object[]{
+						((PersonaGiuridica)p).getDati().getpIva(),
+						"",
+						"",
+						new JRadioButton()  });
+		    
+					/*for(Proprieta p2: p.getProprieta() )    non lega le persone alle unita'
 					{
 						if(p instanceof PersonaFisica)
 							dm.addRow(new Object[]{
@@ -175,7 +189,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 								p2.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
 								p2.getQuota(),
 								new JRadioButton()  });
-					}	
+					}*/
 			}
 		    table = new JTable(dm)
 		    {

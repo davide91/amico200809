@@ -25,11 +25,9 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import store.POJO.Millesimo;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
-import store.POJO.Proprieta;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
@@ -226,9 +224,9 @@ public class AccedereProprietari extends JFrame {
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
 		if (quote.somma()==100.0){
-		CUI.proprietaOK(proprietari, quote);
-		CUI.setVisible(true);
-		this.dispose();
+			CUI.proprietaOK(proprietari, quote);
+			CUI.setVisible(true);
+			this.dispose();
 		}
 		else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
 		
