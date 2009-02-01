@@ -187,7 +187,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			indirizzo.setProvincia((Provincia)provincia.getSelectedItem());
 			indirizzo.setVia(via.getText());
 			indirizzo.setInterno(null);
-			datiCondominio.setId(via.getText()+cap.getText());
+			datiCondominio.setId(via.getText()+" "+cap.getText());
 			datiCondominio.setIndirizzo(indirizzo);
 			this.inserisciDatiCondominio(datiCondominio);
 		}
