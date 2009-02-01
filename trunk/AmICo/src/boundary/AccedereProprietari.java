@@ -28,7 +28,6 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
-import store.POJO.UnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
 import executor.GestoreCondomini;
@@ -39,7 +38,6 @@ import executor.GestoreCondomini;
  */
 public class AccedereProprietari extends JFrame {
 	
-	private UnitaImmobiliare unita;
 	private Persone persone;
 	private ButtonGroup group;
 	private ConfermaUnitaImmobiliari CUI;
@@ -205,6 +203,7 @@ public class AccedereProprietari extends JFrame {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	private void bRimuoviProprietarioMouseMouseClicked(MouseEvent event) {
 		int i;
 		if (group!=null)
@@ -372,6 +371,7 @@ public class AccedereProprietari extends JFrame {
 	}
 
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;

@@ -27,7 +27,6 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.UnitaImmobiliare;
-import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereUnitaImmobiliari;
@@ -41,7 +40,9 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 	private GestoreCondominioAperto GCA;
 	private UnitaImmobiliari unita;
+	@SuppressWarnings("unused")
 	private Persone persone;
+	@SuppressWarnings("unused")
 	private StatiAccedereUnitaImmobiliari state;
 	
 	private ButtonGroup group;
@@ -164,6 +165,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void mouseMouseClicked(MouseEvent event) {
 		int i;
 		Enumeration e=group.getElements();

@@ -4,7 +4,11 @@ package boundary;
 // questa classe si dovrebbe chiamare AccedereCondomini ma per motivi di ambiguita' si e' cambiato in AccederePersone
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -40,7 +44,9 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 
 	private GestoreCondominioAperto GCA;
 	private Persone persone;
+	@SuppressWarnings("unused")
 	private StatiAccederePersone state;
+	private ButtonGroup group=new ButtonGroup();
 	
 	public AccederePersone() {
 		initComponents();
@@ -121,6 +127,16 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		return false;
 	}
 	
+	@SuppressWarnings("unchecked")
+	private void bvisualizzaMouseMouseClicked(MouseEvent event) {
+		int i;
+		Enumeration e=group.getElements();
+		for (i=0; e.hasMoreElements();i++ )
+	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
+	        	   new ModificarePersona(persone.getPersone().get(i));
+	}
+	
+	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -151,15 +167,20 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	private JTable getTable () {
 		if (table == null) {
 			table  = new JTable();
+			
+			int cont=0;
 		    DefaultTableModel dm = new DefaultTableModel();
 		    dm.setDataVector(
 		      new Object[][]{},
 		      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
 		      );
 
+		    
+		    
+		    
 		    for (Persona p : persone.getPersone())
 		    {
-		    	
+		    	cont++;
 		    	if(p instanceof PersonaFisica)
 					dm.addRow(new Object[]{
 						((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome(),
@@ -191,6 +212,11 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 								new JRadioButton()  });
 					}*/
 			}
+		    
+		    for(int i=0;i<cont;i++)
+		    	group.add((JRadioButton)dm.getValueAt(i,3));
+		    
+		    
 		    table = new JTable(dm)
 		    {
 				private static final long serialVersionUID = 1L;
@@ -222,10 +248,17 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		if (bvisualizza == null) {
 			bvisualizza = new JButton();
 			bvisualizza.setText("Dati anagrafici");
+			bvisualizza.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bvisualizzaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bvisualizza;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
