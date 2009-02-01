@@ -39,7 +39,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 	private StatiAmICo state;
 
 
-    /** Creates new form AmICo1 */
+    /** Creates new form AmICo */
     private AmICo() {
         initComponents();
     }
