@@ -71,10 +71,10 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		pannelloTab.addTab("Dati Generali",new DatiGenerali(m_condominio));
 		pannelloTab.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari()));
 		pannelloTab.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali(this,m_condominio.recuperaTabelleMillesimali(),m_condominio.recuperaUnitaImmobiliari()));
-		pannelloTab.addTab("Preferenze", new AccederePreferenze());
+		pannelloTab.addTab("Preferenze", new AccederePreferenze(m_condominio.getPreferenze(),this));
+		
 		m_accedereCondominioAperto.getPannello().add(pannelloTab);
-		
-		
+
 	}
 	public void chiudiCondominio() {
 		m_amico.setVisible(true);

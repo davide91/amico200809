@@ -7,6 +7,7 @@ import org.hibernate.Session;
 
 import store.util.HibernateUtil;
 import datatype.DatiCondominio;
+import datatype.Euro;
 import datatype.Preferenze;
 import datatype.list.Bilanci;
 import datatype.list.Pagamenti;
@@ -20,7 +21,7 @@ public class Condominio {
 
 	private long id;
 	private DatiCondominio datiC;
-	private Preferenze preferenze;
+	private Preferenze preferenze = new Preferenze((float)1.4,10,new Euro((float)1500.0));
 	private StatoCondominio statoCondominio;
 
 	protected Set<Cassa> cassa = new HashSet<Cassa>();

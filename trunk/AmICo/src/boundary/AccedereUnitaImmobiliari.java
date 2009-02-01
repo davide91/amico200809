@@ -55,11 +55,9 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 	public AccedereUnitaImmobiliari(GestoreCondominioAperto GCA, UnitaImmobiliari unita) {
 		this.GCA=GCA;
-	//	this.unita=unita;
 		initComponents();
 		state = StatiAccedereUnitaImmobiliari.base;
 		aggiornaUnitaImmobiliari(unita);
-
 	}
 
 	public void modificaProprieta(UnitaImmobiliare unita) {
