@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -21,11 +22,17 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
+import datatype.CodiceFiscale;
 import datatype.DatiCorretti;
 import datatype.DatiErrati;
 import datatype.DatiPersona;
+import datatype.DatiPersonaFisica;
+import datatype.DatiPersonaGiuridica;
+import datatype.Email;
 import datatype.EsitoControlloDati;
 import datatype.EsitoControlloDatiPersona;
+import datatype.Indirizzo;
+import datatype.PartitaIva;
 import datatype.list.Persone;
 import enumeration.Provincia;
 import executor.GestorePersone;
@@ -107,13 +114,14 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	
 	
 	public void inserisciNuoviDatiPersona(DatiPersona datiP) {
-		EsitoControlloDati esito= datiP.controlla();
+	/*	EsitoControlloDati esito= datiP.controlla();
 		 if (esito instanceof DatiErrati) 
-			//AMM.mostra(esito);
-			 System.out.println("");
-		 if(esito instanceof DatiCorretti) {
-			GP.inserisciDatiPersona(datiP);
-		 }
+			 JOptionPane.showMessageDialog(this, "dati errati");
+		 if(esito instanceof DatiCorretti) {*/
+				
+
+			GP.modificaDatiPersona(datiP);
+		//}
 		 
 		
 	}
@@ -123,6 +131,23 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	}
 	
 	public void ammissibile(Boolean b) {
+		
+		if(b)
+		{
+			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			
+			if (c==0){
+				ok();
+			}
+			else {
+				ko();
+			
+			}
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(this, "persona gia presente");
+		}
 		
 	}
 	
@@ -139,7 +164,8 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 
 	public void ko() {
 		GP.procedi(false);
-		//AMM.mostra(DatiPersonaModificatiKO);
+		 JOptionPane.showMessageDialog(this, "dati non modificati");
+		 this.dispose();
 	}
 
 	public void fatto() {
@@ -173,12 +199,45 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	
 
 	private void bModificaMouseMouseClicked(MouseEvent event) {
-		// TODO Auto-generated method stub
+		if(persona instanceof PersonaFisica)
+		{
+			DatiPersonaFisica datiP=new DatiPersonaFisica();
+			datiP.setFax(fax.getText());
+			Email mail =new Email(eMail.getText());
+			datiP.setMail(mail);
+			datiP.setTel(telefono.getText());
+			datiP.setNome(nome.getText());
+			datiP.setCognome(cognome.getText());
+			datiP.setCell(cellulare.getText());
+			CodiceFiscale cf=new CodiceFiscale();
+			cf.setCodiceFis(codiceFiscale.getText());
+			datiP.setCf(cf);
+			datiP.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
+			inserisciNuoviDatiPersona(datiP);
+			
+		}
+		else if (persona instanceof PersonaGiuridica)
+		{
+			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
+			datiP.setFax(fax.getText());
+			Email mail =new Email(eMail.getText());
+			datiP.setMail(mail);
+			datiP.setTel(telefono.getText());
+			datiP.setpIva(new PartitaIva(partitaIVA.getText()));
+			datiP.setRagioneSociale(ragioneSociale.getText());
+			Indirizzo i=new Indirizzo();
+			i.setVia(indirizzoFiscale.getText());
+			datiP.setIndFiscale(i);
+			inserisciNuoviDatiPersona(datiP);
+			
+		}
+		
 		
 	}
 	
 
 	private void bannullaMouseMouseClicked(MouseEvent event) {
+		GP.annullato();
 		this.dispose();
 		
 	}

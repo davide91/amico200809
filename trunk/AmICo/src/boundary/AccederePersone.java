@@ -133,7 +133,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	   new ModificarePersona(persone.getPersone().get(i));
+	        	   GestorePersone.getInstance().modificaPersona(this, persone.getPersone().get(i) );
 	}
 	
 	

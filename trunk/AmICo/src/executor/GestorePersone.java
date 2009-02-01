@@ -74,9 +74,9 @@ public class GestorePersone implements BaseExecutor {
 		datiPersona=datiP;
 		state=StatiGestorePersone.attesaConfermaModifica;
 		if (datiP instanceof DatiPersonaFisica) {
-			MP.ammissibile(personaGiaInserita((DatiPersonaFisica)datiP));	
+			MP.ammissibile(!personaGiaInserita((DatiPersonaFisica)datiP));	
 		if (datiP instanceof DatiPersonaGiuridica) {
-			MP.ammissibile(personaGiaInserita((DatiPersonaGiuridica) datiP));
+			MP.ammissibile(!personaGiaInserita((DatiPersonaGiuridica) datiP));
 			}
 		}
 	}
