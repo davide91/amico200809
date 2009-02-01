@@ -6,6 +6,8 @@
 
 package boundary;
 
+import java.awt.event.ActionEvent;
+
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
 import datatype.Path;
@@ -26,6 +28,7 @@ import store.POJO.Condominio;
 public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 
     public static AmICo amico;
+    
 	public static AmICo getInstance(){
 		if (amico==null)
 			amico=new AmICo();
@@ -83,6 +86,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 
 	public void esciDaAmICo(){
 		GestoreCondomini.getInstance().esciDaAmico();
+		this.dispose();
 	}
 
     public void ammissibile(Boolean b) {
@@ -179,6 +183,11 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         bEsci.setText("Esci");
+        bEsci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               bEsciActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 2, 24));
         jLabel1.setText("AmICo");
@@ -306,7 +315,11 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void binserisciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_binserisciActionPerformed
+    protected void bEsciActionPerformed(ActionEvent evt) {
+		esciDaAmICo();
+	}
+
+	private void binserisciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_binserisciActionPerformed
         inserisciCondominio();
     }//GEN-LAST:event_binserisciActionPerformed
 
@@ -325,46 +338,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");
     }//GEN-LAST:event_bapriActionPerformed
 
-    /**
-    * @param args the command line arguments
-    
-    public static void main(String args[]) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				Condominio c = new Condominio();
-				Condominio c2 = new Condominio();
-				Condomini cond = new Condomini();
-				DatiCondominio datiC= new DatiCondominio();
-				DatiCondominio datiC2= new DatiCondominio();
-				Indirizzo indi=new Indirizzo();
-
-				indi.setCap("16156");
-				indi.setComune("Sto azzo di Comune");
-				indi.setProvincia(Provincia.AL);
-				indi.setVia("via gavino");
-
-				c2.CreaCondominio();
-				c2.setDatiC(datiC2);
-				c2.getDatiC().setId("via merano");
-
-
-				c.CreaCondominio();
-				c.setDatiC(datiC);
-				c.getDatiC().setId("via gavino");
-				c.getDatiC().setIndirizzo(indi);
-
-				cond.inserisciCondominio(c);
-				cond.inserisciCondominio(c2);
-
-				AmICo frame = new AmICo();
-				frame.aggiornaCondomini(cond);
-				frame.setTitle("AmICo");
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-
-			}
-    });
-    }*/
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bEsci;
