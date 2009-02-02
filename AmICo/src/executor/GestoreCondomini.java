@@ -2,11 +2,13 @@ package executor;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Set;
 
 import store.TuttePersone;
 import store.TuttiCondomini;
 import store.POJO.Condominio;
 import store.POJO.Persona;
+import store.POJO.Proprieta;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import boundary.AmICo;
@@ -73,7 +75,7 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	private boolean condominioGiaInserito(DatiCondominio datiCondominio) {
-		//siccome l'ID condominio e' univoco anche sul DB risulat che il condominio e' gia'  inserito anche se ha solo l'id uguale
+		//siccome l'ID condominio e' univoco anche sul DB risulat che il condominio e' gia'ï¿½ inserito anche se ha solo l'id uguale
 		for ( Condominio condominio : m_dbCondomini.recuperaCondomini().getCondomini() )
 			if (condominio.recuperaDatiCondominio().equals(datiCondominio) || condominio.recuperaDatiCondominio().getId().equals(datiCondominio.getId()))
 				return true;
@@ -202,12 +204,23 @@ public class GestoreCondomini implements BaseExecutor {
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
 	//	m_state = StatiGestoreCondominio.attesaConferma;
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
+		Proprieta proprieta = new Proprieta();
 		
-		for (Persona p : persone.getPersone())
+	/*	for (Persona p : persone.getPersone())
 		{
 			m_condominio.inserisciPersona(p);
 		}
+		*/
 		
+		for (int i=0; i < persone.getPersone().size(); i++){
+			proprieta.setProprietario(persone.getPersone().get(i));
+			proprieta.setUnitaImmobiliare(m_unitaImmobiliare);
+			proprieta.setQuota(quoteProprieta.getListaQuote().get(i));
+			persone.getPersone().get(i).setProprieta(proprieta);
+			m_condominio.inserisciPersona(persone.getPersone().get(i));
+			
+			
+		}
 	}
 	
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Millesimi millesimi) 

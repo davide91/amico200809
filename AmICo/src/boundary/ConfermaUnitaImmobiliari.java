@@ -196,10 +196,10 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		if(group.getButtonCount()<2)
 			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita' immobiliari");
 		else {
-			int c = JOptionPane.showConfirmDialog(this, "Attenzione stai terminando l'operazione di inserimento di unita' immobiliari dopo non sara' piu' possibile aggiungerne altre /n vuoi continuare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int c = JOptionPane.showConfirmDialog(this, "Attenzione stai terminando l'operazione di inserimento di unita' immobiliari.\n Dopo non sara' piu' possibile aggiungerne altre  vuoi continuare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			if(c==0)
 			{
-				//INC.finito();
+				INC.finito();
 				GestoreCondomini.getInstance().operazioneTerminata();
 				this.dispose();
 			}

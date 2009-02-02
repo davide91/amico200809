@@ -33,6 +33,7 @@ import datatype.Euro;
 import datatype.Indirizzo;
 import datatype.Preferenze;
 import datatype.list.Condomini;
+import datatype.list.Millesimi;
 import datatype.list.Persone;
 import datatype.list.PersoneFisiche;
 import datatype.list.Percentuali;
@@ -269,9 +270,11 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		DatiTabellaMillesimale datiTab = new DatiTabellaMillesimale();
 		datiTab.setDescrizione("Divisione Spiazi Pubblici");
 		datiTab.setNome("Pubblici");
+		
 		TabellaMillesimale t = new TabellaMillesimale();
 		t.setDati(datiTab);
 		c.inserisciTabellaMillesimale(t);
+		
 		assertEquals(1, c.recuperaTabelleMillesimali().getTabelle().size());
 	}
 	
@@ -286,12 +289,12 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		//recupero la tabella millesimale
 		TabellaMillesimale t = c.recuperaTabelleMillesimali().getTabelle().get(0);
 		
-		Percentuali perc = new Percentuali();
-		perc.inserisciReale((float)0.3);
-		perc.inserisciReale((float)0.5);
-		perc.inserisciReale((float)0.2);
+		Millesimi mill = new Millesimi();
+		mill.inserisciReale((float)0.3);
+		mill.inserisciReale((float)0.5);
+		mill.inserisciReale((float)0.2);
 	
-		t.modificaTabella("Pubblici_mod", perc);
+		t.modificaTabella("Pubblici_mod", mill);
 		
 		assertEquals(1, c.recuperaTabelleMillesimali().getTabelle().size());
 	}

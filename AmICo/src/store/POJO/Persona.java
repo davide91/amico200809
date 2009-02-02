@@ -22,7 +22,6 @@ public class Persona {
 	protected long id;
 	protected Set<Pagamento> pagamenti;
 	protected Set<Proprieta> proprieta;
-//	protected Set<Condominio> condomini;
 	
 	private Session session;
 
