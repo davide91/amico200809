@@ -12,7 +12,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -49,7 +48,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	@SuppressWarnings("unused")
 	private StatiAccederePersone state;
 	private ButtonGroup group=new ButtonGroup();
-	//private int oldIndexPersona;
+	private int indice[]=new int[10000];
 	
 	public AccederePersone() {
 		initComponents();
@@ -62,8 +61,6 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		//AMM.mostraPersone(persone);
 		initComponents();
 		state = StatiAccederePersone.base;
-		
-	//	JOptionPane.showMessageDialog(this, "Attenzione alla creazione in persone non vengono inserite le proprieta' e le unita' quindi non si possono mostrare");
 	}
 	
 	
@@ -74,9 +71,9 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		state=StatiAccederePersone.modificaPersone;
 	}
 	
-	public void aggiornaCondomini(Persone persone	) {
-
-		
+	public void aggiornaCondomini(Persone persone) {
+		this.persone=persone;
+		aggiorna();
 	}
 	
 
@@ -97,6 +94,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 
 	public void fatto() {
 		state=StatiAccederePersone.base;
+		aggiorna();
 		
 	}
 
@@ -116,12 +114,14 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	}
 
 	public void aggiornaPersona(Persona persona) {
-	
+		persone.inserisciPersona(persona);
+		aggiorna();
 	}
 
 
 	public void aggiornaPersone(Persone persone) {
 		this.persone =persone;
+		aggiorna();
 		//AMM.mostraPersone(persone);
 		
 	}
@@ -137,14 +137,66 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	           {
-	        	   
-	        //	   oldIndexPersona= i;
-	        	   GestorePersone.getInstance().modificaPersona(this, persone.getPersone().get(i));
-	           }
-		
+	        	   GestorePersone.getInstance().modificaPersona(this, persone.getPersone().get(indice[i]));
 	}
 	
+	
+	private void aggiorna()
+	{
+		int cont=0,i=0;
+		
+		group=new ButtonGroup();
+	    DefaultTableModel dm = new DefaultTableModel();
+	    dm.setDataVector(
+	      new Object[][]{},
+	      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
+	      );
+
+	    for (Persona p : persone.getPersone())
+	    {
+	    	if(p instanceof PersonaFisica)
+	    	{	
+	    		for (Proprieta prop : p.getProprieta())
+	    		{
+		    				dm.addRow(new Object[]{
+		    						( ((PersonaFisica) p).getDati().getNome()+" "+((PersonaFisica) p).getDati().getCognome() ),
+		    						prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+		    						prop.getQuota(),
+		    						new JRadioButton()  });	
+		    				
+		    				group.add((JRadioButton)dm.getValueAt(cont,3));
+		    				indice[cont]=i;
+		    		    	cont++;
+
+	    		}
+	    	}
+			else if(p instanceof PersonaGiuridica)
+			{
+				for (Proprieta prop : p.getProprieta())
+				{
+
+						
+							dm.addRow(new Object[]{
+								( ((PersonaGiuridica) p).getDati().getpIva() ),
+								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+								prop.getQuota(),
+								new JRadioButton()  });
+							
+							group.add((JRadioButton)dm.getValueAt(cont,3));
+		    				indice[cont]=i;
+		    				cont++;
+
+				}
+			}
+	    	i++;
+	    }
+
+	    table.setModel(dm);
+	    
+	    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+	    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+		
+	}
 	
 	
 	
@@ -177,46 +229,56 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		if (table == null) {
 			table  = new JTable();
 			
-			int cont=0;
+			int cont=0,i=0;
 		    DefaultTableModel dm = new DefaultTableModel();
 		    dm.setDataVector(
 		      new Object[][]{},
 		      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
 		      );
-		    Condominio cond = GCA.getCondominio();
+	//	    Condominio cond = GCA.getCondominio();
 
 		    for (Persona p : persone.getPersone())
 		    {
-		    	cont++;
-		    	if(p instanceof PersonaFisica){
-		    		PersonaFisica pers = (PersonaFisica)p;
-		    		
-		    		for (Proprieta prop : pers.getProprieta()) {
-		    			if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
-		    				dm.addRow(new Object[]{
-								(pers.getDati().getNome()+" "+pers.getDati().getCognome()),
-								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
-								prop.getQuota(),
-								new JRadioButton()  });
-					}
+		    	if(p instanceof PersonaFisica)
+		    	{	
+		    		for (Proprieta prop : p.getProprieta())
+		    		{
+		/*    			if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
+		    			{*/
+		    					
+			    				dm.addRow(new Object[]{
+			    						( ((PersonaFisica) p).getDati().getNome()+" "+((PersonaFisica) p).getDati().getCognome() ),
+			    						prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+			    						prop.getQuota(),
+			    						new JRadioButton()  });	
+			    				
+			    				group.add((JRadioButton)dm.getValueAt(cont,3));
+			    				indice[cont]=i;
+			    		    	cont++;
+		    		//	}
+		    		}
 		    	}
 				else if(p instanceof PersonaGiuridica)
 				{
-					PersonaGiuridica persG = (PersonaGiuridica)p;
-					for (Proprieta prop : persG.getProprieta()) {
-						if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
-		    			dm.addRow(new Object[]{
-								(persG.getDati().getpIva()),
-								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
-								prop.getQuota(),
-								new JRadioButton()  });
-					}    
+					for (Proprieta prop : p.getProprieta())
+					{
+	/*					if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
+						{*/
+							
+								dm.addRow(new Object[]{
+									( ((PersonaGiuridica) p).getDati().getpIva() ),
+									prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+									prop.getQuota(),
+									new JRadioButton()  });
+								
+								group.add((JRadioButton)dm.getValueAt(cont,3));
+			    				indice[cont]=i;
+			    				cont++;
+				//		}
+					}
 				}
-			}
-		    
-		    for(int i=0;i<cont;i++)
-		    	group.add((JRadioButton)dm.getValueAt(i,3));
-		    
+		    	i++;
+		    }
 		    
 		    table = new JTable(dm)
 		    {
@@ -271,29 +333,4 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("AccedereCondomini");
-				AccederePersone content = new AccederePersone();
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
- */
 }
