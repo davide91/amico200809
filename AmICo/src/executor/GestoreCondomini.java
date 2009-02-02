@@ -203,15 +203,16 @@ public class GestoreCondomini implements BaseExecutor {
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
 	//	m_state = StatiGestoreCondominio.attesaConferma;
-		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
-		Proprieta proprieta = new Proprieta();
 		
-	/*	for (Persona p : persone.getPersone())
-		{
+		for (Persona  p : persone.getPersone()) {
 			m_condominio.inserisciPersona(p);
 		}
-		*/
 		
+		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
+		
+	//	Proprieta proprieta = new Proprieta();
+		
+		/*  PERCHÈ, LO FA GIÀ LA MODIFICAPROPRIETÀ	
 		for (int i=0; i < persone.getPersone().size(); i++){
 			proprieta.setProprietario(persone.getPersone().get(i));
 			proprieta.setUnitaImmobiliare(m_unitaImmobiliare);
@@ -221,6 +222,7 @@ public class GestoreCondomini implements BaseExecutor {
 			
 			
 		}
+		*/
 	}
 	
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Millesimi millesimi) 

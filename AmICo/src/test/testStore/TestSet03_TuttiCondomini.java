@@ -290,9 +290,9 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		TabellaMillesimale t = c.recuperaTabelleMillesimali().getTabelle().get(0);
 		
 		Millesimi mill = new Millesimi();
-		mill.inserisciReale((float)0.3);
-		mill.inserisciReale((float)0.5);
-		mill.inserisciReale((float)0.2);
+		mill.inserisciMillesimo((float)0.3);
+		mill.inserisciMillesimo((float)0.5);
+		mill.inserisciMillesimo((float)0.2);
 	
 		t.modificaTabella("Pubblici_mod", mill);
 		

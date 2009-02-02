@@ -4,6 +4,8 @@
 package store.POJO;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -66,6 +68,9 @@ public class UnitaImmobiliare {
 
 	public void modificaProprieta(Persone pers, Percentuali quote)
 	{
+		if(pers.getPersone().size() != quote.getListaQuote().size())
+			throw new NoSuchElementException();
+		
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 	
@@ -73,8 +78,23 @@ public class UnitaImmobiliare {
 			
 			for (int i=0;i< pers.getPersone().size();i++) {
 				Proprieta prop = new Proprieta();
-				prop.setProprietario(pers.getPersone().get(i));
-				prop.setQuota(quote.getListaQuote().get(i));
+				prop.setProprietario(pers.getPersone().get(i));  // aggiungo il proprietario
+				prop.setQuota(quote.getListaQuote().get(i)); 	//aggiungo al quota
+				prop.setUnitaImmobiliare(this); 				//aggiungo l'unità immobiliare
+				
+				boolean found = false;
+				
+				for (Proprieta p : pers.getPersone().get(i).getProprieta()) {
+					if (p.getUnitaImmobiliare().equals(this)) {
+						pers.getPersone().get(i).getProprieta().remove(p);
+						pers.getPersone().get(i).getProprieta().add(prop);
+						found = true;
+					}
+				}
+				
+				if (!found) {
+					pers.getPersone().get(i).getProprieta().add(prop);
+				}	
 				quoteDiPossesso.add(prop);
 			}
 	

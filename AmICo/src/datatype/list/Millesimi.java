@@ -6,29 +6,31 @@ package datatype.list;
 import java.util.ArrayList;
 import java.util.List;
 
+import store.POJO.Millesimo;
+
 /**
  * @author bruno
  *
  */
 public class Millesimi {
 
-private List<Float> listaMillesimi = new ArrayList<Float>();
+	private List<Millesimo> listaMillesimi = new ArrayList<Millesimo>();
 	
 	public float somma() {
 		float ret=0;
 		
-		for (Float f : listaMillesimi) {
-			ret +=f;
+		for (Millesimo m : listaMillesimi) {
+			ret +=m.getQuota();
 		}
 		return ret;
 	}
 	
-	public void inserisciReale(Float f)
+	public void inserisciMillesimo(Millesimo m)
 	{
-		listaMillesimi.add(f);
+		listaMillesimi.add(m);
 	}
 	
-	public void inserisciRealeAt(int index, Float f)
+	public void inserisciMillesimoAt(int index, Millesimo f)
 	{
 		listaMillesimi.add(index,f);
 	}
@@ -38,11 +40,11 @@ private List<Float> listaMillesimi = new ArrayList<Float>();
 		listaMillesimi.remove(index);
 	}
 
-	public List<Float> getListaMillesimi() {
+	public List<Millesimo> getListaMillesimi() {
 		return listaMillesimi;
 	}
 
-	public void setListaMillesimi(List<Float> listaMillesimi) {
+	public void setListaMillesimi(List<Millesimo> listaMillesimi) {
 		this.listaMillesimi = listaMillesimi;
 	}
 }

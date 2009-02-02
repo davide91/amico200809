@@ -37,6 +37,7 @@ public class Proprieta {
 	@Override
 	public int hashCode() {
 		int ritorno = (this.getProprietario().hashCode());
+		ritorno = ritorno + (29 * this.getUnitaImmobiliare().hashCode());
 		return (int) (ritorno +(29 * this.getQuota()));
 	}
 	
