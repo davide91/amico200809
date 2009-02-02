@@ -25,6 +25,8 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
+import sun.misc.Regexp;
+
 import datatype.DatiCondominio;
 import datatype.DatiTabellaMillesimale;
 import datatype.Indirizzo;
@@ -173,14 +175,20 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	private void inserisciMouseMouseClicked(MouseEvent event)
 	{
+		try {
 		if(via.getText().equals(""))
-			JOptionPane.showMessageDialog(this,"inserire Via");
+			JOptionPane.showMessageDialog(this,"inserire una via");
+		else if(comune.getText().equals(""))
+			JOptionPane.showMessageDialog(this, "inserire un comune");
 
-		else if(cap.getText().equals(""))
-			JOptionPane.showMessageDialog(this, "inserire CAP");
-
+		else 
+			if(cap.getText().equals("") || cap.getText().length()!=5)
+		
+			JOptionPane.showMessageDialog(this, "inserire CAP valido");
+			
 		else
 		{
+			Integer.parseInt(cap.getText());
 			Indirizzo indirizzo=new Indirizzo();
 			indirizzo.setCap(cap.getText());
 			indirizzo.setComune(comune.getText());
@@ -190,6 +198,10 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			datiCondominio.setId(via.getText()+" "+cap.getText());
 			datiCondominio.setIndirizzo(indirizzo);
 			this.inserisciDatiCondominio(datiCondominio);
+		}
+		}
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "inserire CAP valido");
 		}
 	}
 
