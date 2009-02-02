@@ -7,6 +7,7 @@ import store.TuttePersone;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
+import sun.awt.motif.MComponentPeer;
 import boundary.AccedentiPersone;
 import boundary.InserirePersona;
 import boundary.ModificarePersona;

@@ -40,11 +40,17 @@ public class TabellaMillesimale {
 	public void creaTabellaMillesimale(DatiTabellaMillesimale DTM, Millesimi mille)
 	{
 		dati = DTM;
-		for (int i=0;i< mille.getListaMillesimi().size();i++) {
+		
+		for (Millesimo m : mille.getListaMillesimi()) {
+			millesimi.add(m);
+		}
+		
+	/*	for (int i=0;i< mille.getListaMillesimi().size();i++) {
 			Millesimo mill = new Millesimo();
 			mill.setQuota(mille.getListaMillesimi().get(i).getQuota());
 			millesimi.add(mill);
 		}
+		*/
 	}
 
 	public void creaTabellaProprietaGenerale(Millesimi mille)

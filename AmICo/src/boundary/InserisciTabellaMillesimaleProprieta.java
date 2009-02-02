@@ -26,6 +26,7 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
+import store.POJO.Millesimo;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
 import datatype.list.Millesimi;
@@ -126,7 +127,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 
 	private void continuaMouseMouseClicked(MouseEvent event)
 	{
-		ArrayList<Float> lista = new ArrayList<Float>();
+		//ArrayList<Float> lista = new ArrayList<Float>();
+		Millesimi lista = new Millesimi();
 		
 		for (int i=0;i<unita.getImmobili().size();i++)
 		{
@@ -136,9 +138,11 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 				return;
 			}
 
-			lista.add(Float.parseFloat((String)dm.getValueAt(i,1)) );
-
-		}
+			Millesimo mill = new Millesimo();
+			mill.setQuota(Float.parseFloat((String)dm.getValueAt(i,1)));
+			mill.setQuotaDi(unita.getImmobili().get(i));
+			lista.inserisciMillesimo(mill);
+		} 
 		m.setListaMillesimi(lista);
 		
 		if(m.somma()==1000)

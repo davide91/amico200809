@@ -44,7 +44,7 @@ public class Millesimi {
 		return listaMillesimi;
 	}
 
-	public void setListaMillesimi(List<Millesimo> listaMillesimi) {
-		this.listaMillesimi = listaMillesimi;
+	public void setListaMillesimi(Millesimi listaMillesimi) {
+		this.listaMillesimi = listaMillesimi.getListaMillesimi();
 	}
 }
