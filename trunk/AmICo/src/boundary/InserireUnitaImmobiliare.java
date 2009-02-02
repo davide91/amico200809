@@ -119,10 +119,13 @@ public class InserireUnitaImmobiliare extends JFrame{
 	protected void confermaMouseMouseClicked(MouseEvent event) {
 		try
 		{
-			inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
-		}catch(NumberFormatException nfe)
+			if (getId().getText().equals("") || getPosizioneInterna().getText().equals(""))
+				JOptionPane.showMessageDialog(this, "Inserire ID unità  e posizione interna validi");
+			else inserisciDatiUnitaUImmobiliare(new DatiUnitaImmobiliare(getId().getText(), (CategoriaCatastale)getCategoria().getSelectedItem(), getPosizioneInterna().getText(), Float.parseFloat(getMetratura().getText()), (DestinazioneUso)getDestinazione().getSelectedItem()));
+		}
+		catch(NumberFormatException nfe)
 		{
-			JOptionPane.showMessageDialog(this, "Formato metratura errato!\n Utilizzare solo cifre \n Utilizzare . (punto) al posto di ,(virgola) ");
+			JOptionPane.showMessageDialog(this, "Formato metratura errato! Utilizzare solo cifre \n Utilizzare il formato XXX.YY ");
 		}
 		//CUI.setVisible(true);
 	}
