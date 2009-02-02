@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -32,9 +33,6 @@ import store.POJO.Proprieta;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
-import enumeration.StatiInserireNuovoCondominio;
-import executor.GestoreCondomini;
-import executor.GestoreCondominioAperto;
 
 /**
  * @author Federico
@@ -88,7 +86,7 @@ public class AccedereProprietari2 extends JFrame {
 	{
 		int cont=0;
 		
-		if(quota!=0 && pers!=null)
+		if(quota!=0 || pers!=null)
 		{
 			proprietari.inserisciPersona(pers);
 			quote.inserisciReale(quota);
@@ -115,23 +113,30 @@ public class AccedereProprietari2 extends JFrame {
 		    {
 		    	perso=p.next();
 		    	quo = q.next();
-		    	cont++;
+		    	
 		    	if(perso instanceof PersonaFisica)
+		    	{
 		    		dm.addRow(new Object[]{
 		    				((PersonaFisica)perso).getDati().getNome(),
 		    				((PersonaFisica)perso).getDati().getCognome(),
-		    			quo,
-		    			new JRadioButton() });
+		    				quo,
+		    				new JRadioButton() });
+		    		cont++;
+		    	}
 		    	else if(perso  instanceof PersonaGiuridica)
+		    	{
 		    		dm.addRow(new Object[]{
 		    				((PersonaGiuridica)perso).getDati().getpIva().getPartIva(),
 		    				"",
 		    				quo,
 		    				new JRadioButton() });
+		    		cont++;
+		    	}
 		    		
 		    }
-		    for(int i=0;i<cont;i++)
-		    	group.add((JRadioButton)dm.getValueAt(i,3));
+		    if(cont!=0)
+		    	for(int i=0;i<cont;i++)
+		    		group.add((JRadioButton)dm.getValueAt(i,3));
 
 		    table.setModel(dm);
 		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
@@ -145,28 +150,34 @@ public class AccedereProprietari2 extends JFrame {
 
 	@SuppressWarnings("unchecked")
 	private void bRimuoviProprietarioMouseMouseClicked(MouseEvent event) {
-		int i;
+		int i=0;
 		if (group!=null)
 		{
 			Enumeration e=group.getElements();
 			for (i=0; e.hasMoreElements();i++ )
 		           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
 		           {
+		        	   List<Persona> x;
 		        	   quote.removeAt(i);
-		        	   proprietari.getPersone().remove(i);
+		        	   x=proprietari.getPersone();
+		        	   x.remove(i);
+		        	   proprietari.setPersone(x);
 		        	   this.aggiornaTabella(null,0);
 		        	   
 		           }
+		
+			if( i == group.getButtonCount())
+				JOptionPane.showMessageDialog(this, "Selezionare prima il proprietario");
 		}
 		
 	}
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
-		if (quote.somma()==100.0){
-
+		if (quote.somma()==100.0)
+		{
 			AUI.specificaProprieta(proprietari,quote);
 			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			
+
 			if (c==0){
 				AUI.ok();
 				AUI.finito();
@@ -177,7 +188,6 @@ public class AccedereProprietari2 extends JFrame {
 				AUI.finito();
 				this.dispose();
 			}
-			
 		}
 		else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
 		
