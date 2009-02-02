@@ -39,6 +39,7 @@ import executor.GestoreCondominioAperto;
 public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 	private GestoreCondominioAperto GCA;
+	private AccedereProprietari2 AP;
 	private UnitaImmobiliari unita;
 	@SuppressWarnings("unused")
 	private Persone persone;
@@ -171,8 +172,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	   JOptionPane.showMessageDialog(this, ""+(i));
-	           		//new ModificaProprieta(this,unita.getImmobili().get(i-1),persone)
+	        	 AP=new AccedereProprietari2(this,unita.getImmobili().get(i),persone);
+	           		 
 	}
 	
 	
@@ -265,7 +266,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -282,6 +283,6 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 			}
 		});
 	}
-
+ */
 
 }

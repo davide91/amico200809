@@ -135,52 +135,6 @@ public class AccedereProprietari2 extends JFrame {
 		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 	}
-	/*
-	public void aggiornaTabella(UnitaImmobiliare unita)
-	{
-		int cont=0;
-		
-		this.unita=unita;
-		
-		initGroup();
-		
-		Iterator<Proprieta> p=this.unita.getQuoteDiPossesso().iterator();;
-		Proprieta prop;
-
-		
-			DefaultTableModel dm = new DefaultTableModel();
-			
-		    dm.setDataVector(
-		      new Object[][]{},
-		      new Object[]{"Nome","Cognome","Quota","Seleziona"}
-		      );
-
-		    while(p.hasNext())
-		    {
-		    	prop=p.next();
-		    	cont++;
-		    	if(prop.getProprietario()  instanceof PersonaFisica)
-		    		dm.addRow(new Object[]{
-		    				((PersonaFisica)prop.getProprietario()).getDati().getNome(),
-		    				((PersonaFisica)prop.getProprietario()).getDati().getCognome(),
-		    			prop.getQuota(),
-		    			new JRadioButton() });
-		    	else if(prop.getProprietario()  instanceof PersonaGiuridica)
-		    		dm.addRow(new Object[]{
-		    				((PersonaGiuridica)prop.getProprietario()).getDati().getpIva(),
-		    				"",
-		    				prop.getQuota(),
-		    				new JRadioButton() });
-		    		
-		    }
-		    for(int i=0;i<cont;i++)
-		    	group.add((JRadioButton)dm.getValueAt(i,5));
-
-		    table.setModel(dm);
-		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
-		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
-	}
-*/
 
 	private void bAggiungiProprietarioMouseMouseClicked(MouseEvent event) {
 		//IP=new InserireProprietario(/*this*/,persone);
@@ -217,7 +171,6 @@ public class AccedereProprietari2 extends JFrame {
 
 
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
-		GestoreCondomini.getInstance().operazioneAnnullata();
 		this.dispose();
 	}
 
