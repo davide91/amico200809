@@ -32,7 +32,9 @@ import store.POJO.Proprieta;
 import store.POJO.UnitaImmobiliare;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
+import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreCondomini;
+import executor.GestoreCondominioAperto;
 
 /**
  * @author Federico
@@ -73,7 +75,7 @@ public class AccedereProprietari2 extends JFrame {
 	}
 	
 	public void inserisciNuovaPersona(){	
-		//CUI.inserisciNuovaPersona();
+		AUI.inserisciNuovaPersona();
 	}
 
 	public void aggiornaPersone(Persone persone) {
@@ -137,7 +139,7 @@ public class AccedereProprietari2 extends JFrame {
 	}
 
 	private void bAggiungiProprietarioMouseMouseClicked(MouseEvent event) {
-		//IP=new InserireProprietario(/*this*/,persone);
+		IP=new InserireProprietario(this,persone);
 	}
 
 
@@ -161,9 +163,21 @@ public class AccedereProprietari2 extends JFrame {
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
 		if (quote.somma()==100.0){
-		/*	CUI.proprietaOK(proprietari, quote);
-			CUI.setVisible(true);*/
-			this.dispose();
+
+			AUI.specificaProprieta(proprietari,quote);
+			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			
+			if (c==0){
+				AUI.ok();
+				AUI.finito();
+				this.dispose();
+			}
+			else {
+				AUI.ko();
+				AUI.finito();
+				this.dispose();
+			}
+			
 		}
 		else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
 		
@@ -171,6 +185,7 @@ public class AccedereProprietari2 extends JFrame {
 
 
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
+		AUI.annulla();
 		this.dispose();
 	}
 
@@ -195,7 +210,7 @@ public class AccedereProprietari2 extends JFrame {
 		add(getBAggiungiProprietario(), new Constraints(new Leading(38, 10, 10), new Leading(312, 12, 12)));
 		add(getBRimuoviProprietario(), new Constraints(new Leading(216, 10, 10), new Leading(312, 12, 12)));
 		add(getJScrollPane0(), new Constraints(new Leading(28, 502, 12, 12), new Leading(45, 251, 10, 10)));
-		add(getBAnnulla(), new Constraints(new Leading(455, 10, 10), new Leading(312, 12, 12)));
+		add(getBAnnulla(), new Constraints(new Leading(470, 10, 10), new Leading(312, 12, 12)));
 		add(getBOK(), new Constraints(new Leading(375, 10, 10), new Leading(312, 12, 12)));
 		add(somma, new Constraints(new Leading(350, 10, 10), new Leading(20, 12, 12)));
 		setSize(581, 383);
@@ -281,7 +296,7 @@ public class AccedereProprietari2 extends JFrame {
 	private JButton getBOK() {
 		if (bOK == null) {
 			bOK = new JButton();
-			bOK.setText("OK");
+			bOK.setText("Conferma");
 			bOK.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -296,7 +311,7 @@ public class AccedereProprietari2 extends JFrame {
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
-			bAnnulla.setText("Annulla");
+			bAnnulla.setText("esci");
 			bAnnulla.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {

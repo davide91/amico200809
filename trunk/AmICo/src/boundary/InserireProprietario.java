@@ -3,7 +3,6 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Iterator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -12,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -22,10 +20,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
-import datatype.DatiUnitaImmobiliare;
 import datatype.list.Persone;
-import enumeration.CategoriaCatastale;
-import enumeration.DestinazioneUso;
 
 /**
  * @author Federico
@@ -35,18 +30,25 @@ public class InserireProprietario extends JFrame {
 	
 	Persone persone;
 	AccedereProprietari AP;
+	AccedereProprietari2 AP2;
 	
 	public InserireProprietario(AccedereProprietari ap,Persone p) {
 		persone=p;
 		AP=ap;
+		AP2=null;
 		initComponents();
 		this.setVisible(true);
 		this.setTitle("Inserire proprietario");
 	}
 	
 	
-	public InserireProprietario() {
+	public InserireProprietario(AccedereProprietari2 ap,Persone p) {
+		persone=p;
+		AP2=ap;
+		AP=null;
 		initComponents();
+		this.setVisible(true);
+		this.setTitle("Inserire proprietario");
 	}
 	
 	public void aggiornaPersone(Persone per)
@@ -54,7 +56,6 @@ public class InserireProprietario extends JFrame {
 		persone=per;
 		
 		DefaultComboBoxModel x=new DefaultComboBoxModel();
-		Iterator<Persona> i= persone.getPersone().iterator();
 
 			
 		for (Persona p : persone.getPersone()) {
@@ -74,7 +75,11 @@ public class InserireProprietario extends JFrame {
 		{
 			if (Float.parseFloat(quota.getText()) <=100 && Float.parseFloat(quota.getText()) > 0)
 			{
-				AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
+				if(AP!=null)
+					AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
+				if(AP2!=null)
+					AP2.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
+					
 				this.dispose();
 			}		
 			else JOptionPane.showMessageDialog(this, "La quota deve essere compresa tra 1 e 100");
@@ -92,7 +97,10 @@ public class InserireProprietario extends JFrame {
 
 
 	private void bInserisciNuovaPersonaMouseMouseClicked(MouseEvent event) {
-		AP.inserisciNuovaPersona();
+		if(AP!=null)
+			AP.inserisciNuovaPersona();
+		if(AP2!=null)
+			AP2.inserisciNuovaPersona();
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -207,6 +215,7 @@ public class InserireProprietario extends JFrame {
 		return quota;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -218,26 +227,6 @@ public class InserireProprietario extends JFrame {
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 */
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				InserireProprietario frame = new InserireProprietario();
-				frame.setTitle("InserireProprietario");
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
-
 
 
 }

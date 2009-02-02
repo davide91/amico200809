@@ -26,17 +26,20 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Persona;
 import store.POJO.UnitaImmobiliare;
+import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereUnitaImmobiliari;
 import executor.GestoreCondominioAperto;
+import executor.GestorePersone;
 
 /**
  * @author Federico
  *
  */
-public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
+public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,AccedentiPersone{
 
 	private GestoreCondominioAperto GCA;
 	private AccedereProprietari2 AP;
@@ -70,19 +73,19 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 	public void aggiornaPersone(Persone persone) {
 		this.persone=persone;
-		//AMM.mostraPersone(persone);
+		if(AP!=null) AP.aggiornaPersone(persone);
 		
 	}
 
 	public void  inserisciNuovaPersona() {
-		//GCA.inserisciNuovaPersona(); TODO
+		GestorePersone.getInstance().inserisciPersona(this);
 		state=StatiAccedereUnitaImmobiliari.inserimentoNuovaPersona;
 	}
-	/*
+	
 	public void specificaProprieta(Persone nuovePersone, Percentuali nuoveQuote) {
 		GCA.passaProprieta(nuovePersone, nuoveQuote);
 		state = StatiAccedereUnitaImmobiliari.controlloProprieta;
-	}*/
+	}
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
 	{
@@ -135,7 +138,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 	}
 
 	public void annulla() {
-		GCA.operazioneAnnullata();
+		GCA.operazioneTerminata();
+		AP=null;
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 
@@ -155,14 +159,16 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 
 	public void ko() {
 		GCA.procedi(false);
-		//AMM.mostra(unitaImmobiliareModificataKO);
+		JOptionPane.showMessageDialog(this, "operazione annullata dall'utente");
+		finito();
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 
 	public void ok() {
 
 		GCA.procedi(true);
-		//AMM.mostra(unitaImmobiliareModificataOK);
+		JOptionPane.showMessageDialog(this, "Proprieta' modificata");
+		finito();
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 	
@@ -172,8 +178,16 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	 AP=new AccedereProprietari2(this,unita.getImmobili().get(i),persone);
-	           		 
+	           {
+	        	   GCA.passaAUnitaImmobiliari();
+	   			   modificaProprieta(unita.getImmobili().get(i));
+	        	   AP=new AccedereProprietari2(this,unita.getImmobili().get(i),persone);
+	        	   break;
+	           }
+		
+		if(i==group.getButtonCount())
+			JOptionPane.showMessageDialog(this, "Selezionare prima l'unita");
+
 	}
 	
 	
@@ -249,6 +263,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 		return table;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -259,6 +274,16 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary{
 			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
 					+ " on this platform:" + e.getMessage());
 		}
+	}
+
+	public void aggiornaPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean proprietaOK(Persone persone, Percentuali quote) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**
