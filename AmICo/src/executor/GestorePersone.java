@@ -7,18 +7,12 @@ import store.TuttePersone;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
-import sun.awt.motif.MComponentPeer;
 import boundary.AccedentiPersone;
 import boundary.InserirePersona;
 import boundary.ModificarePersona;
-import datatype.DatiPagamento;
 import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
-import datatype.EsitoControlloDatiPersona;
-import datatype.Inseribile;
-import datatype.PersoneConStessoIndirizzo;
-import datatype.PersoneConStessoNome;
 import datatype.list.Persone;
 import enumeration.StatiGestorePersone;
 
