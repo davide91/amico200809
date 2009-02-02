@@ -78,6 +78,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	public void chiudiCondominio() {
 		m_amico.setVisible(true);
+		m_condominio = null;
 		GestoreCondomini.getInstance().operazioneTerminata();
 		
 	}
@@ -246,6 +247,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			
 			break;
 		}
+	}
+
+
+	public Condominio getCondominio() {
+		return m_condominio;
 	}
 	
 }

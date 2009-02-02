@@ -138,9 +138,10 @@ public class GestoreCondomini implements BaseExecutor {
 	public void operazioneTerminata() {
 		switch (m_state) {
 		case condominioAperto :
-			m_state = StatiGestoreCondominio.inserimentoProprieta;
+			m_state = StatiGestoreCondominio.gestoreCondomini;
+			m_condominio = null;
 			break;
-		case inserimentoProprieta :
+		case inserimentoProprieta:
 			m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
 			 m_inserisciTabelleMillesimali= new InserisciTabellaMillesimaleProprieta(m_condominio.recuperaUnitaImmobiliari());
 			break;

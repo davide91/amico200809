@@ -27,6 +27,7 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
+import store.POJO.Condominio;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
@@ -48,6 +49,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	@SuppressWarnings("unused")
 	private StatiAccederePersone state;
 	private ButtonGroup group=new ButtonGroup();
+	//private int oldIndexPersona;
 	
 	public AccederePersone() {
 		initComponents();
@@ -73,6 +75,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	}
 	
 	public void aggiornaCondomini(Persone persone	) {
+
 		
 	}
 	
@@ -113,9 +116,9 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	}
 
 	public void aggiornaPersona(Persona persona) {
-		// TODO Auto-generated method stub
-		
+	
 	}
+
 
 	public void aggiornaPersone(Persone persone) {
 		this.persone =persone;
@@ -134,7 +137,12 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	   GestorePersone.getInstance().modificaPersona(this, persone.getPersone().get(i) );
+	           {
+	        	   
+	        //	   oldIndexPersona= i;
+	        	   GestorePersone.getInstance().modificaPersona(this, persone.getPersone().get(i));
+	           }
+		
 	}
 	
 	
@@ -175,6 +183,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		      new Object[][]{},
 		      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
 		      );
+		    Condominio cond = GCA.getCondominio();
 
 		    for (Persona p : persone.getPersone())
 		    {
@@ -183,18 +192,19 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		    		PersonaFisica pers = (PersonaFisica)p;
 		    		
 		    		for (Proprieta prop : pers.getProprieta()) {
-		    			dm.addRow(new Object[]{
+		    			if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
+		    				dm.addRow(new Object[]{
 								(pers.getDati().getNome()+" "+pers.getDati().getCognome()),
 								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
 								prop.getQuota(),
 								new JRadioButton()  });
 					}
-					
 		    	}
 				else if(p instanceof PersonaGiuridica)
 				{
 					PersonaGiuridica persG = (PersonaGiuridica)p;
 					for (Proprieta prop : persG.getProprieta()) {
+						if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
 		    			dm.addRow(new Object[]{
 								(persG.getDati().getpIva()),
 								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),

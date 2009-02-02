@@ -183,6 +183,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		IUI.fatto();
 		
 	}
+	
 	public void aggiornaPersona(Persona persona) {
 		// TODO Auto-generated method stub
 		

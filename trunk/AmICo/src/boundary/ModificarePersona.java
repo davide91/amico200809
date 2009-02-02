@@ -158,6 +158,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	
 	public void ok() {
 		GP.procedi(true);
+		this.dispose();
 	}
 	
 	
@@ -170,7 +171,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 
 	public void fatto() {
 		//AMM.mostra(DatiPersonaModificatiOK);
-		
+		//GestorePersone.getInstance()
 	}
 
 

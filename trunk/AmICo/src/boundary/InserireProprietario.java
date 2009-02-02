@@ -70,21 +70,19 @@ public class InserireProprietario extends JFrame {
 	
 
 	private void bInserisciMouseMouseClicked(MouseEvent event) {
-		if (Float.parseFloat(quota.getText()) <=100 && Float.parseFloat(quota.getText()) > 0)
+		try
 		{
-			try
+			if (Float.parseFloat(quota.getText()) <=100 && Float.parseFloat(quota.getText()) > 0)
 			{
 				AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
 				this.dispose();
-			}
-			catch(NumberFormatException nfe)
-			{
-				JOptionPane.showMessageDialog(this, "Formato quote di possesso errato!\n Utilizzare solo cifre ");
-			}
+			}		
+			else JOptionPane.showMessageDialog(this, "La quota deve essere compresa tra 1 e 100");
 		}
-		else JOptionPane.showMessageDialog(this, "La quota deve essere compresa tra 1 e 100");
-
-	
+		catch(NumberFormatException nfe)
+		{
+			JOptionPane.showMessageDialog(this, "Formato quote di possesso errato!\n Utilizzare solo cifre ");
+		}
 	}
 
 
