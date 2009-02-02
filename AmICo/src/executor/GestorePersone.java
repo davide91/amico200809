@@ -153,7 +153,6 @@ public void procedi(boolean b) {
 		}
 		else MP.fallito();
 		RICH.aggiornaPersona(personaMod); //lo fa in entrambi i casi
-		RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
 	
 		break;
 	}
