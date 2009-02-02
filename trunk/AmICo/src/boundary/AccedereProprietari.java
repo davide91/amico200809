@@ -106,6 +106,12 @@ public class AccedereProprietari extends JFrame {
 		{
 			proprietari.inserisciPersona(pers);
 			quote.inserisciReale(quota);
+			
+			getBRimuoviProprietario().setEnabled(true);
+		}
+		if(quote.somma()==100) {
+			getBOK().setEnabled(true);
+			getBAggiungiProprietario().setEnabled(false);
 		}
 		
 	
@@ -116,7 +122,6 @@ public class AccedereProprietari extends JFrame {
 		
 		Iterator<Float> q=this.quote.getListaQuote().iterator();
 		float quo;
-		
 			somma.setText("Al 100% manca "+ (100-quote.somma())+"%");
 			DefaultTableModel dm = new DefaultTableModel();
 			
@@ -256,9 +261,11 @@ public class AccedereProprietari extends JFrame {
 		setLayout(new GroupLayout());
 		add(getNomeUnita(), new Constraints(new Leading(34, 150, 12, 12), new Leading(10, 22, 10, 10)));
 		add(getBAggiungiProprietario(), new Constraints(new Leading(38, 10, 10), new Leading(312, 12, 12)));
+		getBRimuoviProprietario().setEnabled(false);
 		add(getBRimuoviProprietario(), new Constraints(new Leading(216, 10, 10), new Leading(312, 12, 12)));
 		add(getJScrollPane0(), new Constraints(new Leading(28, 502, 12, 12), new Leading(45, 251, 10, 10)));
 		add(getBAnnulla(), new Constraints(new Leading(455, 10, 10), new Leading(312, 12, 12)));
+		getBOK().setEnabled(false);
 		add(getBOK(), new Constraints(new Leading(375, 10, 10), new Leading(312, 12, 12)));
 		add(somma, new Constraints(new Leading(350, 10, 10), new Leading(20, 12, 12)));
 		setSize(581, 383);
