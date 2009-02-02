@@ -117,8 +117,9 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 		    	unit.getDatiUnitaImmobiliare().getPosizioneInterna(),
 		   	new JRadioButton() });
 		}
-		for(int i=0;i<cont;i++)
-			group.add((JRadioButton)dm.getValueAt(i,5));
+		if(cont!=0)
+			for(int i=0;i<cont;i++)
+				group.add((JRadioButton)dm.getValueAt(i,5));
 
 		table.setModel(dm);
 		table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());

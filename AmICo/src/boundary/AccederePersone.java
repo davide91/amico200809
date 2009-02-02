@@ -48,7 +48,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	@SuppressWarnings("unused")
 	private StatiAccederePersone state;
 	private ButtonGroup group=new ButtonGroup();
-	private int indice[]=new int[10000];
+	private int indice[];
 	
 	public AccederePersone() {
 		initComponents();
@@ -231,6 +231,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 			table  = new JTable();
 			
 			int cont=0,i=0;
+			indice=new int[10000];
 		    DefaultTableModel dm = new DefaultTableModel();
 		    dm.setDataVector(
 		      new Object[][]{},
