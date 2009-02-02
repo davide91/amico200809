@@ -68,9 +68,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	public void inserisciTabbedPanel(){
 
 		JTabbedPane pannelloTab = new JTabbedPane();
+		m_accedereUnitaImmobiliari= new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari());
+		m_accedereTabelleMillesimali=new AccedereTabelleMillesimali(this,m_condominio.recuperaTabelleMillesimali(),m_condominio.recuperaUnitaImmobiliari());
 		pannelloTab.addTab("Dati Generali",new DatiGenerali(m_condominio));
-		pannelloTab.addTab("Unita' Immobiliari", new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari()));
-		pannelloTab.addTab("Tabelle Millesimali",new AccedereTabelleMillesimali(this,m_condominio.recuperaTabelleMillesimali(),m_condominio.recuperaUnitaImmobiliari()));
+		pannelloTab.addTab("Unita' Immobiliari",m_accedereUnitaImmobiliari);
+		pannelloTab.addTab("Tabelle Millesimali",m_accedereTabelleMillesimali);
 		pannelloTab.addTab("Preferenze", new AccederePreferenze(m_condominio.getPreferenze(),this));
 		
 		m_accedereCondominioAperto.getPannello().add(pannelloTab);
@@ -139,6 +141,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void operazioneTerminata() {
+		m_accedereCondominioAperto.setVisible(true);
 		switch (m_state) {
 		default :
 				m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
@@ -190,8 +193,9 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaAUnitaImmobiliari() {
 		
-		m_accedereUnitaImmobiliari = 	
-			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
+	/*	m_accedereUnitaImmobiliari = 	
+			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());*/
+		m_accedereCondominioAperto.setVisible(false);
 		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 	}
 	
@@ -204,13 +208,14 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	*/
 	
-	public void passaProprieta(Persone persone, Millesimi quoteProprieta) {
-		if ( quoteProprieta.somma() != 1000.0  ) {
+	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
+		if ( quoteProprieta.somma() != 100.0  ) {
 			m_accedereUnitaImmobiliari.ammissibile(false);
 			return;
 		}
 		m_nuoviProprietari = persone;
-		m_nuoviMillesimi = quoteProprieta;
+		m_nuoveQuote= quoteProprieta;
+	//	m_nuoviMillesimi = quoteProprieta; non millesimi ma quote :P
 		m_accedereUnitaImmobiliari.ammissibile(true);
 		m_state = StatiGestoreCondominioAperto.attesaConfermaProprieta;	
 		
@@ -248,8 +253,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			break;
 		}
 	}
-
-
+	
 	public Condominio getCondominio() {
 		return m_condominio;
 	}
