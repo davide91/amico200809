@@ -13,7 +13,7 @@ import java.util.TreeSet;
 public class Proprieta {
 
 	private long id;
-	private double quota;
+	private float quota;
 	private UnitaImmobiliare unitaImmobiliare;
 	private Persona proprietario;
 	
@@ -49,11 +49,11 @@ public class Proprieta {
 		this.id = id;
 	}
 
-	public double getQuota() {
+	public float getQuota() {
 		return quota;
 	}
 
-	public void setQuota(double quota) {
+	public void setQuota(float quota) {
 		this.quota = quota;
 	}
 
