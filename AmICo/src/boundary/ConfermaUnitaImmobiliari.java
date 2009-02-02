@@ -96,10 +96,13 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	{
 		int cont=0;
 		
+		
 		this.unitaImmobiliari=unita;
 		initGroup();
 		if(unita != null)
 		{
+			getBEliminaUnita().setEnabled(true);
+			if (unitaImmobiliari.getImmobili().size()>=2) getBContinua().setEnabled(true); 
 			Iterator<UnitaImmobiliare> ui=this.unitaImmobiliari.getImmobili().iterator();
 			UnitaImmobiliare unit;
 			
@@ -234,6 +237,8 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
+		getBContinua().setEnabled(false);
+		getBEliminaUnita().setEnabled(false);
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
 		add(getBInserisciUnitaImmobiliare(), new Constraints(new Leading(16, 10, 10), new Leading(219, 12, 12)));
 		add(getBEliminaUnita(), new Constraints(new Leading(280, 10, 10), new Leading(219, 12, 12)));
