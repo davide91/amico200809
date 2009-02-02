@@ -1,5 +1,6 @@
 package executor;
 
+import java.awt.BorderLayout;
 import java.net.URL;
 
 import javax.swing.JTabbedPane;
@@ -74,7 +75,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		pannelloTab.addTab("Unita' Immobiliari",m_accedereUnitaImmobiliari);
 		pannelloTab.addTab("Tabelle Millesimali",m_accedereTabelleMillesimali);
 		pannelloTab.addTab("Preferenze", new AccederePreferenze(m_condominio.getPreferenze(),this));
-		
 		m_accedereCondominioAperto.getPannello().add(pannelloTab);
 
 	}

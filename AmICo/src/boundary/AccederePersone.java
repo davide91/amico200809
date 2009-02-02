@@ -61,6 +61,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		//AMM.mostraPersone(persone);
 		initComponents();
 		state = StatiAccederePersone.base;
+		
 	}
 	
 	
@@ -114,8 +115,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	}
 
 	public void aggiornaPersona(Persona persona) {
-		persone.inserisciPersona(persona);
-		aggiorna();
+			aggiorna();
 	}
 
 
@@ -211,10 +211,11 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getBvisualizza(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 80, 236)));
-		add(getJLabel0(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
+	//	add(getBvisualizza(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 80, 236)));
+		add(getBvisualizza(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
+	//	add(getJLabel0(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
 		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Bilateral(42, 54, 26)));
-		setSize(543, 300);
+		setSize(543, 500);
 	}
 
 	private JScrollPane getJScrollPane0() {
