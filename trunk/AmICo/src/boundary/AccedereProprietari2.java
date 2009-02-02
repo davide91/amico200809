@@ -80,7 +80,7 @@ public class AccedereProprietari2 extends JFrame {
 
 	public void aggiornaPersone(Persone persone) {
 		this.persone=persone;
-		IP.aggiornaPersone(persone);
+		if(IP!=null) IP.aggiornaPersone(persone);
 	}
 
 	
