@@ -52,7 +52,7 @@
 			<one-to-many class="UnitaImmobiliare"/>
 		</set>
 		
-		<set name="persone" table="persone_condomini" lazy="false" cascade="all,save-update">
+		<set name="persone" table="persone_condomini" lazy="false" cascade="save-update">
  			<key column="CONDOMINIO_ID"/>
  			<many-to-many column="PERSONA_ID" class="Persona"/>
 		</set>

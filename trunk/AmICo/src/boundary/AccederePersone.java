@@ -30,6 +30,7 @@ import org.dyno.visual.swing.layouts.Trailing;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
+import store.POJO.Proprieta;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
 import enumeration.StatiAccederePersone;
@@ -60,7 +61,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		initComponents();
 		state = StatiAccederePersone.base;
 		
-		JOptionPane.showMessageDialog(this, "Attenzione alla creazione in persone non vengono inserite le proprieta' e le unita' quindi non si possono mostrare");
+	//	JOptionPane.showMessageDialog(this, "Attenzione alla creazione in persone non vengono inserite le proprieta' e le unita' quindi non si possono mostrare");
 	}
 	
 	
@@ -175,42 +176,32 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
 		      );
 
-		    
-		    
-		    
 		    for (Persona p : persone.getPersone())
 		    {
 		    	cont++;
-		    	if(p instanceof PersonaFisica)
-					dm.addRow(new Object[]{
-						((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome(),
-						"",
-						"",
-						new JRadioButton()  });
-				
+		    	if(p instanceof PersonaFisica){
+		    		PersonaFisica pers = (PersonaFisica)p;
+		    		
+		    		for (Proprieta prop : pers.getProprieta()) {
+		    			dm.addRow(new Object[]{
+								(pers.getDati().getNome()+" "+pers.getDati().getCognome()),
+								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+								prop.getQuota(),
+								new JRadioButton()  });
+					}
+					
+		    	}
 				else if(p instanceof PersonaGiuridica)
-					dm.addRow(new Object[]{
-						((PersonaGiuridica)p).getDati().getpIva(),
-						"",
-						"",
-						new JRadioButton()  });
-		    
-					/*for(Proprieta p2: p.getProprieta() )    non lega le persone alle unita'
-					{
-						if(p instanceof PersonaFisica)
-							dm.addRow(new Object[]{
-								((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome(),
-								p2.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
-								p2.getQuota(),
+				{
+					PersonaGiuridica persG = (PersonaGiuridica)p;
+					for (Proprieta prop : persG.getProprieta()) {
+		    			dm.addRow(new Object[]{
+								(persG.getDati().getpIva()),
+								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
+								prop.getQuota(),
 								new JRadioButton()  });
-						
-						else if(p instanceof PersonaGiuridica)
-							dm.addRow(new Object[]{
-								((PersonaGiuridica)p).getDati().getpIva(),
-								p2.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
-								p2.getQuota(),
-								new JRadioButton()  });
-					}*/
+					}    
+				}
 			}
 		    
 		    for(int i=0;i<cont;i++)

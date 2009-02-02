@@ -18,7 +18,7 @@
 	</set>
 																				
 	
-	<set name="proprieta" cascade="all">
+	<set name="proprieta" lazy="false" cascade="all-delete-orphan,save-update">
 		 <key column="PERSONA_ID"/>
 		 <one-to-many class="Proprieta"/>
 	</set>

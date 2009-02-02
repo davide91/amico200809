@@ -105,9 +105,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 			
 			dm= new DefaultTableModel();
 	
-			
-
-				
 			    dm.setDataVector(
 			      new Object[][]{},
 			      new Object[]{"Identificatore","Categoria","Destinazione","Metratura","Posizione","Seleziona"}
@@ -176,7 +173,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		{
 			if (!b) {
 				state=StatiConfermaUnitaImmobiliari.base;
-				
 			}
 			IUI.ammissibile(b);
 			

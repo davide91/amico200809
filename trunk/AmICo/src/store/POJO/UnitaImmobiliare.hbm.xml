@@ -24,7 +24,7 @@
 		 	class="Condominio"
 		 	column="CONDOMINIO_ID"/>
 			
-	<set name="quoteDiPossesso" lazy="false" cascade="all-delete-orphan,save-update">
+	<set name="quoteDiPossesso" lazy="false" cascade="all,delete-orphan,save-update">
 		 <key column="UNITA_ID"/>			
 	 	<one-to-many class="Proprieta"/>	
 	</set>			

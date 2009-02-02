@@ -20,16 +20,14 @@ import datatype.DatiPersonaGiuridica;
 public class Persona {
 
 	protected long id;
-	protected Set<Pagamento> pagamenti;
-	protected Set<Proprieta> proprieta;
+	protected Set<Pagamento> pagamenti = new HashSet<Pagamento>();
+	protected Set<Proprieta> proprieta = new HashSet<Proprieta>();
 	
 	private Session session;
 
 	public Persona()
 	{
-		pagamenti = new HashSet<Pagamento>();
-		proprieta = new HashSet<Proprieta>();
-//		condomini = new HashSet<Condominio>();
+		
 	}
 
 	public void modificaDati(DatiPersona datiPersona) 
@@ -81,4 +79,13 @@ public class Persona {
 	public void setProprieta(Set<Proprieta> proprieta) {
 		this.proprieta = proprieta;
 	}
+
+/*	public void aggiungiProprieta(Proprieta prop) {
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			this.proprieta.add(prop);
+		session.update(this);
+		//session.getTransaction().commit(); //chiamata da un metodo con sessione già aperta, se lo chiudo eccezione
+	}
+*/
 }
