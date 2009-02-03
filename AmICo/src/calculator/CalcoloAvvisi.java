@@ -27,7 +27,7 @@ import store.POJO.MovimentoCassa;
 import store.POJO.Pagamento;
 import store.POJO.VoceBilancio;
 
-public class CalcolaAvvisi {
+public class CalcoloAvvisi {
 
 	private static Condominio m_condominio;
 	private static Avvisi m_avvisi;
