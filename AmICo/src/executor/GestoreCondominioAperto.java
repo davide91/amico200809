@@ -113,10 +113,10 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 			return;
 		}
-		
-		m_datiTabellaMillesimale = datiTabellaMillesimale;
-		m_accedereTabelleMillesimali.ammissibile(true);
 		m_state = StatiGestoreCondominioAperto.attesaConfermaInserimentoTabellaMillesimale;
+		m_datiTabellaMillesimale = datiTabellaMillesimale;
+		m_nuoviMillesimi=millesimi;
+		m_accedereTabelleMillesimali.ammissibile(true);
 	}
 	
 	public void modificaPreferenze(Preferenze preferenze) {
