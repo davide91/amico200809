@@ -124,21 +124,22 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	
 	private void listaListSelectionValueChanged(ListSelectionEvent event)
 	{
-		for (Bilancio b : bilanci.getBilanci()) {
-			if(b.getDati().getTitolo().equals( (String)listaBilanci.getSelectedValue()) )
-			{
-				//bilancio selezionato
-			}
-		}
 	}
 	
 	private void bApriBilancioMouseMouseClicked(MouseEvent event) {
+		for (Bilancio b : bilanci.getBilanci()) {
+			if(b.getDati().getTitolo().equals( (String)listaBilanci.getSelectedValue()) )
+			{
+				apriBilancio(b);
+			}
+		}
 	}
 
 	private void bChiudiBilancioMouseMouseClicked(MouseEvent event) {
 	}
 
 	private void bRedigereBilancioMouseMouseClicked(MouseEvent event) {
+		//inserisci nuovo bilancio
 	}
 
 
