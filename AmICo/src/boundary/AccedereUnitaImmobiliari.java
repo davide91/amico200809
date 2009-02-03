@@ -1,7 +1,6 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
@@ -10,13 +9,11 @@ import java.util.Iterator;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -32,8 +29,6 @@ import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereUnitaImmobiliari;
-import enumeration.StatiInserireNuovoCondominio;
-import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 import executor.GestorePersone;
 
@@ -46,7 +41,6 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	private GestoreCondominioAperto GCA;
 	private AccedereProprietari2 AP;
 	private UnitaImmobiliari unita;
-	@SuppressWarnings("unused")
 	private Persone persone;
 	@SuppressWarnings("unused")
 	private StatiAccedereUnitaImmobiliari state;
@@ -60,8 +54,9 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 
-	public AccedereUnitaImmobiliari(GestoreCondominioAperto GCA, UnitaImmobiliari unita) {
+	public AccedereUnitaImmobiliari(GestoreCondominioAperto GCA, UnitaImmobiliari unita,Persone p) {
 		this.GCA=GCA;
+		this.persone=p;
 		initComponents();
 		state = StatiAccedereUnitaImmobiliari.base;
 		aggiornaUnitaImmobiliari(unita);
