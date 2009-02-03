@@ -1,7 +1,6 @@
 package boundary;
 
 import java.io.File;
-import java.net.URL;
 
 import executor.BaseExecutor;
 
@@ -16,7 +15,7 @@ public class DriverFileSystem {
 		return m_singleDFS;
 	}
 
-	public void leggi(URL path, BaseExecutor executor) {
+	public void leggi(String path, BaseExecutor executor) {
 		
 	}
 	
@@ -24,7 +23,7 @@ public class DriverFileSystem {
 		
 	}
 	
-	public void salva(File file, URL path, BaseExecutor executor) {
+	public void salva(File file, String path, BaseExecutor executor) {
 		
 	}
 	

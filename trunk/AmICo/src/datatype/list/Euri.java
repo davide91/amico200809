@@ -33,4 +33,12 @@ public class Euri {
 	public void setEuri(List<Euro> euri) {
 		this.euri = euri;
 	}
+
+	public boolean tuttiZeri() {
+		for (Euro e : euri) {
+			if(e.getEuro()!= 0)
+				return false;
+		}
+		return true;
+	}
 }

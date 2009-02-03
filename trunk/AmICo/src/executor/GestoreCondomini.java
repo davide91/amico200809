@@ -96,7 +96,7 @@ public class GestoreCondomini implements BaseExecutor {
 		 */
 	}
 	
-	public void importaCondominio(URL path) {
+	public void importaCondominio(String path) {
 		m_driverFS.leggi(path, (BaseExecutor)this);
 		m_state = StatiGestoreCondominio.attesaSelezioneFile;
 	}

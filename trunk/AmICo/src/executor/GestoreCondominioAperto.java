@@ -101,7 +101,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		
 	}
 	
-	public void esportaCondominio(URL path) {
+	public void esportaCondominio(String path) {
 		m_driverFileSystem.salva(FormatoAmICo.daCondominioAFile(m_condominio),
 				path, (BaseExecutor)this);
 		m_state = StatiGestoreCondominioAperto.exportCondominio;
@@ -137,7 +137,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void operazioneAnnullata() {
-		
+		m_accedereCondominioAperto.setVisible(true);
 	}
 	
 	public void operazioneTerminata() {
@@ -210,15 +210,14 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
 		if ( quoteProprieta.somma() != 100.0  ) {
+			m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 			m_accedereUnitaImmobiliari.ammissibile(false);
 			return;
 		}
 		m_nuoviProprietari = persone;
 		m_nuoveQuote= quoteProprieta;
-	//	m_nuoviMillesimi = quoteProprieta; non millesimi ma quote :P
 		m_accedereUnitaImmobiliari.ammissibile(true);
 		m_state = StatiGestoreCondominioAperto.attesaConfermaProprieta;	
-		
 	}
 
 	public void procedi(boolean procedere) {
@@ -246,10 +245,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			break;
 		case attesaConfermaProprieta :
 			m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
-			
 			if (procedere) 
 				m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);		
-			
 			break;
 		}
 	}
