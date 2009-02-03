@@ -22,17 +22,17 @@ import store.POJO.TabellaMillesimale;
 
 public class GestorePagamenti implements BaseExecutor {
 
-	private Condominio m_condominio;
 	private AccederePagamenti m_accederePagamenti;
-	private StatiGestorePagamenti m_state;
-	
 	private Bilancio m_bilancio;
-	private DatiPianoPagamenti m_datiPP;
-	private TabellaMillesimale m_ripartizione;
+	private Condominio m_condominio;
 	
-	private Documento m_documento;
-	private FormatoFile m_formato;
+	private DatiPianoPagamenti m_datiPP;
 	private String m_defaultSavePath = "";
+	private Documento m_documento;
+	
+	private FormatoFile m_formato;
+	private TabellaMillesimale m_ripartizione;
+	private StatiGestorePagamenti m_state;
 	private TipoReportPagamenti m_tipoReport;
 	
 	public GestorePagamenti(Condominio condominio) {
@@ -83,16 +83,17 @@ public class GestorePagamenti implements BaseExecutor {
 	}
 	
 	
+	public void generaReport(TipoReportPagamenti tipo, FormatoFile formato)
+	{
+		File reportFile = Formattatore.converti(preparaReportPagamenti(m_tipoReport), formato);
+		DriverFileSystem.getInstance().salva(reportFile, m_defaultSavePath, this);
+	}
+	
 	public void generaRichiestaPagamento(Persona persona, Pagamento pagamento, FormatoFile formato)
 	{
 		Documento doc = preparaRichiestaPagamento(persona,pagamento);
 		m_formato = formato;
 		
-	}
-	
-	private Documento preparaRichiestaPagamento(Persona persona, Pagamento pagamento) 
-	{
-		return new Documento();
 	}
 	
 	public void generaSollecito(Persona persona, Pagamento pagamento, FormatoFile formato)
@@ -102,12 +103,6 @@ public class GestorePagamenti implements BaseExecutor {
 		m_state = StatiGestorePagamenti.attesaConfermaDocumentoSollecito;
 	}
 	
-	private Documento preparaSollecito(Persona persona, Pagamento pagamento, FormatoFile formato) 
-	{
-		// TODO
-		return new Documento();
-	}
-
 	public void inserisciFraseAdHoc(String frase)
 	{
 		// Non si sa mai :)
@@ -116,24 +111,12 @@ public class GestorePagamenti implements BaseExecutor {
 		m_documento.inserisciFrase(frase);
 		m_accederePagamenti.aggiornaDocumento(m_documento);
 	}
-	
-	public void generaReport(TipoReportPagamenti tipo, FormatoFile formato)
-	{
-		File reportFile = Formattatore.converti(preparaReportPagamenti(m_tipoReport), formato);
-		DriverFileSystem.getInstance().salva(reportFile, m_defaultSavePath, this);
-	}
-	
-	private Report preparaReportPagamenti(TipoReportPagamenti tipo)
-	{
-		// TODO
-		return new Report();
-	}
-	
+
 	public void operazioneAnnullata() {
 		// Inutilizzato nel design 3.6.3
 		
 	}
-
+	
 	public void operazioneTerminata() {
 		if ( m_state == StatiGestorePagamenti.gestorePagamenti )
 		{
@@ -144,6 +127,24 @@ public class GestorePagamenti implements BaseExecutor {
 		
 		m_state = StatiGestorePagamenti.gestorePagamenti;
 		m_accederePagamenti.fatto();
+	}
+	
+	private Report preparaReportPagamenti(TipoReportPagamenti tipo)
+	{
+		// TODO
+		return new Report();
+	}
+	
+	private Documento preparaRichiestaPagamento(Persona persona, Pagamento pagamento) 
+	{
+		// TODO
+		return new Documento();
+	}
+
+	private Documento preparaSollecito(Persona persona, Pagamento pagamento, FormatoFile formato) 
+	{
+		// TODO
+		return new Documento();
 	}
 
 	public void procedi(boolean procedere) {
