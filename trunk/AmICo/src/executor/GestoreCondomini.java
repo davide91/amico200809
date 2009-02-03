@@ -84,13 +84,9 @@ public class GestoreCondomini implements BaseExecutor {
 			Avvio.esciDaAmICo();
 	}
 	
-	/****** NON PRESENTE NEL DESIGN 3.6.3 
+	/****** FIXME : NON PRESENTE NEL DESIGN 3.6.3 
 	public void finito() {
 		m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
-		
-		// FIXME :
-		// AMM.mostra(InserisciTabellaMillesimaleProprietaGenerale)
-		 
 	}
 	*******/
 	
@@ -177,7 +173,7 @@ public class GestoreCondomini implements BaseExecutor {
 		if ( unitaImmobiliareGiaInserita(datiUnitaImmobliare) ) {
 			m_confermaUnitaImmobiliari.ammissibile(false);
 			
-			/*** INSERITO CON IL DESIGN 3.6.3 - BEGIN - Rimuovere se crea problemi ***/
+			/*** FIXME : INSERITO CON IL DESIGN 3.6.3 - BEGIN - Rimuovere se crea problemi ***/
 			if ( m_unitaImmobiliare != null )
 			{
 				m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
@@ -259,14 +255,6 @@ public class GestoreCondomini implements BaseExecutor {
 				m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 				break;
 		}
-	}
-	
-	
-	public void settaCondomini(Condomini condomini) {
-		/*
-		 * TODO : Totalemente inutilizzata nella SM, che fare?
-		 * Rimane anche nel design 3.3, sempre inutilizzata
-		 */
 	}
 	
 	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 	
