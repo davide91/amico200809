@@ -159,6 +159,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 
 	public void finito() {
 		GCA.operazioneTerminata();
+		setVisible(true);
 	}
 
 	public void ko() {
@@ -287,8 +288,8 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	public boolean proprietaOK(Persone persone, Percentuali quote) {
 		state = StatiAccedereUnitaImmobiliari.attesaConferma;
 		GCA.passaProprieta(persone, quote);
-		GCA.operazioneTerminata();
-		this.setVisible(true);
+	//	GCA.operazioneTerminata();
+	//	this.setVisible(true);
 		
 		// TODO Auto-generated method stub
 		return false;
