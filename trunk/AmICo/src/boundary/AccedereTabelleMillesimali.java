@@ -47,6 +47,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private UnitaImmobiliari unita;
 	private DefaultTableModel dm = new DefaultTableModel();
 	
+	private InserisciModificaTabellaMillesimale InseriscitabellaMillesimale;
 	
 	private static final long serialVersionUID = 1L;
 	private JTable jTable0;
@@ -186,13 +187,15 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	
 	
 	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM,Millesimi millesimi){
+		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
 		GCA.inserisciTabellaMillesimale(DTM, millesimi);
 		//AMM.mostraUnitaImmobiliar(unita);
-		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
+		
 	}
 	public void modificaTabellaMillesimale(TabellaMillesimale TM , String descrizione, Millesimi millesimi)
 	{
 		GCA.modificaTabellaMillesimale(TM, descrizione, millesimi);
+		InseriscitabellaMillesimale.ammissibile(true);
 	}
 	public void aggiornaTabelleMillesimali(TabelleMillesimali TM)
 	{
@@ -216,11 +219,12 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		if (b){
 			//AMM.richiestaConferma();
 			state=StatiAccedereTabelleMillesimali.attesaConfermaMillesimi;
-			
+			InseriscitabellaMillesimale.ammissibile(true);
 		}
 		else {
 			//AMM.mostra(NomeTabellaNonUnico);
 			state=StatiAccedereTabelleMillesimali.base;
+			InseriscitabellaMillesimale.ammissibile(false);
 		}
 		
 	}
@@ -295,7 +299,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	private void binseriscitabellaMouseMouseClicked(MouseEvent event) {
 				GCA.passaATabelleMillesimali();
-				new InserisciModificaTabellaMillesimale(this,unita);
+			InseriscitabellaMillesimale =	new InserisciModificaTabellaMillesimale(this,unita);
 	}
 
 	private void bmodificatabellaMouseMouseClicked(MouseEvent event) {
@@ -303,7 +307,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 			if( t.getDati().getNome().equals( (String)lista.getSelectedValue() ) )
 			{
 				GCA.passaATabelleMillesimali();
-				new InserisciModificaTabellaMillesimale(this,unita,t);
+				InseriscitabellaMillesimale = new InserisciModificaTabellaMillesimale(this,unita,t);
 			}
 	}
 	

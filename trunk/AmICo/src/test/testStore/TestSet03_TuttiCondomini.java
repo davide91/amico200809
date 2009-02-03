@@ -12,6 +12,7 @@ import store.TuttiCondomini;
 import store.POJO.Bilancio;
 import store.POJO.Cassa;
 import store.POJO.Condominio;
+import store.POJO.Millesimo;
 import store.POJO.MovimentoCassa;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
@@ -290,9 +291,9 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		TabellaMillesimale t = c.recuperaTabelleMillesimali().getTabelle().get(0);
 		
 		Millesimi mill = new Millesimi();
-		mill.inserisciMillesimo((float)0.3);
-		mill.inserisciMillesimo((float)0.5);
-		mill.inserisciMillesimo((float)0.2);
+		mill.inserisciMillesimo(new Millesimo((float)0.3, t));
+		mill.inserisciMillesimo(new Millesimo((float)0.3, t));
+		mill.inserisciMillesimo(new Millesimo((float)0.2, t));
 	
 		t.modificaTabella("Pubblici_mod", mill);
 		
@@ -342,10 +343,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		d.creaCurrenDate();
 		
 		DatiVoceBilancio dvb = new DatiVoceBilancio("Spesa per tetto",TipoVoce.spesa,"Coibentiamo il tetto",new Euro((float)1500.0),d);
-		VoceBilancio vb = new VoceBilancio();
-		
-		//creo la voce di bilancio
-		vb.creaVoceBilancio(dvb);
+		VoceBilancio vb = new VoceBilancio(dvb);
 		
 		//recupero una tebella millesimale
 		TabellaMillesimale t = c.recuperaTabelleMillesimali().getTabelle().get(0);

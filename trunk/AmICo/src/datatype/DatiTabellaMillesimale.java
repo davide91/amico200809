@@ -35,6 +35,7 @@ public class DatiTabellaMillesimale {
 	
 	public boolean controlla()
 	{
-		return false;
+		//non so cosa controllare
+		return true;
 	}
 }

@@ -42,7 +42,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 	private StatiAccedereTabelleMillesimali state;
 	private UnitaImmobiliari unita;
 	private Millesimi m;
-	private TabellaMillesimale tabellaMillesimale;
+	private TabellaMillesimale tabellaMillesimale = null;
 	private AccedereTabelleMillesimali ATM;
 
     private DefaultTableModel dm = new DefaultTableModel();
@@ -76,6 +76,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		this.setTitle("modifica tabella millesimale");
 		m=new Millesimi();
 	}
+	
 	/*
 	public void inserisciMillesimi(Millesimi millesimi){
 		if (millesimi.somma()==1000){
@@ -91,12 +92,34 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 			//AMM.richiestaConferma();
 			state=StatiAccedereTabelleMillesimali.attesaConfermaMillesimi;
 			
+			if(tabellaMillesimale==null)
+			{	
+				int c = JOptionPane.showConfirmDialog(this, "Sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				
+				if (c==0)
+				{
+						ATM.procedi(true);
+						ATM.finito();
+							JOptionPane.showMessageDialog(this, "Tabella Immobiliare Inserita");
+				}
+				else
+				{
+					ATM.procedi(false);
+						JOptionPane.showMessageDialog(this, "Tabella Immobiliare Modificata");
+				}
+			}
+			else
+			{
+				//ATM.modificaTabellaMillesimale(tabellaMillesimale,descrizione.getText(),m);
+				JOptionPane.showMessageDialog(this, "Tabella Immobiliare Modificata");
+				ATM.finito();
+			}
 		}
 		else {
-			//AMM.mostra(NomeTabellaNonUnico);
 			state=StatiAccedereTabelleMillesimali.base;
+			JOptionPane.showMessageDialog(this, "Tabella Immobiliare Non Inserita");
 		}
-		
+		this.dispose();
 	}
 
 	public void annulla() {
@@ -149,7 +172,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		{
 			if(dm.getValueAt(i,1)=="")
 			{
-				JOptionPane.showMessageDialog(this, "inserire prima tutti i millesimi");
+				JOptionPane.showMessageDialog(this, "Inserire prima tutti i millesimi");
 				return;
 			}
 
@@ -171,32 +194,13 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 				DatiTabellaMillesimale dati= new DatiTabellaMillesimale();
 				dati.setNome(nome.getText());
 				dati.setDescrizione(descrizione.getText());
-				ATM.inserisciTabellaMillesimale(dati,m);
-			}
-			if(tabellaMillesimale!=null)
-			{	
-				int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-				
-				if (c==0)
-					{
-						ATM.procedi(true);
-						ATM.finito();
-						this.dispose();
-					
-					}
+				if(tabellaMillesimale==null)
+					ATM.inserisciTabellaMillesimale(dati,m);
 				else
-					ATM.procedi(false);
+					ATM.modificaTabellaMillesimale(tabellaMillesimale, getDescrizione().getText(), lista);
 			}
-			else
-			{
-				ATM.modificaTabellaMillesimale(tabellaMillesimale,descrizione.getText(),m);
-				ATM.finito();
-			}
-
 		}
 		else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
-			
-		
 	}
 	
 	private void annullaMouseMouseClicked(MouseEvent event)
