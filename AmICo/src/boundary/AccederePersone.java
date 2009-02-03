@@ -25,6 +25,7 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Condominio;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
@@ -235,7 +236,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		      new Object[][]{},
 		      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
 		      );
-	//	    Condominio cond = GCA.getCondominio();
+		    Condominio cond = GCA.getCondominio();
 
 		    for (Persona p : persone.getPersone())
 		    {
@@ -243,8 +244,8 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		    	{	
 		    		for (Proprieta prop : p.getProprieta())
 		    		{
-		/*    			if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
-		    			{*/
+		    			if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
+		    			{
 		    					
 			    				dm.addRow(new Object[]{
 			    						( ((PersonaFisica) p).getDati().getNome()+" "+((PersonaFisica) p).getDati().getCognome() ),
@@ -255,15 +256,15 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 			    				group.add((JRadioButton)dm.getValueAt(cont,3));
 			    				indice[cont]=i;
 			    		    	cont++;
-		    		//	}
+		    			}
 		    		}
 		    	}
 				else if(p instanceof PersonaGiuridica)
 				{
 					for (Proprieta prop : p.getProprieta())
 					{
-	/*					if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
-						{*/
+						if(prop.getUnitaImmobiliare().getCondominio().equals(cond))
+						{
 							
 								dm.addRow(new Object[]{
 									( ((PersonaGiuridica) p).getDati().getpIva() ),
@@ -274,7 +275,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 								group.add((JRadioButton)dm.getValueAt(cont,3));
 			    				indice[cont]=i;
 			    				cont++;
-				//		}
+						}
 					}
 				}
 		    	i++;
