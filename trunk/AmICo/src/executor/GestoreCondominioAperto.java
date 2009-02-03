@@ -19,7 +19,7 @@ import boundary.AccedereUnitaImmobiliari;
 import boundary.AmICo;
 import boundary.DatiGenerali;
 import boundary.DriverFileSystem;
-import calculator.CalcolaAvvisi;
+import calculator.CalcoloAvvisi;
 import calculator.FormatoAmICo;
 import datatype.DatiTabellaMillesimale;
 import datatype.Preferenze;
@@ -52,7 +52,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	public GestoreCondominioAperto(Condominio condominio) {
 		m_condominio = condominio;
 		m_accedereCondominioAperto = new AccedereCondominioAperto(this,m_condominio);
-		m_avvisi = CalcolaAvvisi.calcolaAvvisi(m_condominio);
+		m_avvisi = CalcoloAvvisi.calcolaAvvisi(m_condominio);
 		m_accedereCondominioAperto.passaAvvisi(m_avvisi);
 		m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
 
