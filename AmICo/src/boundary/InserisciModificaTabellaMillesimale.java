@@ -171,18 +171,27 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 				DatiTabellaMillesimale dati= new DatiTabellaMillesimale();
 				dati.setNome(nome.getText());
 				dati.setDescrizione(descrizione.getText());
-				//GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,m);
+				ATM.inserisciTabellaMillesimale(dati,m);
 			}
-
-			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			
-			if (c==0)
-				{
-					//GestoreCondomini.getInstance().procedi(true);
-					this.dispose();
+			if(tabellaMillesimale!=null)
+			{	
+				int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				
-				}
-			//else GestoreCondomini.getInstance().procedi(false);
+				if (c==0)
+					{
+						ATM.procedi(true);
+						ATM.finito();
+						this.dispose();
+					
+					}
+				else
+					ATM.procedi(false);
+			}
+			else
+			{
+				ATM.modificaTabellaMillesimale(tabellaMillesimale,descrizione.getText(),m);
+				ATM.finito();
+			}
 
 		}
 		else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
@@ -192,7 +201,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 	
 	private void annullaMouseMouseClicked(MouseEvent event)
 	{
-		ATM.operazioneTerminata();
+		ATM.finito();
 		this.dispose();
 	}
 
