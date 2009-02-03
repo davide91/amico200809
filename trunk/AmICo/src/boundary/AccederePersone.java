@@ -24,9 +24,7 @@ import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
-import org.dyno.visual.swing.layouts.Trailing;
 
-import store.POJO.Condominio;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
@@ -281,7 +279,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 				}
 		    	i++;
 		    }
-		    
+
 		    table = new JTable(dm)
 		    {
 				private static final long serialVersionUID = 1L;
