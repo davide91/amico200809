@@ -80,6 +80,15 @@ public class Persona {
 		this.proprieta = proprieta;
 	}
 
+	public void modificaProprietà(Proprieta vecchia,Proprieta nuova)
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			proprieta.remove(vecchia);
+			proprieta.add(nuova);
+		session.update(this);
+	}
+	
 /*	public void aggiungiProprieta(Proprieta prop) {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();

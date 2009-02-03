@@ -77,7 +77,7 @@ public class UnitaImmobiliare {
 			for (int i=0;i< pers.getPersone().size();i++) {
 				Proprieta prop = new Proprieta();
 				prop.setProprietario(pers.getPersone().get(i));  // aggiungo il proprietario
-				prop.setQuota(quote.getListaQuote().get(i)); 	//aggiungo al quota
+				prop.setQuota(quote.getListaQuote().get(i)); 	//aggiungo la quota
 				prop.setUnitaImmobiliare(this); 				//aggiungo l'unità immobiliare
 				
 				boolean found = false;
@@ -86,6 +86,7 @@ public class UnitaImmobiliare {
 					if (p.getUnitaImmobiliare().equals(this)) {
 						pers.getPersone().get(i).getProprieta().remove(p);
 						pers.getPersone().get(i).getProprieta().add(prop);
+						session.update(pers.getPersone().get(i));
 						found = true;
 					}
 				}
@@ -93,6 +94,7 @@ public class UnitaImmobiliare {
 				if (!found) {
 					pers.getPersone().get(i).getProprieta().add(prop);
 				}	
+				session.persist(prop);
 				quoteDiPossesso.add(prop);
 			}
 	

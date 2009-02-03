@@ -214,10 +214,10 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			m_accedereUnitaImmobiliari.ammissibile(false);
 			return;
 		}
+		m_state = StatiGestoreCondominioAperto.attesaConfermaProprieta;	
 		m_nuoviProprietari = persone;
 		m_nuoveQuote= quoteProprieta;
-		m_accedereUnitaImmobiliari.ammissibile(true);
-		m_state = StatiGestoreCondominioAperto.attesaConfermaProprieta;	
+		m_accedereUnitaImmobiliari.ammissibile(true);	
 	}
 
 	public void procedi(boolean procedere) {
