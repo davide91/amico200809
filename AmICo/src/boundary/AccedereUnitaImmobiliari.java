@@ -32,6 +32,8 @@ import datatype.list.Percentuali;
 import datatype.list.Persone;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereUnitaImmobiliari;
+import enumeration.StatiInserireNuovoCondominio;
+import executor.GestoreCondomini;
 import executor.GestoreCondominioAperto;
 import executor.GestorePersone;
 
@@ -129,12 +131,18 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	
 	public void ammissibile(Boolean b) {
 		if (b){
-			//AMM.richiediConferma();
-			state=StatiAccedereUnitaImmobiliari.attesaConferma;
+			int c = JOptionPane.showConfirmDialog(this, "Modificare le Proprietà?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			
+			if (c==0){
+				GCA.procedi(true);
+			}
+			else {
+				GCA.procedi(false);
+			}
 		}
 		else {
 			state=StatiAccedereUnitaImmobiliari.modificaProprieta;
-			//AMM.mostra(proprietaKO);
+			JOptionPane.showMessageDialog(this, "Impossibile Modificare le Proprietà");
 		}
 	}
 
@@ -159,7 +167,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	}
 
 	public void ko() {
-		GCA.procedi(false);
+		//GCA.procedi(false);
 		JOptionPane.showMessageDialog(this, "operazione annullata dall'utente");
 		finito();
 		state=StatiAccedereUnitaImmobiliari.base;
@@ -181,14 +189,14 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
 	           {
 	        	   GCA.passaAUnitaImmobiliari();
-	   			   modificaProprieta(unita.getImmobili().get(i));
+	   			 //  modificaProprieta(unita.getImmobili().get(i));
 	        	   AP=new AccedereProprietari2(this,unita.getImmobili().get(i),persone);
+	        	   state = StatiAccedereUnitaImmobiliari.modificaProprieta;
 	        	   break;
 	           }
 		
 		if(i==group.getButtonCount())
 			JOptionPane.showMessageDialog(this, "Selezionare prima l'unita");
-
 	}
 	
 	
@@ -283,6 +291,10 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	}
 
 	public boolean proprietaOK(Persone persone, Percentuali quote) {
+		state = StatiAccedereUnitaImmobiliari.attesaConferma;
+		GCA.passaProprieta(persone, quote);
+		GCA.operazioneTerminata();
+		
 		// TODO Auto-generated method stub
 		return false;
 	}

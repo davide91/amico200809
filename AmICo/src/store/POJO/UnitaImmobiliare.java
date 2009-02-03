@@ -4,7 +4,6 @@
 package store.POJO;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -25,8 +24,7 @@ public class UnitaImmobiliare {
 	private DatiUnitaImmobiliare datiUnitaImmobiliare = new DatiUnitaImmobiliare();
 	private Condominio condominio;
 	private Set<Proprieta> quoteDiPossesso = new HashSet<Proprieta>();
-//	private Set<Millesimo> millesimo = new HashSet<Millesimo>();
-	
+
 	private Session session;
 	
 	public UnitaImmobiliare()

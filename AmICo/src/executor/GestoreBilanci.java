@@ -1,5 +1,12 @@
 package executor;
 
+import java.net.URL;
+
+import calculator.CalcoliFinanziari;
+import calculator.Formattatore;
+
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+import com.sun.org.apache.bcel.internal.generic.SALOAD;
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 import boundary.AccedereBilanci;
@@ -7,9 +14,12 @@ import boundary.AccedereBilancioAperto;
 import boundary.DriverFileSystem;
 import datatype.DatiBilancio;
 import datatype.DatiVoceBilancio;
+import datatype.RapportoPagamenti;
+import datatype.Report;
 import enumeration.FormatoFile;
 import enumeration.StatiGestoreBilancio;
 import enumeration.TipoBilancio;
+import enumeration.TipoReportBilancio;
 import store.POJO.Bilancio;
 import store.POJO.Condominio;
 import store.POJO.VoceBilancio;
@@ -26,15 +36,17 @@ public class GestoreBilanci implements BaseExecutor {
 	private VoceBilancio voceBilancio;
 
 	public GestoreBilanci(Condominio condominio) {
+		state=StatiGestoreBilancio.base;
 		this.condominio = condominio;
 		AB=new AccedereBilanci(this, condominio.recuperaBilanci());
-		state=StatiGestoreBilancio.base;
+		
 	}
 	public void inserisciBilancio(DatiBilancio datiBilancio) {
 		if (datiBilancio.getTipo()==TipoBilancio.ordinario || (datiBilancio.getTipo()==TipoBilancio.straordinario && nomeUnico(datiBilancio))){
+			state=StatiGestoreBilancio.attesaConfermaInserimentoBilancio;
 			this.datiBilancio=datiBilancio;
 			AB.ammissibile(true);
-			state=StatiGestoreBilancio.attesaConfermaInserimentoBilancio;
+		
 		}
 		else {
 			AB.ammissibile(false);
@@ -48,7 +60,15 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 	
 	public void inserisciVoceBilancio(DatiVoceBilancio datiVoceBilancio) {
-		
+		if (nomeUnico(datiVoceBilancio)){
+			state=StatiGestoreBilancio.attesaConfermaVoceDiBilancio;
+			voceBilancio= new VoceBilancio(datiVoceBilancio);
+			ABA.ammissibile(true);
+		}
+		else 
+		{
+			ABA.ammissibile(false);
+		}
 	}
 	
 	public void eliminaVoceBilancio(VoceBilancio voceBilancio) {
@@ -56,8 +76,10 @@ public class GestoreBilanci implements BaseExecutor {
 			ABA.ammissibile(false);
 		}
 		else {
-			ABA.ammissibile(true);
 			state=StatiGestoreBilancio.attesaConfermaEliminazioneVoceDiBilancio;
+			this.voceBilancio=voceBilancio;
+			ABA.ammissibile(true);
+	
 		}
 	}
 	
@@ -68,22 +90,23 @@ public class GestoreBilanci implements BaseExecutor {
 	
 	public void terminaEsercizioBilancio() {
 		if (terminabile()){
+			state=StatiGestoreBilancio.attesaConfermaFineEsercizioOK;
 			ABA.ammissibile(true);
-			state=StatiGestoreBilancio.attesaConfermaFineEsercizioSpeseNonPagate;
+		
 		}
 		else {
+			state=StatiGestoreBilancio.attesaConfermaFineEsercizioSpeseNonPagate;
 			ABA.aggiornaSpeseDaPagare(CalcoliFinanziari.calcolaSpeseDaPagare(bilancio));
-			state=StatiGestoreBilancio.attesaConfermaFineEsercizioOK;
-			
 		}
 	}
 	public void generaReport(TipoReportBilancio tipo, FormatoFile formato) {
-		DFS.salva(Formattore.converti(preparaReportBilancio(), formato), Default, this	);
+		DFS.salva(Formattatore.converti(preparaReportBilancio(), formato),"ReportBilancio-"+tipo, this); //DefaultPath = ReportBilancio-"TipoReportBilancio"
 		state=StatiGestoreBilancio.creazioneReport;
 	}
 	
 	public void chiudiBilancio(){
-		
+		state=StatiGestoreBilancio.base;
+		AB.fatto();
 	}
 	
 	public void operazioneAnnullata() {
@@ -109,28 +132,51 @@ public class GestoreBilanci implements BaseExecutor {
 		switch (state) {
 		case attesaConfermaInserimentoBilancio:
 			if (b){
+				
+				state=StatiGestoreBilancio.bilancioAperto;
 				condominio.inserisciBilancio(new Bilancio(datiBilancio));
 				ABA=new AccedereBilancioAperto(bilancio);
-				state=StatiGestoreBilancio.bilancioAperto;
+				
 			}
-			else {}
+			else {
+				state=StatiGestoreBilancio.base;
+			}
 			
 			break;
-			
+	
+		case attesaConfermaVoceDiBilancio:
+			state=StatiGestoreBilancio.bilancioAperto;
+			if (b){
+				bilancio.inserisciVoceBilancio(voceBilancio);
+				ABA.fatto();
+				ABA.aggiornaVociBilancio(bilancio.recuperaVociBilancio());
+			}
+			break;
 		case attesaConfermaEliminazioneVoceDiBilancio:
 			if (b)
+			{
 				bilancio.eliminaVoceBilancio(voceBilancio);
-			ABA.aggiornaVociBilancio(bilancio.recuperaVociBilancio());	
+				ABA.aggiornaVociBilancio(bilancio.recuperaVociBilancio());	
+			}
 			state=StatiGestoreBilancio.bilancioAperto;
+			
 			
 			break;
 		case  attesaConfermaFineEsercizioSpeseNonPagate:
-			if(b) bilancio.terminaEsercizio();
+			state=state.bilancioAperto;
+			if(b) {
+				preventivaSpeseNonPagate(conti);
+				bilancio.terminaEsercizio();
+			}
+			else {
+			
+			}
+				
 			break;
 			
 		case attesaConfermaFineEsercizioOK:
+			state=state.bilancioAperto;
 			if (b){
-				preventivaSpeseNonPagate(conti);
 				bilancio.terminaEsercizio();
 			}
 			break;
@@ -153,12 +199,19 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 	
 	private boolean terminabile() {
-		return false;
+		if( bilancio.getDati().getTipo()==TipoBilancio.straordinario)
+			return bilancio.saldo()>=0;
+			else {
+				//in Euri aggiunta operazione tuttiZeri boolean che controlle che tutti gli euro siano a 0
+				return bilancio.saldo()==0 && bilancio.getVoci().isEmpty() && bilancio.saldoUnita().tuttiZeri(); //"TuttiZeri";
+			}
 	}
 
 	private void preventivaSpeseNonPagate(RapportoPagamenti rapportoPagamenti) {
-		
+		Bilancio preventivo = new Bilancio();
+	//	preventivo
 	}
+	
 	private Report preparaReportBilancio(){
 		return null;
 	}

@@ -163,8 +163,8 @@ public class Bilancio {
 		return true;
 	}
 	
-	//sommo l'importo di ogni voce di bilancio
-	private float saldo()
+	//sommo l'importo di ogni voce di bilancio // non presente nel class diagram
+	public float saldo()
 	{
 		float ret = (float)0.0;
 		for (VoceBilancio vb : voci) {

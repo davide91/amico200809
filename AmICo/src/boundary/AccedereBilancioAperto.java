@@ -56,4 +56,11 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		
 	}
 
+	public void aggiornaSpeseDaPagare(Object calcolaSpeseDaPagare) {
+						// dovrebbe prendere un RapportoPagamenti al posto di object
+		
+		// TODO Auto-generated method stub
+		
+	}
+
 }

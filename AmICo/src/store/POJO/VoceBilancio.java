@@ -39,7 +39,7 @@ public class VoceBilancio {
 		
 	}
 	
-	public void creaVoceBilancio(DatiVoceBilancio dvb)
+	public VoceBilancio(DatiVoceBilancio dvb)
 	{
 		dati = dvb;
 		Data d = new Data();
