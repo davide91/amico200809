@@ -69,7 +69,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	public void inserisciTabbedPanel(){
 
 		JTabbedPane pannelloTab = new JTabbedPane();
-		m_accedereUnitaImmobiliari= new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari());
+		m_accedereUnitaImmobiliari= new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari(),m_dbPersone.recuperaPersone());
 		m_accedereTabelleMillesimali=new AccedereTabelleMillesimali(this,m_condominio.recuperaTabelleMillesimali(),m_condominio.recuperaUnitaImmobiliari());
 		pannelloTab.addTab("Dati Generali",new DatiGenerali(m_condominio));
 		pannelloTab.addTab("Unita' Immobiliari",m_accedereUnitaImmobiliari);
