@@ -2,6 +2,8 @@
 package boundary;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
@@ -12,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,7 @@ import store.POJO.Millesimo;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
+import datatype.list.Millesimi;
 import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
@@ -42,11 +44,8 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private TabelleMillesimali tabelleMillesimali;
 	private GestoreCondominioAperto GCA;
 	private StatiAccedereTabelleMillesimali state;
-	@SuppressWarnings("unused")
 	private UnitaImmobiliari unita;
-	private DatiTabellaMillesimale datiTabella;
 	private DefaultTableModel dm = new DefaultTableModel();
-	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -58,7 +57,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JScrollPane jScrollPane0;
 	private JButton binseriscitabella;
 	private JSeparator jSeparator0;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	public AccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
 	{
 		this.tabelleMillesimali=tabelleMillesimali;
@@ -102,6 +101,12 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		if (binseriscitabella == null) {
 			binseriscitabella = new JButton();
 			binseriscitabella.setText("Inserisci tabella");
+			binseriscitabella.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					binseriscitabellaMouseMouseClicked(event);
+				}
+			});
 		}
 		return binseriscitabella;
 	}
@@ -133,6 +138,12 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		if (bmodificatabella == null) {
 			bmodificatabella = new JButton();
 			bmodificatabella.setText("Modifica tabella");
+			bmodificatabella.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bmodificatabellaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bmodificatabella;
 	}
@@ -169,35 +180,19 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		return jTable0;
 	}
 
-	@SuppressWarnings("unused")
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
+	
+	
 
 	
 	
-	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM){
-		datiTabella=DTM;
+	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM,Millesimi millesimi){
+		GCA.inserisciTabellaMillesimale(DTM, millesimi);
 		//AMM.mostraUnitaImmobiliar(unita);
 		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
 	}
-	public void modificaTabellaMillesimale(TabellaMillesimale TM , DatiTabellaMillesimale DTM, Percentuali millesimi)
+	public void modificaTabellaMillesimale(TabellaMillesimale TM , String descrizione, Millesimi millesimi)
 	{
-		if (millesimi.somma()==1000){
-			//AMM.richiestaConferma();
-			state=StatiAccedereTabelleMillesimali.attesaConfermaInserimento;
-			
-			
-		}
-		
+		GCA.modificaTabellaMillesimale(TM, descrizione, millesimi);
 	}
 	public void aggiornaTabelleMillesimali(TabelleMillesimali TM)
 	{
@@ -210,11 +205,10 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		lista.setModel(listModel);
 		
 	}
-	public void inserisciMillesimi(Percentuali millesimi){
-		if (millesimi.somma()==1000){
-			GCA.inserisciTabellaMillesimale(datiTabella, millesimi);
-			state=StatiAccedereTabelleMillesimali.attesaControlloMillesimi;
-		}
+	
+	public void procedi(boolean b)
+	{
+		GCA.procedi(b);
 	}
 	
 
@@ -297,6 +291,20 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		}
 		
 			
+	}
+
+	private void binseriscitabellaMouseMouseClicked(MouseEvent event) {
+				GCA.passaATabelleMillesimali();
+				new InserisciModificaTabellaMillesimale(this,unita);
+	}
+
+	private void bmodificatabellaMouseMouseClicked(MouseEvent event) {
+		for (TabellaMillesimale t : tabelleMillesimali.getTabelle())
+			if( t.getDati().getNome().equals( (String)lista.getSelectedValue() ) )
+			{
+				GCA.passaATabelleMillesimali();
+				new InserisciModificaTabellaMillesimale(this,unita,t);
+			}
 	}
 	
 

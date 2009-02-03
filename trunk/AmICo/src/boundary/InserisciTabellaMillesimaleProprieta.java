@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,7 +44,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 
     private DefaultTableModel dm = new DefaultTableModel();
 
-	public InserisciTabellaMillesimaleProprieta(UnitaImmobiliari unita)// per ora inserisce solo una tabella e non termina
+	public InserisciTabellaMillesimaleProprieta(UnitaImmobiliari unita)
 	{
 		this.unita=unita;
 		state=StatiAccedereTabelleMillesimali.base;
@@ -331,7 +329,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -341,6 +339,6 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 			}
 		});
 	}
-
+ */
 	 
 }
