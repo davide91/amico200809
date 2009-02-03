@@ -80,7 +80,7 @@ public class Persona {
 		this.proprieta = proprieta;
 	}
 
-	public void modificaProprietà(Proprieta vecchia,Proprieta nuova)
+	public void modificaProprieta(Proprieta vecchia,Proprieta nuova)
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
