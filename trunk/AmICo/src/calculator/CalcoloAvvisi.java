@@ -6,18 +6,22 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import datatype.Avviso;
+import datatype.BilancioStatoAllerta;
 import datatype.CassaSottoSogliaMinima;
 import datatype.CondominiMorosi;
 import datatype.Data;
 import datatype.DatiPagamento;
+import datatype.DatiVoceBilancio;
 import datatype.Euro;
 import datatype.PagamentoInScadenza;
 import datatype.PagamentoScaduto;
 import datatype.Preferenze;
 import datatype.SpeseDaPagare;
 import datatype.list.Avvisi;
+import datatype.list.Bilanci;
 import datatype.list.Pagamenti;
 import datatype.list.VociBilancio;
 import store.POJO.Bilancio;
@@ -114,9 +118,11 @@ public class CalcoloAvvisi {
 			sogliaMin=new Euro((float)0.0);
 		}
 		
+		Euro totaleCasse = new Euro();
 		Iterator<Cassa> cassaIter = m_condominio.getCassa().iterator();
 		while(cassaIter.hasNext())
 		{
+			totaleCasse.aggiungi(cassaIter.next().getSaldo().getEuro());
 			if( cassaIter.next().getSaldo().getEuro() < sogliaMin.getEuro() )
 			{
 				/* FIXME : Cassa.toString() per identificare una cassa dall'altra */
@@ -162,6 +168,28 @@ public class CalcoloAvvisi {
 		 * la somma degli importi non contabilizzati da pagare è superiore alla somma delle casse
 		 * 
 		 */
+		
+		bilancioIter = m_condominio.getBilanci().iterator();
+		
+		Euro totaleImporti = new Euro();
+		
+		while(bilancioIter.hasNext())
+		{
+			Iterator<VoceBilancio> vociIter = 
+				bilancioIter.next().vociNonContabilizzate().getVoci().iterator();
+			
+			while(vociIter.hasNext())
+			{
+				DatiVoceBilancio dati = vociIter.next().getDati();
+				totaleImporti.aggiungi(dati.getImporto().getEuro());
+			}
+		}
+		
+		if (totaleImporti.getEuro() > totaleCasse.getEuro())
+		{
+			Euro diff = new Euro(totaleImporti.getEuro()-totaleCasse.getEuro());
+			m_avvisi.add(new BilancioStatoAllerta(diff));
+		}
 
 		return m_avvisi;
 	}
