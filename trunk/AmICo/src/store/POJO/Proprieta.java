@@ -27,6 +27,10 @@ public class Proprieta {
 	 if (!(other instanceof Proprieta))
 	   return false;
 	 final Proprieta o = (Proprieta) other;
+	 if (!(o.getProprietario() == getProprietario()))
+		   return false;
+	 if (!(o.getUnitaImmobiliare() == getUnitaImmobiliare()))
+		   return false;
 	 if (!(o.getQuota() == getQuota()))
 	   return false;
 	 return true;

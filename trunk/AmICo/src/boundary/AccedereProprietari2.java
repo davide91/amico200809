@@ -175,22 +175,11 @@ public class AccedereProprietari2 extends JFrame {
 	private void bOKMouseMouseClicked(MouseEvent event) {
 		if (quote.somma()==100.0)
 		{
-			AUI.specificaProprieta(proprietari,quote);
-			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-			if (c==0){
-				AUI.ok();
-				AUI.finito();
-				this.dispose();
-			}
-			else {
-				AUI.ko();
-				AUI.finito();
-				this.dispose();
-			}
+			AUI.proprietaOK(proprietari, quote);
+			setVisible(false);
+			this.dispose();
 		}
 		else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
-		
 	}
 
 
