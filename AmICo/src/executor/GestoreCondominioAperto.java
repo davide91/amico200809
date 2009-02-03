@@ -107,7 +107,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.exportCondominio;
 	}
 	
-	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale, Percentuali millesimi) {
+	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale,Millesimi millesimi) {
 		if (!datiTabellaMillesimale.controlla()) {
 			m_accedereTabelleMillesimali.ammissibile(false);
 			m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
@@ -184,9 +184,9 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaATabelleMillesimali()
 	{
-		m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(this, 
+		/*m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(this, 
 				m_condominio.recuperaTabelleMillesimali(), 
-				m_condominio.recuperaUnitaImmobiliari());
+				m_condominio.recuperaUnitaImmobiliari());*/
 		m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 	}
 	
