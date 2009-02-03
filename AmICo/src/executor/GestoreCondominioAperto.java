@@ -1,4 +1,4 @@
-package executor;
+	package executor;
 
 import java.awt.BorderLayout;
 import java.net.URL;
@@ -36,18 +36,14 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private AccederePersone m_accederePersone;
 	private AccedereTabelleMillesimali m_accedereTabelleMillesimali;
 	private AccedereUnitaImmobiliari m_accedereUnitaImmobiliari;
-	private AmICo m_amico;
 	private Avvisi m_avvisi;
 	private Condominio m_condominio;
 	private DatiTabellaMillesimale m_datiTabellaMillesimale;
-	private TuttiCondomini m_dbCondomini;
-	private TuttePersone m_dbPersone;
-	private DriverFileSystem m_driverFileSystem;
 	private GestoreBilanci m_gestoreBilanci;
 	private GestoreCassa m_gestoreCassa;
 	private GestorePagamenti m_gestorePagamenti;
-	private Millesimi m_nuoviMillesimi;
 	private Percentuali m_nuoveQuote;
+	private Millesimi m_nuoviMillesimi;
 	private Persone m_nuoviProprietari;
 	private StatiGestoreCondominioAperto m_state;
 	private TabellaMillesimale m_tabellaMillesimale;
@@ -59,17 +55,48 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_avvisi = CalcolaAvvisi.calcolaAvvisi(m_condominio);
 		m_accedereCondominioAperto.passaAvvisi(m_avvisi);
 		m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
-		m_driverFileSystem = DriverFileSystem.getInstance();
-		m_amico = AmICo.getInstance();
-		m_dbPersone = TuttePersone.getInstance();
-		inserisciTabbedPanel();
+
+		inserisciTabbedPanel();	
 	}
 	
+	
+	public void chiudiCondominio() {
+		AmICo.getInstance().setVisible(true);
+		m_condominio = null;
+		GestoreCondomini.getInstance().operazioneTerminata();	
+	}
+	
+	public boolean eliminabile() {
+		for ( Bilancio bilancio : m_condominio.recuperaBilanci().getBilanci() ) {
+			if (!bilancio.terminabile()) return false;
+		}
+		return true;
+	}	
+	
+	public void eliminaCondominio() {
+		if(eliminabile()) {
+			m_state = StatiGestoreCondominioAperto.attesaConfermaEliminazione;
+			m_accedereCondominioAperto.ammissibile(true);
+		}
+		else 
+			m_accedereCondominioAperto.ammissibile(false);
+		
+	}
+	
+	public void esportaCondominio(String path) {
+		DriverFileSystem.getInstance().salva(FormatoAmICo.daCondominioAFile(m_condominio),
+				path, (BaseExecutor)this);
+		m_state = StatiGestoreCondominioAperto.exportCondominio;
+	}
+	
+	public Condominio getCondominio() {
+		return m_condominio;
+	}
 	
 	public void inserisciTabbedPanel(){
 
 		JTabbedPane pannelloTab = new JTabbedPane();
-		m_accedereUnitaImmobiliari= new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari(),m_dbPersone.recuperaPersone());
+		m_accedereUnitaImmobiliari= new AccedereUnitaImmobiliari(this,m_condominio.recuperaUnitaImmobiliari(),TuttePersone.getInstance().recuperaPersone());
 		m_accedereTabelleMillesimali=new AccedereTabelleMillesimali(this,m_condominio.recuperaTabelleMillesimali(),m_condominio.recuperaUnitaImmobiliari());
 		pannelloTab.addTab("Dati Generali",new DatiGenerali(m_condominio));
 		pannelloTab.addTab("Unita' Immobiliari",m_accedereUnitaImmobiliari);
@@ -78,55 +105,21 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_accedereCondominioAperto.getPannello().add(pannelloTab);
 
 	}
-	public void chiudiCondominio() {
-		m_amico.setVisible(true);
-		m_condominio = null;
-		GestoreCondomini.getInstance().operazioneTerminata();
-		
-	}
-	
-	public boolean eliminabile() {
-		for ( Bilancio bilancio : m_condominio.recuperaBilanci().getBilanci() ) {
-			if (!bilancio.terminabile()) return false;
-		}
-		return true;
-	}
-	
-	public void eliminaCondominio() {
-		if(eliminabile()) {
-			m_state = StatiGestoreCondominioAperto.attesaConfermaEliminazione;
-			m_accedereCondominioAperto.ammissibile(true);
-		}
-		else m_accedereCondominioAperto.ammissibile(false);
-		
-	}
-	
-	public void esportaCondominio(String path) {
-		m_driverFileSystem.salva(FormatoAmICo.daCondominioAFile(m_condominio),
-				path, (BaseExecutor)this);
-		m_state = StatiGestoreCondominioAperto.exportCondominio;
-	}
 	
 	public void inserisciTabellaMillesimale(DatiTabellaMillesimale datiTabellaMillesimale,Millesimi millesimi) {
-		if (!datiTabellaMillesimale.controlla()) {
-			m_accedereTabelleMillesimali.ammissibile(false);
-			m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
-			return;
-		}
-		m_state = StatiGestoreCondominioAperto.attesaConfermaInserimentoTabellaMillesimale;
 		m_datiTabellaMillesimale = datiTabellaMillesimale;
-		m_nuoviMillesimi=millesimi;
-		m_accedereTabelleMillesimali.ammissibile(true);
+		m_nuoviMillesimi = millesimi;
+		m_state = StatiGestoreCondominioAperto.attesaConfermaInserimentoTabellaMillesimale;
 	}
 	
 	public void modificaPreferenze(Preferenze preferenze) {
-		m_condominio.modificaPreferenze(preferenze);
+		m_condominio.modificaPreferenze(preferenze);	
 		m_accedereCondominioAperto.passaPreferenze(preferenze);
 	}
 	
 	public void modificaProprieta(UnitaImmobiliare unitaImmobliare) {
 		m_unitaImmobiliare = unitaImmobliare;
-		m_accedereUnitaImmobiliari.aggiornaPersone(m_dbPersone.recuperaPersone());
+		m_accedereUnitaImmobiliari.aggiornaPersone(TuttePersone.getInstance().recuperaPersone());
 		m_state = StatiGestoreCondominioAperto.modificaProprieta;
 	}
 	
@@ -141,10 +134,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void operazioneTerminata() {
-		m_accedereCondominioAperto.setVisible(true);
+		
 		switch (m_state) {
 		default :
 				m_state = StatiGestoreCondominioAperto.gestioneCondominioAperto;
+				m_accedereCondominioAperto.setVisible(true);
 				break;
 		}
 	}
@@ -170,6 +164,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_state = StatiGestoreCondominioAperto.gestioneDatiCondomini;
 		m_accederePersone = new AccederePersone(this, m_condominio.recuperaCondomini());
 		
+		/* FIXME : executor VS UI */
 		m_accedereCondominioAperto.getPannello().add(m_accederePersone);
 	}
 	
@@ -180,23 +175,21 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaAPreferenze() {
 		m_state = StatiGestoreCondominioAperto.gestionePreferenze;
+	
+		/*** FIXME : inserito dal design 3.6.3 **/
+		m_accedereCondominioAperto.passaPreferenze(m_condominio.getPreferenze());
+		
 	}
+	
 	
 	public void passaATabelleMillesimali()
 	{
-		/*m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(this, 
+		/* FIXME : utilizzato nel design 3.6.3 ... chi l'ha commentato e perché ?
+		m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(this, 
 				m_condominio.recuperaTabelleMillesimali(), 
-				m_condominio.recuperaUnitaImmobiliari());*/
+				m_condominio.recuperaUnitaImmobiliari());
+		*/
 		m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
-	}
-	
-	
-	public void passaAUnitaImmobiliari() {
-		
-	/*	m_accedereUnitaImmobiliari = 	
-			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());*/
-		m_accedereCondominioAperto.setVisible(false);
-		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 	}
 	
 	/* TODO: 
@@ -208,6 +201,17 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	*/
 	
+	public void passaAUnitaImmobiliari() {
+		
+	/* FIXME : previsto nel design 3.6.3 -> commentato, ma perchè?	
+	 * m_accedereUnitaImmobiliari = 	
+			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
+			
+	*/
+		m_accedereCondominioAperto.setVisible(false);
+		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
+	}
+
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {
 		if ( quoteProprieta.somma() != 100.0  ) {
 			m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
@@ -219,7 +223,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_nuoveQuote= quoteProprieta;
 		m_accedereUnitaImmobiliari.ammissibile(true);	
 	}
-
+	
 	public void procedi(boolean procedere) {
 		switch (m_state) {
 		case attesaConfermaInserimentoTabellaMillesimale :
@@ -238,10 +242,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			}
 			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 			
-			/* FIXME : Linea non presente nel design 3.5.4 */
-			m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
+			/* FIXME : Linea non presente dal design 3.5.4 */
+			AmICo.getInstance().aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 			
-			m_amico.setVisible(true);
+			GestoreCondomini.getInstance().operazioneTerminata();
+			AmICo.getInstance().setVisible(true);
 			break;
 		case attesaConfermaProprieta :
 			m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
@@ -249,10 +254,6 @@ public class GestoreCondominioAperto implements BaseExecutor {
 				m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);		
 			break;
 		}
-	}
-	
-	public Condominio getCondominio() {
-		return m_condominio;
 	}
 	
 }
