@@ -166,19 +166,20 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	}
 
 	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
-		state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
-		
+		this.state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
 		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
 	}
-
+    
 	public void ammissibile(boolean b) {
-		if(state == StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare)
+		switch(state)
 		{
+			case attesaConfermaDatiUnitaImmobiliare:
 			if (!b) {
 				state=StatiConfermaUnitaImmobiliari.base;
 			}
-			IUI.ammissibile(b);
-			
+			else
+				IUI.ammissibile(b);
+			break;
 		}
 	}
 
@@ -200,7 +201,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 			if(c==0)
 			{
 				INC.finito();
-				GestoreCondomini.getInstance().operazioneTerminata();
+			//	GestoreCondomini.getInstance().operazioneTerminata();
 				this.dispose();
 			}
 		}

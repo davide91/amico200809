@@ -41,7 +41,7 @@ import executor.GestoreCondomini;
 
 public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	
-	//private ConfermaUnitaImmobiliari CUI;
+//	private ConfermaUnitaImmobiliari CUI;
 	private UnitaImmobiliari unitaImmobiliari;
 	private DatiCondominio datiCondominio = new DatiCondominio();
 	private Percentuali tabellaGenerale;
@@ -144,7 +144,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void finito() {
 		state = StatiInserireNuovoCondominio.inserimentoTabellaMillesimale;
-		//InserisciTabelleMillesimali ITM= new  InserisciTabelleMillesimali(null, );
+	//	InserisciTabelleMillesimali ITM= new  InserisciTabelleMillesimali();
 		GestoreCondomini.getInstance().operazioneTerminata();
 	}
 

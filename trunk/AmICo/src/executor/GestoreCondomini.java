@@ -104,10 +104,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 		m_unitaImmobiliare = new UnitaImmobiliare();	
 		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
-		
-		m_confermaUnitaImmobiliari = 
-			new ConfermaUnitaImmobiliari(m_inserireNuovoCondominio, 
-					TuttePersone.getInstance().recuperaPersone());		
+				
 	}
 	
 	public void operazioneAnnullata() {
@@ -185,13 +182,14 @@ public class GestoreCondomini implements BaseExecutor {
 			return;
 		}
 
+		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 		m_confermaUnitaImmobiliari.ammissibile(true);
 		
 		/* Non presente da 3.5.4 */
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
-	
-		m_state = StatiGestoreCondominio.inserimentoProprieta;
+
+		
 	}
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {		
@@ -200,7 +198,7 @@ public class GestoreCondomini implements BaseExecutor {
 		}
 		
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
-		m_state = StatiGestoreCondominio.attesaConferma;
+		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 	}
 	
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Millesimi millesimi) 
@@ -228,7 +226,10 @@ public class GestoreCondomini implements BaseExecutor {
 				/* Riga non presente nel design 3.5.4*/
 				m_inserireNuovoCondominio.fatto();
 				
-				inserisciUnitaImmobiliare();
+			//	inserisciUnitaImmobiliare();
+				m_confermaUnitaImmobiliari = new ConfermaUnitaImmobiliari(m_inserireNuovoCondominio, 
+						TuttePersone.getInstance().recuperaPersone());	
+				
 				
 				break;
 			case attesaConfermaTabellaMillesimale :
