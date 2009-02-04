@@ -163,7 +163,7 @@ public class GestoreBilanci implements BaseExecutor {
 			
 			break;
 		case  attesaConfermaFineEsercizioSpeseNonPagate:
-			state=state.bilancioAperto;
+			state=StatiGestoreBilancio.bilancioAperto;
 			if(b) {
 				preventivaSpeseNonPagate(conti);
 				bilancio.terminaEsercizio();
