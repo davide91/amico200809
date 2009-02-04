@@ -3,19 +3,22 @@ package datatype;
 import enumeration.Provincia;
 
 public class Indirizzo {
-	private String via;
+	private String via=" ";
 	private String interno = " ";
-	private String comune;
-	private Provincia provincia;
-	private String cap;
+	private String comune=" ";
+	private Provincia provincia = Provincia.AL;
+	private String cap=" ";
 	
 	public Indirizzo(){
+		this.via = "";
+		this.comune = "";
+		this.provincia = Provincia.AL;
+		this.cap = "";
 	}
 	
 	public Indirizzo(String via, String interno, String com, Provincia prov, String cap)
 	{
 		this.via = via;
-	//	this.interno = interno;
 		this.comune = com;
 		this.provincia = prov;
 		this.cap = cap;

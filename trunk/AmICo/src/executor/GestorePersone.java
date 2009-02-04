@@ -54,8 +54,7 @@ public class GestorePersone implements BaseExecutor {
 			IP.ammissibile(!personaGiaInserita((DatiPersonaFisica)datiP));
 			return;
 		}
-	
-		if (datiP instanceof DatiPersonaGiuridica)
+		else if (datiP instanceof DatiPersonaGiuridica)
 			IP.ammissibile(!personaGiaInserita((DatiPersonaGiuridica) datiP));
 	}
 	

@@ -53,17 +53,12 @@ public class PersonaGiuridica extends Persona{
 	 final PersonaGiuridica o = (PersonaGiuridica) other;
 	 if (!o.getDati().equals(this.getDati()))
 	   return false;
-	 if (!o.getPersonaDiRiferimento().equals(this.getPersonaDiRiferimento()))
-	   return false;
 	 return true;
 	}
 
 	@Override
 	public int hashCode() {
-	 int result;
-	 result = this.getDati().hashCode();
-	 result = 29 * result + this.getPersonaDiRiferimento().hashCode();
-	 return result;
+	 return this.getDati().hashCode();
 	}
 	
 	public DatiPersonaGiuridica getDati() {

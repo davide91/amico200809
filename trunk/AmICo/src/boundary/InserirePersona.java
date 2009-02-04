@@ -203,8 +203,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			datiP.setIndFiscale(i);
 			inserisciDatiPersona(datiP);
 		}
-
-}
+	}
 
 	
 	private static final long serialVersionUID = 1L;
