@@ -189,7 +189,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			datiP.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
 			inserisciDatiPersona(datiP);
 		}
-		else if(radioPF.isSelected())
+		else
 		{
 			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
 			datiP.setFax(fax.getText());

@@ -49,12 +49,14 @@ public class GestorePersone implements BaseExecutor {
 	public void inserisciDatiPersona(DatiPersona datiP){
 		datiPersona=datiP;
 		state=StatiGestorePersone.attesaConfermaInserimento;
+		
 		if (datiP instanceof DatiPersonaFisica) {
-			IP.ammissibile(!personaGiaInserita((DatiPersonaFisica)datiP));	
-		if (datiP instanceof DatiPersonaGiuridica) {
-			IP.ammissibile(!personaGiaInserita((DatiPersonaGiuridica) datiP));
-			}
+			IP.ammissibile(!personaGiaInserita((DatiPersonaFisica)datiP));
+			return;
 		}
+	
+		if (datiP instanceof DatiPersonaGiuridica)
+			IP.ammissibile(!personaGiaInserita((DatiPersonaGiuridica) datiP));
 	}
 	
 	public void inserisciPersona(AccedentiPersone richiedente){
