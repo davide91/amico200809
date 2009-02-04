@@ -17,7 +17,7 @@ public class DatiPersonaGiuridica extends DatiPersona {
 	{
 		
 	}
-	
+
 	public DatiPersonaGiuridica(PartitaIva iva, String ragione, Indirizzo ind, String tel, Email mail, String fax)
 	{
 		super(tel,mail,fax);

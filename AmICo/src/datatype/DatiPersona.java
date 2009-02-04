@@ -9,9 +9,9 @@ package datatype;
  */
 public class DatiPersona {
 
-	protected String tel;
-	protected Email mail;
-	protected String fax;
+	protected String tel = "";
+	protected Email mail = new Email();
+	protected String fax = "";
 	
 	public DatiPersona()
 	{

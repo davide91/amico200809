@@ -252,6 +252,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 			m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 			if (procedere) 
 				m_unitaImmobiliare.modificaProprieta(m_nuoviProprietari, m_nuoveQuote);		
+				
 			break;
 		}
 	}
