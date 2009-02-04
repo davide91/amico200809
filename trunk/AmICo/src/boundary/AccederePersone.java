@@ -6,7 +6,9 @@ package boundary;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -47,7 +49,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	@SuppressWarnings("unused")
 	private StatiAccederePersone state;
 	private ButtonGroup group=new ButtonGroup();
-	private int indice[];
+	private List<Persona> indice;
 	
 	public AccederePersone() {
 		initComponents();
@@ -136,14 +138,13 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	   GestorePersone.getInstance().modificaPersona(this, persone.getPersone().get(indice[i]));
+	        	   GestorePersone.getInstance().modificaPersona(this, indice.get(i));
 	}
 	
 	
 	private void aggiorna()
 	{
-		int cont=0,i=0;
-		
+		int cont=0;
 		group=new ButtonGroup();
 	    DefaultTableModel dm = new DefaultTableModel();
 	    dm.setDataVector(
@@ -151,6 +152,8 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	      new Object[]{"Nome e Cognome","Unita' posseduta","Quota posseduta","Seleziona"}
 	      );
 
+	    indice = new ArrayList<Persona>();
+	    
 	    for (Persona p : persone.getPersone())
 	    {
 	    	if(p instanceof PersonaFisica)
@@ -164,7 +167,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		    						new JRadioButton()  });	
 		    				
 		    				group.add((JRadioButton)dm.getValueAt(cont,3));
-		    				indice[cont]=i;
+		    				indice.add(p);
 		    		    	cont++;
 
 	    		}
@@ -182,12 +185,11 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 								new JRadioButton()  });
 							
 							group.add((JRadioButton)dm.getValueAt(cont,3));
-		    				indice[cont]=i;
+							indice.add(p);
 		    				cont++;
 
 				}
 			}
-	    	i++;
 	    }
 
 	    table.setModel(dm);
@@ -229,8 +231,8 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		if (table == null) {
 			table  = new JTable();
 			
-			int cont=0,i=0;
-			indice=new int[10000];
+			int cont=0;
+			indice = new ArrayList<Persona>();
 		    DefaultTableModel dm = new DefaultTableModel();
 		    dm.setDataVector(
 		      new Object[][]{},
@@ -254,7 +256,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 			    						new JRadioButton()  });	
 			    				
 			    				group.add((JRadioButton)dm.getValueAt(cont,3));
-			    				indice[cont]=i;
+			    				indice.add(p);
 			    		    	cont++;
 		    			}
 		    		}
@@ -273,12 +275,11 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 									new JRadioButton()  });
 								
 								group.add((JRadioButton)dm.getValueAt(cont,3));
-			    				indice[cont]=i;
+			    				indice.add(p);
 			    				cont++;
 						}
 					}
 				}
-		    	i++;
 		    }
 
 		    table = new JTable(dm)
