@@ -122,12 +122,13 @@ public class CalcoloAvvisi {
 		Iterator<Cassa> cassaIter = m_condominio.getCassa().iterator();
 		while(cassaIter.hasNext())
 		{
-			totaleCasse.aggiungi(cassaIter.next().getSaldo().getEuro());
-			if( cassaIter.next().getSaldo().getEuro() < sogliaMin.getEuro() )
+			Cassa c = cassaIter.next();
+			totaleCasse.aggiungi(c.getSaldo().getEuro());
+			if( c.getSaldo().getEuro() < sogliaMin.getEuro() )
 			{
 				/* FIXME : Cassa.toString() per identificare una cassa dall'altra */
 				try{
-					CassaSottoSogliaMinima avviso = new CassaSottoSogliaMinima(cassaIter.next().toString(),	cassaIter.next().getSaldo(), sogliaMin);
+					CassaSottoSogliaMinima avviso = new CassaSottoSogliaMinima(c.toString(),	c.getSaldo(), sogliaMin);
 					m_avvisi.add((Avviso)avviso);
 				}
 				catch(NoSuchElementException nsee)
