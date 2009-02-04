@@ -15,6 +15,8 @@ public class DriverFileSystem {
 		return m_singleDFS;
 	}
 
+	private String m_defaultSavePath;
+
 	public void leggi(String path, BaseExecutor executor) {
 		
 	}
@@ -30,4 +32,15 @@ public class DriverFileSystem {
 	public void scrittoFile() {
 		
 	}
+	
+	public String getDefaultSavePath()
+	{
+		return m_defaultSavePath;
+	}
+	
+	public void setDefaultSavePath(String defaultPath)
+	{
+		m_defaultSavePath = defaultPath;
+	}
+	
 }
