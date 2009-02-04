@@ -80,7 +80,7 @@ public class UnitaImmobiliare {
 				prop.setQuota(quote.getListaQuote().get(i)); 	//aggiungo la quota
 				prop.setUnitaImmobiliare(this); 				//aggiungo l'unità immobiliare
 				pers.getPersone().get(i).getProprieta().add(prop);
-				
+				session.persist(prop);
 				quoteDiPossesso.add(prop);
 			}
 			
