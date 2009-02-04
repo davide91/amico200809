@@ -98,14 +98,14 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 				
 				if (c==0)
 				{
-						ATM.procedi(true);
-						ATM.finito();
-							JOptionPane.showMessageDialog(this, "Tabella Immobiliare Inserita");
+					ATM.procedi(true);
+					ATM.finito();
+					JOptionPane.showMessageDialog(this, "Tabella Immobiliare Inserita");
 				}
 				else
 				{
 					ATM.procedi(false);
-						JOptionPane.showMessageDialog(this, "Tabella Immobiliare Modificata");
+						JOptionPane.showMessageDialog(this, "Tabella Immobiliare Non Inserita");
 				}
 			}
 			else
@@ -117,7 +117,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		}
 		else {
 			state=StatiAccedereTabelleMillesimali.base;
-			JOptionPane.showMessageDialog(this, "Tabella Immobiliare Non Inserita");
+			JOptionPane.showMessageDialog(this, "Tabella Immobiliare Non Modificata");
 		}
 		this.dispose();
 	}

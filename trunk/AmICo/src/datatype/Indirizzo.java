@@ -47,8 +47,6 @@ public class Indirizzo {
 			return false;
 		if (!o.getComune().equals(getComune()))
 			return false;
-	//	if (!o.getInterno().equals(getInterno()))
-	//		return false;
 		if (o.getProvincia()!=getProvincia())
 			return false;
 		if (!o.getVia().equals(getVia()))
