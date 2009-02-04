@@ -178,6 +178,7 @@ public class AccedereProprietari extends JFrame {
 		        	   x.remove(i);
 		        	   proprietari.setPersone(x);
 		        	   aggiornaTabella(null,0);
+		        	   getBAggiungiProprietario().setEnabled(true);
 		        	   
 		           }
 		}
