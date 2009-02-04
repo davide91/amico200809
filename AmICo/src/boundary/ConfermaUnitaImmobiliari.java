@@ -221,7 +221,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
 	        	   GestoreCondomini.getInstance().eliminaUnitaImmobiliare((String)dm.getValueAt(i, 0));//GestoreCondomini.getInstance().eliminaUnitaImmobiliare(unitaImmobiliari.getImmobili().get(i).getDatiUnitaImmobiliare());
-		
 	}
 	
 

@@ -118,6 +118,8 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		UnitaImmobiliare ui = new UnitaImmobiliare(dui);
 		cond.inserisciUnitaImmobiliare(ui);
+		
+		assertEquals(1, cond.recuperaUnitaImmobiliari().getImmobili().size());
 	}
 
 	public void testCONDOMINI_recuperaUnitaImmobiliare()
@@ -226,7 +228,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		unitaRecuperata.modificaProprieta(pers, quote);
 	}
 	
-/*	public void testCONDOMINI_EliminaPersona()
+	public void testCONDOMINI_EliminaPersona()
 	{
 		tc = TuttiCondomini.getInstance();
 		
@@ -243,7 +245,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 	}
 
-/*	public void testCONDOMINI_eliminaUnitaImmobiliare()
+	public void testCONDOMINI_eliminaUnitaImmobiliare()
 	{
 		tc = TuttiCondomini.getInstance();
 		
@@ -259,8 +261,8 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		//dopo non c'è nessuna unità immobiliare
 		assertEquals(0, c.recuperaUnitaImmobiliari().getImmobili().size());
 	}
-*/	
-	public void testCONDOMINI_inserisciTabellaMillesimale()
+	
+/*	public void testCONDOMINI_inserisciTabellaMillesimale()
 	{
 		tc = TuttiCondomini.getInstance();
 		
