@@ -34,11 +34,11 @@ public class PianoPagamenti {
 		dati = dpp;
 	}
 
-	protected DatiPianoPagamenti getDati() {
+	public DatiPianoPagamenti getDati() {
 		return dati;
 	}
 
-	protected void setDati(DatiPianoPagamenti dati) {
+	public void setDati(DatiPianoPagamenti dati) {
 		this.dati = dati;
 	}
 	
