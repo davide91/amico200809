@@ -189,6 +189,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM,Millesimi millesimi){
 		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
 		GCA.inserisciTabellaMillesimale(DTM, millesimi);
+		InseriscitabellaMillesimale.ammissibile(true);
 		//AMM.mostraUnitaImmobiliar(unita);
 		
 	}

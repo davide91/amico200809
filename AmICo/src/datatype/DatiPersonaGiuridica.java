@@ -9,9 +9,9 @@ package datatype;
  */
 public class DatiPersonaGiuridica extends DatiPersona {
 
-	private PartitaIva pIva;
+	private PartitaIva pIva = new PartitaIva();
 	private String ragioneSociale;
-	private Indirizzo indFiscale;
+	private Indirizzo indFiscale = new Indirizzo();
 	
 	public DatiPersonaGiuridica()
 	{
