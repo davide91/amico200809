@@ -16,16 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
-
-import sun.misc.Regexp;
 
 import datatype.DatiCondominio;
 import datatype.DatiTabellaMillesimale;
@@ -223,7 +219,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JLabel scrittacap;
 	private JButton annulla;
 	private JSeparator jSeparator0;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+//	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 
 	private void initComponents() {
@@ -350,7 +346,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		}
 		return via;
 	}
-
+/*
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -363,12 +359,12 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		}
 	}
 
-	/**
+	*
 	 * Main entry of the class.
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	 
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -379,7 +375,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 				frame.setVisible(true);
 			}
 		});
-	}
+	}*/
 
 
 }
