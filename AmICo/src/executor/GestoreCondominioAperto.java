@@ -144,7 +144,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	}
 	
 	public void passaABilanci() {
-		m_gestoreBilanci = new GestoreBilanci(m_condominio);
+		m_gestoreBilanci = new GestoreBilanci(m_condominio, m_accedereCondominioAperto);
 		m_state = StatiGestoreCondominioAperto.gestioneBilanci;
 	}
 	

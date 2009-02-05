@@ -162,7 +162,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		state=StatiConfermaUnitaImmobiliari.attesaConfermaProprieta;
 		GestoreCondomini.getInstance().passaProprieta(proprietari, quote);
 		
-		return false;
+		return true;
 	}
 
 	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
