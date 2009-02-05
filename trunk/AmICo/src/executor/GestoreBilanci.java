@@ -11,6 +11,7 @@ import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 import boundary.AccedereBilanci;
 import boundary.AccedereBilancioAperto;
+import boundary.AccedereCondominioAperto;
 import boundary.DriverFileSystem;
 import datatype.DatiBilancio;
 import datatype.DatiVoceBilancio;
@@ -32,13 +33,18 @@ public class GestoreBilanci implements BaseExecutor {
 	private StatiGestoreBilancio state;
 	private AccedereBilanci AB;
 	private AccedereBilancioAperto ABA;
+	private AccedereCondominioAperto ACA;
 	private DriverFileSystem DFS;
 	private VoceBilancio voceBilancio;
 
-	public GestoreBilanci(Condominio condominio) {
+	public GestoreBilanci(Condominio condominio, AccedereCondominioAperto ACA) {
 		state=StatiGestoreBilancio.base;
+		this.ACA=ACA;
 		this.condominio = condominio;
 		AB=new AccedereBilanci(this, condominio.recuperaBilanci());
+		ACA.getPannello().add(AB);
+
+
 		
 	}
 	public void inserisciBilancio(DatiBilancio datiBilancio) {

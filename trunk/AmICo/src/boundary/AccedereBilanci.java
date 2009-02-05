@@ -35,13 +35,14 @@ import executor.GestoreBilanci;
  */
 public class AccedereBilanci extends JPanel implements BaseBoundary {
 
-	GestoreBilanci GB;
-	Bilanci bilanci;
+	private	GestoreBilanci GB;
+	private Bilanci bilanci;
 
 	public AccedereBilanci(GestoreBilanci gb, Bilanci b) {
 		GB=gb;
-		aggiornaBilanci(b);
 		initComponents();
+		aggiornaBilanci(b);
+
 	}
 
 	public AccedereBilanci() {
@@ -113,15 +114,16 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	
 	public void aggiornaBilanci(Bilanci bil)
 	{
-		bilanci=bil;
-		DefaultListModel listModel = new DefaultListModel();
+		//if (bil != null && bil.getBilanci().size()!=0){
+			bilanci=bil;
+			DefaultListModel listModel = new DefaultListModel();
+			
+			for (Bilancio b : bilanci.getBilanci()) 
+				listModel.addElement(b.getDati().getTitolo() );
 
-		for (Bilancio b : bilanci.getBilanci()) 
-			listModel.addElement(b.getDati().getTitolo() );
-
-		listaBilanci.setModel(listModel);
-	}
-	
+			listaBilanci.setModel(listModel);
+		}
+	//}
 	private void listaListSelectionValueChanged(ListSelectionEvent event)
 	{
 	}
@@ -154,6 +156,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	private JLabel jLabel0;
 	private JLabel jLabel1;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJSeparator0(), new Constraints(new Bilateral(12, 12, 402), new Leading(262, 9, 10, 10)));
@@ -164,6 +167,8 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 		add(getBRedigereBilancio(), new Constraints(new Leading(420, 147, 12, 12), new Leading(277, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(26, 334, 10, 10), new Leading(282, 12, 12)));
 		setSize(631, 343);
+		
+		
 	}
 
 	private JLabel getJLabel1() {
