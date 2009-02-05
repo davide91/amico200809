@@ -315,23 +315,24 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 
 	private void bbilanciMouseMouseClicked(MouseEvent event) {
-		this.passaABilanci();
 		pannello.removeAll();
+		
+		this.passaABilanci();
 		pannello.revalidate();
 		pannello.repaint();
 		
 	}
 
 	private void bcassaMouseMouseClicked(MouseEvent event) {
-		this.passaACassa();
 		pannello.removeAll();
+		this.passaACassa();
 		pannello.revalidate();
 		pannello.repaint();
 	}
 
 	private void bpagamentiMouseMouseClicked(MouseEvent event) {
-		this.passaAPagamenti();
 		pannello.removeAll();
+		this.passaAPagamenti();
 		pannello.revalidate();
 		pannello.repaint();
 		
