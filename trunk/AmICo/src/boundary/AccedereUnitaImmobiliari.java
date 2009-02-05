@@ -291,7 +291,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	//	GCA.operazioneTerminata();
 	//	this.setVisible(true);
 		
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

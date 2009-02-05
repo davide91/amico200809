@@ -488,30 +488,5 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		GCA.eliminaCondominio();
 		state=StatiAccedereCondominioAperto.controlloEliminabilita;
 	}
-	
-	/*public void selezionaFile(path){
-	}*/
-	
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				Condominio c=new Condominio();
-				DatiCondominio datiC= new DatiCondominio();
-				
-				c.CreaCondominio();
-				c.setDatiC(datiC);
-				c.getDatiC().setId("via gavino");
-				new AccedereCondominioAperto(null,c);
-			}
-		});
-	}
-*/
 }
 
