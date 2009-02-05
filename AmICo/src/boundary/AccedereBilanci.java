@@ -114,7 +114,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	
 	public void aggiornaBilanci(Bilanci bil)
 	{
-		//if (bil != null && bil.getBilanci().size()!=0){
 			bilanci=bil;
 			DefaultListModel listModel = new DefaultListModel();
 			
@@ -122,8 +121,8 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 				listModel.addElement(b.getDati().getTitolo() );
 
 			listaBilanci.setModel(listModel);
-		}
-	//}
+	}
+	
 	private void listaListSelectionValueChanged(ListSelectionEvent event)
 	{
 	}
@@ -141,7 +140,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	}
 
 	private void bRedigereBilancioMouseMouseClicked(MouseEvent event) {
-		//inserisci nuovo bilancio
+		new InserireNuovoBilancio(this);
 	}
 
 
@@ -277,7 +276,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	 
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -294,6 +293,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 			}
 		});
 	}
-
+*/
 
 }
