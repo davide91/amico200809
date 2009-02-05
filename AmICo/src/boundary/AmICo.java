@@ -321,6 +321,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 
 	private void binserisciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_binserisciActionPerformed
         inserisciCondominio();
+        setVisible(false);
     }//GEN-LAST:event_binserisciActionPerformed
 
     private void bapriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bapriActionPerformed
@@ -332,7 +333,6 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 					apriCondominio(c);
 					setVisible(false);
 				}
-
 			}
 		}
 		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");

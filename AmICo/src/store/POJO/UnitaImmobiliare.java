@@ -68,7 +68,7 @@ public class UnitaImmobiliare {
 	{
 		if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
-	
+	/*
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
@@ -88,11 +88,11 @@ public class UnitaImmobiliare {
 		session.update(this);
 		session.getTransaction().commit();
 		
-		
+		*/
 		
 		
 		//vecchia versione
-		/*if(pers.getPersone().size() != quote.getListaQuote().size())
+		if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
 		
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
@@ -112,7 +112,7 @@ public class UnitaImmobiliare {
 					if (p.getUnitaImmobiliare().equals(this)) {
 						pers.getPersone().get(i).getProprieta().remove(p);
 						pers.getPersone().get(i).getProprieta().add(prop);
-					//	session.update(pers.getPersone().get(i));
+						//session.update(pers.getPersone().get(i));
 						found = true;
 					}
 				}
@@ -126,7 +126,7 @@ public class UnitaImmobiliare {
 	
 		session.update(this);
 		session.getTransaction().commit();
-		*/
+		
 	}
 
 	@Override

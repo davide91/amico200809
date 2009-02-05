@@ -5,6 +5,7 @@ package store;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import store.POJO.Condominio;
@@ -39,6 +40,19 @@ public class TuttiCondomini {
 		Condomini c = new Condomini();
 		c.setCondomini(Cond);
 		return c;
+	}
+	
+	//scritta per permettere di fare un aggiornamento negli executor
+	public Condominio recuperaCondominio(String id)
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+		
+		Condominio Cond = (Condominio)session.createQuery("from Condominio where ID=:id").setParameter("id", id).uniqueResult();
+		
+		session.getTransaction().commit();
+		
+		return Cond;
 	}
 	
 	public void inserisciCondominio(Condominio c)

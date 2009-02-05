@@ -162,6 +162,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaADatiCondomini() {
 		m_state = StatiGestoreCondominioAperto.gestioneDatiCondomini;
+		//recupero di nuovo il condominio
+		m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_accederePersone = new AccederePersone(this, m_condominio.recuperaCondomini());
 		
 		/* FIXME : executor VS UI */
