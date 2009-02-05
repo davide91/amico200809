@@ -228,7 +228,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		unitaRecuperata.modificaProprieta(pers, quote);
 	}
 	
-	public void testCONDOMINI_EliminaPersona()
+/*	public void testCONDOMINI_EliminaPersona()
 	{
 		tc = TuttiCondomini.getInstance();
 		
@@ -244,7 +244,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 	}
-
+*/
 	public void testCONDOMINI_eliminaUnitaImmobiliare()
 	{
 		tc = TuttiCondomini.getInstance();

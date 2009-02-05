@@ -47,7 +47,7 @@
 			<one-to-many class="Bilancio"/>
 		</set>
 		
-		<set name="unitaImmobiliari" lazy="false" cascade="delete-orphan">
+		<set name="unitaImmobiliari" lazy="false" cascade="all-delete-orphan">
  			<key column="CONDOMINIO_ID"/>
 			<one-to-many class="UnitaImmobiliare"/>
 		</set>

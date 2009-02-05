@@ -184,6 +184,7 @@ public class GestoreCondomini implements BaseExecutor {
 
 		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
+		m_unitaImmobiliare.setCondominio(m_condominio);
 		m_confermaUnitaImmobiliari.ammissibile(true);
 		
 		/* Non presente da 3.5.4 */
