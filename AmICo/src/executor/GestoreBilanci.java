@@ -62,7 +62,7 @@ public class GestoreBilanci implements BaseExecutor {
 	public void apriBilancio(Bilancio bilancio) {
 		this.bilancio=bilancio;
 		state = StatiGestoreBilancio.bilancioAperto;
-		ABA=new AccedereBilancioAperto(bilancio);
+		ABA=new AccedereBilancioAperto(this,bilancio,ACA);
 	}
 	
 	public void inserisciVoceBilancio(DatiVoceBilancio datiVoceBilancio) {
@@ -111,6 +111,11 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 	
 	public void chiudiBilancio(){
+		ACA.getPannello().removeAll();
+		ACA.getPannello().add(AB);
+		ACA.getPannello().revalidate();
+		ACA.getPannello().repaint();
+		
 		state=StatiGestoreBilancio.base;
 		AB.fatto();
 	}
@@ -143,7 +148,7 @@ public class GestoreBilanci implements BaseExecutor {
 				state=StatiGestoreBilancio.bilancioAperto;
 				condominio.inserisciBilancio(new Bilancio(datiBilancio));
 				AB.aggiornaBilanci(condominio.recuperaBilanci());
-				ABA=new AccedereBilancioAperto(bilancio);
+				ABA=new AccedereBilancioAperto(this,bilancio,ACA);
 				
 			}
 			else {
