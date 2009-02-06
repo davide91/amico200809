@@ -4,6 +4,9 @@ package boundary;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -89,8 +92,20 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getPannello(), new Constraints(new Leading(50,800, 10, 10), new Bilateral(155, 42, 10)));
 		setJMenuBar(getJMenuBar0());
 		setSize(874, 630);
+		
+		this.addWindowListener(new WindowAdapter() {  
+		 @Override  
+		 public void windowClosing(WindowEvent we) {  
+			 	chiudiCondominio(); 
+		 	}  
+		 });   
 	}
 
+	private void chiudiDaFinestra() {
+		this.chiudiCondominio();
+		this.dispose();
+	}
+	
 	private JButton getBesportarecondominio() {
 		if (besportarecondominio == null) {
 			besportarecondominio = new JButton();
