@@ -80,13 +80,15 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getBchiudicondominio(), new Constraints(new Leading(365, 10, 10), new Trailing(12, 167, 507)));
 		add(getBeliminacondominio(), new Constraints(new Leading(42, 10, 10), new Trailing(12, 167, 507)));
 		add(getBesportarecondominio(), new Constraints(new Leading(694, 10, 10), new Trailing(12, 167, 507)));
-		add(getBcassa(), new Constraints(new Leading(389, 96, 10, 10), new Leading(12, 58, 48, 48)));
-		add(getBpagamenti(), new Constraints(new Leading(491, 96, 10, 10), new Leading(12, 58, 48, 48)));
-		add(getBreport(), new Constraints(new Leading(593, 96, 10, 10), new Leading(12, 58, 48, 48)));
-		add(getBarchiviobilanci(), new Constraints(new Leading(694, 159, 12, 12), new Leading(12, 58, 48, 48)));
-		add(getBbilanci(), new Constraints(new Leading(287, 96, 10, 10), new Leading(12, 58, 48, 48)));
-		add(getBdaticondomini(), new Constraints(new Leading(158, 124, 10, 10), new Leading(12, 58, 48, 48)));
-		add(getBdaticondominio(), new Constraints(new Leading(22, 130, 10, 10), new Leading(12, 58, 48, 48)));
+		
+		add(getBdaticondominio(), new Constraints(new Leading(22, 110, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBdaticondomini(), new Constraints(new Leading(142, 110, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBbilanci(), new Constraints(new Leading(262, 110, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBcassa(), new Constraints(new Leading(382, 110, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBpagamenti(), new Constraints(new Leading(502, 110, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBreport(), new Constraints(new Leading(622, 110, 10, 10), new Leading(12, 58, 48, 48)));
+		add(getBarchiviobilanci(), new Constraints(new Leading(742, 110, 12, 12), new Leading(12, 58, 48, 48)));
+		
 		add(getAvvisi(), new Constraints(new Leading(208, 531, 10, 10), new Leading(76, 68, 54, 315)));
 		add(getScrittaavvisi(), new Constraints(new Leading(119, 41, 10, 10), new Leading(92, 36, 54, 315)));
 		add(getPannello(), new Constraints(new Leading(50,800, 10, 10), new Bilateral(155, 42, 10)));
@@ -176,7 +178,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton getBarchiviobilanci() {
 		if (barchiviobilanci == null) {
 			barchiviobilanci = new JButton();
-			barchiviobilanci.setText("Archivio Bilanci");
+			barchiviobilanci.setText("<html><body>Archivio<br>Bilanci</body></html>");
 			barchiviobilanci.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -246,7 +248,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton getBdaticondomini() {
 		if (bdaticondomini == null) {
 			bdaticondomini = new JButton();
-			bdaticondomini.setText("Dati Condomini");
+			bdaticondomini.setText("<html><body>Dati<br>Condomini</body></html>");
 			bdaticondomini.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -260,7 +262,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton getBdaticondominio() {
 		if (bdaticondominio == null) {
 			bdaticondominio = new JButton();
-			bdaticondominio.setText("Dati Condominio");
+			bdaticondominio.setText("<html><body>Dati<br>Condominio</body></html>");
 			bdaticondominio.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {

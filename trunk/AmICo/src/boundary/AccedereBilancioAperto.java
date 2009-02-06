@@ -47,6 +47,11 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			GB.chiudiBilancio();
 		}
 
+		public void inserisci()
+		{
+			
+		}
+		
 		public void ammissibile(Boolean b) {
 			// TODO Auto-generated method stub
 			

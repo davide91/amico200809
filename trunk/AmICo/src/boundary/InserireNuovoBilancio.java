@@ -3,8 +3,6 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -14,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import datatype.Data;
 import datatype.DatiBilancio;
 import enumeration.StatoBilancio;
 import enumeration.TipoBilancio;
@@ -43,8 +41,9 @@ public class InserireNuovoBilancio extends JFrame {
 		dati.setTipo((TipoBilancio)tipoBilancio.getSelectedItem());
 		dati.setStato((StatoBilancio)stato.getSelectedItem());// probabilmente non ci va ci sara' uno stato iniziale
 
-		dati.setInizio(new Date( (new GregorianCalendar()).getTimeInMillis() ) );
-		dati.setFine(new Date( (new GregorianCalendar()).getTimeInMillis() ) );
+		dati.impostaDataInizio(new Data());
+
+	//	dati.setFine(new Date( (new GregorianCalendar()).getTimeInMillis() ) );
 	//	JOptionPane.showMessageDialog(this,"" +(new GregorianCalendar()).getTimeInMillis());
 		
 		AB.inserisciBilancio(dati);
@@ -67,7 +66,6 @@ public class InserireNuovoBilancio extends JFrame {
 	private JComboBox tipoBilancio;
 	private JButton bOk;
 	private JButton bAnnulla;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
 	public InserireNuovoBilancio() {
 		initComponents();
@@ -179,18 +177,6 @@ public class InserireNuovoBilancio extends JFrame {
 			jLabel0.setText("Tipo bilancio:");
 		}
 		return jLabel0;
-	}
-
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
 	}
 
 	/**
