@@ -45,10 +45,9 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
     }
 
     public void apriCondominio(Condominio condominio){
+    	state=StatiAmICo.inserimentoCondominio;
 		GestoreCondomini.getInstance().apriCondominio(condominio);
-		state=StatiAmICo.inserimentoCondominio;
 		setVisible(false);
-
 	}
 
 	public void  inserisciCondominio() {

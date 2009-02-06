@@ -162,6 +162,7 @@ public class GestoreCondomini implements BaseExecutor {
 			if( ui.getDatiUnitaImmobiliare().getId().equals(dati) )
 				m_condominio.eliminaUnitaImmobiliare(ui);
 		}
+		m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 		
 	}
@@ -188,6 +189,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_confermaUnitaImmobiliari.ammissibile(true);
 		
 		/* Non presente da 3.5.4 */
+	//	m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 
 		

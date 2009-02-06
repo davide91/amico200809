@@ -135,12 +135,14 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 
 	public void procedi(boolean b) {
-		switch (state) {
-		case attesaConfermaInserimentoBilancio:
+		switch (state) 
+		{
+			case attesaConfermaInserimentoBilancio:
 			if (b){
 				
 				state=StatiGestoreBilancio.bilancioAperto;
 				condominio.inserisciBilancio(new Bilancio(datiBilancio));
+				AB.aggiornaBilanci(condominio.recuperaBilanci());
 				ABA=new AccedereBilancioAperto(bilancio);
 				
 			}
@@ -150,7 +152,7 @@ public class GestoreBilanci implements BaseExecutor {
 			
 			break;
 	
-		case attesaConfermaVoceDiBilancio:
+			case attesaConfermaVoceDiBilancio:
 			state=StatiGestoreBilancio.bilancioAperto;
 			if (b){
 				bilancio.inserisciVoceBilancio(voceBilancio);
@@ -158,7 +160,7 @@ public class GestoreBilanci implements BaseExecutor {
 				ABA.aggiornaVociBilancio(bilancio.recuperaVociBilancio());
 			}
 			break;
-		case attesaConfermaEliminazioneVoceDiBilancio:
+			case attesaConfermaEliminazioneVoceDiBilancio:
 			if (b)
 			{
 				bilancio.eliminaVoceBilancio(voceBilancio);
@@ -168,10 +170,11 @@ public class GestoreBilanci implements BaseExecutor {
 			
 			
 			break;
-		case  attesaConfermaFineEsercizioSpeseNonPagate:
+			case  attesaConfermaFineEsercizioSpeseNonPagate:
 			state=StatiGestoreBilancio.bilancioAperto;
 			if(b) {
-				preventivaSpeseNonPagate(CalcoliFinanziari.calcolaSpeseDaPagare(bilancio));
+				//commentato perchè dava errore e non potevo inserire un bilancio
+				//preventivaSpeseNonPagate(CalcoliFinanziari.calcolaSpeseDaPagare(bilancio));
 				bilancio.terminaEsercizio();
 			}
 			else {
@@ -180,15 +183,13 @@ public class GestoreBilanci implements BaseExecutor {
 				
 			break;
 			
-		case attesaConfermaFineEsercizioOK:
+			case attesaConfermaFineEsercizioOK:
 			state=state.bilancioAperto;
 			if (b){
 				bilancio.terminaEsercizio();
 			}
 			break;
 		}
-		
-		
 	}
 
 	

@@ -153,8 +153,8 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_gestoreCassa = new GestoreCassa(m_condominio.recuperaCassa());
 		m_state = StatiGestoreCondominioAperto.gestioneCassa;
 	}
-/*
-	public void generaReport(TipoReportCondominio tipoReportCondominio, FormatoFile formatoFile) {
+	
+/*	public void generaReport(TipoReportCondominio tipoReportCondominio, FormatoFile formatoFile) {
 	
 		
 	}

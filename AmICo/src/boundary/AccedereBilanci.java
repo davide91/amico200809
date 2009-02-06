@@ -37,6 +37,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 
 	private	GestoreBilanci GB;
 	private Bilanci bilanci;
+	private InserireNuovoBilancio INB;
 
 	public AccedereBilanci(GestoreBilanci gb, Bilanci b) {
 		GB=gb;
@@ -140,9 +141,8 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	}
 
 	private void bRedigereBilancioMouseMouseClicked(MouseEvent event) {
-		new InserireNuovoBilancio(this);
+		INB = new InserireNuovoBilancio(this);
 	}
-
 
 
 	private static final long serialVersionUID = 1L;

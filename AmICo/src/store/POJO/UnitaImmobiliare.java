@@ -129,7 +129,8 @@ public class UnitaImmobiliare {
 		
 	}
 
-	@Override
+	
+  @Override
 	public boolean equals(Object other) {
 	 if (this == other)
 	   return true;
@@ -145,7 +146,7 @@ public class UnitaImmobiliare {
 	public int hashCode() {
 	 return this.getDatiUnitaImmobiliare().hashCode();
 	}
-
+	
 	public long getId() {
 		return id;
 	}
@@ -177,13 +178,4 @@ public class UnitaImmobiliare {
 	public void setQuoteDiPossesso(Set<Proprieta> quoteDiPossesso) {
 		this.quoteDiPossesso = quoteDiPossesso;
 	}
-
-/*	public Set<Millesimo> getMillesimo() {
-		return millesimo;
-	}
-
-	public void setMillesimo(Set<Millesimo> millesimo) {
-		this.millesimo = millesimo;
-	}
-	*/
 }

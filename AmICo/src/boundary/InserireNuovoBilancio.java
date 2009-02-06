@@ -38,8 +38,6 @@ public class InserireNuovoBilancio extends JFrame {
 	
 	private void bOkMouseMouseClicked(MouseEvent event) {
 		DatiBilancio dati=new DatiBilancio();
-	
-		
 		dati.setDescrizione(descrizione.getText());
 		dati.setTitolo(titolo.getText());
 		dati.setTipo((TipoBilancio)tipoBilancio.getSelectedItem());
