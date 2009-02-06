@@ -154,7 +154,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	public JPanel getPannello() {
 		if (pannello == null) {
 			pannello = new JPanel(new FlowLayout());
-		//	pannello.setLayout(new GroupLayout());
 		}
 		return pannello;
 	}
@@ -302,8 +301,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		
 		pannello.revalidate();
 		pannello.repaint();
-		
-		// TODO
 	}
 
 	private void bdaticondominiMouseMouseClicked(MouseEvent event) {
