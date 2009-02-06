@@ -3,7 +3,11 @@
  */
 package boundary;
 
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
 import datatype.list.VociBilancio;
+import executor.GestoreBilanci;
 import store.POJO.Bilancio;
 
 /**
@@ -12,9 +16,35 @@ import store.POJO.Bilancio;
  */
 
 public class AccedereBilancioAperto implements BaseBoundary{
-
-		public AccedereBilancioAperto(Bilancio bilancio) {
-			// TODO Auto-generated constructor stub
+	
+		Bilancio bilancio;
+		JTabbedPane tab;
+		StatoPatrimoniale SP;
+		SpostamentiDiCassa SDC;
+		AccedereCondominioAperto ACA;
+		GestoreBilanci GB;
+	
+	
+		public AccedereBilancioAperto(GestoreBilanci gb,Bilancio bilancio,AccedereCondominioAperto aca) {
+			this.bilancio=bilancio;
+			ACA=aca;
+			GB=gb;
+			
+			SP=new StatoPatrimoniale(this);
+			SDC=new SpostamentiDiCassa(this);
+			
+			tab=new JTabbedPane();
+			tab.addTab("Stato partimoniale", SP);
+			tab.addTab("Spostamenti di cassa", SDC);
+			aca.getPannello().removeAll();
+			aca.getPannello().add(tab);
+			aca.getPannello().revalidate();
+			aca.getPannello().repaint();
+		}
+		
+		public void chiudi()
+		{
+			GB.chiudiBilancio();
 		}
 
 		public void ammissibile(Boolean b) {
