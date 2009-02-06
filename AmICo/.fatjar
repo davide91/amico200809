@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri Feb 06 16:00:13 CET 2009
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=AmICo_fat.jar
+manifest.mergeall=true
+manifest.mainclass=executor.Avvio
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

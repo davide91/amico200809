@@ -194,7 +194,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	}
 	
 	private void bContinuaMouseMouseClicked(MouseEvent event) {
-		if(group.getButtonCount()<2)
+		if(unitaImmobiliari.getImmobili().size()<2)
 			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita' immobiliari");
 		else {
 			int c = JOptionPane.showConfirmDialog(this, "Attenzione stai terminando l'operazione di inserimento di unita' immobiliari.\n Dopo non sara' piu' possibile aggiungerne altre  vuoi continuare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);

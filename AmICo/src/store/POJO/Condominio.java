@@ -101,10 +101,10 @@ public class Condominio {
 			for (Proprieta p : uImm.getQuoteDiPossesso()) {
 				Persona pers = p.getProprietario();
 				pers.unlink(p);
-				session.delete(p);
+				//session.delete(p);
 			}
 			uImm.getQuoteDiPossesso().clear();
-			session.delete(uImm);
+	//		session.delete(uImm);
 			unitaImmobiliari.remove(uImm);
 			//session.update(this);
 						
@@ -134,7 +134,8 @@ public class Condominio {
 		session.getTransaction().commit();
 		
 	}
-	
+
+	 
 	private void link(Bilancio b)
 	{
 		b.setCondominio(this);
