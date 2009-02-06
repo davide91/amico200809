@@ -93,7 +93,7 @@ public class Persona {
 		// TODO Auto-generated method stub
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-			this.proprieta.remove(p);
+			proprieta.remove(p);
 		session.update(this);
 	}
 	
