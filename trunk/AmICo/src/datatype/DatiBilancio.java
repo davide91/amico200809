@@ -42,7 +42,7 @@ public class DatiBilancio {
 	 int result;
 	 result = this.getDescrizione().hashCode();
 	 result = 29 * result + this.getTitolo().hashCode();
-	 result = 29 * result + this.getFine().hashCode();
+	// result = 29 * result + this.getFine().hashCode();
 	 result = 29 * result + this.getInizio().hashCode();
 	 result = 29 * result + this.getStato().hashCode();
 	 result = 29 * result + this.getTipo().hashCode();
@@ -58,7 +58,7 @@ public class DatiBilancio {
 	{
 		inizio = d;
 	}
-	
+
 	public TipoBilancio getTipo() {
 		return tipo;
 	}
