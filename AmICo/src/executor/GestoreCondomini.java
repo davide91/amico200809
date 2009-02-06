@@ -33,8 +33,7 @@ public class GestoreCondomini implements BaseExecutor {
 	public static GestoreCondomini m_gestoreCondominio;
 	
 	public static GestoreCondomini getInstance()
-	{
-		
+	{		
 		if ( m_gestoreCondominio == null ) 
 			m_gestoreCondominio = new GestoreCondomini();
 		return m_gestoreCondominio;

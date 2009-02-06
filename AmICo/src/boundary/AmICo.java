@@ -7,6 +7,8 @@
 package boundary;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import datatype.DatiCondominio;
 import datatype.Indirizzo;
@@ -312,10 +314,22 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
         );
 
         pack();
+        
+        this.addWindowListener(new WindowAdapter() {  
+   		 @Override  
+   		 public void windowClosing(WindowEvent we) {  
+   			 esciDaAmICo();
+   		 	}  
+   		 });  
+        
     }// </editor-fold>//GEN-END:initComponents
-
+    
     protected void bEsciActionPerformed(ActionEvent evt) {
-		esciDaAmICo();
+    	int c = JOptionPane.showConfirmDialog(this, "Uscire da AmICo?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		
+		if (c==0){
+			esciDaAmICo();
+		}
 	}
 
 	private void binserisciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_binserisciActionPerformed
