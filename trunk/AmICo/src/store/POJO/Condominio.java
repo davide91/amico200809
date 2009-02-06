@@ -137,6 +137,7 @@ public class Condominio {
 	
 	private void link(Bilancio b)
 	{
+		b.setCondominio(this);
 		bilanci.add(b);
 		session.update(this);
 	}

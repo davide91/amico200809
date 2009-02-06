@@ -46,6 +46,7 @@ public class InserireNuovoBilancio extends JFrame {
 		dati.setStato((StatoBilancio)stato.getSelectedItem());// probabilmente non ci va ci sara' uno stato iniziale
 
 		dati.setInizio(new Date( (new GregorianCalendar()).getTimeInMillis() ) );
+		dati.setFine(new Date( (new GregorianCalendar()).getTimeInMillis() ) );
 	//	JOptionPane.showMessageDialog(this,"" +(new GregorianCalendar()).getTimeInMillis());
 		
 		AB.inserisciBilancio(dati);
