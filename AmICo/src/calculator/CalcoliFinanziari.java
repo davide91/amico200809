@@ -5,6 +5,7 @@ package calculator;
 
 import store.POJO.Bilancio;
 import datatype.Euro;
+import datatype.RapportoPagamenti;
 
 /**
  * @author bruno
@@ -19,7 +20,7 @@ public class CalcoliFinanziari {
 	}
 	
 	// ritorna RapportoPagamenti
-	public static Object calcolaSpeseDaPagare(Bilancio bilancio)
+	public static RapportoPagamenti calcolaSpeseDaPagare(Bilancio bilancio)
 	{
 		return null;
 	}
