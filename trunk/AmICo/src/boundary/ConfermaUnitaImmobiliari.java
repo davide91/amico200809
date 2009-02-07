@@ -53,7 +53,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
 		initGroup();
-		persone=   new Persone();// provvisorio TODO
+		//persone=   new Persone();// provvisorio TODO
 		this.INC=INC;
 
 		persone=p;
@@ -161,7 +161,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	public boolean proprietaOK(Persone proprietari, Percentuali quote) {
 		state=StatiConfermaUnitaImmobiliari.attesaConfermaProprieta;
 		GestoreCondomini.getInstance().passaProprieta(proprietari, quote);
-		
 		return true;
 	}
 
@@ -201,7 +200,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 			if(c==0)
 			{
 				INC.finito();
-			//	GestoreCondomini.getInstance().operazioneTerminata();
 				this.dispose();
 			}
 		}

@@ -132,8 +132,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 	private void annullaMouseMouseClicked(MouseEvent event) {
 		CUI.setVisible(true);
 		dispose();
-		
-		
 	}
 	
 	private static final long serialVersionUID = 1L;
