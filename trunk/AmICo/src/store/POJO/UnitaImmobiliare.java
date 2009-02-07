@@ -49,7 +49,7 @@ public class UnitaImmobiliare {
 	
 			datiUnitaImmobiliare = dui;
 	
-		session.update(this);
+	//	session.update(this);
 		session.getTransaction().commit();
 	}
 	
@@ -68,7 +68,7 @@ public class UnitaImmobiliare {
 	{
 		if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
-	
+	/*
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
@@ -87,11 +87,11 @@ public class UnitaImmobiliare {
 	
 		session.update(this);
 		session.getTransaction().commit();
+	*/	
 		
 		
 		
-		
-	/*	if(pers.getPersone().size() != quote.getListaQuote().size())
+		if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
 		
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
@@ -124,8 +124,7 @@ public class UnitaImmobiliare {
 			}
 	
 		session.update(this);
-		session.getTransaction().commit();*/
-		
+		session.getTransaction().commit();
 	}
 
 	

@@ -121,6 +121,24 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		assertEquals(1, cond.recuperaUnitaImmobiliari().getImmobili().size());
 	}
+	
+	public void testCONDOMINI_inserireUnitaImmobiliare2()
+	{
+		tc = TuttiCondomini.getInstance();
+		
+		tp = new TuttePersone();
+		
+		//recupero il condominio
+		Condominio cond = tc.recuperaCondomini().getCondomini().get(0);
+
+		DatiUnitaImmobiliare dui = new DatiUnitaImmobiliare("Unità2",CategoriaCatastale.A10,"Balcone", (float)85,DestinazioneUso.appartamento);
+		
+		UnitaImmobiliare ui = new UnitaImmobiliare(dui);
+		cond.inserisciUnitaImmobiliare(ui);
+		
+		assertEquals(2, cond.recuperaUnitaImmobiliari().getImmobili().size());
+	}
+	
 
 	public void testCONDOMINI_recuperaUnitaImmobiliare()
 	{		
@@ -244,7 +262,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		
 		assertEquals(1, tc.recuperaCondomini().getCondomini().size());
 	}
-*/
+
 	public void testCONDOMINI_eliminaUnitaImmobiliare()
 	{
 		tc = TuttiCondomini.getInstance();
@@ -252,14 +270,14 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		Condominio c = tc.recuperaCondomini().getCondomini().get(0);
 		
 		//prima c'è una unità immobiliare
-		assertEquals(1, c.recuperaUnitaImmobiliari().getImmobili().size());
+		assertEquals(2, c.recuperaUnitaImmobiliari().getImmobili().size());
 	
 		//recupero l'unità immobiliare
 		UnitaImmobiliare unita = c.recuperaUnitaImmobiliari().getImmobili().get(0);
 		
 		c.eliminaUnitaImmobiliare(unita);
 		//dopo non c'è nessuna unità immobiliare
-		assertEquals(0, c.recuperaUnitaImmobiliari().getImmobili().size());
+		assertEquals(1, c.recuperaUnitaImmobiliari().getImmobili().size());
 	}
 	
 /*	public void testCONDOMINI_inserisciTabellaMillesimale()
