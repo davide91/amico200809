@@ -107,7 +107,7 @@ public class Condominio {
 		//	uImm.getQuoteDiPossesso().clear();
 			unitaImmobiliari.remove(uImm);
 			session.delete(uImm);
-			//session.update(this);
+		//	session.update(this);
 						
 		session.getTransaction().commit();
 	}

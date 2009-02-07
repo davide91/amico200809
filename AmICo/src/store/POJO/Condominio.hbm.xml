@@ -47,15 +47,14 @@
 			<one-to-many class="Bilancio"/>
 		</set>
 		
-		<set name="unitaImmobiliari" lazy="false" cascade="all-delete-orphan,save-update"> <!--all,delete-orphan-->
+		<set name="unitaImmobiliari" lazy="false" cascade="all,delete-orphan,save-update"> <!--all,delete-orphan-->
  			<key column="CONDOMINIO_ID"/>
 			<one-to-many class="UnitaImmobiliare"/>
 		</set>
 		
-		<set name="persone" table="persone_condomini" lazy="false" cascade="save-update">
+		<set name="persone" table="persone_condomini" lazy="false" cascade="all-delete-orphan,save-update">
  			<key column="CONDOMINIO_ID"/>
  			<many-to-many column="PERSONA_ID" class="Persona"/>
 		</set>
-	
 	</class>
 </hibernate-mapping>
