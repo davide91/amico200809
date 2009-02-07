@@ -68,7 +68,7 @@ public class UnitaImmobiliare {
 	{
 		if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
-	/*
+	
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
@@ -88,11 +88,10 @@ public class UnitaImmobiliare {
 		session.update(this);
 		session.getTransaction().commit();
 		
-		*/
 		
 		
-		//vecchia versione
-		if(pers.getPersone().size() != quote.getListaQuote().size())
+		
+	/*	if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
 		
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
@@ -125,7 +124,7 @@ public class UnitaImmobiliare {
 			}
 	
 		session.update(this);
-		session.getTransaction().commit();
+		session.getTransaction().commit();*/
 		
 	}
 
@@ -142,10 +141,26 @@ public class UnitaImmobiliare {
 	 return true;
 	}
 
-	@Override
+/*	@Override
 	public int hashCode() {
 	 return this.getDatiUnitaImmobiliare().hashCode();
 	}
+	*/
+	
+  @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((condominio == null) ? 0 : condominio.hashCode());
+		result = prime
+				* result
+				+ ((datiUnitaImmobiliare == null) ? 0 : datiUnitaImmobiliare
+						.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+  
 	
 	public long getId() {
 		return id;
@@ -177,5 +192,5 @@ public class UnitaImmobiliare {
 
 	public void setQuoteDiPossesso(Set<Proprieta> quoteDiPossesso) {
 		this.quoteDiPossesso = quoteDiPossesso;
-	}
+	}	
 }

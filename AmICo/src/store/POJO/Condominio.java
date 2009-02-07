@@ -83,6 +83,7 @@ public class Condominio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		link(uImm);
+		session.update(this);
 		session.getTransaction().commit();
 	}
 	
@@ -103,9 +104,9 @@ public class Condominio {
 				pers.unlink(p);
 				//session.delete(p);
 			}
-			uImm.getQuoteDiPossesso().clear();
-	//		session.delete(uImm);
+		//	uImm.getQuoteDiPossesso().clear();
 			unitaImmobiliari.remove(uImm);
+			session.delete(uImm);
 			//session.update(this);
 						
 		session.getTransaction().commit();
@@ -132,7 +133,6 @@ public class Condominio {
 		session.beginTransaction();
 			link(b);
 		session.getTransaction().commit();
-		
 	}
 
 	 

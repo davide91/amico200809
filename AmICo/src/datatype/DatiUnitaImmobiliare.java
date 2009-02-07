@@ -58,9 +58,10 @@ public class DatiUnitaImmobiliare {
 	public int hashCode() {
 		int result;
 		 result = this.getPosizioneInterna().hashCode();
-		 result = 29 * result + this.getId().hashCode();
-		 result = 29 * result + this.getCatCatastale().hashCode();
-		 result = 29 * result + this.getDestUso().hashCode();
+		 result = 37 * (result + this.getId().hashCode());
+		 result = 31 * (result + this.getCatCatastale().hashCode());
+		 result = 29 * (result + this.getDestUso().hashCode());
+		 result = 17 * (result + (int)this.getMetriQ());
 		 return result;
 	}
 	

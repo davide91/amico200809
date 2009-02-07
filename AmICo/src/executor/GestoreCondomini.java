@@ -102,8 +102,7 @@ public class GestoreCondomini implements BaseExecutor {
 	public void inserisciUnitaImmobiliare() {
 		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliare;
 		m_unitaImmobiliare = new UnitaImmobiliare();	
-		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);
-				
+		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);	
 	}
 	
 	public void operazioneAnnullata() {
@@ -184,9 +183,9 @@ public class GestoreCondomini implements BaseExecutor {
 
 		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
-		m_unitaImmobiliare.setCondominio(m_condominio);
+	//	m_unitaImmobiliare.setCondominio(m_condominio);
 		m_confermaUnitaImmobiliari.ammissibile(true);
-		
+	
 		/* Non presente da 3.5.4 */
 	//	m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
