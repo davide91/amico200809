@@ -57,16 +57,13 @@ public class InserireProprietario extends JFrame {
 		
 		DefaultComboBoxModel x=new DefaultComboBoxModel();
 
-			
 		for (Persona p : persone.getPersone()) {
 			if(p instanceof PersonaFisica)
 				x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
 				else if(p instanceof PersonaGiuridica)
 					x.addElement(((PersonaGiuridica)p).getDati().getpIva().getPartIva());
 		}
-					
 		persona.setModel(x);
-		
 	}
 	
 

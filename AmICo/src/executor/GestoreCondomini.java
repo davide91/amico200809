@@ -189,8 +189,6 @@ public class GestoreCondomini implements BaseExecutor {
 		/* Non presente da 3.5.4 */
 	//	m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
-
-		
 	}
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {		

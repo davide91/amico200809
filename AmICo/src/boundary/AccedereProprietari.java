@@ -110,6 +110,7 @@ public class AccedereProprietari extends JFrame {
 			
 			getBRimuoviProprietario().setEnabled(true);
 		}
+		
 		if(quote.somma()==100) {
 			getBOK().setEnabled(true);
 			getBAggiungiProprietario().setEnabled(false);
@@ -192,7 +193,6 @@ public class AccedereProprietari extends JFrame {
 			this.dispose();
 		}
 		else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
-		
 	}
 
 
