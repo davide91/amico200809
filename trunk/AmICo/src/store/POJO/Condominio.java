@@ -66,7 +66,7 @@ public class Condominio {
 	private void link(Persona p)
 	{
 		persone.add(p);
-		//session.update(this);		superfluo
+		session.update(this);		
 	}
 	
 	public void rimuoviPersona(Persona p)
@@ -91,7 +91,7 @@ public class Condominio {
 	{
 		ui.setCondominio(this);
 		unitaImmobiliari.add(ui);
-		session.persist(ui);
+	//	session.persist(ui);
 	}
 	
 	public void eliminaUnitaImmobiliare(UnitaImmobiliare uImm)
@@ -102,12 +102,9 @@ public class Condominio {
 			for (Proprieta p : uImm.getQuoteDiPossesso()) {
 				Persona pers = p.getProprietario();
 				pers.unlink(p);
-				//session.delete(p);
 			}
-		//	uImm.getQuoteDiPossesso().clear();
 			unitaImmobiliari.remove(uImm);
 			session.delete(uImm);
-		//	session.update(this);
 						
 		session.getTransaction().commit();
 	}

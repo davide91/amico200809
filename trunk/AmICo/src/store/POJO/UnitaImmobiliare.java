@@ -49,7 +49,8 @@ public class UnitaImmobiliare {
 	
 			datiUnitaImmobiliare = dui;
 	
-	//	session.update(this);
+		session.update(this);
+		session.update(this.condominio); //aggiunto per forzare l'update
 		session.getTransaction().commit();
 	}
 	
@@ -122,7 +123,6 @@ public class UnitaImmobiliare {
 				session.persist(prop);
 				quoteDiPossesso.add(prop);
 			}
-	
 		session.update(this);
 		session.getTransaction().commit();
 	}
