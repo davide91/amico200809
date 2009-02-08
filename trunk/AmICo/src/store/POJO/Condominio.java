@@ -66,7 +66,7 @@ public class Condominio {
 	private void link(Persona p)
 	{
 		persone.add(p);
-		session.update(this);		
+		//session.update(this);		superfluo
 	}
 	
 	public void rimuoviPersona(Persona p)

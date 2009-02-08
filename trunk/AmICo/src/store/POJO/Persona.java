@@ -94,7 +94,7 @@ public class Persona {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 			proprieta.remove(p);
-		session.update(this);
+		//session.update(this);
 	}
 	
 /*	public void aggiungiProprieta(Proprieta prop) {

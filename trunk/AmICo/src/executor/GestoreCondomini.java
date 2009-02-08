@@ -195,11 +195,12 @@ public class GestoreCondomini implements BaseExecutor {
 		
 	public void passaProprieta(Persone persone, Percentuali quoteProprieta) {		
 		m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliari;		
+		Persone presenti = m_condominio.recuperaCondomini();
 		for (Persona  p : persone.getPersone()) {
-			m_condominio.inserisciPersona(p);
+			if(!(presenti.getPersone().contains(p)))
+				m_condominio.inserisciPersona(p);
 		}
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
-		
 	}
 	
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Millesimi millesimi) 
