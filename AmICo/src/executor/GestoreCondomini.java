@@ -185,7 +185,6 @@ public class GestoreCondomini implements BaseExecutor {
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
 	//	m_unitaImmobiliare.setCondominio(m_condominio);
 		m_confermaUnitaImmobiliari.ammissibile(true);
-	
 		/* Non presente da 3.5.4 */
 	//	m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
@@ -265,6 +264,4 @@ public class GestoreCondomini implements BaseExecutor {
 				return true;
 		return false;
 	}
-
-
 }

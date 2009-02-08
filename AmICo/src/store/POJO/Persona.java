@@ -25,8 +25,7 @@ public class Persona {
 	
 	private Session session;
 
-	public Persona()
-	{
+	public Persona(){
 		
 	}
 
