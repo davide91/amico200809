@@ -2,11 +2,14 @@
 package boundary;
 
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,9 +18,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
@@ -26,9 +32,23 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
 import store.POJO.Condominio;
+import store.POJO.Pagamento;
+import store.POJO.Persona;
+import store.POJO.PersonaFisica;
+import store.POJO.PersonaGiuridica;
+import datatype.Avviso;
+import datatype.BilancioStatoAllerta;
+import datatype.CassaSottoSogliaMinima;
+import datatype.CondominiMorosi;
 import datatype.DatiCondominio;
+import datatype.DatiPagamento;
+import datatype.DatiVoceBilancio;
 import datatype.EsitoEliminabile;
+import datatype.Euro;
+import datatype.PagamentoInScadenza;
+import datatype.PagamentoScaduto;
 import datatype.Preferenze;
+import datatype.SpeseDaPagare;
 import datatype.list.Avvisi;
 import enumeration.StatiAccedereCondominioAperto;
 import executor.GestoreCondominioAperto;
@@ -57,7 +77,8 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private JButton breport;
 	private JButton barchiviobilanci;
 	private JPanel pannello;
-	private JTextField campoavvisi;
+	private JScrollPane campoavvisi;
+	private JTextPane campoavvisiText;
 	private JTextField scrittaavvisi;
 	private JButton beliminacondominio;
 	private JButton bchiudicondominio;
@@ -67,6 +88,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	public AccedereCondominioAperto(GestoreCondominioAperto gca,Condominio condominio) {
 		GCA=gca;
 		this.condominio=condominio;
+
 		initComponents();
 		setTitle(condominio.getDatiC().getId());
 		setLocationRelativeTo(null);
@@ -159,11 +181,14 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		return scrittaavvisi;
 	}
 
-	private JTextField getAvvisi() {
+	private JScrollPane getAvvisi() {
 		if (campoavvisi == null) {
-			campoavvisi = new JTextField();
-			campoavvisi.setEditable(false);
-			campoavvisi.setToolTipText("gli avvisi");
+			campoavvisiText = new JTextPane();
+			campoavvisiText.setEditable(false);
+			campoavvisiText.setContentType("text/html");
+			campoavvisiText.setText("Nessun avviso.");
+			campoavvisi = new JScrollPane(campoavvisiText);
+			campoavvisi.setToolTipText("Gli avvisi");
 		}
 		return campoavvisi;
 	}
@@ -439,7 +464,148 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	
 	
 	public void passaAvvisi(Avvisi avvisi){
-		this.avvisiCorrenti=avvisi;
+		List<String> toDisplay = new ArrayList<String>();
+
+		for(Avviso avviso : avvisi.getListaAvvisi()) {
+			if(avviso instanceof PagamentoScaduto) {
+				PagamentoScaduto pagamentoA = (PagamentoScaduto)avviso;
+				for(Pagamento pagamento : pagamentoA.getPagamentiScaduti().getPagamenti()) {
+					DatiPagamento dati = pagamento.getDatiPagamento();
+					toDisplay.add(
+							"<b>PAGAMENTO SCADUTO</b>:<br>Il pagamento con codice " + dati.getCodice() + " ed importo " +
+							dati.getImporto().toString() + " euro, e' scaduto in data " +
+							dati.getScadenza().toString() + ". (Condomino: " + pagamento.getEseguito_da().getId() + ")"
+							); 
+				}
+				continue;
+			}
+			if(avviso instanceof CondominiMorosi) {
+				CondominiMorosi morosiA = (CondominiMorosi)avviso;
+				
+				String line = new String();
+				line += "<b>";
+				if (morosiA.getPersone().getPersone().size() != 1)
+					line+="CONDOMINI MOROSI";
+				else
+					line+="CONDOMINO MOROSO";
+				
+				line+= "</b>:<br><ul>";
+				
+				for(Persona persona :  morosiA.getPersone().getPersone())
+				{
+					List<String> pagamentiCode = new ArrayList<String>();
+					Euro somma = new Euro(0,0);
+					
+					for(Pagamento pagamento : morosiA.getPagamenti(persona).getPagamenti())
+					{
+						DatiPagamento dati = pagamento.getDatiPagamento();
+						pagamentiCode.add(dati.getCodice());
+						somma.somma(dati.getMora());
+					}
+					
+					line +="<li>";
+					
+					if (persona instanceof PersonaFisica)
+						 line += ((PersonaFisica)persona).getDati().getNome() + " " +
+						 		 ((PersonaFisica)persona).getDati().getCognome();
+					else
+						line += ((PersonaGiuridica)persona).getDati().getRagioneSociale();
+
+					line += " è in mora di " + somma.toString() + " euro. (Codice pagamenti: ";
+					for(String codice : pagamentiCode)
+						if (pagamentiCode.get(pagamentiCode.size()-1).equals(codice))
+							line += codice + ")";
+						else
+							line += codice + ", ";
+					line += "</li>";
+				}
+				
+				line+="</ul>";
+				
+				toDisplay.add(line);
+				
+				continue;
+			}
+			if(avviso instanceof PagamentoInScadenza) {
+				PagamentoInScadenza pagamentoA = (PagamentoInScadenza)avviso;
+				
+				
+				String line = new String();
+				line += "<b>";
+				if (pagamentoA.getPagamentiInScadenza().getPagamenti().size() != 1)
+					line+="PAGAMENTI";
+				else
+					line+="PAGAMENTO";
+				
+				line+= " IN SCADENZA</b>:<br><ul>";
+				
+				for(Pagamento pagamento :  pagamentoA.getPagamentiInScadenza().getPagamenti())
+				{
+					line+="<li>Il giorno <b>"+ pagamento.getDatiPagamento().getScadenza().getTime().toString()+"</b> scade il pagamento " + 
+						  "con codice " + pagamento.getDatiPagamento().getCodice() + 
+						  " e importo" + pagamento.getDatiPagamento().getImporto().toString() + " euro.</li>";					
+				}
+				
+				line+="</ul>";
+				
+				toDisplay.add(line);
+				
+				continue;
+			}
+			if(avviso instanceof SpeseDaPagare) {
+				SpeseDaPagare speseA = (SpeseDaPagare)avviso;
+				
+				String line = new String();
+				line += "<b>";
+				if (speseA.getDatiVociBilancio().size() != 1)
+					line+="SPESA";
+				else
+					line+="SPESE";
+				
+				line+= " DA PAGARE</b>:<br><ul>";
+				
+				for(DatiVoceBilancio datiVoce :  speseA.getDatiVociBilancio())
+				{	
+					line+="<li>Il pagamento di \""+ datiVoce.getDescrizione() +"\", con importo " + datiVoce.getImporto().toString() +
+						  " euro, e' previsto per il giorno " + datiVoce.getDataPrevista().toString() + "</li>";					
+				}
+				
+				line+="</ul>";
+				
+				toDisplay.add(line);
+				
+				
+				continue;
+			}
+			if(avviso instanceof CassaSottoSogliaMinima) {
+				CassaSottoSogliaMinima cassaA = (CassaSottoSogliaMinima)avviso;
+				toDisplay.add(
+						"<b>CASSA SOTTO SOGLIA MINIMA</b>:<br>La cassa è sotto la soglia minima di " + 
+						cassaA.getSoglia().toString() + " euro. (Valore attuale: " + cassaA.getAttuale().toString() + " euro)"
+				);
+				continue;
+			}
+			if(avviso instanceof BilancioStatoAllerta) {
+				BilancioStatoAllerta bilancioA = (BilancioStatoAllerta)avviso;
+				toDisplay.add(
+						"<b>BILANCIO IN STATO DI ALLERTA</b>: differenza " + bilancioA.getDifferenza().toString() + " euro."
+				);
+				continue;
+			}
+		}
+		
+		String readyToDisplay = new String();
+		
+		
+		for(String line : toDisplay) {
+			if (readyToDisplay.isEmpty())
+				readyToDisplay += "<html>" + "<font size=\"65%\">" + line + "</font>";
+			else
+				readyToDisplay += "<hr>" + "<font size=\"65%\">" + line + "</font>";
+		}
+		readyToDisplay += "</html>";
+	
+		campoavvisiText.setText(readyToDisplay);
 	}
 	
 	public void passaAUnitaImmobiliari(){
