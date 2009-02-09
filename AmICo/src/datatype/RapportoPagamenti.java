@@ -23,7 +23,7 @@ public class RapportoPagamenti {
 	private void calcolaTotale()
 	{
 		//calcolo dinamico del totale, visto che è un dato derived
-		float derived=(float)0.0;
+		long derived=0;
 		
 		for (Euro e : dovuto.getEuri()) {
 			derived+=e.getEuro();
