@@ -13,11 +13,12 @@ public class ImagePanel extends JPanel {
 	private Image m_image;
 	private int imgWidth;
 	private int imgHeight;
+	private boolean toPaint;
 	
 	public void setImage(String path) 
 	{
 		 MediaTracker tracker=new MediaTracker(this);
-		   Image image=getToolkit().getImage("/home/thewally/Desktop/house.png");
+		   Image image=getToolkit().getImage(path);
 		   tracker.addImage(image,1);
 		   try
 		   {
@@ -25,7 +26,10 @@ public class ImagePanel extends JPanel {
 		   }
 		   catch (InterruptedException ie)
 		   {
+			  toPaint = false;
+			  return;
 		   }
+		   toPaint = true;
 			imgWidth = image.getWidth(null);
 			imgHeight = image.getHeight(null);
 			m_image = image;
@@ -34,6 +38,8 @@ public class ImagePanel extends JPanel {
 	
 	public void paintComponent(Graphics g)
 	{
+		if(!toPaint) return;
+		
 		super.paintComponent(g);
 		
 		g.drawImage(m_image,

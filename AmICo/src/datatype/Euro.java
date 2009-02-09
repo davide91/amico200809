@@ -146,11 +146,6 @@ public class Euro {
 		this.euro = euro;
 	}
 	
-	public void aggiungi(float valuta)
-	{
-		euro += valuta;
-	}
-	
 	/*
 	private float euro;
 	

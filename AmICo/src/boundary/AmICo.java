@@ -203,7 +203,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
         jScrollPane1.setViewportView(lista);
 
         logoImage = new ImagePanel();
-        logoImage.setImage("images/home_logo.png");
+        logoImage.setImage("images/house_logo.png");
         logoPanel.setLayout(new javax.swing.BoxLayout(logoPanel, javax.swing.BoxLayout.LINE_AXIS));
         logoPanel.add(logoImage);
 
