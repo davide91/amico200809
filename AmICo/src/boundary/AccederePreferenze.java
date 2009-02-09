@@ -129,7 +129,7 @@ public class AccederePreferenze extends JPanel {
 			preferenze = new Preferenze();
 			preferenze.setInteressiMora(Float.parseFloat(jTextField0.getText()));
 			preferenze.setRitardoAmmesso((Integer)(jSpinner0.getValue()));
-			preferenze.setSogliaMinimaCassa(new Euro(Float.parseFloat(jTextField1.getText())));
+			preferenze.setSogliaMinimaCassa(new Euro(Double.parseDouble(jTextField1.getText())));
 			
 			int c = JOptionPane.showConfirmDialog(this, "Modificare Preferenze?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
@@ -140,7 +140,15 @@ public class AccederePreferenze extends JPanel {
 		}
 		catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(this, "Dati Preferenze non corretti!");
+			String message = "Dati Preferenze non corretti!";
+			
+			if (jTextField1.getText().contains(","))
+				message += "\n\n" + 
+				    "Suggerimento: potresti aver usato una virgola invece\n" +
+					"di un punto per separare la parte intera da quella \n" +
+					"decimale di un importo.";
+			
+			JOptionPane.showMessageDialog(this, message);
 		}
 	}
 
@@ -207,7 +215,7 @@ public class AccederePreferenze extends JPanel {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
 			//soglia minima cassa
-			jTextField1.setText(""+preferenze.getSogliaMinimaCassa().getEuro());
+			jTextField1.setText(""+preferenze.getSogliaMinimaCassa().toString());
 		}
 		return jTextField1;
 	}
