@@ -182,9 +182,10 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			JOptionPane.showMessageDialog(this, "Inserimento Comune obbligatorio");
 
 		else 
-			if(cap.getText().equals("") || cap.getText().length()!=5)
-		
-			JOptionPane.showMessageDialog(this, "Inserimento CAP obbligatorio");
+			if(cap.getText().equals(""))
+				JOptionPane.showMessageDialog(this, "Inserimento CAP obbligatorio");
+			else if (cap.getText().length()!=5 )
+				JOptionPane.showMessageDialog(this, "Il CAP inserito non e' valido");
 			
 		else
 		{
