@@ -319,7 +319,7 @@ public class AccedereProprietari extends JFrame {
 	private JButton getBAggiungiProprietario() {
 		if (bAggiungiProprietario == null) {
 			bAggiungiProprietario = new JButton();
-			bAggiungiProprietario.setText("Aggiungi prorpietario");
+			bAggiungiProprietario.setText("Aggiungi propietario");
 			bAggiungiProprietario.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
