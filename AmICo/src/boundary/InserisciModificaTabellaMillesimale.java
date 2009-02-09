@@ -32,6 +32,7 @@ import datatype.list.Millesimi;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereTabelleMillesimali;
 import executor.GestoreCondomini;
+import executor.GestoreCondominioAperto;
 
 /**
  * @author Federico
@@ -44,11 +45,13 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 	private Millesimi m;
 	private TabellaMillesimale tabellaMillesimale = null;
 	private AccedereTabelleMillesimali ATM;
+	private GestoreCondominioAperto GCA;
 
     private DefaultTableModel dm = new DefaultTableModel();
 
-	public InserisciModificaTabellaMillesimale(AccedereTabelleMillesimali atm, UnitaImmobiliari unita)
+	public InserisciModificaTabellaMillesimale(AccedereTabelleMillesimali atm, UnitaImmobiliari unita,GestoreCondominioAperto gca)
 	{
+		GCA=gca;
 		ATM=atm;
 		this.unita=unita;
 		state=StatiAccedereTabelleMillesimali.base;
@@ -59,8 +62,9 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		m=new Millesimi();
 	}
 
-	public InserisciModificaTabellaMillesimale(AccedereTabelleMillesimali atm,UnitaImmobiliari unita,TabellaMillesimale t)
+	public InserisciModificaTabellaMillesimale(AccedereTabelleMillesimali atm,UnitaImmobiliari unita,TabellaMillesimale t,GestoreCondominioAperto gca)
 	{
+		GCA=gca;
 		ATM=atm;
 		this.unita=unita;
 		this.tabellaMillesimale=t;
@@ -101,11 +105,13 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 					ATM.procedi(true);
 					ATM.finito();
 					JOptionPane.showMessageDialog(this, "Tabella Immobiliare Inserita");
+					GCA.visibile(true);
 				}
 				else
 				{
 					ATM.procedi(false);
 						JOptionPane.showMessageDialog(this, "Tabella Immobiliare Non Inserita");
+						GCA.visibile(true);
 				}
 			}
 			else
@@ -205,6 +211,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 	
 	private void annullaMouseMouseClicked(MouseEvent event)
 	{
+		GCA.visibile(true);
 		ATM.finito();
 		this.dispose();
 	}

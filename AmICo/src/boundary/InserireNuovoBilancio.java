@@ -25,9 +25,11 @@ import enumeration.TipoBilancio;
 public class InserireNuovoBilancio extends JFrame {
 
 	private AccedereBilanci AB;
+	private AccedereCondominioAperto ACA;
 	
-	public InserireNuovoBilancio(AccedereBilanci ab) {
+	public InserireNuovoBilancio(AccedereBilanci ab,AccedereCondominioAperto aca) {
 		AB=ab;
+		ACA=aca;
 		initComponents();
 		setTitle("Redigendo bilancio");
 		setVisible(true);
@@ -51,6 +53,7 @@ public class InserireNuovoBilancio extends JFrame {
 	}
 
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
+		ACA.setVisible(true);
 		this.dispose();
 	}
 

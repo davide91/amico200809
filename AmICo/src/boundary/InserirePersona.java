@@ -51,7 +51,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		this.setVisible(true);
 	}
 	
-
 	private void initgroup()
 	{
 		group=new ButtonGroup();

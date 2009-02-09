@@ -14,6 +14,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -50,26 +51,27 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	private StatiAccederePersone state;
 	private ButtonGroup group=new ButtonGroup();
 	private List<Persona> indice;
+	private AccedereCondominioAperto ACA;
 	
 	public AccederePersone() {
 		initComponents();
 		state=StatiAccederePersone.base;
 	}
 	
-	public AccederePersone(GestoreCondominioAperto GCA, Persone persone){
+	public AccederePersone(GestoreCondominioAperto GCA, Persone persone,AccedereCondominioAperto aca){
 		this.GCA=GCA; 
 		this.persone=persone;
+		ACA=aca;
 		//AMM.mostraPersone(persone);
 		
 		initComponents();
 		state = StatiAccederePersone.base;
 	}
 	
-	
 
 	
 	public void modificaCondomino(Persona persona) {
-		GestorePersone.getInstance().modificaPersona(this, persona);
+		GestorePersone.getInstance().modificaPersona(this, persona,ACA);
 		state=StatiAccederePersone.modificaPersone;
 	}
 	
@@ -138,7 +140,15 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		Enumeration e=group.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-	        	   GestorePersone.getInstance().modificaPersona(this, indice.get(i));
+	           {
+	        	   ACA.setVisible(false);
+	        	   GestorePersone.getInstance().modificaPersona(this, indice.get(i),ACA);
+	        	   break;
+	           }
+		
+		if(i==group.getButtonCount())
+			JOptionPane.showMessageDialog(this, "Selezionare persona");
+			
 	}
 	
 	

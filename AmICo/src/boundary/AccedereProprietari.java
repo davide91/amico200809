@@ -43,6 +43,8 @@ public class AccedereProprietari extends JFrame {
 	private ButtonGroup group;
 	private ConfermaUnitaImmobiliari CUI;
 	private InserireProprietario IP;
+	private boolean click;
+	private boolean aggiungibile;
 	
 	private Persone proprietari = new Persone();
 	private Percentuali quote = new Percentuali();
@@ -53,6 +55,8 @@ public class AccedereProprietari extends JFrame {
 		initGroup();
 		persone=p;
 		CUI=cui;
+		click=true;
+		aggiungibile=true;
 	//	nomeUnita.setText(unita.getDatiUnitaImmobiliare().getId());
 
 		this.setVisible(true);		
@@ -102,6 +106,7 @@ public class AccedereProprietari extends JFrame {
 	public void aggiornaTabella(Persona pers, float quota)
 	{
 		int cont=0;
+		click=true;
 		
 		if(quota!=0 && pers!=null)
 		{
@@ -112,10 +117,16 @@ public class AccedereProprietari extends JFrame {
 		}
 		
 		if(quote.somma()==100) {
+			aggiungibile=false;
 			getBOK().setEnabled(true);
 			getBAggiungiProprietario().setEnabled(false);
 		}
-		
+		else
+		{
+			aggiungibile=true;
+			getBOK().setEnabled(false);
+			getBAggiungiProprietario().setEnabled(true);
+		}
 	
 		initGroup();
 		
@@ -141,8 +152,8 @@ public class AccedereProprietari extends JFrame {
 		    		dm.addRow(new Object[]{
 		    				((PersonaFisica)perso).getDati().getNome(),
 		    				((PersonaFisica)perso).getDati().getCognome(),
-		    			quo,
-		    			new JRadioButton() });
+		    				quo,
+		    				new JRadioButton() });
 		    	else if(perso  instanceof PersonaGiuridica)
 		    		dm.addRow(new Object[]{
 		    				((PersonaGiuridica)perso).getDati().getpIva().getPartIva(),
@@ -160,45 +171,58 @@ public class AccedereProprietari extends JFrame {
 	}
 
 	private void bAggiungiProprietarioMouseMouseClicked(MouseEvent event) {
-		IP=new InserireProprietario(this,persone);
+		if(click && aggiungibile)
+		{
+			click=false;
+			IP=new InserireProprietario(this,persone);
+		}
 	}
 
 
 	@SuppressWarnings("unchecked")
 	private void bRimuoviProprietarioMouseMouseClicked(MouseEvent event) {
-		int i;
-		if (group!=null)
+		if(click)
 		{
-			Enumeration e=group.getElements();
-			for (i=0; e.hasMoreElements();i++ )
-		           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
-		           {
-		        	   List<Persona> x;
-		        	   quote.removeAt(i);
-		        	   x=proprietari.getPersone();
-		        	   x.remove(i);
-		        	   proprietari.setPersone(x);
-		        	   aggiornaTabella(null,0);
-		        	   getBAggiungiProprietario().setEnabled(true);
-		        	   
-		           }
+			int i;
+			if (group!=null)
+			{
+				Enumeration e=group.getElements();
+				for (i=0; e.hasMoreElements();i++ )
+			           if ( ((JRadioButton)e.nextElement()).getModel() == group.getSelection()) 
+			           {
+			        	   List<Persona> x;
+			        	   quote.removeAt(i);
+			        	   x=proprietari.getPersone();
+			        	   x.remove(i);
+			        	   proprietari.setPersone(x);
+			        	   aggiornaTabella(null,0);
+			        	   getBAggiungiProprietario().setEnabled(true);
+			        	   
+			           }
+			}
 		}
 		
 	}
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
-		if (quote.somma()==100.0){
-			CUI.proprietaOK(proprietari, quote);
-			CUI.setVisible(true);
-			this.dispose();
+		if(click)
+		{
+			if (quote.somma()==100.0){
+				CUI.proprietaOK(proprietari, quote);
+				CUI.setVisible(true);
+				this.dispose();
+			}
+			else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
 		}
-		else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
 	}
 
 
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
-		GestoreCondomini.getInstance().operazioneAnnullata();
-		this.dispose();
+		if(click)
+		{
+			GestoreCondomini.getInstance().operazioneAnnullata();
+			this.dispose();
+		}
 	}
 
 

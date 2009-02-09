@@ -8,6 +8,7 @@ import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
 import boundary.AccedentiPersone;
+import boundary.AccedereCondominioAperto;
 import boundary.InserirePersona;
 import boundary.ModificarePersona;
 import datatype.DatiPersona;
@@ -78,11 +79,11 @@ public class GestorePersone implements BaseExecutor {
 	}
 	
 	
-	public void modificaPersona(AccedentiPersone richiedente, Persona persona) {
+	public void modificaPersona(AccedentiPersone richiedente, Persona persona,AccedereCondominioAperto aca) {
 		RICH=richiedente;
 		personaMod=persona;
 		state=StatiGestorePersone.modificaPersona;
-		MP=new ModificarePersona(persona);
+		MP=new ModificarePersona(persona,aca);
 		
 	
 	}
@@ -126,13 +127,12 @@ public class GestorePersone implements BaseExecutor {
   
 
 	public void annullato() {
-		// TODO Auto-generated method stub
-		
+		RICH.aggiornaPersone(TP.recuperaPersone());
 	}
 	
 	
 	public void operazioneTerminata() {
-		// TODO Auto-generated method stub
+		//  Auto-generated method stub
 		
 	}
 

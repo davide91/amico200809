@@ -208,6 +208,14 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 		lista.setModel(listModel);
 		
+		dm.setDataVector
+		(
+				new String[][]{},
+				new String[]{ "Unita'", "Coefficente", }
+		);
+		
+		jTable0.setModel(dm);
+		
 	}
 	
 	public void procedi(boolean b)
@@ -299,16 +307,18 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	}
 
 	private void binseriscitabellaMouseMouseClicked(MouseEvent event) {
-				GCA.passaATabelleMillesimali();
-			InseriscitabellaMillesimale =	new InserisciModificaTabellaMillesimale(this,unita);
+		GCA.visibile(false);
+		GCA.passaATabelleMillesimali();
+		InseriscitabellaMillesimale =	new InserisciModificaTabellaMillesimale(this,unita,GCA);
 	}
 
 	private void bmodificatabellaMouseMouseClicked(MouseEvent event) {
 		for (TabellaMillesimale t : tabelleMillesimali.getTabelle())
 			if( t.getDati().getNome().equals( (String)lista.getSelectedValue() ) )
 			{
+				GCA.visibile(false);
 				GCA.passaATabelleMillesimali();
-				InseriscitabellaMillesimale = new InserisciModificaTabellaMillesimale(this,unita,t);
+				InseriscitabellaMillesimale = new InserisciModificaTabellaMillesimale(this,unita,t,GCA);
 			}
 	}
 	
