@@ -24,11 +24,11 @@ public class PagamentoInScadenza extends Avviso{
 		pagamentiInScadenza.inserisciPagamento(p);
 	}
 
-	public Pagamenti getPagamentiScaduti() {
+	public Pagamenti getPagamentiInScadenza() {
 		return pagamentiInScadenza;
 	}
 
-	public void setPagamentiScaduti(Pagamenti pagamentiScaduti) {
+	public void setPagamentiInScadenza(Pagamenti pagamentiScaduti) {
 		this.pagamentiInScadenza = pagamentiScaduti;
 	}
 }
