@@ -29,8 +29,8 @@ public class VoceBilancio {
 	private Data dataContabilitazione;
 	
 	private Bilancio bilancio;
-	private MovimentoCassa contabilizzata;
-	private TabellaMillesimale ripartizione;
+	private MovimentoCassa contabilizzata = null;
+	private TabellaMillesimale ripartizione = null;
 	
 	private Session session;
 	

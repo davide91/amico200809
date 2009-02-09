@@ -196,7 +196,12 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 	
 	private boolean nomeUnico(DatiVoceBilancio datiVoceBilancio){
-		return false;
+		
+		for (VoceBilancio vb : bilancio.getVoci()) {
+			if(vb.getDati().equals(datiVoceBilancio))
+				return false;
+		}
+		return true;
 	}
 	
 	private boolean voceGiaRegistrataInCassa(VoceBilancio voceBilancio){

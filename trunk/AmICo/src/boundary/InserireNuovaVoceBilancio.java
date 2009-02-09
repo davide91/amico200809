@@ -55,11 +55,11 @@ public class InserireNuovaVoceBilancio extends JFrame {
 	private void bOkMouseMouseClicked(MouseEvent event) {
 		try{
 			DatiVoceBilancio dati = new DatiVoceBilancio();
-			dati.impostaDataPrevista((new Data(Integer.parseInt(giorno.getText()),Integer.parseInt(mese.getText()),Integer.parseInt(anno.getText()))));
+			dati.impostaDataPrevista((new Data(Integer.parseInt(giorno.getText()),Integer.parseInt(mese.getText())-1,Integer.parseInt(anno.getText()))));
 			dati.setDescrizione(descrizione.getText());
 			dati.setImporto(new Euro(Double.parseDouble(importo.getText())));
 			dati.setTipo((TipoVoce)tipo.getSelectedItem());
-			dati.setTitolo(titolo.toString());
+			dati.setTitolo(titolo.getText());
 			ABA.inserisciVoceBilancio(dati);
 		}
 		catch(NumberFormatException nfe)

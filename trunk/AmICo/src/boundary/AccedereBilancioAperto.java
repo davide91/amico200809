@@ -37,6 +37,8 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			SP=new StatoPatrimoniale(this);
 			SDC=new SpostamentiDiCassa(this);
 			
+			SP.aggiorna(bilancio.recuperaVociBilancio());
+			
 			tab=new JTabbedPane();
 			tab.addTab("Stato partimoniale", SP);
 			tab.addTab("Spostamenti di cassa", SDC);
@@ -68,10 +70,8 @@ public class AccedereBilancioAperto implements BaseBoundary{
 					ko();
 				}
 			}	
-				else
-					JOptionPane.showMessageDialog(tab, "il nome della voce del bilancio e' gia presente");// a base
-			
-			
+			else
+				JOptionPane.showMessageDialog(tab, "il nome della voce del bilancio e' gia presente");// a base
 		}
 
 		public void annulla() {
@@ -86,7 +86,8 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void fatto() {
 			// TODO Auto-generated method stub
-			
+			JOptionPane.showMessageDialog(tab, "Voce bilancio inserita");
+			INVB.dispose();
 		}
 
 		public void finito() {
@@ -97,18 +98,15 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		public void ko() {
 			GB.procedi(false);//da attesaConfermaInserimentoDati a base
 			JOptionPane.showMessageDialog(tab, "Voce bilancio non inserita");
-			
+			INVB.dispose();
 		}
 
 		public void ok() {
 			GB.procedi(true);//da attesaConfermaInserimentoDati a base
-			JOptionPane.showMessageDialog(tab, "Voce bilancio inserita");
-			
 		}
 
 		public void aggiornaVociBilancio(VociBilancio VociBilancio) {
-			// TODO Auto-generated method stub
-			
+			SP.aggiorna(VociBilancio);
 		}
 
 		public void aggiornaSpeseDaPagare(Object calcolaSpeseDaPagare) {
