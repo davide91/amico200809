@@ -49,7 +49,7 @@ public class Avvio  {
 		 */
 	private static void showSplashScreen() 
 	{
-		fSplashScreen = new SplashScreen("images/splash-AmICo.JPG");
+		fSplashScreen = new SplashScreen("images/splash-AmICo.jpg");
 		fSplashScreen.splash();
 	}
 	  
