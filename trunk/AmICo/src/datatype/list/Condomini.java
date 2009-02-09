@@ -56,7 +56,6 @@ public class Condomini {
 				if (c.getDatiC().getId().equals(id))
 				{
 					newCondomini.add(c);
-					condomini.remove(c);
 				}
 					
 		
