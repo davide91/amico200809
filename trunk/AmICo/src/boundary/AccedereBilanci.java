@@ -1,21 +1,17 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -37,10 +33,11 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 
 	private	GestoreBilanci GB;
 	private Bilanci bilanci;
-	private InserireNuovoBilancio INB;
+	private AccedereCondominioAperto ACA;
 
-	public AccedereBilanci(GestoreBilanci gb, Bilanci b) {
+	public AccedereBilanci(GestoreBilanci gb, Bilanci b,AccedereCondominioAperto aca) {
 		GB=gb;
+		ACA=aca;
 		initComponents();
 		aggiornaBilanci(b);
 
@@ -59,7 +56,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 				ok();
 			}
 			else {
-					ko();
+				ko();
 			}
 			
 		}
@@ -94,12 +91,13 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	public void ko() {
 		GB.procedi(false);
 		JOptionPane.showMessageDialog(this, "bilancio non inserito");
-		
+		ACA.setVisible(true);	
 	}
 
 	public void ok() {
 		GB.procedi(true);
 		JOptionPane.showMessageDialog(this, "bilancio inserito");
+		ACA.setVisible(true);
 	}
 	
 	public void apriBilancio(Bilancio b)
@@ -141,7 +139,8 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	}
 
 	private void bRedigereBilancioMouseMouseClicked(MouseEvent event) {
-		INB = new InserireNuovoBilancio(this);
+		ACA.setVisible(false);
+		new InserireNuovoBilancio(this,ACA);
 	}
 
 
@@ -154,7 +153,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	private JButton bRedigereBilancio;
 	private JLabel jLabel0;
 	private JLabel jLabel1;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
@@ -257,18 +255,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 			});
 		}
 		return listaBilanci;
-	}
-
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
 	}
 
 	/**

@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -28,14 +27,16 @@ import datatype.list.Persone;
  */
 public class InserireProprietario extends JFrame {
 	
-	Persone persone;
-	AccedereProprietari AP;
-	AccedereProprietari2 AP2;
+	private Persone persone;
+	private AccedereProprietari AP;
+	private AccedereProprietari2 AP2;
+	private boolean click;
 	
 	public InserireProprietario(AccedereProprietari ap,Persone p) {
 		persone=p;
 		AP=ap;
 		AP2=null;
+		click=true;
 		initComponents();
 		this.setVisible(true);
 		this.setTitle("Inserire proprietario");
@@ -46,6 +47,7 @@ public class InserireProprietario extends JFrame {
 		persone=p;
 		AP2=ap;
 		AP=null;
+		click=true;
 		initComponents();
 		this.setVisible(true);
 		this.setTitle("Inserire proprietario");
@@ -54,6 +56,7 @@ public class InserireProprietario extends JFrame {
 	public void aggiornaPersone(Persone per)
 	{
 		persone=per;
+		click=true;
 		
 		DefaultComboBoxModel x=new DefaultComboBoxModel();
 
@@ -68,36 +71,50 @@ public class InserireProprietario extends JFrame {
 	
 
 	private void bInserisciMouseMouseClicked(MouseEvent event) {
-		try
+		if(click)
 		{
-			if (Float.parseFloat(quota.getText()) <=100 && Float.parseFloat(quota.getText()) > 0)
+			try
 			{
-				if(AP!=null)
-					AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
-				if(AP2!=null)
-					AP2.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
-					
-				this.dispose();
-			}		
-			else JOptionPane.showMessageDialog(this, "La quota deve essere compresa tra 1 e 100");
-		}
-		catch(NumberFormatException nfe)
-		{
-			JOptionPane.showMessageDialog(this, "Formato quote di possesso errato!\n Utilizzare solo cifre ");
+				if (Float.parseFloat(quota.getText()) <=100 && Float.parseFloat(quota.getText()) > 0)
+				{
+					if(AP!=null)
+						AP.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
+					if(AP2!=null)
+						AP2.aggiornaTabella(persone.getPersone().get(persona.getSelectedIndex()),Float.parseFloat(quota.getText()));
+						
+					this.dispose();
+				}		
+				else JOptionPane.showMessageDialog(this, "La quota deve essere compresa tra 1 e 100");
+			}
+			catch(NumberFormatException nfe)
+			{
+				JOptionPane.showMessageDialog(this, "Formato quote di possesso errato!\n Utilizzare solo cifre ");
+			}
 		}
 	}
 
 
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
-		this.dispose();
+		if(click)
+		{
+			if(AP!=null)
+				AP.aggiornaTabella(null,0);
+			if(AP2!=null)
+				AP2.aggiornaTabella(null,0);
+			this.dispose();
+		}
 	}
 
 
 	private void bInserisciNuovaPersonaMouseMouseClicked(MouseEvent event) {
-		if(AP!=null)
-			AP.inserisciNuovaPersona();
-		if(AP2!=null)
-			AP2.inserisciNuovaPersona();
+		if(click)
+		{
+			click=false;
+			if(AP!=null)
+				AP.inserisciNuovaPersona();
+			if(AP2!=null)
+				AP2.inserisciNuovaPersona();
+		}
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -108,7 +125,6 @@ public class InserireProprietario extends JFrame {
 	private JButton bInserisciNuovaPersona;
 	private JLabel jLabel0;
 	private JLabel jLabel1;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getBInserisci(), new Constraints(new Leading(39, 10, 10), new Leading(136, 12, 12)));
@@ -212,18 +228,6 @@ public class InserireProprietario extends JFrame {
 		return quota;
 	}
 
-	@SuppressWarnings("unused")
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
 
 
 }

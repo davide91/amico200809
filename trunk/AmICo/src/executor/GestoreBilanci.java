@@ -1,18 +1,14 @@
 package executor;
 
-import java.net.URL;
-
-import calculator.CalcoliFinanziari;
-import calculator.Formattatore;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import com.sun.org.apache.bcel.internal.generic.SALOAD;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
-
+import store.POJO.Bilancio;
+import store.POJO.Condominio;
+import store.POJO.VoceBilancio;
 import boundary.AccedereBilanci;
 import boundary.AccedereBilancioAperto;
 import boundary.AccedereCondominioAperto;
 import boundary.DriverFileSystem;
+import calculator.CalcoliFinanziari;
+import calculator.Formattatore;
 import datatype.DatiBilancio;
 import datatype.DatiVoceBilancio;
 import datatype.RapportoPagamenti;
@@ -21,9 +17,6 @@ import enumeration.FormatoFile;
 import enumeration.StatiGestoreBilancio;
 import enumeration.TipoBilancio;
 import enumeration.TipoReportBilancio;
-import store.POJO.Bilancio;
-import store.POJO.Condominio;
-import store.POJO.VoceBilancio;
 
 public class GestoreBilanci implements BaseExecutor {
 
@@ -41,7 +34,7 @@ public class GestoreBilanci implements BaseExecutor {
 		state=StatiGestoreBilancio.base;
 		this.ACA=ACA;
 		this.condominio = condominio;
-		AB=new AccedereBilanci(this, condominio.recuperaBilanci());
+		AB=new AccedereBilanci(this, condominio.recuperaBilanci(),ACA);
 		ACA.getPannello().add(AB);
 
 
@@ -189,7 +182,7 @@ public class GestoreBilanci implements BaseExecutor {
 			break;
 			
 			case attesaConfermaFineEsercizioOK:
-			state=state.bilancioAperto;
+			state=StatiGestoreBilancio.bilancioAperto;
 			if (b){
 				bilancio.terminaEsercizio();
 			}

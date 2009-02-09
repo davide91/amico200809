@@ -23,13 +23,10 @@ import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
 import datatype.CodiceFiscale;
-import datatype.DatiCorretti;
-import datatype.DatiErrati;
 import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
 import datatype.DatiPersonaGiuridica;
 import datatype.Email;
-import datatype.EsitoControlloDati;
 import datatype.EsitoControlloDatiPersona;
 import datatype.Indirizzo;
 import datatype.PartitaIva;
@@ -46,9 +43,11 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 
 	private GestorePersone GP;
 	private Persona persona;
+	private AccedereCondominioAperto ACA;
 	
 	
-	public ModificarePersona(Persona p){
+	public ModificarePersona(Persona p,AccedereCondominioAperto aca){
+		ACA=aca;
 		this.GP=GestorePersone.getInstance();
 		persona=p;
 		initComponents();
@@ -157,6 +156,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 
 	
 	public void ok() {
+		ACA.setVisible(true);
 		GP.procedi(true);
 		this.dispose();
 	}
@@ -164,8 +164,9 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	
 
 	public void ko() {
-		GP.procedi(false);
+		 GP.procedi(false);
 		 JOptionPane.showMessageDialog(this, "dati non modificati");
+		 ACA.setVisible(true);
 		 this.dispose();
 	}
 
@@ -238,6 +239,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	
 
 	private void bannullaMouseMouseClicked(MouseEvent event) {
+		ACA.setVisible(true);
 		GP.annullato();
 		this.dispose();
 		

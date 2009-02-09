@@ -3,12 +3,11 @@
  */
 package boundary;
 
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import store.POJO.Bilancio;
 import datatype.list.VociBilancio;
 import executor.GestoreBilanci;
-import store.POJO.Bilancio;
 
 /**
  * @author Federico
