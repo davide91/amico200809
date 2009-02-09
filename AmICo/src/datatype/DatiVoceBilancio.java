@@ -41,6 +41,11 @@ public class DatiVoceBilancio {
 		this.titolo = titolo;
 	}
 
+	public void impostaDataPrevista(Data d)
+	{
+		dataPrevista = d;
+	}
+	
 	public TipoVoce getTipo() {
 		return tipo;
 	}

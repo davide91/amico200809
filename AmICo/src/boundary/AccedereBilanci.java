@@ -111,13 +111,14 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	public void aggiornaBilanci(Bilanci bil)
 	{
 			bilanci=bil;
 			DefaultListModel listModel = new DefaultListModel();
 			
 			for (Bilancio b : bilanci.getBilanci()) 
-				listModel.addElement(b.getDati().getTitolo() );
+				listModel.addElement(b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")" );
 
 			listaBilanci.setModel(listModel);
 	}
@@ -125,10 +126,10 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	private void listaListSelectionValueChanged(ListSelectionEvent event)
 	{
 	}
-	
+	@SuppressWarnings("deprecation")
 	private void bApriBilancioMouseMouseClicked(MouseEvent event) {
 		for (Bilancio b : bilanci.getBilanci()) {
-			if(b.getDati().getTitolo().equals( (String)listaBilanci.getSelectedValue()) )
+			if( (b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")").equals( (String)listaBilanci.getSelectedValue()) )
 			{
 				apriBilancio(b);
 			}
