@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,12 +16,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
+
+import sun.misc.Regexp;
 
 import datatype.DatiCondominio;
 import datatype.DatiTabellaMillesimale;
@@ -69,6 +71,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public void inserisciTabellaMillesimaleProprieta(DatiTabellaMillesimale dati, Millesimi millesimi) {
 		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,millesimi); 
 		state=StatiInserireNuovoCondominio.controlloTabellaMillesimaleProprieta;
+		
 	}
 	
 	
@@ -79,7 +82,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			{
 				state=StatiInserireNuovoCondominio.attesaConfermaDatiCondominio;
 				
-				c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				c = JOptionPane.showConfirmDialog(this, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				
 				if (c==0){
 					state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
@@ -93,7 +96,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			else
 			{
 				state=StatiInserireNuovoCondominio.base;	
-				JOptionPane.showMessageDialog(this, "Condominio gia' Presente");
+				JOptionPane.showMessageDialog(this, "Il condominio che si vuole inserire è gia' presente");
 			}
 			break;
 		case controlloTabellaMillesimaleProprieta:
@@ -141,6 +144,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void finito() {
 		state = StatiInserireNuovoCondominio.inserimentoTabellaMillesimale;
+	//	InserisciTabelleMillesimali ITM= new  InserisciTabelleMillesimali();
 		GestoreCondomini.getInstance().operazioneTerminata();
 	}
 
@@ -219,7 +223,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	private JLabel scrittacap;
 	private JButton annulla;
 	private JSeparator jSeparator0;
-//	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 
 	private void initComponents() {
@@ -241,22 +245,8 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		add(getScrittacomune(), new Constraints(new Leading(243, 171, 171), new Leading(31, 22, 55, 61)));
 		add(getProvincia(), new Constraints(new Leading(97, 134, 165, 165), new Leading(32, 22, 12, 12)));
 		setSize(492, 275);
-		
-		this.addWindowListener(new WindowAdapter() {  
-			 @Override  
-			 public void windowClosing(WindowEvent we) {  
-				 
-				 chiudiFinestra();
-				 
-			 	}  
-			 });   
 	}
 
-	private void chiudiFinestra()
-	{
-		this.annulla();// TODO
-		this.dispose(); 
-	}
 
 	private JSeparator getJSeparator0() {
 		if (jSeparator0 == null) {
@@ -360,7 +350,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		}
 		return via;
 	}
-/*
+
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -373,12 +363,12 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		}
 	}
 
-	*
+	/**
 	 * Main entry of the class.
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 
+	 */
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -389,7 +379,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 				frame.setVisible(true);
 			}
 		});
-	}*/
+	}
 
 
 }
