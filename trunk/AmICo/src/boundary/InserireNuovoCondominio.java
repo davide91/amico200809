@@ -82,7 +82,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			{
 				state=StatiInserireNuovoCondominio.attesaConfermaDatiCondominio;
 				
-				c = JOptionPane.showConfirmDialog(this, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				c = JOptionPane.showConfirmDialog(this, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				
 				if (c==0){
 					state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
@@ -104,7 +104,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			if (b)
 			{
 				state=StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale;
-				c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				c = JOptionPane.showConfirmDialog(this, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				if (c==0){
 // per ora niente
 				}
@@ -150,7 +150,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void ko() {
 		if (state==StatiInserireNuovoCondominio.attesaConfermaTabellaMillesimale)
-			JOptionPane.showMessageDialog(this, "Condominio non inserito");
+			JOptionPane.showMessageDialog(this, "Il condominio non e' stato inserito.");
 
 		GestoreCondomini.getInstance().procedi(false);
 		state=StatiInserireNuovoCondominio.base;
@@ -177,14 +177,14 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	{
 		try {
 		if(via.getText().equals(""))
-			JOptionPane.showMessageDialog(this,"inserire una via");
+			JOptionPane.showMessageDialog(this,"Inserimento Via obbligatorio");
 		else if(comune.getText().equals(""))
-			JOptionPane.showMessageDialog(this, "inserire un comune");
+			JOptionPane.showMessageDialog(this, "Inserimento Comune obbligatorio");
 
 		else 
 			if(cap.getText().equals("") || cap.getText().length()!=5)
 		
-			JOptionPane.showMessageDialog(this, "inserire CAP valido");
+			JOptionPane.showMessageDialog(this, "Inserimento CAP obbligatorio");
 			
 		else
 		{
@@ -201,7 +201,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		}
 		}
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "inserire CAP valido");
+			JOptionPane.showMessageDialog(this, "Il CAP inserito non e' valido");
 		}
 	}
 
