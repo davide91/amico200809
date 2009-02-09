@@ -10,7 +10,7 @@ public class DatiBilancio {
 
 	private TipoBilancio tipo;
 	private Data inizio;
-	private Data fine;
+	private Data fine = new Data();
 	private String titolo;
 	private String descrizione;
 	private StatoBilancio stato;
