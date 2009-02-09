@@ -116,7 +116,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			{
 				state=StatiInserireNuovoCondominio.base;
 				//AMM.mostra(TabellaMillesimaleInseritaKO):
-				JOptionPane.showMessageDialog(this, "tabella millesimale ko");
+				JOptionPane.showMessageDialog(this, "ATTENZIONE :\nI dati inseriti non sono validi.");
 			}
 			break;
 			
