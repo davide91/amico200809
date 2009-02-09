@@ -53,7 +53,11 @@ public class Condomini {
 		for(String id : listId)
 			for(Condominio c: condomini)
 				if (c.getDatiC().getId().equals(id))
+				{
 					newCondomini.add(c);
+					condomini.remove(c);
+				}
+					
 		
 		condomini = newCondomini;
 	}
