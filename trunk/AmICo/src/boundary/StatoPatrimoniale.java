@@ -42,6 +42,7 @@ public class StatoPatrimoniale extends JPanel {
 	}
 	
 	private void bInserisciVoceBilancioMouseMouseClicked(MouseEvent event) {
+		ABA.inserisci();
 	}
 
 	private void bEliminaVoceBilancioMouseMouseClicked(MouseEvent event) {

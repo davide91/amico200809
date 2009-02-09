@@ -3,11 +3,15 @@
  */
 package boundary;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import store.POJO.Bilancio;
+import datatype.DatiVoceBilancio;
 import datatype.list.VociBilancio;
+import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreBilanci;
+import executor.GestoreCondomini;
 
 /**
  * @author Federico
@@ -16,13 +20,14 @@ import executor.GestoreBilanci;
 
 public class AccedereBilancioAperto implements BaseBoundary{
 	
-		Bilancio bilancio;
-		JTabbedPane tab;
-		StatoPatrimoniale SP;
-		SpostamentiDiCassa SDC;
-		AccedereCondominioAperto ACA;
-		GestoreBilanci GB;
+		private Bilancio bilancio;
+		private JTabbedPane tab;
+		private StatoPatrimoniale SP;
+		private SpostamentiDiCassa SDC;
+		private AccedereCondominioAperto ACA;
+		private GestoreBilanci GB;
 	
+		private InserireNuovaVoceBilancio INVB;
 	
 		public AccedereBilancioAperto(GestoreBilanci gb,Bilancio bilancio,AccedereCondominioAperto aca) {
 			this.bilancio=bilancio;
@@ -48,11 +53,24 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void inserisci()
 		{
-			
+			INVB = new InserireNuovaVoceBilancio(this, GB);
 		}
 		
 		public void ammissibile(Boolean b) {
-			// TODO Auto-generated method stub
+			if(b)
+			{
+				int c = JOptionPane.showConfirmDialog(tab, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				
+				if (c==0){
+					ok();
+				}
+				else {
+					ko();
+				}
+			}	
+				else
+					JOptionPane.showMessageDialog(tab, "il nome della voce del bilancio e' gia presente");// a base
+			
 			
 		}
 
@@ -77,12 +95,14 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		}
 
 		public void ko() {
-			// TODO Auto-generated method stub
+			GB.procedi(false);//da attesaConfermaInserimentoDati a base
+			JOptionPane.showMessageDialog(tab, "Voce bilancio non inserita");
 			
 		}
 
 		public void ok() {
-			// TODO Auto-generated method stub
+			GB.procedi(true);//da attesaConfermaInserimentoDati a base
+			JOptionPane.showMessageDialog(tab, "Voce bilancio inserita");
 			
 		}
 
@@ -97,4 +117,9 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			// TODO Auto-generated method stub
 			
 		}
+		public void inserisciVoceBilancio(DatiVoceBilancio datiVoceBilancio)
+		{
+			GB.inserisciVoceBilancio(datiVoceBilancio);
+		}
+		
 }

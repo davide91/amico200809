@@ -1,11 +1,16 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Date;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -16,12 +21,58 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import datatype.Data;
+import datatype.DatiVoceBilancio;
+import datatype.Euro;
+
+import enumeration.TipoVoce;
+import executor.GestoreBilanci;
+
 /**
  * @author bruno
  *
  */
 public class InserireNuovaVoceBilancio extends JFrame {
 
+	private GestoreBilanci GB;
+	private AccedereBilancioAperto ABA;
+	
+	public InserireNuovaVoceBilancio() {
+		initComponents();
+		setVisible(true);
+		setTitle("Inserire Nuova Voce Bilancio");
+	}
+	
+	
+	public InserireNuovaVoceBilancio(AccedereBilancioAperto accedereBilancioAperto, GestoreBilanci gb2) {
+		ABA = accedereBilancioAperto;
+		GB = gb2;
+		initComponents();
+		setVisible(true);
+		setTitle("Inserire Nuova Voce Bilancio");
+	}
+	
+	private void bOkMouseMouseClicked(MouseEvent event) {
+		try{
+			DatiVoceBilancio dati = new DatiVoceBilancio();
+			dati.impostaDataPrevista((new Data(Integer.parseInt(giorno.getText()),Integer.parseInt(mese.getText()),Integer.parseInt(anno.getText()))));
+			dati.setDescrizione(descrizione.getText());
+			dati.setImporto(new Euro(Double.parseDouble(importo.getText())));
+			dati.setTipo((TipoVoce)tipo.getSelectedItem());
+			dati.setTitolo(titolo.toString());
+			ABA.inserisciVoceBilancio(dati);
+		}
+		catch(NumberFormatException nfe)
+		{
+			JOptionPane.showMessageDialog(this, "Dati in input errati!");
+		}
+	}
+
+	private void bAnnullaMouseMouseClicked(MouseEvent event) {
+		this.dispose();
+	}
+
+	
 	private static final long serialVersionUID = 1L;
 	private JButton bAnnulla;
 	private JButton bOk;
@@ -42,9 +93,6 @@ public class InserireNuovaVoceBilancio extends JFrame {
 	private JLabel jLabel6;
 	private JLabel jLabel5;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	public InserireNuovaVoceBilancio() {
-		initComponents();
-	}
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
@@ -65,7 +113,7 @@ public class InserireNuovaVoceBilancio extends JFrame {
 		add(getJLabel6(), new Constraints(new Leading(11, 107, 12, 12), new Leading(129, 26, 10, 10)));
 		add(getJLabel5(), new Constraints(new Leading(17, 65, 10, 10), new Leading(73, 26, 12, 12)));
 		add(getJLabel4(), new Constraints(new Leading(15, 65, 10, 10), new Leading(26, 26, 12, 12)));
-		setSize(400, 419);
+		setSize(400, 449);
 	}
 
 	private JLabel getJLabel5() {
@@ -131,7 +179,7 @@ public class InserireNuovaVoceBilancio extends JFrame {
 	private JComboBox getTipo() {
 		if (tipo == null) {
 			tipo = new JComboBox();
-			tipo.setModel(new DefaultComboBoxModel(new Object[] {}));
+			tipo.setModel(new DefaultComboBoxModel(TipoVoce.values()));
 			tipo.setDoubleBuffered(false);
 			tipo.setBorder(null);
 		}
@@ -197,6 +245,12 @@ public class InserireNuovaVoceBilancio extends JFrame {
 		if (bOk == null) {
 			bOk = new JButton();
 			bOk.setText("OK");
+			bOk.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bOkMouseMouseClicked(event);
+				}
+			});
 		}
 		return bOk;
 	}
@@ -205,6 +259,12 @@ public class InserireNuovaVoceBilancio extends JFrame {
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
 			bAnnulla.setText("Annulla");
+			bAnnulla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bAnnullaMouseMouseClicked(event);
+				}
+			});
 		}
 		return bAnnulla;
 	}
