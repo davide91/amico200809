@@ -193,7 +193,7 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
         jLabel1.setFont(new java.awt.Font("Dialog", 2, 24));
         jLabel1.setText("AmICo");
 
-        jLabel2.setText("Condomìni");
+        jLabel2.setText("Condomini");
 
         lista.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
