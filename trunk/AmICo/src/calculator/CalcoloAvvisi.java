@@ -4,30 +4,22 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
-
 import datatype.Avviso;
 import datatype.BilancioStatoAllerta;
 import datatype.CassaSottoSogliaMinima;
 import datatype.CondominiMorosi;
 import datatype.Data;
-import datatype.DatiPagamento;
 import datatype.DatiVoceBilancio;
 import datatype.Euro;
 import datatype.PagamentoInScadenza;
 import datatype.PagamentoScaduto;
-import datatype.Preferenze;
 import datatype.SpeseDaPagare;
 import datatype.list.Avvisi;
-import datatype.list.Bilanci;
 import datatype.list.Pagamenti;
-import datatype.list.VociBilancio;
 import store.POJO.Bilancio;
 import store.POJO.Cassa;
 import store.POJO.Condominio;
-import store.POJO.MovimentoCassa;
 import store.POJO.Pagamento;
 import store.POJO.VoceBilancio;
 
@@ -60,7 +52,7 @@ public class CalcoloAvvisi {
 		Data currData = 
 			new Data(
 					new Date(
-							GregorianCalendar.getInstance().getTime().getTime()));
+							Calendar.getInstance().getTime().getTime()));
 		int ritardo;
 		try {
 		 ritardo= m_condominio.getPreferenze().getRitardoAmmesso();
@@ -115,21 +107,21 @@ public class CalcoloAvvisi {
 			sogliaMin= m_condominio.getPreferenze().getSogliaMinimaCassa();
 		}
 		catch (NullPointerException npe) {
-			sogliaMin=new Euro((float)0.0);
+			sogliaMin=new Euro(5000,0);
 		}
 		
-		Euro totaleCasse = new Euro();
+		Euro totaleCasse = new Euro(0,0);
 		Iterator<Cassa> cassaIter = m_condominio.getCassa().iterator();
 		while(cassaIter.hasNext())
 		{
 			Cassa c = cassaIter.next();
-			totaleCasse.aggiungi(c.getSaldo().getEuro());
-			if( c.getSaldo().getEuro() < sogliaMin.getEuro() )
+			totaleCasse.somma(c.getSaldo());
+			if( c.getSaldo().minoreDi(sogliaMin) )
 			{
 				/* FIXME : Cassa.toString() per identificare una cassa dall'altra */
 				try{
 					CassaSottoSogliaMinima avviso = new CassaSottoSogliaMinima(c.toString(),	c.getSaldo(), sogliaMin);
-					m_avvisi.add((Avviso)avviso);
+					m_avvisi.add(avviso);
 				}
 				catch(NoSuchElementException nsee)
 				{
@@ -182,7 +174,7 @@ public class CalcoloAvvisi {
 			while(vociIter.hasNext())
 			{
 				DatiVoceBilancio dati = vociIter.next().getDati();
-				totaleImporti.aggiungi(dati.getImporto().getEuro());
+				totaleImporti.somma(dati.getImporto());
 			}
 		}
 		
