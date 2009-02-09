@@ -3,6 +3,7 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.GregorianCalendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -44,9 +45,10 @@ public class InserireNuovoBilancio extends JFrame {
 		dati.setStato((StatoBilancio)stato.getSelectedItem());// probabilmente non ci va ci sara' uno stato iniziale
 
 		dati.impostaDataInizio(new Data());
-
-	//	dati.setFine(new Date( (new GregorianCalendar()).getTimeInMillis() ) );
-	//	JOptionPane.showMessageDialog(this,"" +(new GregorianCalendar()).getTimeInMillis());
+		
+		Data fine = new Data();
+		fine.add(GregorianCalendar.DAY_OF_MONTH, -1);
+		dati.impostaDataFine(fine);
 		
 		AB.inserisciBilancio(dati);
 		this.dispose();

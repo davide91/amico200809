@@ -51,7 +51,7 @@ public class Data {
 	}
 
 	public Data() {
-		
+		m_data = new GregorianCalendar();
 	}
 
 	public void setCalendar(GregorianCalendar calendar) {
@@ -95,6 +95,6 @@ public class Data {
 	
 	public void add(int field, int amount)
 	{
-		m_data.add(field,amount);
+		m_data.add(field, amount);
 	}
 }

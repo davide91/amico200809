@@ -33,6 +33,7 @@ public class Condomini {
 	}
 
 	public List<Condominio> getCondomini() {
+		sortingByID();
 		return condomini;
 	}
 

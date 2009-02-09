@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -246,8 +248,20 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		add(getScrittacomune(), new Constraints(new Leading(243, 171, 171), new Leading(31, 22, 55, 61)));
 		add(getProvincia(), new Constraints(new Leading(97, 134, 165, 165), new Leading(32, 22, 12, 12)));
 		setSize(492, 275);
+		this.addWindowListener(new WindowAdapter() {  
+			 public void windowClosing(WindowEvent we) {  
+				 
+				 chiudiFinestra();
+				 
+			 	}  
+			 });  
 	}
 
+	private void chiudiFinestra()
+	{
+		this.annulla();// TODO
+		this.dispose(); 
+	}
 
 	private JSeparator getJSeparator0() {
 		if (jSeparator0 == null) {
