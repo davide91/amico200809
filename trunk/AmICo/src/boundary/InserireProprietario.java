@@ -3,6 +3,8 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -135,6 +137,19 @@ public class InserireProprietario extends JFrame {
 		add(getJLabel1(), new Constraints(new Leading(326, 12, 12), new Leading(20, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(43, 179, 12, 12), new Leading(20, 12, 12)));
 		setSize(602, 197);
+		this.addWindowListener(new WindowAdapter() {  
+	   		 @Override  
+	   		 public void windowClosing(WindowEvent we) {  
+	   			if(click)
+	   			{
+	   				if(AP!=null)
+	   					AP.aggiornaTabella(null,0);
+	   				if(AP2!=null)
+	   					AP2.aggiornaTabella(null,0);
+	   				dispose();
+	   			}}  
+	   		 }); 
+		
 	}
 
 

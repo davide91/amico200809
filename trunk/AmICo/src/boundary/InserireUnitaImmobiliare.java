@@ -3,6 +3,8 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -168,6 +170,15 @@ public class InserireUnitaImmobiliare extends JFrame{
 		add(getPosizioneInterna(), new Constraints(new Leading(600, 160, 10, 10), new Leading(50, 23, 12, 12)));
 		this.setSize(792, 182);
 		setVisible(true);
+		this.addWindowListener(new WindowAdapter() {  
+	   		 @Override  
+	   		 public void windowClosing(WindowEvent we) {  
+	   			CUI.setVisible(true);
+	   			dispose();
+	   		 	}  
+	   		 }); 
+		
+		
 	}
 
 	private JComboBox getCategoria() {
