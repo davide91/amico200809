@@ -65,7 +65,7 @@ public class StatoPatrimoniale extends JPanel {
 		
 		for (VoceBilancio v : vb.getVoci())
 		{
-			if(v.getDati().getTipo() == TipoVoce.Incasso)
+			if(v.getDati().getTipo() == TipoVoce.incasso)
 			{
 				dmAttivo.addRow(new Object[]{v.getDati().getTitolo(),v.getDati().getImporto().toString(),new JRadioButton()});
 				buttonGroup.add((JRadioButton)dmAttivo.getValueAt(countAttivo, 2));

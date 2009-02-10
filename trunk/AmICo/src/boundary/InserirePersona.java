@@ -48,6 +48,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		initgroup();
 		
 		this.GP=GestorePersone.getInstance();
+		
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	

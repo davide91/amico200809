@@ -67,8 +67,9 @@ public class AccedereProprietari2 extends JFrame {
 			proprietari.inserisciPersona(prop.getProprietario());
 		}
 		 aggiornaTabella(null,0);
-		
-		this.setVisible(true);		
+		 
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);	
 		this.setTitle("Proprietari");
 	}
 

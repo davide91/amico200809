@@ -40,8 +40,9 @@ public class InserireProprietario extends JFrame {
 		AP2=null;
 		click=true;
 		initComponents();
-		this.setVisible(true);
+		this.setLocationRelativeTo(null);
 		this.setTitle("Inserire proprietario");
+		this.setVisible(true);
 	}
 	
 	
@@ -51,8 +52,9 @@ public class InserireProprietario extends JFrame {
 		AP=null;
 		click=true;
 		initComponents();
-		this.setVisible(true);
+		this.setLocationRelativeTo(null);
 		this.setTitle("Inserire proprietario");
+		this.setVisible(true);
 	}
 	
 	public void aggiornaPersone(Persone per)

@@ -106,6 +106,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			interno.setEditable(false);
 		}
 		
+		setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setTitle("dati persona");
 	}

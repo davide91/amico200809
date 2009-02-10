@@ -33,6 +33,7 @@ public class InserireNuovoBilancio extends JFrame {
 		ACA=aca;
 		initComponents();
 		setTitle("Redigendo bilancio");
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	

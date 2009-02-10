@@ -58,6 +58,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 
 		persone=p;
 
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setTitle("Inserimento unita' immobiliari");
 	}
