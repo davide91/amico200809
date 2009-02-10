@@ -134,6 +134,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		if (besportarecondominio == null) {
 			besportarecondominio = new JButton();
 			besportarecondominio.setText("Esportare Condominio");
+			besportarecondominio.setEnabled(false);
 			besportarecondominio.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
