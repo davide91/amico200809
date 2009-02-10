@@ -3,7 +3,6 @@ package boundary;
 
 // questa classe si dovrebbe chiamare AccedereCondomini ma per motivi di ambiguita' si e' cambiato in AccederePersone
 
-import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -13,13 +12,11 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -214,17 +211,14 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	
 	private static final long serialVersionUID = 1L;
 	private JButton bvisualizza;
-	private JLabel jLabel0;
 	private JTable table;
 	private JScrollPane jScrollPane0;
-
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
 	//	add(getBvisualizza(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 80, 236)));
-		add(getBvisualizza(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
+		add(getBvisualizza(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));// oppure new Constraints(new Leading(200, 20, 20), new Leading(12, 12, 12)) 
 	//	add(getJLabel0(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
 		add(getJScrollPane0(),  new Constraints(new Leading(15, 600, 10, 10), new Leading(50, 400, 10, 10)));
 		setSize(543, 500);
@@ -312,15 +306,6 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		return table ;
 	}
 
-	private JLabel getJLabel0() {
-		if (jLabel0 == null) {
-			jLabel0 = new JLabel();
-			jLabel0.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel0.setText("Elenco dei condomini");
-		}
-		return jLabel0;
-	}
-
 	private JButton getBvisualizza() {
 		if (bvisualizza == null) {
 			bvisualizza = new JButton();
@@ -333,18 +318,5 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 			});
 		}
 		return bvisualizza;
-	}
-
-	@SuppressWarnings("unused")
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
 	}
 }

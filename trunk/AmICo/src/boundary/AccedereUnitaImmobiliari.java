@@ -204,10 +204,9 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 183, 10, 10)));
-		add(getBVisualizzaProprietari(), new Constraints(new Leading(177, 10, 10), new Leading(213, 12, 12)));
+		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Leading(12, 380, 10, 10)));
+		add(getBVisualizzaProprietari(), new Constraints(new Leading(200, 10, 10), new Leading(400, 12, 12)));
 
-	
 		initGroup();
 		setSize(322, 256);
 	}
