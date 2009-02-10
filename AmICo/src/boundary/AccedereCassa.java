@@ -45,6 +45,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		m_gestoreCassa = gestoreCassa;
 		
 		initComponents();
+		aggiornaTabella();
 		
 		scritta.setText("Saldo cassa al "+g.get(GregorianCalendar.DAY_OF_MONTH)+"/"+(g.get(GregorianCalendar.MONTH)+1)+"/"+g.get(GregorianCalendar.YEAR) );
 		saldo.setText(cassa.getSaldo().getEuroIntero()+","+cassa.getSaldo().getCent());
@@ -70,10 +71,10 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		DefaultTableModel dm = new DefaultTableModel();
 		
 
-		dm.setDataVector(new String[][]{},new String[]{"Importo", "Tipo","Data" ,"Motivazione"});
-		dm.addRow(new Object[]{"-50","","",""});
-		dm.addRow(new Object[]{"30","","",""});
-		dm.addRow(new Object[]{"0","","",""});
+		dm.setDataVector(new String[][]{},new String[]{"Tipo","Importo","Data" ,"Motivazione"});
+		dm.addRow(new Object[]{"Spesa","50","",""});
+		dm.addRow(new Object[]{"Incasso","30","",""});
+		dm.addRow(new Object[]{"Spesa","0","",""});
 		
 		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
 		{
