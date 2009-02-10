@@ -222,7 +222,7 @@ public class AccedereProprietari extends JFrame {
 	private void bAnnulla() {
 			GestoreCondomini.getInstance().operazioneAnnullata();
 			CUI.setVisible(true);
-			CUI.
+			CUI.annulla();
 			this.dispose();
 	}
 

@@ -37,7 +37,7 @@ import executor.GestorePersone;
  * @author Federico
  *
  */
-public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone {
+public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone,BaseBoundary {
 
 	private ButtonGroup group;
 	private UnitaImmobiliari unitaImmobiliari;
@@ -166,6 +166,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 
 	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati) {
 		this.state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
+		INC.inserisciUnitaImmobiliare();
 		GestoreCondomini.getInstance().passaDatiUnitaImmobliare(dati);
 	}
     
@@ -198,7 +199,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	
 	private void bContinuaMouseMouseClicked(MouseEvent event) {
 		if(unitaImmobiliari.getImmobili().size()<2)
-			JOptionPane.showMessageDialog(this, "devi inserire almeno 2 unita' immobiliari");
+			JOptionPane.showMessageDialog(this, "Devi inserire almeno 2 unita' immobiliari");
 		else {
 			int c = JOptionPane.showConfirmDialog(this, "Attenzione stai terminando l'operazione di inserimento di unita' immobiliari.\n Dopo non sara' piu' possibile aggiungerne altre  vuoi continuare?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			if(c==0)
@@ -211,7 +212,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 
 	public void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
 		state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
-		INC.inserisciUnitaImmobiliare();
+		//INC.inserisciUnitaImmobiliare();
 		IUI = new InserireUnitaImmobiliare(this/*,persone*/);
 		this.setVisible(false);
 	}
@@ -368,27 +369,31 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		}
 	}
 
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				ConfermaUnitaImmobiliari frame = new ConfermaUnitaImmobiliari();
-				frame.setTitle("ConfermaUnitaImmobiliari");
-			//	frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
+	public void ammissibile(Boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
-*/
 
+	public void annulla() {
+		switch(state)
+		{
+		case inserimentoProprietari:
+				state = StatiConfermaUnitaImmobiliari.base;
+			break;
+			default:
+				INC.annulla();
+			break;
+				
+		}
+	}
 
+	public void fallito() {
+		// TODO Auto-generated method stub
+		
+	}
 
-
+	public void finito() {
+		// TODO Auto-generated method stub
+		
+	}
 }

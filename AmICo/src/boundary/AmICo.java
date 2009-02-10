@@ -76,8 +76,6 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 		setTitle("AmICo");
 		setLocationRelativeTo(null);
 		setVisible(true);
-
-
 	}
 
 	public void selezioneFile(Path path) {

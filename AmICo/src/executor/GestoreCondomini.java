@@ -105,13 +105,24 @@ public class GestoreCondomini implements BaseExecutor {
 		m_condominio.inserisciUnitaImmobiliare(m_unitaImmobiliare);	
 	}
 	
-	public void operazioneAnnullata() {
-		m_state = StatiGestoreCondominio.gestoreCondomini;
+	public void operazioneAnnullata() {	
+		switch(m_state)
+		{
+			case inserimentoProprieta:
+				m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
+				m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
+				m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
+				break;
+			default:
+				m_state = StatiGestoreCondominio.gestoreCondomini;
 
-		if (m_condominio != null) 
-			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
-		m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
-		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
+			if (m_condominio != null) 
+				TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
+				m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
+			break;
+		}
+		
+	
 	}
 	
 	public void operazioneTerminata() {
