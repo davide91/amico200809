@@ -73,7 +73,6 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public void inserisciTabellaMillesimaleProprieta(DatiTabellaMillesimale dati, Millesimi millesimi) {
 		GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,millesimi); 
 		state=StatiInserireNuovoCondominio.controlloTabellaMillesimaleProprieta;
-		
 	}
 	
 	

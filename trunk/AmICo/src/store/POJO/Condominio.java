@@ -105,7 +105,7 @@ public class Condominio {
 			}
 			unitaImmobiliari.remove(uImm);
 			session.delete(uImm);
-						
+			
 		session.getTransaction().commit();
 	}
 	

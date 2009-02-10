@@ -40,13 +40,10 @@ import executor.GestoreCondomini;
 */
 public class InserireUnitaImmobiliare extends JFrame{
 
-//	private UnitaImmobiliari unitaImmobiliari;
-	//private Persone persone;
 	private ConfermaUnitaImmobiliari CUI;
 	
 	public InserireUnitaImmobiliare(ConfermaUnitaImmobiliari conf/*, Persone persone*/)
 	{
-		//this.persone=persone;
 		this.CUI=conf;
 		initComponents();
 	}
@@ -55,24 +52,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 		CUI.inserisciDatiUnitaUImmobiliare(dati);
 	}
 	
-	/*public void inserisciNuovaPersona(){
-		state= StatiInserireUnitaImmobiliari.inserimentoNuovaPersona;
-		GestorePersone.getInstance().inserisciPersona(this);
-		
-	}
-	
-	public void specificaProprietari(Persone persone, Percentuali percentuali){
-		if (proprietaOK(persone, percentuali)){
-			state=StatiInserireUnitaImmobiliari.attesaConfermaProprieta;
-			GestoreCondomini.getInstance().passaProprieta(persone, percentuali);
-			//AMM.richiestaConferma();
-		}
-		else {
-			//AMM.mostra(proprietaKO);
-		}
-	}
-
-*/
 	public void ammissibile(Boolean b) {
 		if (b){
 			CUI.creaAccedereProprietari();
@@ -85,8 +64,8 @@ public class InserireUnitaImmobiliare extends JFrame{
 	}
 
 	public void annulla() {
-		// TODO Auto-generated method stub
-		
+		CUI.setVisible(true);
+		dispose();
 	}
 
 	public void fallito() {
@@ -110,7 +89,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 
 	public void ok() {
 		GestoreCondomini.getInstance().procedi(true);
-		//AMM.mostra(unitaImmobiliareInseritaOK);
 	}
 
 	public void aggiornaPersona(Persona persona) {
@@ -132,8 +110,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 	}
 	
 	private void annullaMouseMouseClicked(MouseEvent event) {
-		CUI.setVisible(true);
-		dispose();
+		annulla();
 	}
 	
 	private static final long serialVersionUID = 1L;
