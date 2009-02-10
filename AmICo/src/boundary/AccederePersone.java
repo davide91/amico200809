@@ -226,7 +226,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	//	add(getBvisualizza(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 80, 236)));
 		add(getBvisualizza(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
 	//	add(getJLabel0(), new Constraints(new Bilateral(110, 109, 181), new Leading(12, 48, 48)));
-		add(getJScrollPane0(), new Constraints(new Bilateral(12, 12, 22), new Bilateral(42, 54, 26)));
+		add(getJScrollPane0(),  new Constraints(new Leading(15, 600, 10, 10), new Leading(50, 400, 10, 10)));
 		setSize(543, 500);
 	}
 

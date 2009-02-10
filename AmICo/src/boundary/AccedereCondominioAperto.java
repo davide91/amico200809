@@ -115,7 +115,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getScrittaavvisi(), new Constraints(new Leading(119, 41, 10, 10), new Leading(92, 36, 54, 315)));
 		add(getPannello(), new Constraints(new Leading(50,800, 10, 10), new Bilateral(155, 42, 10)));
 		setJMenuBar(getJMenuBar0());
-		setSize(874, 800);
+		setSize(874, 750);
 		
 		this.addWindowListener(new WindowAdapter() {  
 		 @Override  
@@ -371,7 +371,8 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private void bpagamentiMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
-		this.passaAPagamenti();
+		//this.passaAPagamenti();
+		pannello.add(new NotYetImplemented());
 		pannello.revalidate();
 		pannello.repaint();
 		
@@ -379,6 +380,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private void breportMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
+		pannello.add(new NotYetImplemented());
 		pannello.revalidate();
 		pannello.repaint();
 		// TODO
@@ -386,6 +388,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private void barchiviobilanciMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
+		pannello.add(new NotYetImplemented());
 		pannello.revalidate();
 		pannello.repaint();
 		// TODO
