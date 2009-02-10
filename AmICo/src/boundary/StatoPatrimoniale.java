@@ -135,7 +135,6 @@ public class StatoPatrimoniale extends JPanel {
 	private JButton bModificaVoceBilancio;
 	private JButton bEliminaVoceBilancio;
 	private JButton bChiudiBilancio;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 
 	private void initComponents() {

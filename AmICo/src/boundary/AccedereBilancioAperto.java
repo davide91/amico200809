@@ -40,8 +40,8 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			
 			SP=new StatoPatrimoniale(this);
 			SDC=new SpostamentiDiCassa(this);
-			
-			SP.aggiorna(bilancio.recuperaVociBilancio());
+			if(bilancio!=null)
+				SP.aggiorna(bilancio.recuperaVociBilancio());
 			
 			tab=new JTabbedPane();
 			tab.addTab("Stato partimoniale", SP);
