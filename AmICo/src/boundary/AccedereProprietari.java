@@ -59,38 +59,11 @@ public class AccedereProprietari extends JFrame {
 		CUI=cui;
 		click=true;
 		aggiungibile=true;
-	//	nomeUnita.setText(unita.getDatiUnitaImmobiliare().getId());
 
 		this.setVisible(true);		
 		this.setTitle("Inserimento proprietari");
 	}
 
-/*	public AccedereProprietari() {
-		initComponents();
-	}
-	
-	public AccedereProprietari(Persone persone) {
-		this.persone=persone;
-		initComponents();
-		initGroup();
-		//aggiornaTabella(unita);
-		this.setVisible(true);		
-		this.setTitle("Inserimento proprietari");
-		
-	}
-/*
-	public AccedereProprietari(UnitaImmobiliare immobiliare,Persone recuperaPersone) {
-		initComponents();
-		initGroup();
-		unita=immobiliare;
-		persone=recuperaPersone;
-		nomeUnita.setText(unita.getDatiUnitaImmobiliare().getId());
-
-		aggiornaTabella(unita);
-		this.setVisible(true);		
-		this.setTitle("Inserimento proprietari");
-	}
-*/
 	private void initGroup() {
 		group = new ButtonGroup();
 	}
