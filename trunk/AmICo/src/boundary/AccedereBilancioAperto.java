@@ -7,8 +7,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import store.POJO.Bilancio;
+import store.POJO.VoceBilancio;
 import datatype.DatiVoceBilancio;
 import datatype.list.VociBilancio;
+import enumeration.StatiAccedereBilancioAperto;
 import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreBilanci;
 import executor.GestoreCondomini;
@@ -27,9 +29,11 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		private AccedereCondominioAperto ACA;
 		private GestoreBilanci GB;
 	
+		private StatiAccedereBilancioAperto state;
 		private InserireNuovaVoceBilancio INVB;
 	
 		public AccedereBilancioAperto(GestoreBilanci gb,Bilancio bilancio,AccedereCondominioAperto aca) {
+			state = StatiAccedereBilancioAperto.base;
 			this.bilancio=bilancio;
 			ACA=aca;
 			GB=gb;
@@ -55,23 +59,59 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void inserisci()
 		{
+			state = StatiAccedereBilancioAperto.controllaDatiVoceBilancio;
 			INVB = new InserireNuovaVoceBilancio(this, GB);
 		}
 		
 		public void ammissibile(Boolean b) {
-			if(b)
+			switch(state)
 			{
-				int c = JOptionPane.showConfirmDialog(tab, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				case controllaDatiVoceBilancio:
+					if(b)
+					{
+						int c = JOptionPane.showConfirmDialog(tab, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						
+						if (c==0){
+							ok();
+							
+						}
+						else {
+							ko();
+							JOptionPane.showMessageDialog(tab, "Voce bilancio non inserita");
+						}
+					}	
+					else
+						JOptionPane.showMessageDialog(tab, "il nome della voce del bilancio e' gia presente");// a base
+				break;
+			
+				case verificaEliminazione:
+					if(b)
+					{
+						int c = JOptionPane.showConfirmDialog(tab, "Sei sicuro?\nSe si conferma i dati verranno eliminati dal sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						
+						if (c==0){
+							ok();
+							state = StatiAccedereBilancioAperto.base;
+							JOptionPane.showMessageDialog(tab, "Voce di bilancio eliminata");// a base
+						}
+						else {
+							ko();
+							state = StatiAccedereBilancioAperto.base;
+							JOptionPane.showMessageDialog(tab, "Voce di bilancio non eliminata");// a base
+						}
+						
+					}
+					else
+					{
+						state = StatiAccedereBilancioAperto.base;
+						JOptionPane.showMessageDialog(tab, "Voce di Bilancio gia' registrata in cassa. ");// a base
+					}
 				
-				if (c==0){
-					ok();
-				}
-				else {
-					ko();
-				}
-			}	
-			else
-				JOptionPane.showMessageDialog(tab, "il nome della voce del bilancio e' gia presente");// a base
+			
+				break;
+			}
+			
+			
 		}
 
 		public void annulla() {
@@ -97,7 +137,6 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void ko() {
 			GB.procedi(false);//da attesaConfermaInserimentoDati a base
-			JOptionPane.showMessageDialog(tab, "Voce bilancio non inserita");
 			INVB.dispose();
 		}
 
@@ -111,13 +150,18 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void aggiornaSpeseDaPagare(Object calcolaSpeseDaPagare) {
 							// dovrebbe prendere un RapportoPagamenti al posto di object
-			
 			// TODO Auto-generated method stub
 			
 		}
 		public void inserisciVoceBilancio(DatiVoceBilancio datiVoceBilancio)
 		{
 			GB.inserisciVoceBilancio(datiVoceBilancio);
+		}
+		
+		public void eliminaVoceBilancio(VoceBilancio vb)
+		{
+			state = StatiAccedereBilancioAperto.verificaEliminazione;
+			GB.eliminaVoceBilancio(vb);
 		}
 		
 }

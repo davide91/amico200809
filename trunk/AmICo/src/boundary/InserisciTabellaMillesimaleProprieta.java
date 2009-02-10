@@ -132,7 +132,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		{
 			if(dm.getValueAt(i,1)=="")
 			{
-				JOptionPane.showMessageDialog(this, "inserire prima tutti i millesimi");
+				JOptionPane.showMessageDialog(this, "Inserire prima tutti i millesimi");
 				return;
 			}
 
@@ -143,8 +143,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		} 
 		m.setListaMillesimi(lista);
 		
-		if(m.somma()==1000)
-		{		
+	//	if(m.somma()==1000)
+	//	{		
 			if(nome.getText()=="")
 				JOptionPane.showMessageDialog(this, "inserire prima il nome");
 			else if (descrizione.getText()=="") 				
@@ -157,7 +157,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 				GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(dati,m);
 			}
 
-			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int c = JOptionPane.showConfirmDialog(this, "La somma delle tabelle risulta "+m.somma()+". \n Inserire?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
 			if (c==0)
 				{
@@ -167,8 +167,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 				}
 			else GestoreCondomini.getInstance().procedi(false);
 
-		}
-		else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
+	//	}
+	//	else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
 			
 		
 	}

@@ -107,6 +107,7 @@ public class SpostamentiDiCassa extends JPanel {
 				}
 			});
 		}
+		spese.setAutoCreateRowSorter(true);
 		return spese;
 	}
 

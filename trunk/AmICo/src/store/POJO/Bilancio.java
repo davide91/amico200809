@@ -83,6 +83,7 @@ public class Bilancio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 			voci.remove(vb);
+			session.update(this);
 		session.getTransaction().commit();
 	}
 	

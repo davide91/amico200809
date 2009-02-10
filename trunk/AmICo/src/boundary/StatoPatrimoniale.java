@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -31,6 +33,7 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import datatype.list.VociBilancio;
+import enumeration.StatiAccedereUnitaImmobiliari;
 import enumeration.TipoVoce;
 
 import store.POJO.Millesimo;
@@ -92,10 +95,11 @@ public class StatoPatrimoniale extends JPanel {
 		
 		jTablePassivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		jTablePassivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+		jTablePassivo.setAutoCreateRowSorter(true);
 		
 		jTableAttivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		jTableAttivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
-		
+		jTableAttivo.setAutoCreateRowSorter(true);
 	}
 	
 	
@@ -104,6 +108,21 @@ public class StatoPatrimoniale extends JPanel {
 	}
 
 	private void bEliminaVoceBilancioMouseMouseClicked(MouseEvent event) {
+		
+		//cerco la voce di bilancio selezionata
+		int i;
+		boolean trovato = false;
+		Enumeration e= buttonGroup.getElements();
+		for (i=0; e.hasMoreElements();i++ )
+	       if ( ((JRadioButton)e.nextElement()).getModel() == buttonGroup.getSelection()) 
+	       {
+	    	   trovato = true;
+	       	   ABA.eliminaVoceBilancio(vb.getVoci().get(i));
+	       	   break;
+	       }
+		
+		if(!trovato)
+			JOptionPane.showMessageDialog(this, "Selezionare prima la voce desiderata");
 	}
 
 	private void bModificaVoceBilancioMouseMouseClicked(MouseEvent event) {

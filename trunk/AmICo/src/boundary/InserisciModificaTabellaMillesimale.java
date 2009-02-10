@@ -189,9 +189,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		} 
 		m.setListaMillesimi(lista);
 		
-		if(m.somma()==1000)
-		{		
-			if(nome.getText()=="")
+		if(nome.getText()=="")
 				JOptionPane.showMessageDialog(this, "inserire prima il nome");
 			else if (descrizione.getText()=="") 				
 				JOptionPane.showMessageDialog(this, "inserire prima la descrizione della tabella millesimale");
@@ -200,13 +198,18 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 				DatiTabellaMillesimale dati= new DatiTabellaMillesimale();
 				dati.setNome(nome.getText());
 				dati.setDescrizione(descrizione.getText());
-				if(tabellaMillesimale==null)
-					ATM.inserisciTabellaMillesimale(dati,m);
-				else
-					ATM.modificaTabellaMillesimale(tabellaMillesimale, getDescrizione().getText(), lista);
+				
+				int c = JOptionPane.showConfirmDialog(this, "La somma delle tabelle risulta "+m.somma()+". \n Inserire?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				
+				if (c==0)
+				{
+					if(tabellaMillesimale==null)
+						ATM.inserisciTabellaMillesimale(dati,m);
+					else
+						ATM.modificaTabellaMillesimale(tabellaMillesimale, getDescrizione().getText(), lista);
+					
+				}
 			}
-		}
-		else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
 	}
 	
 	private void annullaMouseMouseClicked(MouseEvent event)

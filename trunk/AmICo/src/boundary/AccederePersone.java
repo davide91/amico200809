@@ -308,6 +308,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 		}
+		  table.setAutoCreateRowSorter(true);
 		return table ;
 	}
 
