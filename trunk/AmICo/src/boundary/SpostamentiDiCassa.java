@@ -74,12 +74,12 @@ public class SpostamentiDiCassa extends JPanel {
 		add(getJSeparator1(), new Constraints(new Leading(-4, 456, 10, 10), new Leading(362, 18, 10, 10)));
 		add(getJScrollPane0(), new Constraints(new Leading(6, 212, 12, 12), new Leading(43, 313, 12, 12)));
 		add(getJLabel1(), new Constraints(new Bilateral(297, 70, 82), new Leading(15, 12, 12)));
-		add(getJLabel0(), new Constraints(new Leading(72, 80, 158, 158), new Leading(16, 22, 12, 12)));
 		add(getJScrollPane1(), new Constraints(new Leading(229, 214, 10, 10), new Leading(44, 312, 12, 12)));
 		add(getBEliminaVoceBilancio(), new Constraints(new Leading(6, 212, 12, 12), new Leading(421, 10, 10)));
 		add(getBInserisciVoceBilancio(), new Constraints(new Leading(6, 212, 12, 12), new Leading(380, 12, 12)));
 		add(getBChiudiBilancio(), new Constraints(new Leading(230, 212, 12, 12), new Leading(421, 12, 12)));
 		add(getBModificaVoceBilancio(), new Constraints(new Leading(230, 212, 12, 12), new Leading(379, 12, 12)));
+		add(getJLabel0(), new Constraints(new Leading(63, 120, 10, 10), new Leading(16, 22, 12, 12)));
 		setSize(457, 468);
 	}
 
@@ -206,8 +206,8 @@ public class SpostamentiDiCassa extends JPanel {
 	private JLabel getJLabel1() {
 		if (jLabel1 == null) {
 			jLabel1 = new JLabel();
-			jLabel1.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 18));
-			jLabel1.setText("Spese");
+			jLabel1.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
+			jLabel1.setText("SPESE");
 		}
 		return jLabel1;
 	}
@@ -215,8 +215,8 @@ public class SpostamentiDiCassa extends JPanel {
 	private JLabel getJLabel0() {
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
-			jLabel0.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 18));
-			jLabel0.setText("Incassi");
+			jLabel0.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
+			jLabel0.setText("INCASSI");
 		}
 		return jLabel0;
 	}
