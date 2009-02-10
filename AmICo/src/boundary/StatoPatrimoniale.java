@@ -1,19 +1,15 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
-import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,8 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,14 +26,9 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import datatype.list.VociBilancio;
-import enumeration.StatiAccedereUnitaImmobiliari;
-import enumeration.TipoVoce;
-
-import store.POJO.Millesimo;
-import store.POJO.TabellaMillesimale;
-import store.POJO.UnitaImmobiliare;
 import store.POJO.VoceBilancio;
+import datatype.list.VociBilancio;
+import enumeration.TipoVoce;
 
 /**
  * @author Federico
@@ -244,6 +233,8 @@ public class StatoPatrimoniale extends JPanel {
 			    {
 					super.tableChanged(e);
 			        repaint();
+			        if(jTableAttivo != null)
+			        	jTableAttivo.repaint();
 			    }
 		    };   
 		    jTablePassivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
@@ -267,16 +258,30 @@ public class StatoPatrimoniale extends JPanel {
 
 	private JTable getJTable0() {
 		if (jTableAttivo == null) {
-			jTableAttivo = new JTable();
-			jTableAttivo.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Title 0", "Title 1", }) {
+
+			DefaultTableModel dm = new DefaultTableModel();
+			
+			dm.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
+			
+			jTableAttivo = new JTable(dm)
+		    {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
-	
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
+
+				public void tableChanged(TableModelEvent e)
+			    {
+					super.tableChanged(e);
+			        repaint();
+			        if(jTablePassivo != null)
+			        	jTablePassivo.repaint();
+			    }
+		    };   
+		    jTableAttivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+		    jTableAttivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+
 		}
+		
+		
+		
 		return jTableAttivo;
 	}
 
@@ -312,7 +317,7 @@ public class StatoPatrimoniale extends JPanel {
 		}
 		return jLabel0;
 	}
-
+/**
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -325,12 +330,12 @@ public class StatoPatrimoniale extends JPanel {
 		}
 	}
 
-	/**
+	
 	 * Main entry of the class.
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -347,7 +352,7 @@ public class StatoPatrimoniale extends JPanel {
 			}
 		});
 	}
-
+ */
 
 
 
