@@ -101,6 +101,10 @@ public class UnitaImmobiliare {
 			quoteDiPossesso.clear();
 			
 			for (int i=0;i< pers.getPersone().size();i++) {
+				
+				if(!(this.condominio.recuperaCondomini().getPersone().contains(pers.getPersone().get(i))))
+					condominio.getPersone().add(pers.getPersone().get(i));
+				
 				Proprieta prop = new Proprieta();
 				prop.setProprietario(pers.getPersone().get(i));  // aggiungo il proprietario
 				prop.setQuota(quote.getListaQuote().get(i)); 	//aggiungo la quota

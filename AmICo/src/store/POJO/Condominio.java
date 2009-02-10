@@ -21,7 +21,7 @@ public class Condominio {
 
 	private long id;
 	private DatiCondominio datiC;
-	private Preferenze preferenze = new Preferenze((float)1.4,10,new Euro((float)1500.0));
+	private Preferenze preferenze = new Preferenze((float)5,4,new Euro((float)500.0));
 	private StatoCondominio statoCondominio;
 
 	protected Set<Cassa> cassa = new HashSet<Cassa>();
