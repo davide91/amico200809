@@ -57,6 +57,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		state=StatiAccedereTabelleMillesimali.base;
 		initComponents();
 		
+		setLocationRelativeTo(null);
 		setVisible(true);
 		this.setTitle("inserimento tabella millesimale");
 		m=new Millesimi();
@@ -76,6 +77,7 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		
 		descrizione.setText(t.getDati().getDescrizione());
 		
+		setLocationRelativeTo(null);
 		setVisible(true);
 		this.setTitle("modifica tabella millesimale");
 		m=new Millesimi();

@@ -46,6 +46,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 	{
 		this.CUI=conf;
 		initComponents();
+		setLocationRelativeTo(null);
 	}
 	
 	public void inserisciDatiUnitaUImmobiliare(DatiUnitaImmobiliare dati){

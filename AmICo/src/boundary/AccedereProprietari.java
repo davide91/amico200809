@@ -60,6 +60,7 @@ public class AccedereProprietari extends JFrame {
 		click=true;
 		aggiungibile=true;
 
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);		
 		this.setTitle("Inserimento proprietari");
 	}

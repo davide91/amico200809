@@ -53,6 +53,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 	public InserireNuovoCondominio() {
 		state=StatiInserireNuovoCondominio.base;
 		initComponents();
+		setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	

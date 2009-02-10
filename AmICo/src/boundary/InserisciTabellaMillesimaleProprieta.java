@@ -50,6 +50,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		state=StatiAccedereTabelleMillesimali.base;
 		initComponents();
 		
+		setLocationRelativeTo(null);
 		setVisible(true);
 		this.setTitle("inserimento tabella millesimale");
 		m=new Millesimi();
