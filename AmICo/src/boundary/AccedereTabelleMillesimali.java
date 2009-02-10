@@ -29,7 +29,6 @@ import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import datatype.DatiTabellaMillesimale;
 import datatype.list.Millesimi;
-import datatype.list.Percentuali;
 import datatype.list.TabelleMillesimali;
 import datatype.list.UnitaImmobiliari;
 import enumeration.StatiAccedereTabelleMillesimali;
@@ -58,7 +57,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	private JScrollPane jScrollPane0;
 	private JButton binseriscitabella;
 	private JSeparator jSeparator0;
-	
 	public AccedereTabelleMillesimali(GestoreCondominioAperto GCA, TabelleMillesimali tabelleMillesimali, UnitaImmobiliari unita)
 	{
 		this.tabelleMillesimali=tabelleMillesimali;
@@ -82,12 +80,12 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJScrollPane0(), new Constraints(new Leading(11, 108, 12, 12), new Leading(39, 199, 12, 12)));
-		add(getJLabel0(), new Constraints(new Leading(12, 140, 10, 10), new Leading(18, 10, 10)));
-		add(getMillesimi(), new Constraints(new Bilateral(131, 12, 22), new Leading(12, 226, 48, 48)));
+		add(getJLabel0(), new Constraints(new Leading(12, 500, 10, 10), new Leading(18, 10, 10)));
 		add(getJSeparator0(), new Constraints(new Bilateral(11, 12, 581), new Trailing(42, 10, 50, 250)));
 		add(getBmodificatabella(), new Constraints(new Trailing(12, 12, 12), new Trailing(12, 50, 250)));
 		add(getBinseriscitabella(), new Constraints(new Trailing(152, 12, 12), new Trailing(12, 50, 250)));
+		add(getJScrollPane0(), new Constraints(new Leading(12, 150, 10, 10), new Leading(35, 297, 10, 10)));
+		add(getMillesimi(), new Constraints(new Leading(168, 461, 12, 12), new Leading(35, 297, 55, 64)));
 		setSize(604, 389);
 	}
 
