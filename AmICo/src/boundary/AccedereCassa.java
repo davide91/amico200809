@@ -2,18 +2,21 @@
 package boundary;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -22,6 +25,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.Cassa;
 import datatype.DatiMovimentoCassa;
 import datatype.list.VociBilancio;
+import store.POJO.MovimentoCassa;
 import executor.GestoreCassa;
 
 /**
@@ -32,13 +36,14 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 
 	private Cassa m_cassa;
 	private GestoreCassa m_gestoreCassa;
-
+	
 	public AccedereCassa(GestoreCassa gestoreCassa, Cassa cassa)
 	{
 		GregorianCalendar g=new GregorianCalendar();
 		
 		m_cassa = cassa;
 		m_gestoreCassa = gestoreCassa;
+		
 		initComponents();
 		
 		scritta.setText("Saldo cassa al "+g.get(GregorianCalendar.DAY_OF_MONTH)+"/"+(g.get(GregorianCalendar.MONTH)+1)+"/"+g.get(GregorianCalendar.YEAR) );
@@ -57,43 +62,63 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	}
 
 	public void aggiornaVociBilancio(VociBilancio voci) {
-		// TODO Auto-generated method stub
+	
+	}
+	
+	public void aggiornaTabella()
+	{
+		DefaultTableModel dm = new DefaultTableModel();
+		
+
+		dm.setDataVector(new String[][]{},new String[]{"Importo", "Tipo","Data" ,"Motivazione"});
+		dm.addRow(new Object[]{"-50","","",""});
+		dm.addRow(new Object[]{"30","","",""});
+		dm.addRow(new Object[]{"0","","",""});
+		
+		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
+		{
+			dm.addRow(new String[]{
+					m.getDati().getImportoMovimento().toString(),
+					m.getRelativoAVoce().getDati().getTipo().toString(),
+					m.getRelativoAPagamento().getDatiPagamento().getData().toString(),
+					m.getDati().getMotivazione()});
+		}
+		
+		table.setModel(dm);
+		ColorCellRenderer ccr=new ColorCellRenderer();
+		table.getColumn("Data").setCellRenderer(ccr);
+		table.getColumn("Tipo").setCellRenderer(ccr);
+		table.getColumn("Importo").setCellRenderer(ccr);
+		table.getColumn("Motivazione").setCellRenderer(ccr);
 		
 	}
 	
 	public void ammissibile(Boolean b) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void annulla() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void fallito() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void fatto() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void finito() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void ko() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void ok() {
 		// TODO Auto-generated method stub
-		
 	}
 
 
@@ -149,7 +174,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
-			table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Data", "Tipo", "Importo","Motivazione" }) {
+			table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {  "Importo", "Tipo","Data","Motivazione" }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, String.class, Object.class, };
 	
@@ -157,6 +182,13 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 					return types[columnIndex];
 				}
 			});
+			
+			/*
+			table.setModel(dm);
+			table.getColumn("Data").setCellRenderer(ccr);
+			table.getColumn("Tipo").setCellRenderer(ccr);
+			table.getColumn("Importo").setCellRenderer(ccr);
+			table.getColumn("Motivazione").setCellRenderer(ccr);*/
 		}
 		return table;
 	}
@@ -186,7 +218,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	 * Note: This class is only created so that you can easily preview the result at runtime.
 	 * It is not expected to be managed by the designer.
 	 * You can modify it as you like.
-	 */
+	
 	public static void main(String[] args) {
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -203,5 +235,5 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 			}
 		});
 	}
-
+ */
 }
