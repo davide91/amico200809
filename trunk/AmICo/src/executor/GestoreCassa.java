@@ -5,6 +5,7 @@ import java.util.Iterator;
 import calculator.Formattatore;
 
 import boundary.AccedereCassa;
+import boundary.AccedereCondominioAperto;
 import boundary.DriverFileSystem;
 import datatype.DatiMovimentoCassa;
 import datatype.DatiPianoPagamenti;
@@ -28,9 +29,10 @@ public class GestoreCassa implements BaseExecutor {
 	private AccedereCassa m_accedereCassa;
 	private StatiGestoreCassa m_state;
 	
-	public GestoreCassa(Cassa cassa) {
+	public GestoreCassa(Cassa cassa,AccedereCondominioAperto ACA) {
 		m_cassa = cassa;
 		m_accedereCassa = new AccedereCassa(this, cassa);
+		ACA.getPannello().add(m_accedereCassa);
 		m_state = StatiGestoreCassa.gestoreCassa;	
 	}
 	

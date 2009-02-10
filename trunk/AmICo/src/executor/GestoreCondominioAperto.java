@@ -150,7 +150,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaACassa() {
 		
-		m_gestoreCassa = new GestoreCassa(m_condominio.recuperaCassa());
+		m_gestoreCassa = new GestoreCassa(m_condominio.recuperaCassa(),m_accedereCondominioAperto);
 		m_state = StatiGestoreCondominioAperto.gestioneCassa;
 	}
 	
