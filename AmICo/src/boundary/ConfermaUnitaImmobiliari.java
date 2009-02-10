@@ -179,6 +179,10 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 			else
 				IUI.ammissibile(b);
 			break;
+			case attesaConfermaProprieta:
+				if (!b){
+					aggiornaUnitaImmobiliari(unitaImmobiliari);
+				}
 		}
 	}
 

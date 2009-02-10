@@ -111,6 +111,7 @@ public class GestoreCondomini implements BaseExecutor {
 		if (m_condominio != null) 
 			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 		m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
+		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 	}
 	
 	public void operazioneTerminata() {

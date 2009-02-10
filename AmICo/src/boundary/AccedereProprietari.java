@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -217,12 +219,11 @@ public class AccedereProprietari extends JFrame {
 	}
 
 
-	private void bAnnullaMouseMouseClicked(MouseEvent event) {
-		if(click)
-		{
+	private void bAnnulla() {
 			GestoreCondomini.getInstance().operazioneAnnullata();
+			CUI.setVisible(true);
+			CUI.
 			this.dispose();
-		}
 	}
 
 
@@ -251,6 +252,12 @@ public class AccedereProprietari extends JFrame {
 		getBOK().setEnabled(false);
 		add(getBOK(), new Constraints(new Leading(375, 10, 10), new Leading(312, 12, 12)));
 		add(somma, new Constraints(new Leading(350, 10, 10), new Leading(20, 12, 12)));
+		this.addWindowListener(new WindowAdapter() {  
+	   		 @Override  
+	   		 public void windowClosing(WindowEvent we) {  
+	   			bAnnulla();}  
+	   		 }); 
+		
 		setSize(581, 383);
 	}
 
@@ -353,7 +360,7 @@ public class AccedereProprietari extends JFrame {
 			bAnnulla.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
-					bAnnullaMouseMouseClicked(event);
+					bAnnulla();
 				}
 			});
 		}
