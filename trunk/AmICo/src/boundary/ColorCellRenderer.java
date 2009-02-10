@@ -30,12 +30,12 @@ public class ColorCellRenderer extends JLabel  implements TableCellRenderer
 	   if(column == 0)
 	   {
 		   try{
-			  if( (Float.parseFloat((String)value)) < 0)
+			  if( ((String)value).equals("Spesa"))
 			  {
 			      this.setBackground(new Color(255,102,102));
 			     // this.setForeground(Color.blue);
 			  }
-			  else if( (Float.parseFloat((String)value)) > 0)
+			  else if( ((String)value).equals("Incasso"))
 				  this.setBackground(new Color(128,255,83));
 			  else this.setBackground(Color.gray);
 		   }
