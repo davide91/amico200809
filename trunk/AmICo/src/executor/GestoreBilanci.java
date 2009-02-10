@@ -139,10 +139,10 @@ public class GestoreBilanci implements BaseExecutor {
 			if (b){
 				
 				state=StatiGestoreBilancio.bilancioAperto;
-				condominio.inserisciBilancio(new Bilancio(datiBilancio));
+				bilancio = new Bilancio(datiBilancio);
+				condominio.inserisciBilancio(bilancio);
 				AB.aggiornaBilanci(condominio.recuperaBilanci());
 				ABA=new AccedereBilancioAperto(this,bilancio,ACA);
-				
 			}
 			else {
 				state=StatiGestoreBilancio.base;
@@ -192,7 +192,11 @@ public class GestoreBilanci implements BaseExecutor {
 
 	
 	private boolean nomeUnico(DatiBilancio datiBilancio){
-		return false;
+		for (Bilancio b : condominio.recuperaBilanci().getBilanci()) {
+			if(b.getDati().getTitolo().equals(datiBilancio.getTitolo()))
+				return false;
+		}
+		return true;
 	}
 	
 	private boolean nomeUnico(DatiVoceBilancio datiVoceBilancio){
