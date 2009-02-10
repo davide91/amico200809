@@ -19,10 +19,9 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.POJO.Cassa;
 import datatype.DatiMovimentoCassa;
 import datatype.list.VociBilancio;
-
-import store.POJO.Cassa;
 import executor.GestoreCassa;
 
 /**
@@ -106,14 +105,13 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	private JTextField saldo;
 	private JButton bReportCassa;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getBRegistraMovimento(), new Constraints(new Leading(170, 153, 10, 10), new Leading(331, 10, 10)));
 		add(getJScrollPane0(), new Constraints(new Leading(11, 484, 10, 10), new Leading(44, 275, 10, 10)));
 		add(getScritta(), new Constraints(new Leading(22, 170, 10, 10), new Leading(12, 20, 12, 12)));
 		add(getSaldo(), new Constraints(new Leading(210, 72, 12, 12), new Leading(12, 20, 12, 12)));
 		add(getBReportCassa(), new Constraints(new Leading(350, 135, 10, 10), new Leading(8, 12, 12)));
+		add(getBRegistraMovimento(), new Constraints(new Leading(149, 195, 12, 12), new Leading(333, 10, 10)));
 		setSize(500, 385);
 	}
 
@@ -121,6 +119,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		if (bReportCassa == null) {
 			bReportCassa = new JButton();
 			bReportCassa.setText("Report cassa");
+			bReportCassa.setEnabled(false);
 		}
 		return bReportCassa;
 	}
