@@ -46,6 +46,11 @@ public class DatiVoceBilancio {
 		dataPrevista = d;
 	}
 	
+	public Data recuperaDataPrevista()
+	{
+		return dataPrevista;
+	}
+	
 	public TipoVoce getTipo() {
 		return tipo;
 	}

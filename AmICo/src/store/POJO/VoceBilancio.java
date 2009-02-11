@@ -103,6 +103,11 @@ public class VoceBilancio {
 		this.dati = dati;
 	}
 
+	public Data recuperaDataContabilizzazione()
+	{
+		return dataContabilitazione;
+	}
+	
 	public Date getDataContabilitazione() {
 		return new Date(dataContabilitazione.getCalendar().getTime().getTime());
 	}
