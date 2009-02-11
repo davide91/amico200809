@@ -68,6 +68,75 @@ public class Data {
 			return false;
 	}
 	
+	public boolean controllaData()
+	{
+		if(m_data.get(GregorianCalendar.YEAR) == new Data().getCalendar().get(GregorianCalendar.YEAR))
+			switch(m_data.get(GregorianCalendar.MONTH))
+			{
+				case 0: //gennaio
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+						return true;
+					break;
+			
+				case 1:	//febbraio
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=29)
+						return true;
+					break;
+			
+				case 2:	//marzo
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+						return true;
+					break;
+					
+				case 3:	//aprile
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+						return true;
+					break;
+			
+				case 4:	//maggio
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+						return true;
+					break;
+				
+				case 5:	//giugno
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+						return true;
+					break;
+				
+				case 6:	//luglio
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+						return true;
+					break;
+				
+				case 7:	//agosto
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+						return true;
+					break;
+				
+				case 8:	//settembre
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+						return true;
+					break;
+				
+				case 9:	//ottobre
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+						return true;
+					break;
+				
+				case 10:	//novembre
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+						return true;
+					break;
+				
+				case 11:	//dicembre
+					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+						return true;
+					break;
+				
+		}
+		return false;
+	}
+	
 	@Override
 	public int hashCode()
 	{
@@ -99,6 +168,6 @@ public class Data {
 	}
 	public String dataInStringa()
 	{
-		return m_data.get(GregorianCalendar.DAY_OF_MONTH)+"/"+m_data.get(GregorianCalendar.MONTH)+"/"+m_data.get(GregorianCalendar.YEAR);
+		return m_data.get(GregorianCalendar.DAY_OF_MONTH)+"/"+m_data.get(GregorianCalendar.MONTH)+1+"/"+m_data.get(GregorianCalendar.YEAR);
 	}	
 }

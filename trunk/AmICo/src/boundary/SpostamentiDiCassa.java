@@ -41,8 +41,8 @@ public class SpostamentiDiCassa extends JPanel {
 		ABA.inserisci();
 	}
 
-	private void bModificaVoceBilancioMouseMouseClicked(MouseEvent event) {
-	}
+//	private void bModificaVoceBilancioMouseMouseClicked(MouseEvent event) {
+//	}
 
 	private void bEliminaVoceBilancioMouseMouseClicked(MouseEvent event) {
 	}
@@ -71,7 +71,7 @@ public class SpostamentiDiCassa extends JPanel {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Leading(6, 350, 12, 12), new Leading(43, 313, 12, 12)));
 		add(getJScrollPane1(), new Constraints(new Leading(380, 350, 12, 12), new Leading(43, 312, 12, 12)));
-		add(getBModificaVoceBilancio(), new Constraints(new Leading(456, 212, 10, 10), new Leading(379, 12, 12)));
+	//	add(getBModificaVoceBilancio(), new Constraints(new Leading(456, 212, 10, 10), new Leading(379, 12, 12)));
 		add(getBChiudiBilancio(), new Constraints(new Leading(456, 212, 12, 12), new Leading(421, 12, 12)));
 		add(getBInserisciVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(379, 12, 12)));
 		add(getBEliminaVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(421, 12, 12)));
@@ -145,7 +145,7 @@ public class SpostamentiDiCassa extends JPanel {
 		return bChiudiBilancio;
 	}
 
-	private JButton getBModificaVoceBilancio() {
+/*	private JButton getBModificaVoceBilancio() {
 		if (bModificaVoceBilancio == null) {
 			bModificaVoceBilancio = new JButton();
 			bModificaVoceBilancio.setText("Modifica voce bilancio");
@@ -158,7 +158,7 @@ public class SpostamentiDiCassa extends JPanel {
 		}
 		return bModificaVoceBilancio;
 	}
-
+*/
 	private JButton getBEliminaVoceBilancio() {
 		if (bEliminaVoceBilancio == null) {
 			bEliminaVoceBilancio = new JButton();
@@ -231,29 +231,4 @@ public class SpostamentiDiCassa extends JPanel {
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("SpostamentiDiCassa");
-				SpostamentiDiCassa content = new SpostamentiDiCassa();
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	} */
-
-
 }

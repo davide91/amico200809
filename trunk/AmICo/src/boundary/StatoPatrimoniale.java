@@ -114,8 +114,8 @@ public class StatoPatrimoniale extends JPanel {
 			JOptionPane.showMessageDialog(this, "Selezionare prima la voce desiderata");
 	}
 
-	private void bModificaVoceBilancioMouseMouseClicked(MouseEvent event) {
-	}
+//	private void bModificaVoceBilancioMouseMouseClicked(MouseEvent event) {
+//	}
 
 	private void chiudiMouseMouseClicked(MouseEvent event) {
 		ABA.chiudi();
@@ -142,7 +142,7 @@ public class StatoPatrimoniale extends JPanel {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Leading(6, 350, 12, 12), new Leading(43, 313, 12, 12)));
 		add(getJScrollPane1(), new Constraints(new Leading(380, 350, 12, 12), new Leading(43, 312, 12, 12)));
-		add(getBModificaVoceBilancio(), new Constraints(new Leading(456, 212, 10, 10), new Leading(379, 12, 12)));
+	//	add(getBModificaVoceBilancio(), new Constraints(new Leading(456, 212, 10, 10), new Leading(379, 12, 12)));
 		add(getBChiudiBilancio(), new Constraints(new Leading(456, 212, 12, 12), new Leading(421, 12, 12)));
 		add(getBInserisciVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(379, 12, 12)));
 		add(getBEliminaVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(421, 12, 12)));
@@ -181,7 +181,7 @@ public class StatoPatrimoniale extends JPanel {
 		return bEliminaVoceBilancio;
 	}
 
-	private JButton getBModificaVoceBilancio() {
+/*	private JButton getBModificaVoceBilancio() {
 		if (bModificaVoceBilancio == null) {
 			bModificaVoceBilancio = new JButton();
 			bModificaVoceBilancio.setText("Modifica voce bilancio");
@@ -194,7 +194,7 @@ public class StatoPatrimoniale extends JPanel {
 		}
 		return bModificaVoceBilancio;
 	}
-
+*/
 	private JButton getBInserisciVoceBilancio() {
 		if (bInserisciVoceBilancio == null) {
 			bInserisciVoceBilancio = new JButton();
