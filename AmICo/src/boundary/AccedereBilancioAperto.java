@@ -139,7 +139,8 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void ko() {
 			GB.procedi(false);//da attesaConfermaInserimentoDati a base
-			INVB.dispose();
+			if(INVB!=null)
+				INVB.dispose();
 		}
 
 		public void ok() {
