@@ -97,4 +97,8 @@ public class Data {
 	{
 		m_data.add(field, amount);
 	}
+	public String dataInStringa()
+	{
+		return m_data.get(GregorianCalendar.DAY_OF_MONTH)+"/"+m_data.get(GregorianCalendar.MONTH)+"/"+m_data.get(GregorianCalendar.YEAR);
+	}	
 }
