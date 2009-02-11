@@ -3,6 +3,8 @@
  */
 package boundary;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 

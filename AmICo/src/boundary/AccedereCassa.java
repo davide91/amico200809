@@ -66,24 +66,24 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	{
 		DefaultTableModel dm = new DefaultTableModel();
 		
+		dm.setDataVector(new String[][]{},new String[]{"Importo","Tipo","Data","Motivazione"});
+		dm.addRow(new Object[]{"-"+"50","spesa","",""});
+		dm.addRow(new Object[]{"30","incasso","",""});
+		dm.addRow(new Object[]{"-"+"0","spesa","",""});
+		
 
-		dm.setDataVector(new String[][]{},new String[]{"Tipo","Importo","Data","Motivazione"});
-	//	dm.addRow(new Object[]{"spesa","50","",""});
-	//	dm.addRow(new Object[]{"incasso","30","",""});
-	//	dm.addRow(new Object[]{"spesa","0","",""});
-	
 		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
 		{
 			if(m.getRelativoAVoce().getDati().getTipo()==TipoVoce.spesa)
 				dm.addRow(new String[]{
-						m.getRelativoAVoce().getDati().getTipo().toString(),
 						"-"+m.getDati().getImportoMovimento().toString(),
+						m.getRelativoAVoce().getDati().getTipo().toString(),
 						m.getRelativoAPagamento().getDatiPagamento().getData().toString(),
 						m.getDati().getMotivazione()});
 			else
 				dm.addRow(new String[]{
-						m.getRelativoAVoce().getDati().getTipo().toString(),
 						m.getDati().getImportoMovimento().toString(),
+						m.getRelativoAVoce().getDati().getTipo().toString(),
 						m.getRelativoAPagamento().getDatiPagamento().getData().toString(),
 						m.getDati().getMotivazione()});
 		}

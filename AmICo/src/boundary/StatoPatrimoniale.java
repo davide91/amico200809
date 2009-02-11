@@ -140,17 +140,17 @@ public class StatoPatrimoniale extends JPanel {
 	private void initComponents() {
 		setBackground(Color.white);
 		setLayout(new GroupLayout());
-		add(getJSeparator0(), new Constraints(new Leading(222, 13, 10, 10), new Leading(22, 340, 10, 10)));
-		add(getJSeparator1(), new Constraints(new Leading(-4, 456, 10, 10), new Leading(362, 18, 10, 10)));
-		add(getJScrollPane0(), new Constraints(new Leading(6, 212, 12, 12), new Leading(43, 313, 12, 12)));
-		add(getJLabel1(), new Constraints(new Bilateral(297, 70, 82), new Leading(15, 12, 12)));
-		add(getJLabel0(), new Constraints(new Leading(72, 80, 158, 158), new Leading(16, 22, 12, 12)));
-		add(getJScrollPane1(), new Constraints(new Leading(229, 214, 10, 10), new Leading(44, 312, 12, 12)));
-		add(getBEliminaVoceBilancio(), new Constraints(new Leading(6, 212, 12, 12), new Leading(421, 10, 10)));
-		add(getBInserisciVoceBilancio(), new Constraints(new Leading(6, 212, 12, 12), new Leading(380, 12, 12)));
-		add(getBChiudiBilancio(), new Constraints(new Leading(230, 212, 12, 12), new Leading(421, 12, 12)));
-		add(getBModificaVoceBilancio(), new Constraints(new Leading(230, 212, 12, 12), new Leading(379, 12, 12)));
-		setSize(457, 468);
+		add(getJScrollPane0(), new Constraints(new Leading(6, 350, 12, 12), new Leading(43, 313, 12, 12)));
+		add(getJScrollPane1(), new Constraints(new Leading(380, 350, 12, 12), new Leading(43, 312, 12, 12)));
+		add(getBModificaVoceBilancio(), new Constraints(new Leading(456, 212, 10, 10), new Leading(379, 12, 12)));
+		add(getBChiudiBilancio(), new Constraints(new Leading(456, 212, 12, 12), new Leading(421, 12, 12)));
+		add(getBInserisciVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(379, 12, 12)));
+		add(getBEliminaVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(421, 12, 12)));
+		add(getJSeparator0(), new Constraints(new Leading(368, 8, 12, 12), new Leading(21, 340, 12, 12)));
+		add(getJSeparator1(), new Constraints(new Leading(4, 726, 12, 12), new Leading(362, 18, 12, 12)));
+		add(getJLabel1(), new Constraints(new Leading(511, 111, 10, 10), new Leading(12, 12, 12)));
+		add(getJLabel0(), new Constraints(new Leading(137, 120, 10, 10), new Leading(13, 22, 12, 12)));
+		setSize(805, 468);
 	}
 
 	private JButton getBChiudiBilancio() {
@@ -351,8 +351,8 @@ public class StatoPatrimoniale extends JPanel {
 			}
 		});
 	}
- */
-
+ 
+*/
 
 
 }
