@@ -1,31 +1,26 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Cassa;
-import datatype.DatiMovimentoCassa;
-import datatype.list.VociBilancio;
 import store.POJO.MovimentoCassa;
+import datatype.DatiMovimentoCassa;
+import datatype.Euro;
+import datatype.list.VociBilancio;
 import enumeration.TipoVoce;
 import executor.GestoreCassa;
 
@@ -73,10 +68,10 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		
 
 		dm.setDataVector(new String[][]{},new String[]{"Tipo","Importo","Data","Motivazione"});
-		dm.addRow(new Object[]{"spesa","50","",""});
-		dm.addRow(new Object[]{"incasso","30","",""});
-		dm.addRow(new Object[]{"spesa","0","",""});
-		
+	//	dm.addRow(new Object[]{"spesa","50","",""});
+	//	dm.addRow(new Object[]{"incasso","30","",""});
+	//	dm.addRow(new Object[]{"spesa","0","",""});
+	
 		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
 		{
 			if(m.getRelativoAVoce().getDati().getTipo()==TipoVoce.spesa)
@@ -142,10 +137,10 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Leading(11, 484, 10, 10), new Leading(44, 275, 10, 10)));
-		add(getScritta(), new Constraints(new Leading(22, 170, 10, 10), new Leading(12, 20, 12, 12)));
-		add(getSaldo(), new Constraints(new Leading(210, 72, 12, 12), new Leading(12, 20, 12, 12)));
 		add(getBReportCassa(), new Constraints(new Leading(350, 135, 10, 10), new Leading(8, 12, 12)));
 		add(getBRegistraMovimento(), new Constraints(new Leading(149, 195, 12, 12), new Leading(333, 10, 10)));
+		add(getSaldo(), new Constraints(new Leading(240, 72, 10, 10), new Leading(12, 20, 12, 12)));
+		add(getScritta(), new Constraints(new Leading(22, 215, 10, 10), new Leading(12, 12, 12)));
 		setSize(500, 385);
 	}
 
