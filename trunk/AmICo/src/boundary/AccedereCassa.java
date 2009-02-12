@@ -1,15 +1,17 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -18,11 +20,13 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Cassa;
 import store.POJO.MovimentoCassa;
+import store.POJO.VoceBilancio;
 import datatype.DatiMovimentoCassa;
-import datatype.Euro;
 import datatype.list.VociBilancio;
+import enumeration.StatiInserireNuovoCondominio;
 import enumeration.TipoVoce;
 import executor.GestoreCassa;
+import executor.GestoreCondomini;
 
 /**
  * @author Federico
@@ -32,6 +36,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 
 	private Cassa m_cassa;
 	private GestoreCassa m_gestoreCassa;
+	private RegistraMovimento RM;
 	
 	public AccedereCassa(GestoreCassa gestoreCassa, Cassa cassa)
 	{
@@ -39,7 +44,6 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		
 		m_cassa = cassa;
 		m_gestoreCassa = gestoreCassa;
-		
 		initComponents();
 		aggiornaMovimenti();
 		
@@ -54,12 +58,20 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	}
 	
 	public void aggiornaProspetto(DatiMovimentoCassa movimento) {
-		// TODO Auto-generated method stub
+		
+		int c = JOptionPane.showConfirmDialog(this, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		
+		if (c==0){
+			ok();
+		}
+		else {
+			ko();
+		}
 		
 	}
 
 	public void aggiornaVociBilancio(VociBilancio voci) {
-	
+		RM.aggiornaVociBilancio(voci);
 	}
 	
 	
@@ -129,14 +141,32 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	}
 
 	public void ko() {
-		// TODO Auto-generated method stub
+		m_gestoreCassa.procedi(false);
+		JOptionPane.showMessageDialog(this, "operazione annullata dall'utente");
+	//	RM.dispose();
 	}
 
 	public void ok() {
-		// TODO Auto-generated method stub
+		m_gestoreCassa.procedi(false);
+		JOptionPane.showMessageDialog(this, "operazione terminata");
+	}
+	
+	public void passaVoceBilancio(VoceBilancio voce, DatiMovimentoCassa dati)
+	{
+		m_gestoreCassa.passaVoceBilancio(voce,dati);
 	}
 
-
+	private void bRegistraMovimentoMouseMouseClicked(MouseEvent event) {
+		RM=new RegistraMovimento(this);
+		m_gestoreCassa.registraMovimentoCassa();
+	}
+	
+	public void registraMovimentoCassa(DatiMovimentoCassa dati)
+	{
+		m_gestoreCassa.registraMovimentoCassa(dati);
+	}
+	
+	
 	private static final long serialVersionUID = 1L;
 	private JButton bRegistraMovimento;
 	private JTable table;
@@ -144,15 +174,15 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	private JLabel scritta;
 	private JTextField saldo;
 	private JButton bReportCassa;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+//	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJScrollPane0(), new Constraints(new Leading(11, 484, 10, 10), new Leading(44, 275, 10, 10)));
 		add(getBReportCassa(), new Constraints(new Leading(350, 135, 10, 10), new Leading(8, 12, 12)));
-		add(getBRegistraMovimento(), new Constraints(new Leading(149, 195, 12, 12), new Leading(333, 10, 10)));
 		add(getSaldo(), new Constraints(new Leading(240, 72, 10, 10), new Leading(12, 20, 12, 12)));
 		add(getScritta(), new Constraints(new Leading(22, 215, 10, 10), new Leading(12, 12, 12)));
-		setSize(500, 385);
+		add(getJScrollPane0(), new Constraints(new Leading(11, 590, 10, 10), new Leading(44, 363, 10, 10)));
+		add(getBRegistraMovimento(), new Constraints(new Leading(196, 195, 10, 10), new Leading(419, 12, 12)));
+		setSize(618, 477);
 	}
 
 	private JButton getBReportCassa() {
@@ -212,10 +242,16 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		if (bRegistraMovimento == null) {
 			bRegistraMovimento = new JButton();
 			bRegistraMovimento.setText("Registra movimento");
+			bRegistraMovimento.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bRegistraMovimentoMouseMouseClicked(event);
+				}
+			});
 		}
 		return bRegistraMovimento;
 	}
-
+/*
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -227,6 +263,8 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 					+ " on this platform:" + e.getMessage());
 		}
 	}
+
+
 
 	/**
 	 * Main entry of the class.

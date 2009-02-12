@@ -98,7 +98,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 			else
 			{
 				state=StatiInserireNuovoCondominio.base;	
-				JOptionPane.showMessageDialog(this, "Il condominio che si vuole inserire è gia' presente");
+				JOptionPane.showMessageDialog(this, "Il condominio che si vuole inserire e' gia' presente");
 			}
 			break;
 		case controlloTabellaMillesimaleProprieta:

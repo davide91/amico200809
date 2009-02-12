@@ -75,7 +75,6 @@ public class AccedereBilancioAperto implements BaseBoundary{
 						
 						if (c==0){
 							ok();
-							
 						}
 						else {
 							ko();
@@ -101,7 +100,6 @@ public class AccedereBilancioAperto implements BaseBoundary{
 							state = StatiAccedereBilancioAperto.base;
 							JOptionPane.showMessageDialog(tab, "Voce di bilancio non eliminata");// a base
 						}
-						
 					}
 					else
 					{
