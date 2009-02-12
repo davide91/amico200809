@@ -7,6 +7,7 @@ import calculator.Formattatore;
 import boundary.AccedereCassa;
 import boundary.AccedereCondominioAperto;
 import boundary.DriverFileSystem;
+import boundary.RegistraMovimento;
 import datatype.DatiMovimentoCassa;
 import datatype.DatiPianoPagamenti;
 import datatype.Euro;
@@ -61,8 +62,9 @@ public class GestoreCassa implements BaseExecutor {
 		m_state = StatiGestoreCassa.attesaCausale;
 	}
 	
-	public void passaVoceBilancio(VoceBilancio voceBilancio)
+	public void passaVoceBilancio(VoceBilancio voceBilancio, DatiMovimentoCassa dati)
 	{
+		m_datiMovimento = dati; // riga aggiunta da federico
 		m_datiMovimento = preparaProspetto(voceBilancio);
 		m_accedereCassa.aggiornaProspetto(m_datiMovimento);
 		m_state = StatiGestoreCassa.attesaConferma;
@@ -140,6 +142,30 @@ public class GestoreCassa implements BaseExecutor {
 				break;
 		}
 		
+	}
+	
+	//fatto da federico
+	public void registraMovimentoCassa()
+	{		
+		Iterator<Bilancio> bilancioIter = m_cassa.getCondominio().getBilanci().iterator();
+		VociBilancio voci = new VociBilancio();
+		
+		while(bilancioIter.hasNext())
+		{
+		//	if (bilancioIter.next().getDati().getStato() != StatoBilancio.inEsercizio)
+			//	continue;
+			
+			Iterator<VoceBilancio> voceIter = bilancioIter.next().getVoci().iterator();
+			
+			while (voceIter.hasNext())
+			{
+				voci.inserisciVoceBilancio(voceIter.next());
+			}
+				
+		}
+
+		m_accedereCassa.aggiornaVociBilancio(voci);
+		m_state = StatiGestoreCassa.attesaCausale;
 	}
 
 }
