@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -42,6 +43,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 
 	private GestorePersone GP;
 	private ButtonGroup group;
+	private boolean conRiferimento = false;
 	
 	public InserirePersona() {
 		initComponents();
@@ -95,7 +97,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			JOptionPane.showMessageDialog(this, "persona non inserita");
 			GP.procedi(false);
 		}
-		
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona personaGiaInserita) {
@@ -105,16 +106,13 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	}
 	public void  annulla() {
 		GP.annullato();
-		
 	}
 
 	public void fatto() {
-		//Amm.mostra(PersonaInseritaOK);
-		
+			
 	}
 
 	public void fallito() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -137,7 +135,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		ragioneSociale.setEditable(false);
 		partitaIVA.setEditable(false);
 		indirizzoFiscale.setEditable(false);
-	//	bPersonaDiRiferimento.setEnabled(false);
+		bPersonaDiRiferimento.setEnabled(false);
 		cognome.setEditable(true);
 		nome.setEditable(true);
 		codiceFiscale.setEditable(true);
@@ -147,6 +145,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		provincia.setEditable(true);
 		cellulare.setEditable(true);
 		interno.setEditable(true);
+		conRiferimento = false;
 	}
 
 	private void radioPGMouseMouseClicked(MouseEvent event)
@@ -154,7 +153,10 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		ragioneSociale.setEditable(true);
 		partitaIVA.setEditable(true);
 		indirizzoFiscale.setEditable(true);
-	//	bPersonaDiRiferimento.setEnabled(true);
+		bPersonaDiRiferimento.setEnabled(true);
+		fax.setEnabled(false);
+		eMail.setEnabled(false);
+		telefono.setEnabled(false);
 		cognome.setEditable(false);
 		nome.setEditable(false);
 		codiceFiscale.setEditable(false);
@@ -164,6 +166,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		provincia.setEditable(false);
 		cellulare.setEditable(false);
 		interno.setEditable(false);
+		conRiferimento = true;
+		bok.setEnabled(false);
 	}
 
 
@@ -189,20 +193,39 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			datiP.setCf(cf);
 			datiP.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
 			inserisciDatiPersona(datiP);
+			bok.setEnabled(true);
 		}
-		else
+		else if(conRiferimento)
 		{
-			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
-			datiP.setFax(fax.getText());
+			DatiPersonaFisica pRiferimento = new DatiPersonaFisica();
+			pRiferimento.setFax(fax.getText());
 			Email mail =new Email(eMail.getText());
-			datiP.setMail(mail);
-			datiP.setTel(telefono.getText());
-			datiP.setpIva(new PartitaIva(partitaIVA.getText()));
-			datiP.setRagioneSociale(ragioneSociale.getText());
-			Indirizzo i=new Indirizzo();
-			i.setVia(indirizzoFiscale.getText());
-			datiP.setIndFiscale(i);
-			inserisciDatiPersona(datiP);
+			pRiferimento.setMail(mail);
+			pRiferimento.setTel(telefono.getText());
+			pRiferimento.setNome(nome.getText());
+			pRiferimento.setCognome(cognome.getText());
+			pRiferimento.setCell(cellulare.getText());
+			CodiceFiscale cf=new CodiceFiscale();
+			cf.setCodiceFis(codiceFiscale.getText());
+			pRiferimento.setCf(cf);
+			pRiferimento.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
+		
+			if(GP.inserisciPersonaDiRiferimento(pRiferimento))
+			{
+				DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
+				//datiP.setFax(fax.getText());
+				//Email mail =new Email(eMail.getText());
+			//	datiP.setMail(mail);
+			//	datiP.setTel(telefono.getText());
+				datiP.setpIva(new PartitaIva(partitaIVA.getText()));
+				datiP.setRagioneSociale(ragioneSociale.getText());
+				Indirizzo i=new Indirizzo();
+				i.setVia(indirizzoFiscale.getText());
+				datiP.setIndFiscale(i);
+				inserisciDatiPersona(datiP);
+			}
+			else
+				JOptionPane.showMessageDialog(this, "Persona di Riferimento non Inserita");
 		}
 	}
 
@@ -240,11 +263,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JLabel jLabel20;
 	private JLabel jLabel21;
 	private JLabel jLabel22;
-//	private JButton bPersonaDiRiferimento;
+	private JButton bPersonaDiRiferimento;
 
 	private JTextField interno;
 
 	private JLabel jLabel23;
+	private JSeparator jSeparator0;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -252,19 +276,9 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		setLayout(new GroupLayout());
 		add(getRadioPF(), new Constraints(new Leading(479, 10, 10), new Leading(12, 8, 8)));
 		add(getRadioPG(), new Constraints(new Leading(479, 8, 8), new Leading(38, 8, 8)));
-		add(getNome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(44, 12, 12)));
-		add(getCognome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(14, 12, 12)));
-		add(getDomicilio(), new Constraints(new Leading(108, 110, 12, 12), new Leading(104, 12, 12)));
-		add(getProvincia(), new Constraints(new Leading(313, 104, 10, 10), new Leading(134, 12, 12)));
-		add(getCodiceFiscale(), new Constraints(new Leading(108, 110, 12, 12), new Leading(72, 10, 10)));
-		add(getTelefono(), new Constraints(new Leading(108, 309, 12, 12), new Leading(175, 12, 12)));
-		add(getCellulare(), new Constraints(new Leading(108, 309, 12, 12), new Leading(211, 12, 12)));
-		add(getEMail(), new Constraints(new Leading(108, 308, 12, 12), new Leading(247, 12, 12)));
-		add(getFax(), new Constraints(new Leading(108, 308, 12, 12), new Leading(283, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(7, 10, 10), new Leading(16, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(7, 12, 12), new Leading(46, 12, 12)));
 		add(getJLabel3(), new Constraints(new Leading(7, 12, 12), new Leading(108, 12, 12)));
-		add(getComune(), new Constraints(new Leading(108, 112, 12, 12), new Leading(140, 12, 12)));
 		add(getJLabel4(), new Constraints(new Leading(7, 12, 12), new Leading(144, 12, 12)));
 		add(getCap(), new Constraints(new Leading(315, 108, 10, 10), new Leading(104, 12, 12)));
 		add(getJLabel5(), new Constraints(new Leading(256, 10, 10), new Leading(108, 12, 12)));
@@ -276,19 +290,36 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getJLabel10(), new Constraints(new Leading(7, 12, 12), new Leading(285, 12, 12)));
 		add(getInterno(), new Constraints(new Leading(496, 101, 10, 10), new Leading(102, 12, 12)));
 		add(getJLabel23(), new Constraints(new Leading(437, 10, 10), new Leading(100, 22, 12, 12)));
-		add(getRagioneSociale(), new Constraints(new Leading(108, 309, 12, 12), new Leading(317, 12, 12)));
-		add(getJLabel20(), new Constraints(new Leading(7, 12, 12), new Leading(319, 12, 12)));
-		add(getPartitaIVA(), new Constraints(new Leading(108, 308, 12, 12), new Leading(353, 12, 12)));
-		add(getJLabel21(), new Constraints(new Leading(7, 12, 12), new Leading(357, 12, 12)));
-		add(getIndirizzoFiscale(), new Constraints(new Leading(108, 308, 12, 12), new Leading(389, 12, 12)));
-		add(getJLabel22(), new Constraints(new Leading(7, 12, 12), new Leading(391, 12, 12)));
-		add(getBok(), new Constraints(new Leading(110, 10, 10), new Leading(436, 10, 10)));
-		add(getBannulla(), new Constraints(new Leading(348, 12, 12), new Leading(436, 12, 12)));
-	//	add(getBPersonaDiRiferimento(), new Constraints(new Leading(450, 10, 10), new Leading(383, 12, 12)));
+		add(getBok(), new Constraints(new Leading(112, 10, 10), new Leading(458, 10, 10)));
+		add(getBannulla(), new Constraints(new Leading(251, 12, 12), new Leading(458, 12, 12)));
+		add(getBPersonaDiRiferimento(), new Constraints(new Leading(410, 10, 10), new Leading(458, 12, 12)));
+		add(getIndirizzoFiscale(), new Constraints(new Leading(157, 308, 10, 10), new Leading(414, 10, 10)));
+		add(getJLabel22(), new Constraints(new Leading(12, 12, 12), new Leading(416, 12, 12)));
+		add(getPartitaIVA(), new Constraints(new Leading(157, 308, 12, 12), new Leading(374, 12, 12)));
+		add(getRagioneSociale(), new Constraints(new Leading(157, 309, 12, 12), new Leading(332, 12, 12)));
+		add(getJLabel21(), new Constraints(new Leading(12, 12, 12), new Leading(378, 12, 12)));
+		add(getJLabel20(), new Constraints(new Leading(12, 12, 12), new Leading(336, 12, 12)));
+		add(getCodiceFiscale(), new Constraints(new Leading(125, 110, 10, 10), new Leading(72, 12, 12)));
+		add(getNome(), new Constraints(new Leading(125, 110, 12, 12), new Leading(44, 12, 12)));
+		add(getCognome(), new Constraints(new Leading(125, 110, 12, 12), new Leading(14, 12, 12)));
+		add(getDomicilio(), new Constraints(new Leading(123, 110, 10, 10), new Leading(104, 12, 12)));
+		add(getComune(), new Constraints(new Leading(123, 112, 12, 12), new Leading(140, 12, 12)));
+		add(getTelefono(), new Constraints(new Leading(123, 309, 12, 12), new Leading(176, 12, 12)));
+		add(getCellulare(), new Constraints(new Leading(123, 309, 12, 12), new Leading(209, 12, 12)));
+		add(getEMail(), new Constraints(new Leading(123, 308, 12, 12), new Leading(247, 12, 12)));
+		add(getFax(), new Constraints(new Leading(124, 308, 12, 12), new Leading(281, 12, 12)));
+		add(getProvincia(), new Constraints(new Leading(334, 84, 10, 10), new Leading(135, 12, 12)));
+		add(getJSeparator0(), new Constraints(new Leading(12, 608, 12, 12), new Leading(314, 10, 12, 12)));
 		initGroup();
-		setSize(632, 515);
+		setSize(644, 540);
 	}
 
+	private JSeparator getJSeparator0() {
+		if (jSeparator0 == null) {
+			jSeparator0 = new JSeparator();
+		}
+		return jSeparator0;
+	}
 
 	private JLabel getJLabel23() {
 		if (jLabel23 == null) {
@@ -311,7 +342,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		group.add(getRadioPG());
 	}
 
-/*
 	private JButton getBPersonaDiRiferimento() {
 		if (bPersonaDiRiferimento == null) {
 			bPersonaDiRiferimento = new JButton();
@@ -325,7 +355,29 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return bPersonaDiRiferimento;
 	}
-*/
+
+
+	protected void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
+		bok.setEnabled(true);
+		
+		ragioneSociale.setEditable(false);
+		partitaIVA.setEditable(false);
+		indirizzoFiscale.setEditable(false);
+		bPersonaDiRiferimento.setEnabled(false);
+		cognome.setEditable(true);
+		nome.setEditable(true);
+		codiceFiscale.setEditable(true);
+		domicilio.setEditable(true);
+		comune.setEditable(true);
+		cap.setEditable(true);
+		provincia.setEditable(true);
+		cellulare.setEditable(true);
+		interno.setEditable(true);
+		telefono.setEnabled(true);
+		fax.setEnabled(true);
+		eMail.setEnabled(true);
+		
+	}
 
 	private JLabel getJLabel22() {
 		if (jLabel22 == null) {

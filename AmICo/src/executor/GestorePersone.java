@@ -3,12 +3,17 @@
  */
 package executor;
 
+import org.hibernate.loader.custom.Return;
+
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import store.TuttePersone;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
 import boundary.AccedentiPersone;
 import boundary.AccedereCondominioAperto;
+import boundary.AccederePersone;
 import boundary.InserirePersona;
 import boundary.ModificarePersona;
 import datatype.DatiPersona;
@@ -39,7 +44,9 @@ public class GestorePersone implements BaseExecutor {
 	private AccedentiPersone RICH;
 	private TuttePersone TP;
 	private StatiGestorePersone state; 
-		
+	private DatiPersona personaRiferimento = null;
+	private Object d;
+	
 	public GestorePersone(){
 	 TP=new TuttePersone();
 	 state=StatiGestorePersone.base;
@@ -56,7 +63,9 @@ public class GestorePersone implements BaseExecutor {
 			return;
 		}
 		else if (datiP instanceof DatiPersonaGiuridica)
+		{
 			IP.ammissibile(!personaGiaInserita((DatiPersonaGiuridica) datiP));
+		}
 	}
 	
 	public void inserisciPersona(AccedentiPersone richiedente){
@@ -124,45 +133,77 @@ public class GestorePersone implements BaseExecutor {
 		return false;
 	}
 	
-  
-
 	public void annullato() {
-		RICH.aggiornaPersone(TP.recuperaPersone());
+		if(!(RICH instanceof AccederePersone))
+			RICH.aggiornaPersone(TP.recuperaPersone());
 	}
-	
 	
 	public void operazioneTerminata() {
 		//  Auto-generated method stub
 		
 	}
 
-public void procedi(boolean b) {
-	switch (state) {
-	case attesaConfermaInserimento: 
-		if (b){
-			TP.inserisciPersona(datiPersona);
-			IP.fatto();
-		}
-		else IP.fallito();	
-		RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
+	public void procedi(boolean b) {
+		switch (state) {
+		case attesaConfermaInserimento: 
+			if (b){
+				TP.inserisciPersona(datiPersona);
+				if(personaRiferimento!=null)
+				{
+					Persona giuridica = recuperaPersona(datiPersona);
+					Persona fisica = recuperaPersona(personaRiferimento);
+					if(giuridica instanceof PersonaGiuridica)
+						((PersonaGiuridica)giuridica).assegnaPersonaDiRiferimento((PersonaFisica)fisica);
+				//	Inserisci
+				}
+				IP.fatto();
+			}
+			else IP.fallito();	
+			RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
+			
+			break;
+		case attesaConfermaModifica:
+			if (b){
+				personaMod.modificaDati(datiPersona);
+				MP.fatto();
+			}
+			else MP.fallito();
+			RICH.aggiornaPersona(personaMod); //lo fa in entrambi i casi
 		
-		break;
-	case attesaConfermaModifica:
-		if (b){
-			personaMod.modificaDati(datiPersona);
-			MP.fatto();
+			break;
 		}
-		else MP.fallito();
-		RICH.aggiornaPersona(personaMod); //lo fa in entrambi i casi
-	
-		break;
+		state=StatiGestorePersone.base;
 	}
-	state=StatiGestorePersone.base;
-
 	
-}
+	private Persona recuperaPersona(DatiPersona dp)
+	{
+		for (Persona p : TuttePersone.getInstance().recuperaPersone().getPersone()) 
+		{
+			if(p instanceof PersonaFisica && dp instanceof DatiPersonaFisica)
+			{
+				if(((PersonaFisica)p).getDati().equals((DatiPersonaFisica)dp))
+					return (PersonaFisica)p;
+			}
+			else if(p instanceof PersonaGiuridica && dp instanceof DatiPersonaGiuridica)
+			{
+				if(((PersonaGiuridica)p).getDati().equals((DatiPersonaGiuridica)dp))
+					return (PersonaGiuridica)p;
+			}
+		}
+		return null;
+	}
 
-
+	public boolean inserisciPersonaDiRiferimento(DatiPersonaFisica riferimento)
+	{
+		if(!personaGiaInserita(riferimento))
+		{
+			personaRiferimento = riferimento;
+			TuttePersone.getInstance().inserisciPersona(riferimento);
+			return true;
+		}
+		else
+			return false;
+	}
 }
 	
 	

@@ -168,7 +168,9 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	    	{	
 	    		for (Proprieta prop : p.getProprieta())
 	    		{
-		    				dm.addRow(new Object[]{
+	    			if(prop.getUnitaImmobiliare().getCondominio().getDatiC().getId().equals(GCA.getCondominio().getDatiC().getId()))
+	    			{
+	    							dm.addRow(new Object[]{
 		    						( ((PersonaFisica) p).getDati().getNome()+" "+((PersonaFisica) p).getDati().getCognome() ),
 		    						prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
 		    						prop.getQuota(),
@@ -177,15 +179,15 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		    				group.add((JRadioButton)dm.getValueAt(cont,3));
 		    				indice.add(p);
 		    		    	cont++;
-
+	    			}
 	    		}
 	    	}
 			else if(p instanceof PersonaGiuridica)
 			{
 				for (Proprieta prop : p.getProprieta())
 				{
-
-						
+					if(prop.getUnitaImmobiliare().getCondominio().getDatiC().getId().equals(GCA.getCondominio().getDatiC().getId()))
+	    			{						
 							dm.addRow(new Object[]{
 								( ((PersonaGiuridica) p).getDati().getpIva().getPartIva() ),
 								prop.getUnitaImmobiliare().getDatiUnitaImmobiliare().getId(),
@@ -195,6 +197,7 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 							group.add((JRadioButton)dm.getValueAt(cont,3));
 							indice.add(p);
 		    				cont++;
+	    			}
 
 				}
 			}

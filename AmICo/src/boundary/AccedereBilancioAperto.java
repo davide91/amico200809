@@ -106,8 +106,6 @@ public class AccedereBilancioAperto implements BaseBoundary{
 						state = StatiAccedereBilancioAperto.base;
 						JOptionPane.showMessageDialog(tab, "Voce di Bilancio gia' registrata in cassa. ");// a base
 					}
-				
-			
 				break;
 			}
 			

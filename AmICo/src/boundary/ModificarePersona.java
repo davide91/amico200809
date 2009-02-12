@@ -86,24 +86,41 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		}
 		else if (persona instanceof PersonaGiuridica)
 		{
+			PersonaGiuridica per = (PersonaGiuridica)persona;
 			ragioneSociale.setEditable(true);
-			ragioneSociale.setText(((PersonaGiuridica) persona).getDati().getRagioneSociale());
+			ragioneSociale.setText((per.getDati().getRagioneSociale()));
 			
 			partitaIVA.setEditable(true);
-			partitaIVA.setText(((PersonaGiuridica) persona).getDati().getpIva().getPartIva());
+			partitaIVA.setText(per.getDati().getpIva().getPartIva());
 			
 			indirizzoFiscale.setEditable(true);
-			indirizzoFiscale.setText(((PersonaGiuridica) persona).getDati().getIndFiscale().getVia());
+			indirizzoFiscale.setText(per.getDati().getIndFiscale().getVia());
 			
-			cognome.setEditable(false);
-			nome.setEditable(false);
-			codiceFiscale.setEditable(false);
-			domicilio.setEditable(false);
-			comune.setEditable(false);
-			cap.setEditable(false);
-			provincia.setEditable(false);
-			cellulare.setEditable(false);
-			interno.setEditable(false);
+			cognome.setEnabled(true);
+			cognome.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getCognome());
+			
+			nome.setEnabled(true);
+			nome.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getNome());
+			
+			codiceFiscale.setEditable(true);
+			codiceFiscale.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getCf().getCodiceFis());
+			
+			domicilio.setEnabled(true);
+			domicilio.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getVia());
+			
+			comune.setEnabled(true);
+			comune.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getComune());
+			
+			cap.setEnabled(true);
+			cap.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getCap());
+			
+			provincia.setEnabled(true);
+			provincia.setSelectedItem(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getProvincia());
+			
+			cellulare.setEnabled(true);
+			cellulare.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getCell());
+			
+			interno.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getInterno());
 		}
 		
 		setLocationRelativeTo(null);
@@ -118,12 +135,8 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		 if (esito instanceof DatiErrati) 
 			 JOptionPane.showMessageDialog(this, "dati errati");
 		 if(esito instanceof DatiCorretti) {*/
-				
-
 			GP.modificaDatiPersona(datiP);
-		//}
-		 
-		
+		//}	
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona 	controlloDati) {
@@ -131,7 +144,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	}
 	
 	public void ammissibile(Boolean b) {
-		
 		if(b)
 		{
 			int c = JOptionPane.showConfirmDialog(this, "sei sicuro?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -148,7 +160,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		{
 			JOptionPane.showMessageDialog(this, "persona gia presente");
 		}
-		
 	}
 	
 	public void annulla() {
@@ -234,8 +245,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			inserisciNuoviDatiPersona(datiP);
 			
 		}
-		
-		
 	}
 	
 

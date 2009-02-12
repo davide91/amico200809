@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="store.POJO">
+<hibernate-mapping package="store.POJO" default-lazy="false">
 
 	<class name="Persona" table="PERSONA">
     <id name="id" column="PERSONA_ID">
@@ -46,7 +46,6 @@
 		</component>	
    </subclass>
     
-  
    <subclass name="PersonaGiuridica" discriminator-value="GIURIDICA">
         <component name="dati" class="datatype.DatiPersonaGiuridica">
 			<property name="tel"/>
@@ -68,7 +67,6 @@
         
         <many-to-one name="personaDiRiferimento"
 			column="PERSONA_RIFERIMENTO"
-			unique="true"
 			not-null="false"/>
    </subclass>
     
