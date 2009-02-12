@@ -98,6 +98,7 @@ public class GestoreBilanci implements BaseExecutor {
 			ABA.aggiornaSpeseDaPagare(CalcoliFinanziari.calcolaSpeseDaPagare(bilancio));
 		}
 	}
+	
 	public void generaReport(TipoReportBilancio tipo, FormatoFile formato) {
 		DFS.salva(Formattatore.converti(preparaReportBilancio(), formato),"ReportBilancio-"+tipo, this); //DefaultPath = ReportBilancio-"TipoReportBilancio"
 		state=StatiGestoreBilancio.creazioneReport;
