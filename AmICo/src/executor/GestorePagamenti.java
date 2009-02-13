@@ -91,6 +91,7 @@ public class GestorePagamenti implements BaseExecutor {
 	
 	public void generaRichiestaPagamento(Persona persona, Pagamento pagamento, FormatoFile formato)
 	{
+		@SuppressWarnings("unused")
 		Documento doc = preparaRichiestaPagamento(persona,pagamento);
 		m_formato = formato;
 		

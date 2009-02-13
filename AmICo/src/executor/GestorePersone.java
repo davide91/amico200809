@@ -3,10 +3,6 @@
  */
 package executor;
 
-import org.hibernate.loader.custom.Return;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import store.TuttePersone;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
@@ -45,7 +41,7 @@ public class GestorePersone implements BaseExecutor {
 	private TuttePersone TP;
 	private StatiGestorePersone state; 
 	private DatiPersona personaRiferimento = null;
-	private Object d;
+	
 	
 	public GestorePersone(){
 	 TP=new TuttePersone();

@@ -188,7 +188,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
 		GCA.inserisciTabellaMillesimale(DTM, millesimi);
 		InseriscitabellaMillesimale.ammissibile(true);
-		//AMM.mostraUnitaImmobiliar(unita);
 		
 	}
 	public void modificaTabellaMillesimale(TabellaMillesimale TM , String descrizione, Millesimi millesimi)
@@ -224,12 +223,10 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	public void ammissibile(Boolean b) {
 		if (b){
-			//AMM.richiestaConferma();
 			state=StatiAccedereTabelleMillesimali.attesaConfermaMillesimi;
 			InseriscitabellaMillesimale.ammissibile(true);
 		}
 		else {
-			//AMM.mostra(NomeTabellaNonUnico);
 			state=StatiAccedereTabelleMillesimali.base;
 			InseriscitabellaMillesimale.ammissibile(false);
 		}
@@ -258,11 +255,9 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	public void ko() {
 		switch (state) {
 		case attesaConfermaInserimento:
-		//	GCA.modificaTabellaMillesimale(tabellaMillesimale, datiTabella.getDescrizione(), )
 			break;
 		case attesaConfermaMillesimi:
 			GCA.procedi(false);
-			//AMM.mostra(TabellaMillesimaleInseritaKO);
 			break;
 		default:
 			break;
@@ -273,7 +268,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	public void ok() {
 		GCA.procedi(true);
-		//AMM.mostra(TabellaMillesimaleInseritaOK);
+	
 		state=StatiAccedereTabelleMillesimali.base;
 	}
 
@@ -321,49 +316,5 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 	}
 	
 
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				
-				TabelleMillesimali tm=new TabelleMillesimali();
-				TabellaMillesimale tab2=new TabellaMillesimale();
-				DatiTabellaMillesimale dati2=new DatiTabellaMillesimale();
-				
-				dati2.setNome("ciao2");
-				
-				tab2.setDati(dati2);
-				
-
-				TabellaMillesimale tab=new TabellaMillesimale();
-				DatiTabellaMillesimale dati=new DatiTabellaMillesimale();
-				
-				
-				dati.setNome("ciao");
-				
-				tab.setDati(dati);
-				
-				tm.inserisciTabellaMillesimale(tab);
-				tm.inserisciTabellaMillesimale(tab2);
-				
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("AccedereTabelleMillesimali");
-				AccedereTabelleMillesimali content = new AccedereTabelleMillesimali(null,tm,null);
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
- */
 
 }

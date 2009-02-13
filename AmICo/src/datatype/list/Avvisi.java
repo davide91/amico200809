@@ -8,8 +8,6 @@ import java.util.List;
 
 import datatype.Avviso;
 
-import executor.Avvio;
-
 /**
  * @author bruno
  *

@@ -2,7 +2,6 @@ package datatype;
 
 import java.sql.Date;
 
-import store.POJO.Bilancio;
 import enumeration.StatoBilancio;
 import enumeration.TipoBilancio;
 

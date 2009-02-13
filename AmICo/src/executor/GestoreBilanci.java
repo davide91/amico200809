@@ -222,6 +222,7 @@ public class GestoreBilanci implements BaseExecutor {
 			}
 	}
 
+	@SuppressWarnings("unused")
 	private void preventivaSpeseNonPagate(RapportoPagamenti rapportoPagamenti) {
 		Bilancio preventivo = new Bilancio();
 	//	preventivo

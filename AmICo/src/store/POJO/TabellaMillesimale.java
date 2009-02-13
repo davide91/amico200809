@@ -9,10 +9,8 @@ import java.util.Set;
 import org.hibernate.Session;
 
 import store.util.HibernateUtil;
-
 import datatype.DatiTabellaMillesimale;
 import datatype.list.Millesimi;
-import datatype.list.Percentuali;
 
 /**
  * @author bruno

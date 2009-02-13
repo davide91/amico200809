@@ -5,13 +5,10 @@ package store.POJO;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.hibernate.Session;
 
 import store.util.HibernateUtil;
-
 import datatype.DatiBilancio;
 import datatype.Euro;
 import datatype.list.Euri;
@@ -181,6 +178,7 @@ public class Bilancio {
 	
 	public Euri moreUnita()
 	{
+		@SuppressWarnings("unused")
 		UnitaImmobiliari uImm = this.condominio.recuperaUnitaImmobiliari();
 		
 		return null;

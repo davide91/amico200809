@@ -53,6 +53,7 @@ public class TuttePersone {
 		session.getTransaction().commit();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void eliminaPersona(Persona pers)
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -74,6 +75,7 @@ public class TuttePersone {
 		session.getTransaction().commit();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Persone recuperaPersone()
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
