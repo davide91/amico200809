@@ -27,6 +27,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.VoceBilancio;
 
 import datatype.DatiMovimentoCassa;
+import datatype.Euro;
 import datatype.list.VociBilancio;
 import enumeration.TipoVoce;
 
@@ -104,7 +105,10 @@ public class RegistraMovimento extends JFrame {
 	       if ( ((JRadioButton)e.nextElement()).getModel() == buttonGroup.getSelection()) 
 	       {
 	    	   trovato = true;
-	    	   dati.setImportoMovimento(voci.getVoci().get(i).getDati().getImporto());
+	    	   if(voci.getVoci().get(i).getDati().getTipo() == TipoVoce.spesa)
+	    		   dati.setImportoMovimento(new Euro((-1)*voci.getVoci().get(i).getDati().getImporto().recuperaValore()));
+	    	   else
+	    		   dati.setImportoMovimento(voci.getVoci().get(i).getDati().getImporto());
 	    	   break;
 	       }
 		

@@ -64,6 +64,15 @@ public class VoceBilancio {
 		session.update(this);
 		session.getTransaction().commit();
 	}
+	
+	public void contabilizzaMovimento(MovimentoCassa m)
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.beginTransaction();
+		this.contabilizzata = m;
+		session.update(this);
+		session.getTransaction().commit();
+	}
 
 	@Override
 	public boolean equals(Object other) {

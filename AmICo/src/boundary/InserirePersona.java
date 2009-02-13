@@ -48,10 +48,9 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	public InserirePersona() {
 		initComponents();
 		initgroup();
-		
 		this.GP=GestorePersone.getInstance();
-		
 		this.setLocationRelativeTo(null);
+		this.setTitle("Inserire Nuova Persona");
 		this.setVisible(true);
 	}
 	
@@ -146,6 +145,10 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		cellulare.setEditable(true);
 		interno.setEditable(true);
 		conRiferimento = false;
+		telefono.setEditable(true);
+		eMail.setEditable(true);
+		fax.setEditable(true);
+		conRiferimento = false;
 	}
 
 	private void radioPGMouseMouseClicked(MouseEvent event)
@@ -154,9 +157,9 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		partitaIVA.setEditable(true);
 		indirizzoFiscale.setEditable(true);
 		bPersonaDiRiferimento.setEnabled(true);
-		fax.setEnabled(false);
-		eMail.setEnabled(false);
-		telefono.setEnabled(false);
+		fax.setEditable(false);
+		eMail.setEditable(false);
+		telefono.setEditable(false);
 		cognome.setEditable(false);
 		nome.setEditable(false);
 		codiceFiscale.setEditable(false);

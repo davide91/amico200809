@@ -5,11 +5,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
 
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,6 +29,7 @@ public class InserireNuovoBilancio extends JFrame {
 
 	private AccedereBilanci AB;
 	private AccedereCondominioAperto ACA;
+	private ButtonGroup bGroup = new ButtonGroup();
 	
 	public InserireNuovoBilancio(AccedereBilanci ab,AccedereCondominioAperto aca) {
 		AB=ab;
@@ -35,6 +38,9 @@ public class InserireNuovoBilancio extends JFrame {
 		setTitle("Redigendo bilancio");
 		setLocationRelativeTo(null);
 		setVisible(true);
+		bGroup.add(jRadioButtonConsuntivo);
+		bGroup.add(jRadioButtonPreventivo);
+		jRadioButtonConsuntivo.setSelected(true);
 	}
 	
 	
@@ -43,8 +49,12 @@ public class InserireNuovoBilancio extends JFrame {
 		dati.setDescrizione(descrizione.getText());
 		dati.setTitolo(titolo.getText());
 		dati.setTipo((TipoBilancio)tipoBilancio.getSelectedItem());
-		dati.setStato((StatoBilancio)stato.getSelectedItem());// probabilmente non ci va ci sara' uno stato iniziale
-
+	
+		if(jRadioButtonConsuntivo.isSelected())
+			dati.setStato(StatoBilancio.consuntivo);
+		else
+			dati.setStato(StatoBilancio.preventivo);
+		
 		dati.impostaDataInizio(new Data());
 		
 		Data fine = new Data();
@@ -68,28 +78,57 @@ public class InserireNuovoBilancio extends JFrame {
 	private JTextArea descrizione;
 	private JScrollPane jScrollPane0;
 	private JLabel jLabel2;
-	private JComboBox stato;
 	private JComboBox tipoBilancio;
 	private JButton bOk;
 	private JButton bAnnulla;
-	
+	private JRadioButton jRadioButtonPreventivo;
+	private JRadioButton jRadioButtonConsuntivo;
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public InserireNuovoBilancio() {
 		initComponents();
 	}
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(18, 80, 10, 10), new Leading(29, 10, 10)));
-		add(getTitolo(), new Constraints(new Leading(95, 126, 12, 12), new Leading(69, 10, 10)));
 		add(getJLabel1(), new Constraints(new Leading(18, 12, 12), new Leading(73, 12, 12)));
-		add(getJScrollPane0(), new Constraints(new Leading(96, 246, 10, 10), new Leading(102, 80, 10, 10)));
-		add(getJLabel2(), new Constraints(new Leading(19, 12, 12), new Leading(107, 10, 10)));
-		add(getStato(), new Constraints(new Leading(96, 124, 12, 12), new Leading(209, 10, 10)));
-		add(getTipoBilancio(), new Constraints(new Leading(95, 126, 12, 12), new Leading(23, 10, 10)));
-		add(getBOk(), new Constraints(new Leading(49, 10, 10), new Leading(295, 10, 10)));
-		add(getBAnnulla(), new Constraints(new Leading(190, 10, 10), new Leading(295, 12, 12)));
-		setSize(396, 382);
+		add(getJLabel0(), new Constraints(new Leading(18, 118, 12, 12), new Leading(29, 10, 10)));
+		add(getTipoBilancio(), new Constraints(new Leading(133, 126, 10, 10), new Leading(25, 12, 12)));
+		add(getTitolo(), new Constraints(new Leading(133, 126, 12, 12), new Leading(72, 12, 12)));
+		add(getJScrollPane0(), new Constraints(new Leading(131, 246, 10, 10), new Leading(112, 80, 12, 12)));
+		add(getJLabel2(), new Constraints(new Leading(18, 12, 12), new Leading(114, 12, 12)));
+		add(getJRadioButtonPreventivo(), new Constraints(new Leading(133, 8, 8), new Leading(204, 10, 10)));
+		add(getJRadioButtonConsuntivo(), new Constraints(new Leading(133, 8, 8), new Leading(229, 10, 10)));
+		add(getBOk(), new Constraints(new Leading(64, 12, 12), new Leading(284, 10, 10)));
+		add(getBAnnulla(), new Constraints(new Leading(205, 10, 10), new Leading(284, 12, 12)));
+		initBGroup();
+		setSize(396, 352);
 	}
+
+
+	private void initBGroup() {
+		bGroup = new ButtonGroup();
+	}
+
+
+	private JRadioButton getJRadioButtonConsuntivo() {
+		if (jRadioButtonConsuntivo == null) {
+			jRadioButtonConsuntivo = new JRadioButton();
+			jRadioButtonConsuntivo.setSelected(true);
+			jRadioButtonConsuntivo.setText("Consuntivo");
+		}
+		return jRadioButtonConsuntivo;
+	}
+
+
+	private JRadioButton getJRadioButtonPreventivo() {
+		if (jRadioButtonPreventivo == null) {
+			jRadioButtonPreventivo = new JRadioButton();
+			jRadioButtonPreventivo.setSelected(true);
+			jRadioButtonPreventivo.setText("Preventivo");
+		}
+		return jRadioButtonPreventivo;
+	}
+
 
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
@@ -127,16 +166,6 @@ public class InserireNuovoBilancio extends JFrame {
 			tipoBilancio.setBorder(null);
 		}
 		return tipoBilancio;
-	}
-
-	private JComboBox getStato() {
-		if (stato == null) {
-			stato = new JComboBox();
-			stato.setModel(new DefaultComboBoxModel(StatoBilancio.values()));
-			stato.setDoubleBuffered(false);
-			stato.setBorder(null);
-		}
-		return stato;
 	}
 
 	private JLabel getJLabel2() {

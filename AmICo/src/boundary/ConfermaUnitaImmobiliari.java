@@ -3,6 +3,8 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Enumeration;
 import java.util.Iterator;
 
@@ -250,6 +252,12 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		add(getBAnnulla(), new Constraints(new Leading(200, 10, 10), new Leading(288, 10, 10)));
 		initGroup();
 		setSize(612, 358);
+		this.addWindowListener(new WindowAdapter() {  
+			 @Override  
+			 public void windowClosing(WindowEvent we) {  
+				 	annulla(); 
+			 	}  
+			 });   
 	}
 
 	private JButton getBEliminaUnita() {
@@ -348,7 +356,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		}
 		return bAnnulla;
 	}
-
+	
 	protected void bAnnullaMouseMouseClicked(MouseEvent event) {
 		int c = JOptionPane.showConfirmDialog(this, "Annullare operazione?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		if (c==0){
@@ -381,9 +389,14 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		case inserimentoProprietari:
 				state = StatiConfermaUnitaImmobiliari.base;
 			break;
-			default:
-				INC.annulla();
+	/*	case base:
+			INC.annulla();	
+			this.dispose();
 			break;
+	*/	default:
+			INC.annulla();
+			this.dispose();
+		break;
 				
 		}
 	}

@@ -60,7 +60,7 @@ public class InserireNuovaVoceBilancio extends JFrame {
 	private void bOkMouseMouseClicked(MouseEvent event) {
 		try{
 			DatiVoceBilancio dati = new DatiVoceBilancio();
-			Data d = new Data(Integer.parseInt(giorno.getText()),Integer.parseInt(mese.getText()),Integer.parseInt(anno.getText()));
+			Data d = new Data(Integer.parseInt(giorno.getText()),Integer.parseInt(mese.getText())-1,Integer.parseInt(anno.getText()));
 			dati.impostaDataPrevista(d);
 			dati.setDescrizione(descrizione.getText());
 			dati.setImporto(new Euro(Double.parseDouble(importo.getText())));

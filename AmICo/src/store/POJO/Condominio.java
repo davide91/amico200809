@@ -62,6 +62,13 @@ public class Condominio {
 			link(p);
 		session.getTransaction().commit();
 	}
+	
+	public void inserisciPersonaNoCommit(Persona p)
+	{
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			link(p);
+	}
 
 	private void link(Persona p)
 	{

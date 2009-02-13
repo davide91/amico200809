@@ -97,6 +97,7 @@ public class GestoreCondomini implements BaseExecutor {
 	public void inserisciCondominio() {
 		m_inserireNuovoCondominio = new InserireNuovoCondominio();	
 		m_state = StatiGestoreCondominio.inserimentoCondominio;
+		m_condominio = null;
 	}
 	
 	public void inserisciUnitaImmobiliare() {
@@ -112,10 +113,18 @@ public class GestoreCondomini implements BaseExecutor {
 				m_condominio.eliminaUnitaImmobiliare(m_unitaImmobiliare);
 				m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 				m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari(m_condominio.recuperaUnitaImmobiliari());
+				m_state = StatiGestoreCondominio.inserimentoUnitaImmobiliari;
 				break;
+				
+			case inserimentoUnitaImmobiliari:
+				m_confermaUnitaImmobiliari.dispose();
+				if (m_condominio != null) 
+					TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
+					m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
+				break;
+				
 			default:
 				m_state = StatiGestoreCondominio.gestoreCondomini;
-
 			if (m_condominio != null) 
 				TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 				m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
@@ -137,7 +146,7 @@ public class GestoreCondomini implements BaseExecutor {
 			break;
 		}
 	}
-	 
+
 	public void operazioneTerminata(File file) {
 		if ( !FormatoAmICo.fileInFormatoAmICo(file) ) {
 			m_amico.fallito();
@@ -228,8 +237,8 @@ public class GestoreCondomini implements BaseExecutor {
 				if ( !procedere ) {
 					m_state = StatiGestoreCondominio.inserimentoCondominio;
 					m_datiCondominio = null;
-					break;
 				}
+				else{
 				m_condominio = new Condominio();
 				TuttiCondomini.getInstance().inserisciCondominio(m_condominio);
 				m_condominio.modificaDati(m_datiCondominio);
@@ -240,8 +249,7 @@ public class GestoreCondomini implements BaseExecutor {
 			//	inserisciUnitaImmobiliare();
 				m_confermaUnitaImmobiliari = new ConfermaUnitaImmobiliari(m_inserireNuovoCondominio, 
 						TuttePersone.getInstance().recuperaPersone());	
-				
-				
+				}
 				break;
 			case attesaConfermaTabellaMillesimale :
 				if ( !procedere ) {

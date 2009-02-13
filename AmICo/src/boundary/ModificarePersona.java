@@ -232,6 +232,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		}
 		else if (persona instanceof PersonaGiuridica)
 		{
+			
 			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
 			datiP.setFax(fax.getText());
 			Email mail =new Email(eMail.getText());

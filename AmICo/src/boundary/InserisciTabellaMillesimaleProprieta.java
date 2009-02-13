@@ -176,7 +176,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	
 	private void annullaMouseMouseClicked(MouseEvent event)
 	{
-		GestoreCondomini.getInstance().operazioneTerminata();
+		GestoreCondomini.getInstance().operazioneAnnullata();
+		this.dispose();
 	}
 
 	

@@ -35,8 +35,8 @@ public class Cassa {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 			saldo.somma(movC.getDati().getImportoMovimento());
-			movimentiDiCassa.add(movC);
 			movC.setCassa(this);
+			movimentiDiCassa.add(movC);
 		session.update(this);
 		session.getTransaction().commit();
 	}

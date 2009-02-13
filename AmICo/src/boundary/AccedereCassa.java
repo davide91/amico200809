@@ -1,6 +1,7 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
@@ -49,6 +50,13 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		
 		scritta.setText("Saldo cassa al "+g.get(GregorianCalendar.DAY_OF_MONTH)+"/"+(g.get(GregorianCalendar.MONTH)+1)+"/"+g.get(GregorianCalendar.YEAR) );
 		saldo.setText(cassa.getSaldo().getEuroIntero()+","+cassa.getSaldo().getCent());
+		saldo.setEditable(false);
+		saldo.setEnabled(true);
+		if(m_cassa.getSaldo().getEuroIntero()<0)
+			saldo.setBackground(Color.red);
+		else if(m_cassa.getSaldo().getEuroIntero()>0)
+			saldo.setBackground(Color.green);
+		else saldo.setBackground(Color.white);
 	}
 	
 	public AccedereCassa() {
@@ -79,6 +87,13 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	{
 		DefaultTableModel dm = new DefaultTableModel();
 		
+		saldo.setText(m_cassa.getSaldo().getEuroIntero()+","+m_cassa.getSaldo().getCent());
+		if(m_cassa.getSaldo().getEuroIntero()<0)
+			saldo.setBackground(Color.red);
+		else if(m_cassa.getSaldo().getEuroIntero()>0)
+			saldo.setBackground(Color.green);
+		else saldo.setBackground(Color.white);
+		
 		dm.setDataVector(new String[][]{},new String[]{"Importo","Tipo","Data","Motivazione"});
 /*		dm.addRow(new Object[]{"-"+"50","spesa","",""});
 		dm.addRow(new Object[]{"30","incasso","",""});
@@ -90,13 +105,13 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 			{
 				if(m.getRelativoAVoce().getDati().getTipo()==TipoVoce.spesa)
 					dm.addRow(new String[]{
-							"-"+m.getDati().getImportoMovimento().toString(),
+							"-"+m.getDati().getImportoMovimento().recuperaValore(),
 							m.getRelativoAVoce().getDati().getTipo().toString(),
 							m.getRelativoAVoce().getDati().recuperaDataPrevista().dataInStringa(),
 							m.getDati().getMotivazione()});
 				else
 					dm.addRow(new String[]{
-							m.getDati().getImportoMovimento().toString(),
+							""+m.getDati().getImportoMovimento().recuperaValore(),
 							m.getRelativoAVoce().getDati().getTipo().toString(),
 							m.getRelativoAVoce().getDati().recuperaDataPrevista().dataInStringa(),
 							m.getDati().getMotivazione()});
@@ -104,7 +119,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 			else if(m.getRelativoAPagamento()!=null)
 			{
 				dm.addRow(new String[]{
-						"-"+m.getDati().getImportoMovimento().toString(),
+						"-"+m.getDati().getImportoMovimento().recuperaValore(),
 						"incasso",
 						m.getRelativoAPagamento().getDatiPagamento().getData().toString(),
 						m.getDati().getMotivazione()});
@@ -143,11 +158,10 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	public void ko() {
 		m_gestoreCassa.procedi(false);
 		JOptionPane.showMessageDialog(this, "operazione annullata dall'utente");
-	//	RM.dispose();
 	}
 
 	public void ok() {
-		m_gestoreCassa.procedi(false);
+		m_gestoreCassa.procedi(true);
 		JOptionPane.showMessageDialog(this, "operazione terminata");
 	}
 	
