@@ -33,6 +33,11 @@ public class Euro {
 		return euro;
 	}
 	
+	public long recuperaValore()
+	{
+		return euro/100;
+	}
+	
 	public int getCent() {
 		if (euro > 0) {
 			String valore_stringa = new Long(euro).toString();
@@ -145,9 +150,9 @@ public class Euro {
 	public void setEuro(long euro) {
 		this.euro = euro;
 	}
+
 	
-	/*
-	private float euro;
+/*	private float euro;
 	
 	public Euro()
 	{

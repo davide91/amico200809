@@ -21,7 +21,6 @@ import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
-import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
@@ -122,6 +121,14 @@ public class StatoPatrimoniale extends JPanel {
 	}
 	
 	
+
+	private void bMettiInEsercizioMouseMouseClicked(MouseEvent event) {
+	}
+
+	private void bTerminaEsercizioMouseMouseClicked(MouseEvent event) {
+	}
+	
+	
 	private static final long serialVersionUID = 1L;
 	private JLabel jLabel0;
 	private JLabel jLabel1;
@@ -135,22 +142,57 @@ public class StatoPatrimoniale extends JPanel {
 	private JButton bModificaVoceBilancio;
 	private JButton bEliminaVoceBilancio;
 	private JButton bChiudiBilancio;
-
-
+	private JButton bTerminaEsercizio;
+	private JButton bMettiInEsercizio;
+	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setBackground(Color.white);
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Leading(6, 350, 12, 12), new Leading(43, 313, 12, 12)));
 		add(getJScrollPane1(), new Constraints(new Leading(380, 350, 12, 12), new Leading(43, 312, 12, 12)));
-	//	add(getBModificaVoceBilancio(), new Constraints(new Leading(456, 212, 10, 10), new Leading(379, 12, 12)));
-		add(getBChiudiBilancio(), new Constraints(new Leading(456, 212, 12, 12), new Leading(421, 12, 12)));
-		add(getBInserisciVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(379, 12, 12)));
-		add(getBEliminaVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(421, 12, 12)));
 		add(getJSeparator0(), new Constraints(new Leading(368, 8, 12, 12), new Leading(21, 340, 12, 12)));
 		add(getJSeparator1(), new Constraints(new Leading(4, 726, 12, 12), new Leading(362, 18, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(511, 111, 10, 10), new Leading(12, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(137, 120, 10, 10), new Leading(13, 22, 12, 12)));
-		setSize(805, 468);
+		add(getBEliminaVoceBilancio(), new Constraints(new Leading(31, 212, 10, 10), new Leading(421, 12, 12)));
+		add(getBInserisciVoceBilancio(), new Constraints(new Leading(31, 212, 12, 12), new Leading(379, 12, 12)));
+		add(getBChiudiBilancio(), new Constraints(new Leading(266, 212, 12, 12), new Leading(421, 12, 12)));
+		add(getBTerminaEsercizio(), new Constraints(new Leading(508, 202, 10, 10), new Leading(421, 12, 12)));
+		add(getBMettiInEsercizio(), new Constraints(new Leading(508, 202, 12, 12), new Leading(379, 12, 12)));
+		initButtonGroup();
+		setSize(805, 516);
+	}
+
+	private void initButtonGroup() {
+		buttonGroup = new ButtonGroup();
+	}
+
+	private JButton getBMettiInEsercizio() {
+		if (bMettiInEsercizio == null) {
+			bMettiInEsercizio = new JButton();
+			bMettiInEsercizio.setText("Metti In Esercizio");
+			bMettiInEsercizio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bMettiInEsercizioMouseMouseClicked(event);
+				}
+			});
+		}
+		return bMettiInEsercizio;
+	}
+
+	private JButton getBTerminaEsercizio() {
+		if (bTerminaEsercizio == null) {
+			bTerminaEsercizio = new JButton();
+			bTerminaEsercizio.setText("Termina Esercizio");
+			bTerminaEsercizio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bTerminaEsercizioMouseMouseClicked(event);
+				}
+			});
+		}
+		return bTerminaEsercizio;
 	}
 
 	private JButton getBChiudiBilancio() {
@@ -195,6 +237,7 @@ public class StatoPatrimoniale extends JPanel {
 		return bModificaVoceBilancio;
 	}
 */
+	
 	private JButton getBInserisciVoceBilancio() {
 		if (bInserisciVoceBilancio == null) {
 			bInserisciVoceBilancio = new JButton();
@@ -216,38 +259,7 @@ public class StatoPatrimoniale extends JPanel {
 		}
 		return jScrollPane1;
 	}
-	
-	 private JTable getJTable1() {
-		if (jTablePassivo == null) {
-
-			DefaultTableModel dm = new DefaultTableModel();
-			
-			dm.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
-			
-			jTablePassivo = new JTable(dm)
-		    {
-				private static final long serialVersionUID = 1L;
-
-				public void tableChanged(TableModelEvent e)
-			    {
-					super.tableChanged(e);
-			        repaint();
-			        if(jTableAttivo != null)
-			        	jTableAttivo.repaint();
-			    }
-		    };   
-		    jTablePassivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
-		    jTablePassivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
-
-		}
-		
-		
-		
-		return jTablePassivo;
-	}
-
-
-	private JScrollPane getJScrollPane0() {
+	 private JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {
 			jScrollPane0 = new JScrollPane();
 			jScrollPane0.setViewportView(getJTable0());
@@ -255,36 +267,66 @@ public class StatoPatrimoniale extends JPanel {
 		return jScrollPane0;
 	}
 
-	private JTable getJTable0() {
-		if (jTableAttivo == null) {
+	 private JTable getJTable0() {
+			if (jTableAttivo == null) {
 
-			DefaultTableModel dm = new DefaultTableModel();
-			
-			dm.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
-			
-			jTableAttivo = new JTable(dm)
-		    {
-				private static final long serialVersionUID = 1L;
-
-				public void tableChanged(TableModelEvent e)
+				DefaultTableModel dm = new DefaultTableModel();
+				
+				dm.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
+				
+				jTableAttivo = new JTable(dm)
 			    {
-					super.tableChanged(e);
-			        repaint();
-			        if(jTablePassivo != null)
-			        	jTablePassivo.repaint();
-			    }
-		    };   
-		    jTableAttivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
-		    jTableAttivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+					private static final long serialVersionUID = 1L;
 
+					public void tableChanged(TableModelEvent e)
+				    {
+						super.tableChanged(e);
+				        repaint();
+				        if(jTablePassivo != null)
+				        	jTablePassivo.repaint();
+				    }
+			    };   
+			    jTableAttivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+			    jTableAttivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+
+			}
+			
+			
+			
+			return jTableAttivo;
 		}
-		
-		
-		
-		return jTableAttivo;
-	}
+	 
+	 
+	 private JTable getJTable1() {
+			if (jTablePassivo == null) {
 
-	private JSeparator getJSeparator1() {
+				DefaultTableModel dm = new DefaultTableModel();
+				
+				dm.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
+				
+				jTablePassivo = new JTable(dm)
+			    {
+					private static final long serialVersionUID = 1L;
+
+					public void tableChanged(TableModelEvent e)
+				    {
+						super.tableChanged(e);
+				        repaint();
+				        if(jTableAttivo != null)
+				        	jTableAttivo.repaint();
+				    }
+			    };   
+			    jTablePassivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+			    jTablePassivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+
+			}
+			
+			
+			
+			return jTablePassivo;
+		}
+	 
+	 private JSeparator getJSeparator1() {
 		if (jSeparator1 == null) {
 			jSeparator1 = new JSeparator();
 		}
@@ -353,6 +395,7 @@ public class StatoPatrimoniale extends JPanel {
 	}
  
 */
+
 
 
 }

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ import org.dyno.visual.swing.layouts.Leading;
 public class SpostamentiDiCassa extends JPanel {
 	
 	private AccedereBilancioAperto ABA;
+	private ButtonGroup buttonGroup = new ButtonGroup();
 	
 	public SpostamentiDiCassa(AccedereBilancioAperto aba) {
 		ABA=aba;
@@ -50,6 +52,12 @@ public class SpostamentiDiCassa extends JPanel {
 	private void bChiudiBilancioMouseMouseClicked(MouseEvent event) {
 		ABA.chiudi();
 	}
+	private void bMettiInEsercizioMouseMouseClicked(MouseEvent event) {
+	}
+
+	private void bTerminaEsercizioMouseMouseClicked(MouseEvent event) {
+	}
+	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -65,23 +73,58 @@ public class SpostamentiDiCassa extends JPanel {
 	private JScrollPane jScrollPane0;
 	private JTable spese;
 	private JScrollPane jScrollPane1;
+	private JButton bTerminaEsercizio;
+	private JButton bMettiInEsercizio;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setBackground(Color.white);
 		setLayout(new GroupLayout());
 		add(getJScrollPane0(), new Constraints(new Leading(6, 350, 12, 12), new Leading(43, 313, 12, 12)));
 		add(getJScrollPane1(), new Constraints(new Leading(380, 350, 12, 12), new Leading(43, 312, 12, 12)));
-	//	add(getBModificaVoceBilancio(), new Constraints(new Leading(456, 212, 10, 10), new Leading(379, 12, 12)));
-		add(getBChiudiBilancio(), new Constraints(new Leading(456, 212, 12, 12), new Leading(421, 12, 12)));
-		add(getBInserisciVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(379, 12, 12)));
-		add(getBEliminaVoceBilancio(), new Constraints(new Leading(75, 212, 12, 12), new Leading(421, 12, 12)));
 		add(getJSeparator0(), new Constraints(new Leading(368, 8, 12, 12), new Leading(21, 340, 12, 12)));
 		add(getJSeparator1(), new Constraints(new Leading(4, 726, 12, 12), new Leading(362, 18, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(511, 111, 10, 10), new Leading(12, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(137, 120, 10, 10), new Leading(13, 22, 12, 12)));
-		setSize(805, 468);
+		add(getBEliminaVoceBilancio(), new Constraints(new Leading(31, 212, 10, 10), new Leading(421, 12, 12)));
+		add(getBInserisciVoceBilancio(), new Constraints(new Leading(31, 212, 12, 12), new Leading(379, 12, 12)));
+		add(getBChiudiBilancio(), new Constraints(new Leading(266, 212, 12, 12), new Leading(421, 12, 12)));
+		add(getBTerminaEsercizio(), new Constraints(new Leading(508, 202, 10, 10), new Leading(421, 12, 12)));
+		add(getBMettiInEsercizio(), new Constraints(new Leading(508, 202, 12, 12), new Leading(379, 12, 12)));
+		initButtonGroup();
+		setSize(805, 516);
 	}
 
+	private void initButtonGroup() {
+		buttonGroup = new ButtonGroup();
+	}
+
+	private JButton getBMettiInEsercizio() {
+		if (bMettiInEsercizio == null) {
+			bMettiInEsercizio = new JButton();
+			bMettiInEsercizio.setText("Metti In Esercizio");
+			bMettiInEsercizio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bMettiInEsercizioMouseMouseClicked(event);
+				}
+			});
+		}
+		return bMettiInEsercizio;
+	}
+
+	private JButton getBTerminaEsercizio() {
+		if (bTerminaEsercizio == null) {
+			bTerminaEsercizio = new JButton();
+			bTerminaEsercizio.setText("Termina Esercizio");
+			bTerminaEsercizio.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bTerminaEsercizioMouseMouseClicked(event);
+				}
+			});
+		}
+		return bTerminaEsercizio;
+	}
 	private JScrollPane getJScrollPane1() {
 		if (jScrollPane1 == null) {
 			jScrollPane1 = new JScrollPane();

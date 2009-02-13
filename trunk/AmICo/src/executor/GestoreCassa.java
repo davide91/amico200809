@@ -29,6 +29,7 @@ public class GestoreCassa implements BaseExecutor {
 	private DatiMovimentoCassa m_datiMovimento;
 	private AccedereCassa m_accedereCassa;
 	private StatiGestoreCassa m_state;
+	private VoceBilancio voceBilancio;
 	
 	public GestoreCassa(Cassa cassa,AccedereCondominioAperto ACA) {
 		m_cassa = cassa;
@@ -64,10 +65,11 @@ public class GestoreCassa implements BaseExecutor {
 	
 	public void passaVoceBilancio(VoceBilancio voceBilancio, DatiMovimentoCassa dati)
 	{
+		this.voceBilancio = voceBilancio;
 		m_datiMovimento = dati; // riga aggiunta da federico
-		m_datiMovimento = preparaProspetto(voceBilancio);
-		m_accedereCassa.aggiornaProspetto(m_datiMovimento);
+	//	m_datiMovimento = preparaProspetto(voceBilancio);
 		m_state = StatiGestoreCassa.attesaConferma;
+		m_accedereCassa.aggiornaProspetto(m_datiMovimento);
 	}
 	
 	public void generaReport(TipoReportCassa tipo, FormatoFile formato)
@@ -137,11 +139,13 @@ public class GestoreCassa implements BaseExecutor {
 					m_state = StatiGestoreCassa.gestoreCassa;
 					break;
 				}
-				m_cassa.registraMovimentoCassa(new MovimentoCassa(m_datiMovimento));
+				MovimentoCassa m = new MovimentoCassa(m_datiMovimento);
+				m.setRelativoAVoce(voceBilancio);
+				m_cassa.registraMovimentoCassa(m);
+				voceBilancio.contabilizzaMovimento(m);
 				m_state = StatiGestoreCassa.gestoreCassa;
 				break;
 		}
-		
 	}
 	
 	//fatto da federico
@@ -153,7 +157,7 @@ public class GestoreCassa implements BaseExecutor {
 		while(bilancioIter.hasNext())
 		{
 		//	if (bilancioIter.next().getDati().getStato() != StatoBilancio.inEsercizio)
-			//	continue;
+		//		continue;
 			
 			Iterator<VoceBilancio> voceIter = bilancioIter.next().getVoci().iterator();
 			

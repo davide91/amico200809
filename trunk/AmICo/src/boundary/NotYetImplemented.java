@@ -30,7 +30,7 @@ public class NotYetImplemented extends JPanel {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(6, 236, 10, 10), new Leading(32, 135, 10, 10)));
+		add(getJLabel0(), new Constraints(new Leading(6, 312, 10, 10), new Leading(32, 135, 10, 10)));
 		setSize(476, 332);
 	}
 

@@ -515,7 +515,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 					else
 						line += ((PersonaGiuridica)persona).getDati().getRagioneSociale();
 
-					line += " è in mora di " + somma.toString() + " euro. (Codice pagamenti: ";
+					line += " e' in mora di " + somma.toString() + " euro. (Codice pagamenti: ";
 					for(String codice : pagamentiCode)
 						if (pagamentiCode.get(pagamentiCode.size()-1).equals(codice))
 							line += codice + ")";
@@ -584,7 +584,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 			if(avviso instanceof CassaSottoSogliaMinima) {
 				CassaSottoSogliaMinima cassaA = (CassaSottoSogliaMinima)avviso;
 				toDisplay.add(
-						"<b>CASSA SOTTO SOGLIA MINIMA</b>:<br>La cassa è sotto la soglia minima di " + 
+						"<b>CASSA SOTTO SOGLIA MINIMA</b>:<br>La cassa e' sotto la soglia minima di " + 
 						cassaA.getSoglia().toString() + " euro. (Valore attuale: " + cassaA.getAttuale().toString() + " euro)"
 				);
 				continue;
