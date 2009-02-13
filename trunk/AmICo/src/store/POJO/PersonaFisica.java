@@ -3,11 +3,7 @@
  */
 package store.POJO;
 
-import java.util.SortedSet;
-
 import org.hibernate.Session;
-
-import store.util.HibernateUtil;
 
 import datatype.DatiPersonaFisica;
 
@@ -18,7 +14,7 @@ import datatype.DatiPersonaFisica;
 public class PersonaFisica extends Persona {
 
 	private DatiPersonaFisica dati;
-	
+	@SuppressWarnings("unused")
 	private Session session;
 	public void creaPersonaFisica(DatiPersonaFisica dpf)
 	{

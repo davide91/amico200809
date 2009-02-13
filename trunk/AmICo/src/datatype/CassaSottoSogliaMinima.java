@@ -11,6 +11,7 @@ public class CassaSottoSogliaMinima extends Avviso{
 
 	private Euro attuale = new Euro();
 	private Euro soglia = new Euro();
+	@SuppressWarnings("unused")
 	private String nomeCassa = new String();
 	
 	public CassaSottoSogliaMinima(String nomeCassa, Euro attuale, Euro soglia)

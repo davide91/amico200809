@@ -3,7 +3,6 @@
  */
 package datatype;
 
-import store.POJO.PersonaGiuridica;
 
 /**
  * @author bruno

@@ -2,10 +2,14 @@ package calculator;
 
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import datatype.Avviso;
+
+import store.POJO.Bilancio;
+import store.POJO.Cassa;
+import store.POJO.Condominio;
+import store.POJO.Pagamento;
+import store.POJO.VoceBilancio;
 import datatype.BilancioStatoAllerta;
 import datatype.CassaSottoSogliaMinima;
 import datatype.CondominiMorosi;
@@ -17,11 +21,6 @@ import datatype.PagamentoScaduto;
 import datatype.SpeseDaPagare;
 import datatype.list.Avvisi;
 import datatype.list.Pagamenti;
-import store.POJO.Bilancio;
-import store.POJO.Cassa;
-import store.POJO.Condominio;
-import store.POJO.Pagamento;
-import store.POJO.VoceBilancio;
 
 public class CalcoloAvvisi {
 
@@ -125,6 +124,7 @@ public class CalcoloAvvisi {
 				}
 				catch(NoSuchElementException nsee)
 				{
+					@SuppressWarnings("unused")
 					CassaSottoSogliaMinima avviso = new CassaSottoSogliaMinima("Cassa creata da eccezione",	new Euro((float)500.0),new Euro((float)1500.0) );
 				}
 			}

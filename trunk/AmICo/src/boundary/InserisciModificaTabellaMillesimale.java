@@ -83,19 +83,10 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		m=new Millesimi();
 	}
 	
-	/*
-	public void inserisciMillesimi(Millesimi millesimi){
-		if (millesimi.somma()==1000){
-			state=StatiAccedereTabelleMillesimali.attesaControlloMillesimi;
-			GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi);
-			
-		}
-	}
-	*/
+	
 
 	public void ammissibile(Boolean b) {
 		if (b){
-			//AMM.richiestaConferma();
 			state=StatiAccedereTabelleMillesimali.attesaConfermaMillesimi;
 			
 			if(tabellaMillesimale==null)
@@ -118,7 +109,6 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 			}
 			else
 			{
-				//ATM.modificaTabellaMillesimale(tabellaMillesimale,descrizione.getText(),m);
 				JOptionPane.showMessageDialog(this, "Tabella Immobiliare Modificata");
 				ATM.finito();
 			}
@@ -156,7 +146,6 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 			break;
 		case attesaConfermaMillesimi:
 			GestoreCondomini.getInstance().procedi(false);
-			//AMM.mostra(TabellaMillesimaleInseritaKO);
 			break;
 		default:
 			break;
@@ -167,13 +156,11 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 
 	public void ok() {
 	//	GestoreCondomini.getInstance().procedi(true);
-		//AMM.mostra(TabellaMillesimaleInseritaOK);
 		state=StatiAccedereTabelleMillesimali.base;
 	}
 
 	private void continuaMouseMouseClicked(MouseEvent event)
 	{
-		//ArrayList<Float> lista = new ArrayList<Float>();
 		Millesimi lista = new Millesimi();
 		
 		for (int i=0;i<unita.getImmobili().size();i++)

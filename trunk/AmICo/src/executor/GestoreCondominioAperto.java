@@ -1,8 +1,5 @@
 	package executor;
 
-import java.awt.BorderLayout;
-import java.net.URL;
-
 import javax.swing.JTabbedPane;
 
 import store.TuttePersone;
@@ -25,9 +22,8 @@ import datatype.DatiTabellaMillesimale;
 import datatype.Preferenze;
 import datatype.list.Avvisi;
 import datatype.list.Millesimi;
-import datatype.list.Persone;
 import datatype.list.Percentuali;
-import datatype.list.UnitaImmobiliari;
+import datatype.list.Persone;
 import enumeration.StatiGestoreCondominioAperto;
 
 public class GestoreCondominioAperto implements BaseExecutor {
@@ -39,8 +35,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	private Avvisi m_avvisi;
 	private Condominio m_condominio;
 	private DatiTabellaMillesimale m_datiTabellaMillesimale;
+	@SuppressWarnings("unused")
 	private GestoreBilanci m_gestoreBilanci;
+	@SuppressWarnings("unused")
 	private GestoreCassa m_gestoreCassa;
+	@SuppressWarnings("unused")
 	private GestorePagamenti m_gestorePagamenti;
 	private Percentuali m_nuoveQuote;
 	private Millesimi m_nuoviMillesimi;

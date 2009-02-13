@@ -5,7 +5,6 @@ package store;
 
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 import store.POJO.Condominio;
@@ -29,6 +28,7 @@ public class TuttiCondomini {
 		return CONDOMINI;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Condomini recuperaCondomini()
 	{	
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	

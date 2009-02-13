@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -42,7 +41,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 
 	private ConfermaUnitaImmobiliari CUI;
 	
-	public InserireUnitaImmobiliare(ConfermaUnitaImmobiliari conf/*, Persone persone*/)
+	public InserireUnitaImmobiliare(ConfermaUnitaImmobiliari conf)
 	{
 		this.CUI=conf;
 		initComponents();
@@ -75,7 +74,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 	}
 
 	public void fatto() {
-				//AMM:mostraPersone(persone);
+				
 	}
 
 	public void finito() {
@@ -85,7 +84,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 
 	public void ko() {
 		GestoreCondomini.getInstance().procedi(false);
-		//AMM.mostra(unitaImmobiliareInseritaKO);
+	
 	}
 
 	public void ok() {
@@ -107,7 +106,7 @@ public class InserireUnitaImmobiliare extends JFrame{
 		{
 			JOptionPane.showMessageDialog(this, "Formato metratura errato! Utilizzare solo cifre \n Utilizzare il formato XXX.YY ");
 		}
-		//CUI.setVisible(true);
+	
 	}
 	
 	private void annullaMouseMouseClicked(MouseEvent event) {
@@ -127,7 +126,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 	private JButton bConferma;
 	private JButton bAnnulla;
 	private JComboBox categoria;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 	private void initComponents() {
 		setTitle("Inserire Unita' Immobiliare");
@@ -230,43 +228,8 @@ public class InserireUnitaImmobiliare extends JFrame{
 		return id;
 	}
 
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
-
-
 	
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 */
-/*	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				InserireUnitaImmobiliare frame = new InserireUnitaImmobiliare(TuttePersone.getInstance().recuperaPersone());
-				frame.setTitle("InserireUnitaImmobiliare");
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
-	/*public boolean proprietaOK(Persone persone, Percentuali quote) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	*/
-	
+
 }
 
 
