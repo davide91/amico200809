@@ -202,7 +202,6 @@ public class AccedereProprietari2 extends JFrame {
 			if (quote.somma()==100.0)
 			{
 				AUI.proprietaOK(proprietari, quote);
-				setVisible(false);
 				this.dispose();
 			}
 			else JOptionPane.showMessageDialog(this, "La somma delle quote deve essere 100 %");
@@ -310,7 +309,7 @@ public class AccedereProprietari2 extends JFrame {
 	private JButton getBAggiungiProprietario() {
 		if (bAggiungiProprietario == null) {
 			bAggiungiProprietario = new JButton();
-			bAggiungiProprietario.setText("Aggiungi prorpietario");
+			bAggiungiProprietario.setText("Aggiungi proprietario");
 			bAggiungiProprietario.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {

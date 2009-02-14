@@ -126,7 +126,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	
 	public void ammissibile(Boolean b) {
 		if (b){
-			int c = JOptionPane.showConfirmDialog(this, "Modificare le Proprietà?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int c = JOptionPane.showConfirmDialog(this, "Modificare le Proprieta'?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
 			if (c==0){
 				GCA.procedi(true);

@@ -146,8 +146,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		} 
 		m.setListaMillesimi(lista);
 		
-	//	if(m.somma()==1000)
-	//	{		
+		if(!(m.somma()>1000))
+		{		
 			if(nome.getText()=="")
 				JOptionPane.showMessageDialog(this, "inserire prima il nome");
 			else if (descrizione.getText()=="") 				
@@ -170,8 +170,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 			}
 			
 
-	//	}
-	//	else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
+		}
+	else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
 			
 		
 	}
