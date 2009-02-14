@@ -67,9 +67,9 @@ public class UnitaImmobiliare {
 
 	public void modificaProprieta(Persone pers, Percentuali quote)
 	{
-		if(pers.getPersone().size() != quote.getListaQuote().size())
+	/*	if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
-	/*
+	
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 		
@@ -129,6 +129,7 @@ public class UnitaImmobiliare {
 				quoteDiPossesso.add(prop);
 			}
 		session.update(this);
+		session.update(condominio); 
 		session.getTransaction().commit();
 	}
 

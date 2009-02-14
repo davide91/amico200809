@@ -77,7 +77,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	}
 	
 
-	
 	public void specificaProprietari(Persone persone, Percentuali percentuali){
 		if (proprietaOK(persone, percentuali)){
 			state=StatiConfermaUnitaImmobiliari.attesaConfermaProprieta;
@@ -179,6 +178,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 			case attesaConfermaDatiUnitaImmobiliare:
 			if (!b) {
 				state=StatiConfermaUnitaImmobiliari.base;
+				IUI.ammissibile(false);
 			}
 			else
 				IUI.ammissibile(b);

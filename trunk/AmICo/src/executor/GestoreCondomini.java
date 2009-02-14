@@ -188,8 +188,11 @@ public class GestoreCondomini implements BaseExecutor {
 	
 	public void passaDatiUnitaImmobliare(DatiUnitaImmobiliare datiUnitaImmobliare) {
 		if ( unitaImmobiliareGiaInserita(datiUnitaImmobliare) ) {
-			m_confermaUnitaImmobiliari.ammissibile(false);
 			
+			m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
+			m_confermaUnitaImmobiliari.ammissibile(false);
+			m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
+			passaProprieta(new Persone(), new Percentuali());
 			/*** FIXME : INSERITO CON IL DESIGN 3.6.3 - BEGIN - Rimuovere se crea problemi ***/
 			if ( m_unitaImmobiliare != null )
 			{
@@ -197,17 +200,13 @@ public class GestoreCondomini implements BaseExecutor {
 				m_unitaImmobiliare = null;
 			}
 			/*** INSERITO CON IL DESIGN 3.6.3 - END - Rimuovere se crea problemi ***/
-			
-			m_state=StatiGestoreCondominio.inserimentoUnitaImmobiliari;
+			m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId()); 
 			return;
 		}
 
 		m_state = StatiGestoreCondominio.inserimentoProprieta;
 		m_unitaImmobiliare.modificaDati(datiUnitaImmobliare);
-	//	m_unitaImmobiliare.setCondominio(m_condominio);
 		m_confermaUnitaImmobiliari.ammissibile(true);
-		/* Non presente da 3.5.4 */
-	//	m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_confermaUnitaImmobiliari.aggiornaUnitaImmobiliari( m_condominio.recuperaUnitaImmobiliari() );
 	}
 		
@@ -219,6 +218,7 @@ public class GestoreCondomini implements BaseExecutor {
 				m_condominio.inserisciPersona(p);
 		}
 		m_unitaImmobiliare.modificaProprieta(persone, quoteProprieta);
+		m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 	}
 	
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Millesimi millesimi) 
@@ -254,7 +254,7 @@ public class GestoreCondomini implements BaseExecutor {
 			case attesaConfermaTabellaMillesimale :
 				if ( !procedere ) {
 					m_state = StatiGestoreCondominio.gestoreCondomini;
-					TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
+				//	TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 					break;
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
