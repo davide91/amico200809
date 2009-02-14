@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -84,8 +87,8 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	}
 
 	public void annulla() {
-		// TODO Auto-generated method stub
-		
+		GestoreCondomini.getInstance().operazioneAnnullata();
+		this.dispose();
 	}
 
 	public void fallito() {
@@ -120,7 +123,6 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 
 	public void ok() {
 		GestoreCondomini.getInstance().procedi(true);
-		//AMM.mostra(TabellaMillesimaleInseritaOK);
 		state=StatiAccedereTabelleMillesimali.base;
 	}
 
@@ -161,12 +163,12 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 			int c = JOptionPane.showConfirmDialog(this, "La somma delle tabelle risulta "+m.somma()+". \n Inserire?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
 			if (c==0)
-				{
+			{
 					GestoreCondomini.getInstance().procedi(true);
 					this.dispose();
 				
-				}
-			else GestoreCondomini.getInstance().procedi(false);
+			}
+			
 
 	//	}
 	//	else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
@@ -176,8 +178,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	
 	private void annullaMouseMouseClicked(MouseEvent event)
 	{
-		GestoreCondomini.getInstance().operazioneAnnullata();
-		this.dispose();
+		annulla();
 	}
 
 	
@@ -210,6 +211,12 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		add(getNome(), new Constraints(new Leading(312, 110, 10, 10), new Leading(14, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(266, 10, 10), new Leading(16, 12, 12)));
 		setSize(645, 380);
+		this.addWindowListener(new WindowAdapter() {  
+			 public void windowClosing(WindowEvent we) {  
+				 GestoreCondomini.getInstance().operazioneAnnullata();
+				 annulla();
+			 	}  
+			 });  
 	}
 	
 

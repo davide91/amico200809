@@ -89,7 +89,7 @@ public class Condominio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-		link(uImm);
+			link(uImm);
 		session.update(this);
 		session.getTransaction().commit();
 	}
@@ -98,7 +98,7 @@ public class Condominio {
 	{
 		ui.setCondominio(this);
 		unitaImmobiliari.add(ui);
-	//	session.persist(ui);
+		session.persist(ui);
 	}
 	
 	public void eliminaUnitaImmobiliare(UnitaImmobiliare uImm)
