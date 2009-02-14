@@ -4,16 +4,10 @@
 package store.POJO;
 
 import java.sql.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.print.attribute.standard.MediaSize.Other;
 
 import org.hibernate.Session;
 
 import store.util.HibernateUtil;
-
 import datatype.Data;
 import datatype.DatiVoceBilancio;
 
@@ -69,7 +63,7 @@ public class VoceBilancio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-		this.contabilizzata = m;
+			this.contabilizzata = m;
 		session.update(this);
 		session.getTransaction().commit();
 	}

@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="store.POJO">
+<hibernate-mapping package="store.POJO" default-lazy="false">
 
 	<class name="VoceBilancio" table="VOCE_BILANCIO">
 	
@@ -28,7 +28,7 @@
 		 	column="BILANCIO_ID"/>
 		 	
 		<many-to-one name="contabilizzata"
-			column="RELATIVO_A_VOCE"
+			column="CONTABILIZZATA"
 			unique="true"
 			not-null="false"/> 
 			

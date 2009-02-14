@@ -11,7 +11,7 @@ import sun.security.krb5.Realm;
  */
 public class Euro {
 
-	private long euro;
+	private long euro = 0;
 
 	public Euro() {
 		euro = 0;
