@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -59,8 +60,8 @@ public class StatoPatrimoniale extends JPanel {
 		DefaultTableModel dmAttivo = new DefaultTableModel();
 		DefaultTableModel dmPassivo = new DefaultTableModel();
 		
-		dmAttivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
-		dmPassivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
+		dmAttivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(€)","Seleziona" });
+		dmPassivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(€)","Seleziona" });
 		
 		for (VoceBilancio v : vb.getVoci())
 		{
@@ -100,7 +101,7 @@ public class StatoPatrimoniale extends JPanel {
 		//cerco la voce di bilancio selezionata
 		int i;
 		boolean trovato = false;
-		Enumeration e= buttonGroup.getElements();
+		Enumeration<AbstractButton> e= buttonGroup.getElements();
 		for (i=0; e.hasMoreElements();i++ )
 	       if ( ((JRadioButton)e.nextElement()).getModel() == buttonGroup.getSelection()) 
 	       {
@@ -119,8 +120,6 @@ public class StatoPatrimoniale extends JPanel {
 	private void chiudiMouseMouseClicked(MouseEvent event) {
 		ABA.chiudi();
 	}
-	
-	
 
 	private void bMettiInEsercizioMouseMouseClicked(MouseEvent event) {
 		ABA.mettiInEsercizio();
@@ -141,12 +140,10 @@ public class StatoPatrimoniale extends JPanel {
 	private JTable jTablePassivo;
 	private JScrollPane jScrollPane1;
 	private JButton bInserisciVoceBilancio;
-	private JButton bModificaVoceBilancio;
 	private JButton bEliminaVoceBilancio;
 	private JButton bChiudiBilancio;
 	private JButton bTerminaEsercizio;
 	private JButton bMettiInEsercizio;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setBackground(Color.white);
 		setLayout(new GroupLayout());
@@ -224,21 +221,6 @@ public class StatoPatrimoniale extends JPanel {
 		}
 		return bEliminaVoceBilancio;
 	}
-
-/*	private JButton getBModificaVoceBilancio() {
-		if (bModificaVoceBilancio == null) {
-			bModificaVoceBilancio = new JButton();
-			bModificaVoceBilancio.setText("Modifica voce bilancio");
-			bModificaVoceBilancio.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					bModificaVoceBilancioMouseMouseClicked(event);
-				}
-			});
-		}
-		return bModificaVoceBilancio;
-	}
-*/
 	
 	private JButton getBInserisciVoceBilancio() {
 		if (bInserisciVoceBilancio == null) {

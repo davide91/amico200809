@@ -3,8 +3,6 @@
  */
 package boundary;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
@@ -13,9 +11,7 @@ import store.POJO.VoceBilancio;
 import datatype.DatiVoceBilancio;
 import datatype.list.VociBilancio;
 import enumeration.StatiAccedereBilancioAperto;
-import enumeration.StatiInserireNuovoCondominio;
 import executor.GestoreBilanci;
-import executor.GestoreCondomini;
 
 /**
  * @author Federico
@@ -43,7 +39,10 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			SP=new StatoPatrimoniale(this);
 			SDC=new SpostamentiDiCassa(this);
 			if(bilancio!=null)
-				SP.aggiorna(bilancio.recuperaVociBilancio());
+			{
+				SP.aggiorna(this.bilancio.recuperaVociBilancio());
+				SDC.aggiorna(this.bilancio.recuperaVociBilancio());
+			}
 			
 			tab=new JTabbedPane();
 			tab.addTab("Stato partimoniale", SP);
@@ -155,6 +154,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void aggiornaVociBilancio(VociBilancio VociBilancio) {
 			SP.aggiorna(VociBilancio);
+			SDC.aggiorna(VociBilancio);
 		}
 
 		public void aggiornaSpeseDaPagare(Object calcolaSpeseDaPagare) {
