@@ -68,7 +68,10 @@ public class InserireNuovaVoceBilancio extends JFrame {
 			dati.setTitolo(titolo.getText());
 			
 			if(d.controllaData())	
+			{
 				ABA.inserisciVoceBilancio(dati);
+				this.dispose();
+			}
 			else
 				JOptionPane.showMessageDialog(this, "Data errata! Controllare");
 		}

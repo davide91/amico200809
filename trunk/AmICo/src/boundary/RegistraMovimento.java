@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,8 +16,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,7 +24,6 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.VoceBilancio;
-
 import datatype.DatiMovimentoCassa;
 import datatype.Euro;
 import datatype.list.VociBilancio;
@@ -39,7 +37,8 @@ public class RegistraMovimento extends JFrame {
 
 	private VociBilancio voci;	
 	private ButtonGroup buttonGroup; 
-	AccedereCassa AC;
+	private AccedereCassa AC;
+	private boolean ciSono=false;
 	
 	public RegistraMovimento(AccedereCassa ac) {
 		
@@ -57,6 +56,7 @@ public class RegistraMovimento extends JFrame {
 		
 		buttonGroup = new ButtonGroup();
 		int count=0;
+
 		
 		DefaultTableModel dm = new DefaultTableModel();
 		
@@ -68,6 +68,7 @@ public class RegistraMovimento extends JFrame {
 			{
 				dm.addRow(new Object[]{v.getDati().getTitolo(),v.getDati().getImporto().toString(),new JRadioButton()});
 				buttonGroup.add((JRadioButton)dm.getValueAt(count, 2));
+				ciSono=true;
 			
 			}
 			else
@@ -77,6 +78,7 @@ public class RegistraMovimento extends JFrame {
 						"-"+v.getDati().getImporto().toString(),
 						new JRadioButton()});
 				buttonGroup.add((JRadioButton)dm.getValueAt(count, 2));
+				ciSono=true;
 			}	
 			count++;
 		}
@@ -87,6 +89,11 @@ public class RegistraMovimento extends JFrame {
 		vocibilancio.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 		vocibilancio.setAutoCreateRowSorter(true);
 		
+		if(!ciSono)
+		{
+			this.bConferma.setEnabled(false);
+		}
+		
 	}
 	
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
@@ -94,29 +101,32 @@ public class RegistraMovimento extends JFrame {
 	}
 
 	private void bConfermaMouseMouseClicked(MouseEvent event) {
-		DatiMovimentoCassa dati=new DatiMovimentoCassa();
-		dati.setMotivazione(motivazione.getText());
-		
-		//cerco la voce di bilancio selezionata
-		int i;
-		boolean trovato = false;
-		Enumeration e= buttonGroup.getElements();
-		for (i=0; e.hasMoreElements();i++ )
-	       if ( ((JRadioButton)e.nextElement()).getModel() == buttonGroup.getSelection()) 
-	       {
-	    	   trovato = true;
-	    	   if(voci.getVoci().get(i).getDati().getTipo() == TipoVoce.spesa)
-	    		   dati.setImportoMovimento(new Euro((-1)*voci.getVoci().get(i).getDati().getImporto().recuperaValore()));
-	    	   else
-	    		   dati.setImportoMovimento(voci.getVoci().get(i).getDati().getImporto());
-	    	   break;
-	       }
-		
-		if(!trovato)
-			JOptionPane.showMessageDialog(this, "Selezionare prima la voce desiderata");
-		
-		AC.passaVoceBilancio(voci.getVoci().get(i), dati);
-		this.dispose();
+		if(ciSono)
+		{
+			DatiMovimentoCassa dati=new DatiMovimentoCassa();
+			dati.setMotivazione(motivazione.getText());
+			
+			//cerco la voce di bilancio selezionata
+			int i;
+			boolean trovato = false;
+			Enumeration<AbstractButton> e= buttonGroup.getElements();
+			for (i=0; e.hasMoreElements();i++ )
+		       if ( ((JRadioButton)e.nextElement()).getModel() == buttonGroup.getSelection()) 
+		       {
+		    	   trovato = true;
+		    	   if(voci.getVoci().get(i).getDati().getTipo() == TipoVoce.spesa)
+		    		   dati.setImportoMovimento(new Euro((-1)*voci.getVoci().get(i).getDati().getImporto().recuperaValore()));
+		    	   else
+		    		   dati.setImportoMovimento(voci.getVoci().get(i).getDati().getImporto());
+		    	   break;
+		       }
+			
+			if(!trovato)
+				JOptionPane.showMessageDialog(this, "Selezionare prima la voce desiderata");
+			
+			AC.passaVoceBilancio(voci.getVoci().get(i), dati);
+			this.dispose();
+		}
 	}
 
 	

@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,12 +13,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+
+import store.POJO.VoceBilancio;
+import datatype.list.VociBilancio;
+import enumeration.TipoVoce;
 
 /**
  * @author Federico
@@ -28,7 +31,7 @@ import org.dyno.visual.swing.layouts.Leading;
 public class SpostamentiDiCassa extends JPanel {
 	
 	private AccedereBilancioAperto ABA;
-	private ButtonGroup buttonGroup = new ButtonGroup();
+	private VociBilancio vb;
 	
 	public SpostamentiDiCassa(AccedereBilancioAperto aba) {
 		ABA=aba;
@@ -41,6 +44,40 @@ public class SpostamentiDiCassa extends JPanel {
 
 	private void bInserisciVoceBilancioMouseMouseClicked(MouseEvent event) {
 		ABA.inserisci();
+	}
+
+	public void aggiorna(VociBilancio vociBilancio)
+	{
+		this.vb= vociBilancio;
+	
+		DefaultTableModel dmIncassi = new DefaultTableModel();
+		DefaultTableModel dmSpese = new DefaultTableModel();
+		
+		dmIncassi.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(€)"});
+		dmSpese.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(€)" });
+		
+		for (VoceBilancio v : vb.getVoci())
+		{
+			if(v.getContabilizzata()!=null)
+			{
+				if(v.getDati().getTipo() == TipoVoce.incasso)
+					dmIncassi.addRow(new Object[]{v.getDati().getTitolo(),v.getDati().getImporto().toString()});
+
+				else
+					dmSpese.addRow(new Object[]{v.getDati().getTitolo(),v.getDati().getImporto().toString()});
+
+
+			}
+		}
+		
+		spese.setModel(dmSpese);
+		spese=new JTable(dmSpese);
+		incassi.setModel(dmIncassi);
+		
+	
+		spese.setAutoCreateRowSorter(true);
+		incassi.setAutoCreateRowSorter(true);
+		
 	}
 
 	private void bEliminaVoceBilancioMouseMouseClicked(MouseEvent event) {
@@ -66,7 +103,6 @@ public class SpostamentiDiCassa extends JPanel {
 	private JSeparator jSeparator1;
 	private JButton bInserisciVoceBilancio;
 	private JButton bEliminaVoceBilancio;
-	private JButton bModificaVoceBilancio;
 	private JButton bChiudiBilancio;
 	private JTable incassi;
 	private JScrollPane jScrollPane0;
@@ -74,7 +110,6 @@ public class SpostamentiDiCassa extends JPanel {
 	private JScrollPane jScrollPane1;
 	private JButton bTerminaEsercizio;
 	private JButton bMettiInEsercizio;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setBackground(Color.white);
 		setLayout(new GroupLayout());
@@ -89,12 +124,7 @@ public class SpostamentiDiCassa extends JPanel {
 		add(getBChiudiBilancio(), new Constraints(new Leading(266, 212, 12, 12), new Leading(421, 12, 12)));
 		add(getBTerminaEsercizio(), new Constraints(new Leading(508, 202, 10, 10), new Leading(421, 12, 12)));
 		add(getBMettiInEsercizio(), new Constraints(new Leading(508, 202, 12, 12), new Leading(379, 12, 12)));
-		initButtonGroup();
 		setSize(805, 516);
-	}
-
-	private void initButtonGroup() {
-		buttonGroup = new ButtonGroup();
 	}
 
 	private JButton getBMettiInEsercizio() {
@@ -136,7 +166,7 @@ public class SpostamentiDiCassa extends JPanel {
 	private JTable getSpese() {
 		if (spese == null) {
 			spese = new JTable();
-			spese.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Title 0", "Title 1", }) {
+			spese.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome Voce","Importo(€)" }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
 	
@@ -160,15 +190,22 @@ public class SpostamentiDiCassa extends JPanel {
 
 	private JTable getIncassi() {
 		if (incassi == null) {
-			incassi = new JTable();
-			incassi.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Title 0", "Title 1", }) {
+
+			DefaultTableModel dm = new DefaultTableModel();
+			
+			dm.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
+			
+			incassi = new JTable(dm)
+		    {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
-	
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
+
+				public void tableChanged(TableModelEvent e)
+			    {
+					super.tableChanged(e);
+			        repaint();
+			    }
+		    };  
+
 		}
 		return incassi;
 	}
@@ -262,15 +299,5 @@ public class SpostamentiDiCassa extends JPanel {
 		return jLabel0;
 	}
 
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
+
 }
