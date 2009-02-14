@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -73,17 +74,34 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	}
 	
 	public void inserisciDatiPersona(DatiPersona datiP) {
-	/*	EsitoControlloDati esito= datiP.controlla();
-		 if (esito instanceof DatiErrati){
-				JOptionPane.showMessageDialog(this,"Dati errati");
-			//	System.out.println("");
-		 }
-		 
-		 if(esito instanceof DatiCorretti) {*/
-			 GP.inserisciDatiPersona(datiP);
-	//	 }
-		 
-		
+		   String regex = "[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]";   
+		   if (datiP instanceof DatiPersonaFisica){
+			   if (!Pattern.matches(regex, ((DatiPersonaFisica)datiP).getCf().getCodiceFis()))
+			   {
+				   JOptionPane.showMessageDialog(this,"Dati errati");
+			   }
+			   else GP.inserisciDatiPersona(datiP);
+	 	   }
+		   else if (datiP instanceof DatiPersonaGiuridica){
+			   
+				   String pi=((DatiPersonaGiuridica)datiP).getpIva().getPartIva();
+			   
+				    int i;
+				    if( pi.length() == 0 ) 
+				    if( pi.length() != 11 )
+				        JOptionPane.showMessageDialog(this, "La lunghezza della partita IVA non e';\n"
+				        + "corretta: la partita IVA dovrebbe essere lunga\n"
+				        + "esattamente 11 caratteri.\n");
+				    for( i=0; i<11; i++ ){
+				        if( pi.charAt(i) < '0' || pi.charAt(i) > '9' )
+				            JOptionPane.showMessageDialog(this, "La partita IVA contiene dei caratteri non ammessi:\n"
+				            + "la partita IVA dovrebbe contenere solo cifre.\n");
+				    }
+				    
+			   }
+			   else GP.inserisciDatiPersona(datiP);
+			   
+		   
 	}
 	
 	public void ammissibile(Boolean b) {
@@ -99,7 +117,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona personaGiaInserita) {
-		//AMM.richiediConferma(controlloDati);
 		
 		
 	}
@@ -272,7 +289,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 
 	private JLabel jLabel23;
 	private JSeparator jSeparator0;
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setFont(new Font("Dialog", Font.PLAIN, 12));
 		setForeground(Color.black);
@@ -679,36 +695,4 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return nome;
 	}
 
-
-	@SuppressWarnings("unused")
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				InserirePersona frame = new InserirePersona();
-				frame.setTitle("InserirePersona");
-			//	frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	} */
 }
