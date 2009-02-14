@@ -175,6 +175,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 					return types[columnIndex];
 				}
 			});
+			jTable0.setEnabled(false);
 		}
 		return jTable0;
 	}

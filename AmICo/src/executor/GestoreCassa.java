@@ -143,6 +143,7 @@ public class GestoreCassa implements BaseExecutor {
 				m.setRelativoAVoce(voceBilancio);
 				m_cassa.registraMovimentoCassa(m);
 				voceBilancio.contabilizzaMovimento(m);
+				m_accedereCassa.aggiornaCassa(m_cassa);
 				m_state = StatiGestoreCassa.gestoreCassa;
 				break;
 		}
@@ -153,17 +154,21 @@ public class GestoreCassa implements BaseExecutor {
 	{		
 		Iterator<Bilancio> bilancioIter = m_cassa.getCondominio().getBilanci().iterator();
 		VociBilancio voci = new VociBilancio();
-		
+		VoceBilancio v;
+		Iterator<VoceBilancio> voceIter; 
 		while(bilancioIter.hasNext())
 		{
 		//	if (bilancioIter.next().getDati().getStato() != StatoBilancio.inEsercizio)
 		//		continue;
 			
-			Iterator<VoceBilancio> voceIter = bilancioIter.next().getVoci().iterator();
+			voceIter = bilancioIter.next().getVoci().iterator();
+
 			
 			while (voceIter.hasNext())
 			{
-				voci.inserisciVoceBilancio(voceIter.next());
+				v=voceIter.next();
+				if(v.getContabilizzata()==null)
+					voci.inserisciVoceBilancio(v);
 			}
 				
 		}
