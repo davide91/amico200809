@@ -101,11 +101,11 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		
 
 		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
-		{	if(m.getRelativoAPagamento()!=null)
+		{	if(m.getRelativoAVoce()!=null)
 			{
 				if(m.getRelativoAVoce().getDati().getTipo()==TipoVoce.spesa)
 					dm.addRow(new String[]{
-							"-"+m.getDati().getImportoMovimento().recuperaValore(),
+							""+m.getDati().getImportoMovimento().recuperaValore(),
 							m.getRelativoAVoce().getDati().getTipo().toString(),
 							m.getRelativoAVoce().getDati().recuperaDataPrevista().dataInStringa(),
 							m.getDati().getMotivazione()});
