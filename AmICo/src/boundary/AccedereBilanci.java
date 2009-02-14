@@ -22,6 +22,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import store.POJO.Bilancio;
 import datatype.DatiBilancio;
 import datatype.list.Bilanci;
+import enumeration.StatoBilancio;
 import executor.GestoreBilanci;
 
 /**
@@ -115,8 +116,12 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 			DefaultListModel listModel = new DefaultListModel();
 			
 			for (Bilancio b : bilanci.getBilanci()) 
-				listModel.addElement(b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")" );
-
+			{
+				if(b.getDati().getStato() == StatoBilancio.inEsercizio)
+					listModel.addElement(b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")"+" (In Esercizio)");
+				else
+					listModel.addElement(b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")");
+			}
 			listaBilanci.setModel(listModel);
 	}
 	
@@ -126,8 +131,14 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	@SuppressWarnings("deprecation")
 	private void bApriBilancioMouseMouseClicked(MouseEvent event) {
 		for (Bilancio b : bilanci.getBilanci()) {
-			if( (b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")").equals( (String)listaBilanci.getSelectedValue()) )
+			if(b.getDati().getStato() == StatoBilancio.inEsercizio)
 			{
+				if((b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")"+" (In Esercizio)").equals((String)listaBilanci.getSelectedValue()))
+					apriBilancio(b);
+			}
+			else
+			{
+				if((b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")").equals( (String)listaBilanci.getSelectedValue()) )
 				apriBilancio(b);
 			}
 		}

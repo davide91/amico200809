@@ -123,9 +123,11 @@ public class StatoPatrimoniale extends JPanel {
 	
 
 	private void bMettiInEsercizioMouseMouseClicked(MouseEvent event) {
+		ABA.mettiInEsercizio();
 	}
 
 	private void bTerminaEsercizioMouseMouseClicked(MouseEvent event) {
+		ABA.terminaEsercizioBilancio();
 	}
 	
 	

@@ -7,10 +7,7 @@ import store.POJO.Bilancio;
 import datatype.Euro;
 import datatype.RapportoPagamenti;
 
-/**
- * @author bruno
- *
- */
+
 public class CalcoliFinanziari {
 
 	

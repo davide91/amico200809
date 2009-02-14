@@ -4,6 +4,7 @@
 package executor;
 
 import java.awt.EventQueue;
+import java.util.prefs.Preferences;
 
 import store.TuttePersone;
 import store.TuttiCondomini;
@@ -22,14 +23,30 @@ public class Avvio  {
 	 */
 	public static void main(String[] args) {
 		showSplashScreen();
-
-	//	Thread.sleep(1000);
-		   
 		Avvio.inizializzaAmICo();
+		
+//		if(primoAvvio())
+//			inserisciDatiIniziali();
 		
 		EventQueue.invokeLater(new SplashScreenCloser());
 	}
 	
+
+/*	private static void inserisciDatiIniziali() {
+		// TODO Auto-generated method stub
+		//dati iniziali utilizzando i metodi di accesso TuttePersone e TuttiCondomini
+	}
+
+
+	private static boolean primoAvvio() {
+		// TODO Auto-generated method stub
+		Preferences prefs = Preferences.userNodeForPackage(getClass());
+		boolean installazioneOk = prefs.getBoolean("InstallazioneOk", true);
+		if(installazioneOk)
+			prefs.putBoolean("InstallazioneOk", false);
+		return installazioneOk;
+	}
+*/
 
 	public static void esciDaAmICo() {
 		

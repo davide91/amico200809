@@ -54,6 +54,16 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			aca.getPannello().repaint();
 		}
 		
+		public void terminaEsercizioBilancio()
+		{
+			GB.terminaEsercizioBilancio();
+		}
+		
+		public void mettiInEsercizio()
+		{
+			GB.mettiInEsercizio();
+		}
+		
 		public void chiudi()
 		{
 			GB.chiudiBilancio();
