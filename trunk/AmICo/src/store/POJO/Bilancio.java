@@ -89,6 +89,7 @@ public class Bilancio {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
 			dati.setStato(StatoBilancio.inEsercizio);
+			session.update(this);
 		session.getTransaction().commit();
 	}
 	
@@ -149,16 +150,17 @@ public class Bilancio {
 	
 	public boolean terminabile()
 	{
-		if(this.dati.getTipo().equals(TipoBilancio.straordinario) && (this.saldo() >= (float)0.0))
-			return true;
-		else if(this.saldo() == (float)0.0 && !this.vociNonContabilizzate().getVoci().isEmpty())
+		if(this.dati.getTipo().equals(TipoBilancio.straordinario))
+			return this.saldo()>= (float)0.0;
+		else if(this.saldo() == (float)0.0 && this.vociNonContabilizzate().getVoci().isEmpty())
 		{
 			for (Euro e : saldoUnita().getEuri()) {
 				if(e.getEuro()!=(float)0.0)
 					return false;
 			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	//sommo l'importo di ogni voce di bilancio // non presente nel class diagram

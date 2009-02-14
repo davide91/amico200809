@@ -43,9 +43,6 @@ public class SpostamentiDiCassa extends JPanel {
 		ABA.inserisci();
 	}
 
-//	private void bModificaVoceBilancioMouseMouseClicked(MouseEvent event) {
-//	}
-
 	private void bEliminaVoceBilancioMouseMouseClicked(MouseEvent event) {
 	}
 
@@ -53,9 +50,11 @@ public class SpostamentiDiCassa extends JPanel {
 		ABA.chiudi();
 	}
 	private void bMettiInEsercizioMouseMouseClicked(MouseEvent event) {
+		ABA.mettiInEsercizio();
 	}
 
 	private void bTerminaEsercizioMouseMouseClicked(MouseEvent event) {
+		ABA.terminaEsercizioBilancio();
 	}
 	
 	

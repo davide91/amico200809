@@ -170,7 +170,6 @@ public class GestoreCassa implements BaseExecutor {
 				if(v.getContabilizzata()==null)
 					voci.inserisciVoceBilancio(v);
 			}
-				
 		}
 
 		m_accedereCassa.aggiornaVociBilancio(voci);

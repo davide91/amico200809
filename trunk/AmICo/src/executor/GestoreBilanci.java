@@ -84,14 +84,12 @@ public class GestoreBilanci implements BaseExecutor {
 	
 	public void mettiInEsercizio(){
 		bilancio.mettiInEsercizio();
-		
 	}
 	
 	public void terminaEsercizioBilancio() {
 		if (terminabile()){
 			state=StatiGestoreBilancio.attesaConfermaFineEsercizioOK;
 			ABA.ammissibile(true);
-		
 		}
 		else {
 			state=StatiGestoreBilancio.attesaConfermaFineEsercizioSpeseNonPagate;
