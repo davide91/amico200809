@@ -65,6 +65,13 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		scritta.setText("Saldo cassa al "+g.get(GregorianCalendar.DAY_OF_MONTH)+"/"+(g.get(GregorianCalendar.MONTH)+1)+"/"+g.get(GregorianCalendar.YEAR) );
 	}
 	
+	public void aggiornaCassa(Cassa cassa)
+	{
+		m_cassa=cassa;
+		saldo.setText(cassa.getSaldo().getEuroIntero()+","+cassa.getSaldo().getCent());
+		aggiornaMovimenti();
+	}
+	
 	public void aggiornaProspetto(DatiMovimentoCassa movimento) {
 		
 		int c = JOptionPane.showConfirmDialog(this, "Sei sicuro?\nSe si conferma i dati verranno inseriti nel sistema.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -94,11 +101,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 			saldo.setBackground(Color.green);
 		else saldo.setBackground(Color.white);
 		
-		dm.setDataVector(new String[][]{},new String[]{"Importo","Tipo","Data","Motivazione"});
-/*		dm.addRow(new Object[]{"-"+"50","spesa","",""});
-		dm.addRow(new Object[]{"30","incasso","",""});
-		dm.addRow(new Object[]{"-"+"0","spesa","",""});*/
-		
+		dm.setDataVector(new String[][]{},new String[]{"Importo","Tipo","Data","Motivazione"});	
 
 		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
 		{	if(m.getRelativoAVoce()!=null)
@@ -241,7 +244,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 					return types[columnIndex];
 				}
 			});
-			
+			table.setEnabled(false);
 			/*
 			table.setModel(dm);
 			table.getColumn("Data").setCellRenderer(ccr);
