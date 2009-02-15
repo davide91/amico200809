@@ -16,6 +16,7 @@ public class PersonaFisica extends Persona {
 	private DatiPersonaFisica dati;
 	@SuppressWarnings("unused")
 	private Session session;
+	
 	public void creaPersonaFisica(DatiPersonaFisica dpf)
 	{
 		dati = dpf;

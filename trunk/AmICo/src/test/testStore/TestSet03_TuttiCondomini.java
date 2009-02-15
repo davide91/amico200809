@@ -246,7 +246,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		unitaRecuperata.modificaProprieta(pers, quote);
 	}
 	
-/*	public void testCONDOMINI_EliminaPersona()
+	public void testCONDOMINI_EliminaPersona()
 	{
 		tc = TuttiCondomini.getInstance();
 		
@@ -280,7 +280,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		assertEquals(1, c.recuperaUnitaImmobiliari().getImmobili().size());
 	}
 	
-/*	public void testCONDOMINI_inserisciTabellaMillesimale()
+	public void testCONDOMINI_inserisciTabellaMillesimale()
 	{
 		tc = TuttiCondomini.getInstance();
 		
@@ -417,9 +417,7 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		assertEquals((float)-500, cassa.getSaldo().getEuro());
 	}
 	
-	
-	//commentato per vedere se rimangono gli inserimenti... cancellando il condominio, cancella tutti i suoi aggragati
-/*	public void testCONDOMINI_eliminaCondominio()
+	public void testCONDOMINI_eliminaCondominio()
 	{
 		tc = TuttiCondomini.getInstance();
 		
@@ -430,6 +428,4 @@ public class TestSet03_TuttiCondomini extends TestCase {
 		tc.eliminaCondominio(cond);
 		assertEquals(0, tc.recuperaCondomini().getCondomini().size());
 	}
-
-	*/
 }
