@@ -138,7 +138,7 @@ public class InserireProprietario extends JFrame {
 		add(getPersona(), new Constraints(new Leading(43, 201, 10, 10), new Leading(51, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(326, 12, 12), new Leading(20, 12, 12)));
 		add(getJLabel0(), new Constraints(new Leading(43, 179, 12, 12), new Leading(20, 12, 12)));
-		setSize(602, 197);
+		setSize(580, 220);
 		this.addWindowListener(new WindowAdapter() {  
 	   		 @Override  
 	   		 public void windowClosing(WindowEvent we) {  
