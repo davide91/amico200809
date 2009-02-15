@@ -37,7 +37,6 @@ public class Avvio  {
 		//dati iniziali utilizzando i metodi di accesso TuttePersone e TuttiCondomini
 	}
 
-
 	private static boolean primoAvvio() {
 		// TODO Auto-generated method stub
 		Preferences prefs = Preferences.userNodeForPackage(getClass());
@@ -47,7 +46,6 @@ public class Avvio  {
 		return installazioneOk;
 	}
 */
-
 	public static void esciDaAmICo() {
 		
 	}

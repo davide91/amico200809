@@ -101,7 +101,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 			saldo.setBackground(Color.green);
 		else saldo.setBackground(Color.white);
 		
-		dm.setDataVector(new String[][]{},new String[]{"Importo(€)","Tipo","Data","Motivazione"});	
+		dm.setDataVector(new String[][]{},new String[]{"Importo(ï¿½)","Tipo","Data","Motivazione"});	
 
 		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
 		{	if(m.getRelativoAVoce()!=null)
@@ -133,9 +133,9 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		ColorCellRenderer ccr=new ColorCellRenderer();
 		table.getColumn("Data").setCellRenderer(ccr);
 		table.getColumn("Tipo").setCellRenderer(ccr);
-		table.getColumn("Importo(€)").setCellRenderer(ccr);
+		table.getColumn("Importo(ï¿½)").setCellRenderer(ccr);
 		table.getColumn("Motivazione").setCellRenderer(ccr);
-		
+		table.setAutoCreateRowSorter(true);
 	}
 	
 	public void ammissibile(Boolean b) {
