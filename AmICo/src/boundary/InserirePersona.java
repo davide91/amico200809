@@ -185,7 +185,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		domicilio.setEditable(true);
 		comune.setEditable(true);
 		cap.setEditable(true);
-		provincia.setEditable(true);
+		provincia.setEnabled(true);
 		cellulare.setEditable(true);
 		interno.setEditable(true);
 		conRiferimento = false;
@@ -212,7 +212,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		domicilio.setEditable(false);
 		comune.setEditable(false);
 		cap.setEditable(false);
-		provincia.setEditable(false);
+		provincia.setEnabled(false);
 		cellulare.setEditable(false);
 		interno.setEditable(false);
 		personaDiRiferimento.setEnabled(true);
@@ -291,7 +291,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		domicilio.setEditable(true);
 		comune.setEditable(true);
 		cap.setEditable(true);
-		provincia.setEditable(true);
+		provincia.setEnabled(true);
 		cellulare.setEditable(true);
 		interno.setEditable(true);
 		telefono.setEnabled(true);
