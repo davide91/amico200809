@@ -60,6 +60,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		
 		public void mettiInEsercizio()
 		{
+			state = StatiAccedereBilancioAperto.mettiInEsercizio;
 			GB.mettiInEsercizio();
 		}
 		
@@ -117,8 +118,6 @@ public class AccedereBilancioAperto implements BaseBoundary{
 					}
 				break;
 			}
-			
-			
 		}
 
 		public void annulla() {
@@ -127,14 +126,27 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		}
 
 		public void fallito() {
-			// TODO Auto-generated method stub
-			
+			switch(state)
+			{
+				case mettiInEsercizio:
+					JOptionPane.showMessageDialog(tab, "Bilancio già in esercizio");
+					state = StatiAccedereBilancioAperto.base;
+				break;
+			}
 		}
 
 		public void fatto() {
-			// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(tab, "Voce bilancio inserita");
-			INVB.dispose();
+			switch(state)
+			{
+			case controllaDatiVoceBilancio:
+				JOptionPane.showMessageDialog(tab, "Voce bilancio inserita");
+				INVB.dispose();
+				break;
+			case mettiInEsercizio:
+				JOptionPane.showMessageDialog(tab, "Bilancio In Esercizio");
+				state = StatiAccedereBilancioAperto.base;
+				break;
+			}
 		}
 
 		public void finito() {

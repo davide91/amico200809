@@ -4,5 +4,6 @@ public enum StatiAccedereBilancioAperto {
 
 	base,
 	verificaEliminazione,
-	controllaDatiVoceBilancio
+	controllaDatiVoceBilancio,
+	mettiInEsercizio
 }

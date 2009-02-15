@@ -15,6 +15,7 @@ import datatype.RapportoPagamenti;
 import datatype.Report;
 import enumeration.FormatoFile;
 import enumeration.StatiGestoreBilancio;
+import enumeration.StatoBilancio;
 import enumeration.TipoBilancio;
 import enumeration.TipoReportBilancio;
 
@@ -83,7 +84,13 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 	
 	public void mettiInEsercizio(){
-		bilancio.mettiInEsercizio();
+		if(bilancio.getDati().getStato().equals(StatoBilancio.inEsercizio))
+			ABA.fallito();
+		else
+		{
+			bilancio.mettiInEsercizio();
+			ABA.fatto();
+		}
 	}
 	
 	public void terminaEsercizioBilancio() {
@@ -208,7 +215,7 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 	
 	private boolean voceGiaRegistrataInCassa(VoceBilancio voceBilancio){
-		return false;
+		return voceBilancio.getContabilizzata()!=null;
 	}
 	
 	private boolean terminabile() {
