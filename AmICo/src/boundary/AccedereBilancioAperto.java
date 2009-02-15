@@ -76,6 +76,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		{
 			state = StatiAccedereBilancioAperto.controllaDatiVoceBilancio;
 			INVB = new InserireNuovaVoceBilancio(this, GB);
+			ACA.setVisible(false);
 		}
 		
 		public Bilancio recuperaBilancio()
@@ -148,7 +149,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		}
 
 		public void annulla() {
-			// TODO Auto-generated method stub
+			ACA.setVisible(true);
 			
 		}
 
@@ -156,7 +157,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			switch(state)
 			{
 				case mettiInEsercizio:
-					JOptionPane.showMessageDialog(tab, "Bilancio gi√† in esercizio");
+					JOptionPane.showMessageDialog(tab, "Bilancio gia'† in esercizio");
 					state = StatiAccedereBilancioAperto.base;
 				break;
 			}
@@ -189,6 +190,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void ok() {
 			GB.procedi(true);//da attesaConfermaInserimentoDati a base
+			ACA.setVisible(true);
 		}
 
 		public void aggiornaVociBilancio(VociBilancio VociBilancio) {
