@@ -77,9 +77,9 @@ public class GestorePersone implements BaseExecutor {
 		state=StatiGestorePersone.attesaConfermaModifica;
 		if (datiP instanceof DatiPersonaFisica) {
 			MP.ammissibile(!personaGiaInserita((DatiPersonaFisica)datiP));	
-		if (datiP instanceof DatiPersonaGiuridica) {
+		}
+		if (datiP instanceof DatiPersonaGiuridica){
 			MP.ammissibile(!personaGiaInserita((DatiPersonaGiuridica) datiP));
-			}
 		}
 	}
 	
@@ -89,8 +89,6 @@ public class GestorePersone implements BaseExecutor {
 		personaMod=persona;
 		state=StatiGestorePersone.modificaPersona;
 		MP=new ModificarePersona(persona,aca);
-		
-	
 	}
 	
 	public void operazioneAnnullata() {
@@ -118,7 +116,7 @@ public class GestorePersone implements BaseExecutor {
 			for (Persona p : pf.getPersone()) {
 				if(p instanceof PersonaGiuridica)
 				{
-					if(((PersonaGiuridica)p).getDati().equals((DatiPersonaGiuridica)datiP))
+					if(((PersonaGiuridica)p).getDati().equals((DatiPersonaGiuridica)datiP) && ((PersonaGiuridica)p).getPersonaDiRiferimento().equals(personaRiferimento))
 					{
 						return true;
 					}
@@ -150,8 +148,8 @@ public class GestorePersone implements BaseExecutor {
 					Persona fisica = recuperaPersona(personaRiferimento);
 					if(giuridica instanceof PersonaGiuridica)
 						((PersonaGiuridica)giuridica).assegnaPersonaDiRiferimento((PersonaFisica)fisica);
-				//	Inserisci
 				}
+				personaRiferimento=null;
 				IP.fatto();
 			}
 			else IP.fallito();	
@@ -161,10 +159,19 @@ public class GestorePersone implements BaseExecutor {
 		case attesaConfermaModifica:
 			if (b){
 				personaMod.modificaDati(datiPersona);
+				if(personaRiferimento!=null)
+				{
+					Persona giuridica = recuperaPersona(datiPersona);
+					Persona fisica = recuperaPersona(personaRiferimento);
+					if(giuridica instanceof PersonaGiuridica)
+						((PersonaGiuridica)giuridica).assegnaPersonaDiRiferimento((PersonaFisica)fisica);
+				}
+				
+				personaRiferimento=null;
 				MP.fatto();
 			}
 			else MP.fallito();
-			RICH.aggiornaPersona(personaMod); //lo fa in entrambi i casi
+			RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
 		
 			break;
 		}
@@ -200,6 +207,7 @@ public class GestorePersone implements BaseExecutor {
 		else
 			return false;
 	}
+	
 	public void inserisciPersonaDiRiferimento(PersonaFisica riferimento)
 	{
 			personaRiferimento = riferimento.getDati();
