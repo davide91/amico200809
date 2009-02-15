@@ -57,6 +57,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			ragioneSociale.setEditable(false);
 			partitaIVA.setEditable(false);
 			indirizzoFiscale.setEditable(false);
+			
 			cognome.setEditable(true);
 			cognome.setText(((PersonaFisica) persona).getDati().getCognome());
 			
@@ -83,6 +84,15 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			
 			cellulare.setEditable(true);
 			cellulare.setText(((PersonaFisica) persona).getDati().getCell());
+			
+			eMail.setEditable(true);
+			eMail.setText(((PersonaFisica) persona).getDati().getMail().getEmail());
+			
+			telefono.setEditable(true);
+			telefono.setText(((PersonaFisica) persona).getDati().getTel());
+			
+			fax.setEditable(true);
+			fax.setText(((PersonaFisica) persona).getDati().getFax());
 		}
 		else if (persona instanceof PersonaGiuridica)
 		{
@@ -121,11 +131,20 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			cellulare.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getCell());
 			
 			interno.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getInterno());
+			
+			eMail.setEditable(true);
+			eMail.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getMail().getEmail());
+			
+			telefono.setEditable(true);
+			telefono.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getTel());
+			
+			fax.setEditable(true);
+			fax.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getFax());
 		}
 		
 		setLocationRelativeTo(null);
 		this.setVisible(true);
-		this.setTitle("dati persona");
+		this.setTitle("Dati Persona");
 	}
 	
 	
@@ -153,7 +172,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			}
 			else {
 				ko();
-			
 			}
 		}
 		else
@@ -173,11 +191,9 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		this.dispose();
 	}
 	
-	
-
 	public void ko() {
 		 GP.procedi(false);
-		 JOptionPane.showMessageDialog(this, "dati non modificati");
+		 JOptionPane.showMessageDialog(this, "Dati non modificati");
 		 ACA.setVisible(true);
 		 this.dispose();
 	}
@@ -187,28 +203,22 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		//GestorePersone.getInstance()
 	}
 
-
 	public void fallito() {
 		// TODO Auto-generated method stub
-		
 	}
-
 
 	public void finito() {
 		// TODO Auto-generated method stub
-		
 	}
 
 
 	public void aggiornaPersona(Persona persona) {
 		// TODO Auto-generated method stub
-		
 	}
 
 
 	public void aggiornaPersone(Persone persone) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 
@@ -221,6 +231,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			datiP.setMail(mail);
 			datiP.setTel(telefono.getText());
 			datiP.setNome(nome.getText());
+			datiP.setFax(fax.getText());
 			datiP.setCognome(cognome.getText());
 			datiP.setCell(cellulare.getText());
 			CodiceFiscale cf=new CodiceFiscale();
@@ -234,10 +245,10 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		{
 			
 			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
-			datiP.setFax(fax.getText());
-			Email mail =new Email(eMail.getText());
-			datiP.setMail(mail);
-			datiP.setTel(telefono.getText());
+		//	datiP.setFax(fax.getText());
+		//	Email mail =new Email(eMail.getText());
+		//	datiP.setMail(mail);
+		//	datiP.setTel(telefono.getText());
 			datiP.setpIva(new PartitaIva(partitaIVA.getText()));
 			datiP.setRagioneSociale(ragioneSociale.getText());
 			Indirizzo i=new Indirizzo();

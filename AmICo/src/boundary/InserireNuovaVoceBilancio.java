@@ -8,6 +8,7 @@ import java.sql.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ import executor.GestoreBilanci;
  * @author bruno
  *
  */
-public class InserireNuovaVoceBilancio extends JFrame {
+public class InserireNuovaVoceBilancio extends JDialog {
 
 	private GestoreBilanci GB;
 	private AccedereBilancioAperto ABA;
@@ -74,6 +75,8 @@ public class InserireNuovaVoceBilancio extends JFrame {
 			}
 			else
 				JOptionPane.showMessageDialog(this, "Data errata! Controllare");
+			
+			
 		}
 		catch(NumberFormatException nfe)
 		{
