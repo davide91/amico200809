@@ -64,8 +64,9 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	public void apriCondominio(Condominio condominio) {
-		m_gestoreCondominioAperto = new GestoreCondominioAperto(condominio);
-		m_condominio = condominio;
+		m_condominio = TuttiCondomini.getInstance().recuperaCondominio(condominio.getDatiC().getId());
+		m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
+		
 		m_state = StatiGestoreCondominio.condominioAperto;
 	}
 	
