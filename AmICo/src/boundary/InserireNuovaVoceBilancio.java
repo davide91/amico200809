@@ -85,6 +85,7 @@ public class InserireNuovaVoceBilancio extends JDialog {
 	}
 
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
+		ABA.annulla();
 		this.dispose();
 	}
 
