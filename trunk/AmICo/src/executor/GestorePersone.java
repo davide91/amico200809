@@ -68,7 +68,7 @@ public class GestorePersone implements BaseExecutor {
 		
 		RICH=richiedente;
 		state=StatiGestorePersone.inserimentoPersona;
-		IP=new InserirePersona();
+		IP=new InserirePersona(TP.recuperaPersone());
 
 	}
 	
@@ -199,6 +199,10 @@ public class GestorePersone implements BaseExecutor {
 		}
 		else
 			return false;
+	}
+	public void inserisciPersonaDiRiferimento(PersonaFisica riferimento)
+	{
+			personaRiferimento = riferimento.getDati();
 	}
 }
 	

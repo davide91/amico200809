@@ -17,13 +17,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.Persona;
+import store.POJO.PersonaFisica;
 import datatype.CodiceFiscale;
 import datatype.DatiPersona;
 import datatype.DatiPersonaFisica;
@@ -33,6 +33,7 @@ import datatype.EsitoControlloDatiPersona;
 import datatype.Indirizzo;
 import datatype.PartitaIva;
 import datatype.list.Persone;
+import datatype.list.PersoneFisiche;
 import enumeration.Provincia;
 import executor.GestorePersone;
 
@@ -44,12 +45,14 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 
 	private GestorePersone GP;
 	private ButtonGroup group;
+	private Persone personeFisiche;
 	private boolean conRiferimento = false;
 	
-	public InserirePersona() {
+	public InserirePersona(Persone p) {
+		this.GP=GestorePersone.getInstance();
 		initComponents();
 		initgroup();
-		this.GP=GestorePersone.getInstance();
+		aggiornaPersone(p);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Inserire Nuova Persona");
 		this.setVisible(true);
@@ -82,7 +85,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			   }
 			   else GP.inserisciDatiPersona(datiP);
 	 	   }
-		   else if (datiP instanceof DatiPersonaGiuridica){
+		   else if (datiP instanceof DatiPersonaGiuridica)
+		   {
 			   
 				   String pi=((DatiPersonaGiuridica)datiP).getpIva().getPartIva();
 			   
@@ -94,12 +98,15 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 				        + "esattamente 11 caratteri.\n");
 				    for( i=0; i<11; i++ ){
 				        if( pi.charAt(i) < '0' || pi.charAt(i) > '9' )
+				        {
 				            JOptionPane.showMessageDialog(this, "La partita IVA contiene dei caratteri non ammessi:\n"
 				            + "la partita IVA dovrebbe contenere solo cifre.\n");
+				            break;
+				        }
 				    }
 				    
-			   }
-			   else GP.inserisciDatiPersona(datiP);
+		   }
+		   else GP.inserisciDatiPersona(datiP);
 			   
 		   
 	}
@@ -141,9 +148,30 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private PersoneFisiche aggiornaPersonaFisiche(Persone persone)
+	{
+		PersoneFisiche pf=new PersoneFisiche();
+		
+		for (Persona p : persone.getPersone()) {
+			if(p instanceof PersonaFisica)
+				pf.inserisciPersona(p);
+		}
+		
+		return pf;
+	}
 
 	public void aggiornaPersone(Persone persone) {
-		// TODO Auto-generated method stub
+		
+		personeFisiche = aggiornaPersonaFisiche(persone);
+		
+		DefaultComboBoxModel x=new DefaultComboBoxModel();
+		
+		for (Persona p : personeFisiche.getPersone())
+				x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
+		
+		
+		personaDiRiferimento.setModel(x);
 		
 	}
 	private void radioPFMouseMouseClicked(MouseEvent event)
@@ -166,6 +194,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		eMail.setEditable(true);
 		fax.setEditable(true);
 		conRiferimento = false;
+		personaDiRiferimento.setEnabled(false);
+		conRiferimento=false;
 	}
 
 	private void radioPGMouseMouseClicked(MouseEvent event)
@@ -186,8 +216,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		provincia.setEditable(false);
 		cellulare.setEditable(false);
 		interno.setEditable(false);
-		conRiferimento = true;
-		bok.setEnabled(false);
+	//	conRiferimento = true;
+		personaDiRiferimento.setEnabled(true);
 	}
 
 
@@ -213,7 +243,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			datiP.setCf(cf);
 			datiP.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
 			inserisciDatiPersona(datiP);
-			bok.setEnabled(true);
 		}
 		else if(conRiferimento)
 		{
@@ -233,8 +262,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			if(GP.inserisciPersonaDiRiferimento(pRiferimento))
 			{
 				DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
-				//datiP.setFax(fax.getText());
-				//Email mail =new Email(eMail.getText());
+			//	datiP.setFax(fax.getText());
+			//	Email mail =new Email(eMail.getText());
 			//	datiP.setMail(mail);
 			//	datiP.setTel(telefono.getText());
 				datiP.setpIva(new PartitaIva(partitaIVA.getText()));
@@ -247,6 +276,48 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			else
 				JOptionPane.showMessageDialog(this, "Persona di Riferimento non Inserita");
 		}
+		else
+		{
+			GP.inserisciPersonaDiRiferimento((PersonaFisica)personeFisiche.getPersone().get(personaDiRiferimento.getSelectedIndex()));
+			
+			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
+			//	datiP.setFax(fax.getText());
+			//	Email mail =new Email(eMail.getText());
+			//	datiP.setMail(mail);
+			//	datiP.setTel(telefono.getText());
+				datiP.setpIva(new PartitaIva(partitaIVA.getText()));
+				datiP.setRagioneSociale(ragioneSociale.getText());
+				Indirizzo i=new Indirizzo();
+				i.setVia(indirizzoFiscale.getText());
+				datiP.setIndFiscale(i);
+				inserisciDatiPersona(datiP);
+			
+			
+		}
+	}
+	
+
+	protected void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
+		
+		/*ragioneSociale.setEditable(false);
+		partitaIVA.setEditable(false);
+		indirizzoFiscale.setEditable(false);*/
+		bPersonaDiRiferimento.setEnabled(false);
+		personaDiRiferimento.setEnabled(false);
+		cognome.setEditable(true);
+		nome.setEditable(true);
+		codiceFiscale.setEditable(true);
+		domicilio.setEditable(true);
+		comune.setEditable(true);
+		cap.setEditable(true);
+		provincia.setEditable(true);
+		cellulare.setEditable(true);
+		interno.setEditable(true);
+		telefono.setEnabled(true);
+		fax.setEnabled(true);
+		eMail.setEnabled(true);
+		conRiferimento=true;
+		
 	}
 
 	
@@ -284,17 +355,16 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JLabel jLabel21;
 	private JLabel jLabel22;
 	private JButton bPersonaDiRiferimento;
-
 	private JTextField interno;
-
 	private JLabel jLabel23;
 	private JSeparator jSeparator0;
+	private JComboBox personaDiRiferimento;
+	private JLabel jLabel11;
 	private void initComponents() {
+		setTitle("Inserire Nuova Persona");
 		setFont(new Font("Dialog", Font.PLAIN, 12));
 		setForeground(Color.black);
 		setLayout(new GroupLayout());
-		add(getRadioPF(), new Constraints(new Leading(479, 10, 10), new Leading(12, 8, 8)));
-		add(getRadioPG(), new Constraints(new Leading(479, 8, 8), new Leading(38, 8, 8)));
 		add(getJLabel0(), new Constraints(new Leading(7, 10, 10), new Leading(16, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(7, 12, 12), new Leading(46, 12, 12)));
 		add(getJLabel3(), new Constraints(new Leading(7, 12, 12), new Leading(108, 12, 12)));
@@ -307,15 +377,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getJLabel7(), new Constraints(new Leading(7, 12, 12), new Leading(177, 12, 12)));
 		add(getJLabel9(), new Constraints(new Leading(7, 12, 12), new Leading(247, 12, 12)));
 		add(getJLabel10(), new Constraints(new Leading(7, 12, 12), new Leading(285, 12, 12)));
-		add(getInterno(), new Constraints(new Leading(496, 101, 10, 10), new Leading(102, 12, 12)));
-		add(getJLabel23(), new Constraints(new Leading(437, 10, 10), new Leading(100, 22, 12, 12)));
 		add(getBok(), new Constraints(new Leading(112, 10, 10), new Leading(458, 10, 10)));
-		add(getBannulla(), new Constraints(new Leading(251, 12, 12), new Leading(458, 12, 12)));
-		add(getBPersonaDiRiferimento(), new Constraints(new Leading(410, 10, 10), new Leading(458, 12, 12)));
-		add(getIndirizzoFiscale(), new Constraints(new Leading(157, 308, 10, 10), new Leading(414, 10, 10)));
 		add(getJLabel22(), new Constraints(new Leading(12, 12, 12), new Leading(416, 12, 12)));
-		add(getPartitaIVA(), new Constraints(new Leading(157, 308, 12, 12), new Leading(374, 12, 12)));
-		add(getRagioneSociale(), new Constraints(new Leading(157, 309, 12, 12), new Leading(332, 12, 12)));
 		add(getJLabel21(), new Constraints(new Leading(12, 12, 12), new Leading(378, 12, 12)));
 		add(getJLabel20(), new Constraints(new Leading(12, 12, 12), new Leading(336, 12, 12)));
 		add(getCodiceFiscale(), new Constraints(new Leading(125, 110, 10, 10), new Leading(72, 12, 12)));
@@ -328,9 +391,38 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		add(getEMail(), new Constraints(new Leading(123, 308, 12, 12), new Leading(247, 12, 12)));
 		add(getFax(), new Constraints(new Leading(124, 308, 12, 12), new Leading(281, 12, 12)));
 		add(getProvincia(), new Constraints(new Leading(334, 84, 10, 10), new Leading(135, 12, 12)));
-		add(getJSeparator0(), new Constraints(new Leading(12, 608, 12, 12), new Leading(314, 10, 12, 12)));
+		add(getRagioneSociale(), new Constraints(new Leading(125, 309, 12, 12), new Leading(332, 12, 12)));
+		add(getPartitaIVA(), new Constraints(new Leading(125, 308, 12, 12), new Leading(374, 12, 12)));
+		add(getIndirizzoFiscale(), new Constraints(new Leading(125, 308, 12, 12), new Leading(412, 12, 12)));
+		add(getBannulla(), new Constraints(new Leading(444, 10, 10), new Leading(458, 12, 12)));
+		add(getJSeparator0(), new Constraints(new Leading(12, 627, 10, 10), new Leading(314, 10, 12, 12)));
+		add(getBPersonaDiRiferimento(), new Constraints(new Leading(451, 12, 12), new Leading(411, 12, 12)));
+		add(getInterno(), new Constraints(new Leading(507, 101, 10, 10), new Leading(102, 12, 12)));
+		add(getJLabel23(), new Constraints(new Leading(446, 10, 10), new Leading(100, 22, 12, 12)));
+		add(getRadioPF(), new Constraints(new Leading(514, 8, 8), new Leading(12, 8, 8)));
+		add(getRadioPG(), new Constraints(new Leading(514, 8, 8), new Leading(38, 8, 8)));
+		add(getPersonaDiRiferimento(), new Constraints(new Leading(451, 171, 12, 12), new Leading(369, 12, 12)));
+		add(getJLabel11(), new Constraints(new Leading(453, 166, 12, 12), new Leading(337, 12, 12)));
 		initGroup();
-		setSize(644, 540);
+		setSize(690, 530);
+	}
+
+	private JLabel getJLabel11() {
+		if (jLabel11 == null) {
+			jLabel11 = new JLabel();
+			jLabel11.setText("Persona di riferimento:");
+		}
+		return jLabel11;
+	}
+
+	private JComboBox getPersonaDiRiferimento() {
+		if (personaDiRiferimento == null) {
+			personaDiRiferimento = new JComboBox();
+			personaDiRiferimento.setModel(new DefaultComboBoxModel(new Object[] {}));
+			personaDiRiferimento.setDoubleBuffered(false);
+			personaDiRiferimento.setBorder(null);
+		}
+		return personaDiRiferimento;
 	}
 
 	private JSeparator getJSeparator0() {
@@ -364,7 +456,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JButton getBPersonaDiRiferimento() {
 		if (bPersonaDiRiferimento == null) {
 			bPersonaDiRiferimento = new JButton();
-			bPersonaDiRiferimento.setText("Persona di riferimento");
+			bPersonaDiRiferimento.setText("Aggiungi persona di riferimento");
+			bPersonaDiRiferimento.setEnabled(false);
 			bPersonaDiRiferimento.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {
@@ -373,29 +466,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			});
 		}
 		return bPersonaDiRiferimento;
-	}
-
-
-	protected void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
-		bok.setEnabled(true);
-		
-		ragioneSociale.setEditable(false);
-		partitaIVA.setEditable(false);
-		indirizzoFiscale.setEditable(false);
-		bPersonaDiRiferimento.setEnabled(false);
-		cognome.setEditable(true);
-		nome.setEditable(true);
-		codiceFiscale.setEditable(true);
-		domicilio.setEditable(true);
-		comune.setEditable(true);
-		cap.setEditable(true);
-		provincia.setEditable(true);
-		cellulare.setEditable(true);
-		interno.setEditable(true);
-		telefono.setEnabled(true);
-		fax.setEnabled(true);
-		eMail.setEnabled(true);
-		
 	}
 
 	private JLabel getJLabel22() {
