@@ -111,12 +111,13 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 		case condominioAperto:
 			break;
 		case inserimentoCondominio:
+			
 			setVisible(false);
 			break;
 		case selezionePath:
 			state=StatiAmICo.condominioAperto;
 			return;
-		default:
+		default:setVisible(false);
 			break;
 		}
 		state=StatiAmICo.base;
