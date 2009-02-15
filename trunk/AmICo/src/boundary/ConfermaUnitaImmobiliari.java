@@ -407,7 +407,8 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	}
 
 	public void finito() {
-		// TODO Auto-generated method stub
+		INC.dispose();
+		dispose();
 		
 	}
 }

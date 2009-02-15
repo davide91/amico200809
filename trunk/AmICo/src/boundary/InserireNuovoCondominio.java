@@ -129,8 +129,7 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 
 	public void fatto() {
 		state=StatiInserireNuovoCondominio.inserimentoUnitaImmobiliari;
-	
-		this.setVisible(false);
+		dispose();
 	}
 
 	public void finito() {
