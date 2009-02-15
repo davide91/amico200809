@@ -22,6 +22,7 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.VoceBilancio;
 import datatype.list.VociBilancio;
+import enumeration.StatoBilancio;
 import enumeration.TipoVoce;
 
 /**

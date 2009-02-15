@@ -38,6 +38,11 @@ public class Euro {
 		return euro/100;
 	}
 	
+	public Euro ritornaNegativo()
+	{
+		return new Euro((-1)*recuperaValore());
+	}
+	
 	public int getCent() {
 		if (euro > 0) {
 			String valore_stringa = new Long(euro).toString();

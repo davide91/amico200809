@@ -97,7 +97,8 @@ public class Bilancio {
 	{
 		session = HibernateUtil.getSessionFactory().getCurrentSession();	
 		session.beginTransaction();
-			dati.setStato(StatoBilancio.consuntivo);
+			dati.setStato(StatoBilancio.terminato);
+			session.update(this);
 		session.getTransaction().commit();
 	}
 	

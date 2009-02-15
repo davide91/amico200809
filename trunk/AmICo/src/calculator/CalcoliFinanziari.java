@@ -4,8 +4,11 @@
 package calculator;
 
 import store.POJO.Bilancio;
+import store.POJO.VoceBilancio;
 import datatype.Euro;
 import datatype.RapportoPagamenti;
+import enumeration.TipoBilancio;
+import enumeration.TipoVoce;
 
 
 public class CalcoliFinanziari {
@@ -19,6 +22,16 @@ public class CalcoliFinanziari {
 	// ritorna RapportoPagamenti
 	public static RapportoPagamenti calcolaSpeseDaPagare(Bilancio bilancio)
 	{
-		return null;
+		RapportoPagamenti r = new RapportoPagamenti();
+		
+		for (VoceBilancio vb : bilancio.recuperaVociBilancio().getVoci()) {
+			if(vb.getContabilizzata()==null) 	// se la voce non è stata contabilizzata in cassa
+				if(vb.getDati().getTipo().equals(TipoVoce.incasso))
+					r.inserisciRapporto(vb, vb.getDati().getImporto());
+				else
+					r.inserisciRapporto(vb, vb.getDati().getImporto().ritornaNegativo());
+		}
+		
+		return r;
 	}
 }

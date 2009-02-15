@@ -1,5 +1,9 @@
 package executor;
 
+import java.util.GregorianCalendar;
+
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import store.POJO.Bilancio;
 import store.POJO.Condominio;
 import store.POJO.VoceBilancio;
@@ -9,6 +13,7 @@ import boundary.AccedereCondominioAperto;
 import boundary.DriverFileSystem;
 import calculator.CalcoliFinanziari;
 import calculator.Formattatore;
+import datatype.Data;
 import datatype.DatiBilancio;
 import datatype.DatiVoceBilancio;
 import datatype.RapportoPagamenti;
@@ -36,17 +41,14 @@ public class GestoreBilanci implements BaseExecutor {
 		this.ACA=ACA;
 		this.condominio = condominio;
 		AB=new AccedereBilanci(this, condominio.recuperaBilanci(),ACA);
-		ACA.getPannello().add(AB);
-
-
-		
+		ACA.getPannello().add(AB);	
 	}
+	
 	public void inserisciBilancio(DatiBilancio datiBilancio) {
 		if (datiBilancio.getTipo()==TipoBilancio.ordinario || (datiBilancio.getTipo()==TipoBilancio.straordinario && nomeUnico(datiBilancio))){
 			state=StatiGestoreBilancio.attesaConfermaInserimentoBilancio;
 			this.datiBilancio=datiBilancio;
 			AB.ammissibile(true);
-		
 		}
 		else {
 			AB.ammissibile(false);
@@ -117,6 +119,7 @@ public class GestoreBilanci implements BaseExecutor {
 		
 		state=StatiGestoreBilancio.base;
 		AB.fatto();
+		AB.aggiornaBilanci(condominio.recuperaBilanci());
 	}
 	
 	public void operazioneAnnullata() {
@@ -177,14 +180,9 @@ public class GestoreBilanci implements BaseExecutor {
 			case  attesaConfermaFineEsercizioSpeseNonPagate:
 			state=StatiGestoreBilancio.bilancioAperto;
 			if(b) {
-				//commentato perchè dava errore e non potevo inserire un bilancio
-				//preventivaSpeseNonPagate(CalcoliFinanziari.calcolaSpeseDaPagare(bilancio));
+				preventivaSpeseNonPagate(CalcoliFinanziari.calcolaSpeseDaPagare(bilancio));
 				bilancio.terminaEsercizio();
 			}
-			else {
-			
-			}
-				
 			break;
 			
 			case attesaConfermaFineEsercizioOK:
@@ -195,7 +193,6 @@ public class GestoreBilanci implements BaseExecutor {
 			break;
 		}
 	}
-
 	
 	private boolean nomeUnico(DatiBilancio datiBilancio){
 		for (Bilancio b : condominio.recuperaBilanci().getBilanci()) {
@@ -206,7 +203,6 @@ public class GestoreBilanci implements BaseExecutor {
 	}
 	
 	private boolean nomeUnico(DatiVoceBilancio datiVoceBilancio){
-		
 		for (VoceBilancio vb : bilancio.getVoci()) {
 			if(vb.getDati().equals(datiVoceBilancio))
 				return false;
@@ -227,10 +223,23 @@ public class GestoreBilanci implements BaseExecutor {
 			}
 	}
 
-	@SuppressWarnings("unused")
 	private void preventivaSpeseNonPagate(RapportoPagamenti rapportoPagamenti) {
-		Bilancio preventivo = new Bilancio();
-	//	preventivo
+		Data d = new Data();
+		d.add(GregorianCalendar.YEAR, 1);
+		
+		Data fine = new Data();
+		fine.add(GregorianCalendar.DAY_OF_MONTH, -1);
+		
+		DatiBilancio db = new DatiBilancio(TipoBilancio.ordinario,d,"Bilancio Generale","Avanzo Anno Precedente",StatoBilancio.preventivo);
+		db.impostaDataFine(fine);
+		
+		Bilancio preventivo = new Bilancio(db);
+	
+		condominio.inserisciBilancio(preventivo);
+		
+		for (VoceBilancio vb : rapportoPagamenti.getVoci().getVoci()) {
+			preventivo.inserisciVoceBilancio(vb);
+		}
 	}
 	
 	private Report preparaReportBilancio(){

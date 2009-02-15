@@ -77,7 +77,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	}
 
 	public void fatto() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -107,8 +106,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	{	
 		GB.inserisciBilancio(dati);
 	}
-	
-	
+
 	@SuppressWarnings("deprecation")
 	public void aggiornaBilanci(Bilanci bil)
 	{
@@ -119,7 +117,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 			{
 				if(b.getDati().getStato() == StatoBilancio.inEsercizio)
 					listModel.addElement(b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")"+" (In Esercizio)");
-				else
+				else if(b.getDati().getStato() != StatoBilancio.terminato)
 					listModel.addElement(b.getDati().getTitolo()+" "+b.getDati().getTipo().toString()+" (0"+(b.getDati().getInizio().getYear()-100)+")");
 			}
 			listaBilanci.setModel(listModel);

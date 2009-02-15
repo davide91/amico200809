@@ -70,7 +70,6 @@ public class Data {
 	
 	public boolean controllaData()
 	{
-		if(m_data.get(GregorianCalendar.YEAR) == new Data().getCalendar().get(GregorianCalendar.YEAR))
 			switch(m_data.get(GregorianCalendar.MONTH))
 			{
 				case 0: //gennaio

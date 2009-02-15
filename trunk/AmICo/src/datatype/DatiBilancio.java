@@ -14,6 +14,19 @@ public class DatiBilancio {
 	private String descrizione;
 	private StatoBilancio stato;
 	
+	public DatiBilancio(TipoBilancio tb, Data iniz, String tit, String descr, StatoBilancio stat)
+	{
+		tipo = tb;
+		inizio = iniz;
+		titolo = tit;
+		descrizione = descr;
+		stato = stat;
+	}
+	
+	public DatiBilancio()
+	{
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 	 if (this == other)
