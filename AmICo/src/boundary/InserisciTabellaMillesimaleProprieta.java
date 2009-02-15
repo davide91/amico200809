@@ -165,10 +165,10 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 			if (c==0)
 			{
 					GestoreCondomini.getInstance().procedi(true);
-					this.dispose();
+					
 				
 			}
-			
+			this.dispose();
 
 		}
 	else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());

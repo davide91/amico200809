@@ -53,8 +53,8 @@ public class SpostamentiDiCassa extends JPanel {
 		DefaultTableModel dmIncassi = new DefaultTableModel();
 		DefaultTableModel dmSpese = new DefaultTableModel();
 		
-		dmIncassi.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(�)"});
-		dmSpese.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(�)" });
+		dmIncassi.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(euro)"});
+		dmSpese.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(euro)" });
 		
 		for (VoceBilancio v : vb.getVoci())
 		{
@@ -166,7 +166,7 @@ public class SpostamentiDiCassa extends JPanel {
 	private JTable getSpese() {
 		if (spese == null) {
 			spese = new JTable();
-			spese.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome Voce","Importo(�)" }) {
+			spese.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome Voce","Importo(euro)" }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
 	
