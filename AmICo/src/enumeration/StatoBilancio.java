@@ -4,5 +4,6 @@ public enum StatoBilancio {
 preventivo,
 consuntivo,
 inCompilazione,
-inEsercizio
+inEsercizio, 
+terminato
 }

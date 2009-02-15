@@ -9,8 +9,10 @@ import javax.swing.JTabbedPane;
 import store.POJO.Bilancio;
 import store.POJO.VoceBilancio;
 import datatype.DatiVoceBilancio;
+import datatype.RapportoPagamenti;
 import datatype.list.VociBilancio;
 import enumeration.StatiAccedereBilancioAperto;
+import enumeration.StatoBilancio;
 import executor.GestoreBilanci;
 
 /**
@@ -55,6 +57,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		
 		public void terminaEsercizioBilancio()
 		{
+			state = StatiAccedereBilancioAperto.calcoliInCorso;
 			GB.terminaEsercizioBilancio();
 		}
 		
@@ -73,6 +76,11 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		{
 			state = StatiAccedereBilancioAperto.controllaDatiVoceBilancio;
 			INVB = new InserireNuovaVoceBilancio(this, GB);
+		}
+		
+		public Bilancio recuperaBilancio()
+		{
+			return bilancio;
 		}
 		
 		public void ammissibile(Boolean b) {
@@ -117,6 +125,25 @@ public class AccedereBilancioAperto implements BaseBoundary{
 						JOptionPane.showMessageDialog(tab, "Voce di Bilancio gia' registrata in cassa. ");// a base
 					}
 				break;
+				
+				case calcoliInCorso:
+					if(b)
+					{
+						state = StatiAccedereBilancioAperto.attesaConfermaChiusuraEsercizio;
+						int c = JOptionPane.showConfirmDialog(tab, "Sei sicuro?\nSe si conferma il bilancio sara' terminato.", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						
+						if (c==0){
+							GB.procedi(true);
+							JOptionPane.showMessageDialog(tab, "Esercizio Bilancio Terminato!");// a base
+							state = StatiAccedereBilancioAperto.base;
+						}
+						else {
+							GB.procedi(false);
+							JOptionPane.showMessageDialog(tab, "Esercizio Bilancio non Terminato!");// a base
+							state = StatiAccedereBilancioAperto.base;
+						}
+					}
+					break;
 			}
 		}
 
@@ -169,10 +196,20 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			SDC.aggiorna(VociBilancio);
 		}
 
-		public void aggiornaSpeseDaPagare(Object calcolaSpeseDaPagare) {
-							// dovrebbe prendere un RapportoPagamenti al posto di object
-			// TODO Auto-generated method stub
+		public void aggiornaSpeseDaPagare(RapportoPagamenti calcolaSpeseDaPagare) {
+		
+			int c = JOptionPane.showConfirmDialog(tab, "Ci sono delle spesa da pagare per un totale di : "+calcolaSpeseDaPagare.getTotale().recuperaValore()+" Euro! \n Continuare?");
 			
+			if (c==0){
+				GB.procedi(true);
+				JOptionPane.showMessageDialog(tab, "Esercizio Bilancio Terminato!");// a base
+				state = StatiAccedereBilancioAperto.base;
+			}
+			else {
+				GB.procedi(false);
+				JOptionPane.showMessageDialog(tab, "Esercizio Bilancio non Terminato!");// a base
+				state = StatiAccedereBilancioAperto.base;
+			}	
 		}
 		public void inserisciVoceBilancio(DatiVoceBilancio datiVoceBilancio)
 		{
