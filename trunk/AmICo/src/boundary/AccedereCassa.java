@@ -133,7 +133,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		ColorCellRenderer ccr=new ColorCellRenderer();
 		table.getColumn("Data").setCellRenderer(ccr);
 		table.getColumn("Tipo").setCellRenderer(ccr);
-		table.getColumn("Importo(�)").setCellRenderer(ccr);
+		table.getColumn("Importo(euro)").setCellRenderer(ccr);
 		table.getColumn("Motivazione").setCellRenderer(ccr);
 		table.setAutoCreateRowSorter(true);
 	}

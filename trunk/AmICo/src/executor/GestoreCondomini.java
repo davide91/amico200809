@@ -260,6 +260,7 @@ public class GestoreCondomini implements BaseExecutor {
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
 				m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 				m_amico.fatto();
+				m_amico.setVisible(false);
 				m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
 				m_state = StatiGestoreCondominio.condominioAperto;
 				break;

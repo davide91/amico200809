@@ -60,8 +60,8 @@ public class StatoPatrimoniale extends JPanel {
 		DefaultTableModel dmAttivo = new DefaultTableModel();
 		DefaultTableModel dmPassivo = new DefaultTableModel();
 		
-		dmAttivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(€)","Seleziona" });
-		dmPassivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(€)","Seleziona" });
+		dmAttivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(euro)","Seleziona" });
+		dmPassivo.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo(euro)","Seleziona" });
 		
 		for (VoceBilancio v : vb.getVoci())
 		{
