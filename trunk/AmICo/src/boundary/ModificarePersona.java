@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -19,6 +20,7 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import store.TuttePersone;
 import store.POJO.Persona;
 import store.POJO.PersonaFisica;
 import store.POJO.PersonaGiuridica;
@@ -43,17 +45,28 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 
 	private GestorePersone GP;
 	private Persona persona;
+	private Persone personeFisiche = new Persone();
 	private AccedereCondominioAperto ACA;
-	
+	private boolean conRiferimento = false;
 	
 	public ModificarePersona(Persona p,AccedereCondominioAperto aca){
 		ACA=aca;
 		this.GP=GestorePersone.getInstance();
+		
+		for (Persona pers : TuttePersone.getInstance().recuperaPersone().getPersone()) {
+			if(pers instanceof PersonaFisica)
+				personeFisiche.inserisciPersona(pers);
+		}
+		
 		persona=p;
 		initComponents();
 		
+		
 		if(persona instanceof PersonaFisica)
 		{
+			bPersonaDiRiferimento.setEnabled(false);
+			personaDiRiferimento.setEnabled(false);
+			
 			ragioneSociale.setEditable(false);
 			partitaIVA.setEditable(false);
 			indirizzoFiscale.setEditable(false);
@@ -77,7 +90,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			cap.setText(((PersonaFisica) persona).getDati().getDomicilio().getCap());
 			
 			provincia.setEditable(true);
-			provincia.setToolTipText(((PersonaFisica) persona).getDati().getDomicilio().getProvincia().toString());
+			provincia.setSelectedIndex(((PersonaFisica) persona).getDati().getDomicilio().getProvincia().ordinal());
 			
 			interno.setEditable(true);
 			interno.setText(((PersonaFisica) persona).getDati().getDomicilio().getInterno());
@@ -96,7 +109,11 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		}
 		else if (persona instanceof PersonaGiuridica)
 		{
+			bPersonaDiRiferimento.setEnabled(true);
+			personaDiRiferimento.setEnabled(true);
+			
 			PersonaGiuridica per = (PersonaGiuridica)persona;
+			
 			ragioneSociale.setEditable(true);
 			ragioneSociale.setText((per.getDati().getRagioneSociale()));
 			
@@ -106,40 +123,41 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			indirizzoFiscale.setEditable(true);
 			indirizzoFiscale.setText(per.getDati().getIndFiscale().getVia());
 			
-			cognome.setEnabled(true);
+			cognome.setEditable(false);
 			cognome.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getCognome());
 			
-			nome.setEnabled(true);
+			nome.setEditable(false);
 			nome.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getNome());
 			
-			codiceFiscale.setEditable(true);
+			codiceFiscale.setEditable(false);
 			codiceFiscale.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getCf().getCodiceFis());
 			
-			domicilio.setEnabled(true);
+			domicilio.setEditable(false);
 			domicilio.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getVia());
 			
-			comune.setEnabled(true);
+			comune.setEditable(false);
 			comune.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getComune());
 			
-			cap.setEnabled(true);
+			cap.setEditable(false);
 			cap.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getCap());
 			
-			provincia.setEnabled(true);
-			provincia.setSelectedItem(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getProvincia());
+			provincia.setEditable(false);
+			provincia.setSelectedIndex(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getProvincia().ordinal());
 			
-			cellulare.setEnabled(true);
+			cellulare.setEditable(false);
 			cellulare.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getCell());
 			
 			interno.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getDomicilio().getInterno());
 			
-			eMail.setEditable(true);
+			eMail.setEditable(false);
 			eMail.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getMail().getEmail());
 			
-			telefono.setEditable(true);
+			telefono.setEditable(false);
 			telefono.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getTel());
 			
-			fax.setEditable(true);
+			fax.setEditable(false);
 			fax.setText(((PersonaFisica)(per.getPersonaDiRiferimento())).getDati().getFax());
+			aggiornaPersone();
 		}
 		
 		setLocationRelativeTo(null);
@@ -147,15 +165,29 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		this.setTitle("Dati Persona");
 	}
 	
-	
+	protected void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
+		
+		bPersonaDiRiferimento.setEnabled(false);
+		personaDiRiferimento.setEnabled(false);
+		
+		cognome.setEditable(true);
+		nome.setEditable(true);
+		codiceFiscale.setEditable(true);
+		domicilio.setEditable(true);
+		comune.setEditable(true);
+		cap.setEditable(true);
+		provincia.setEditable(true);
+		cellulare.setEditable(true);
+		interno.setEditable(true);
+		telefono.setEditable(true);
+		fax.setEditable(true);
+		eMail.setEditable(true);
+		conRiferimento=true;
+		
+	}
 	
 	public void inserisciNuoviDatiPersona(DatiPersona datiP) {
-	/*	EsitoControlloDati esito= datiP.controlla();
-		 if (esito instanceof DatiErrati) 
-			 JOptionPane.showMessageDialog(this, "dati errati");
-		 if(esito instanceof DatiCorretti) {*/
 			GP.modificaDatiPersona(datiP);
-		//}	
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona 	controlloDati) {
@@ -199,8 +231,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	}
 
 	public void fatto() {
-		//AMM.mostra(DatiPersonaModificatiOK);
-		//GestorePersone.getInstance()
+
 	}
 
 	public void fallito() {
@@ -217,8 +248,22 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	}
 
 
-	public void aggiornaPersone(Persone persone) {
-		// TODO Auto-generated method stub
+	public void aggiornaPersone() {
+		DefaultComboBoxModel x=new DefaultComboBoxModel();
+		
+		@SuppressWarnings("unused")
+		int selectedIndex =0;
+		int index=-1;
+		for (Persona p : personeFisiche.getPersone())
+		{
+			index++;
+				x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
+				if(((PersonaFisica)p).getDati().equals( ((PersonaGiuridica)persona).getPersonaDiRiferimento().getDati()))
+					selectedIndex=index;
+		}
+		
+		personaDiRiferimento.setModel(x);
+		personaDiRiferimento.setSelectedIndex(selectedIndex);
 	}
 	
 
@@ -231,7 +276,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			datiP.setMail(mail);
 			datiP.setTel(telefono.getText());
 			datiP.setNome(nome.getText());
-			datiP.setFax(fax.getText());
 			datiP.setCognome(cognome.getText());
 			datiP.setCell(cellulare.getText());
 			CodiceFiscale cf=new CodiceFiscale();
@@ -239,23 +283,39 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			datiP.setCf(cf);
 			datiP.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
 			inserisciNuoviDatiPersona(datiP);
-			
 		}
-		else if (persona instanceof PersonaGiuridica)
+		else if(persona instanceof PersonaGiuridica)
 		{
 			
-			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
-		//	datiP.setFax(fax.getText());
-		//	Email mail =new Email(eMail.getText());
-		//	datiP.setMail(mail);
-		//	datiP.setTel(telefono.getText());
-			datiP.setpIva(new PartitaIva(partitaIVA.getText()));
-			datiP.setRagioneSociale(ragioneSociale.getText());
+			DatiPersonaGiuridica datiPG=new DatiPersonaGiuridica();
+			
+			if(conRiferimento) // è stata inserita una nuova persona usando il pulsante
+			{
+				DatiPersonaFisica pRiferimento = new DatiPersonaFisica();
+				pRiferimento.setFax(fax.getText());
+				Email mail =new Email(eMail.getText());
+				pRiferimento.setMail(mail);
+				pRiferimento.setTel(telefono.getText());
+				pRiferimento.setNome(nome.getText());
+				pRiferimento.setCognome(cognome.getText());
+				pRiferimento.setCell(cellulare.getText());
+				CodiceFiscale cf=new CodiceFiscale();
+				cf.setCodiceFis(codiceFiscale.getText());
+				pRiferimento.setCf(cf);
+				pRiferimento.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
+				
+				GP.inserisciPersonaDiRiferimento(pRiferimento);
+			}
+			else{
+				GP.inserisciPersonaDiRiferimento((PersonaFisica)personeFisiche.getPersone().get(personaDiRiferimento.getSelectedIndex()));
+			}
+				
+			datiPG.setpIva(new PartitaIva(partitaIVA.getText()));
+			datiPG.setRagioneSociale(ragioneSociale.getText());
 			Indirizzo i=new Indirizzo();
 			i.setVia(indirizzoFiscale.getText());
-			datiP.setIndFiscale(i);
-			inserisciNuoviDatiPersona(datiP);
-			
+			datiPG.setIndFiscale(i);
+			inserisciNuoviDatiPersona(datiPG);
 		}
 	}
 	
@@ -299,6 +359,10 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	private JLabel jLabel20;
 	private JLabel jLabel21;
 	private JLabel jLabel22;
+	private JLabel jLabel11;
+	private JSeparator jSeparator0;
+	private JComboBox personaDiRiferimento;
+	private JButton bPersonaDiRiferimento;
 
 	private JTextField interno;
 
@@ -309,19 +373,10 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		setFont(new Font("Dialog", Font.PLAIN, 12));
 		setForeground(Color.black);
 		setLayout(new GroupLayout());
-		add(getNome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(44, 12, 12)));
-		add(getCognome(), new Constraints(new Leading(108, 110, 12, 12), new Leading(14, 12, 12)));
-		add(getDomicilio(), new Constraints(new Leading(108, 110, 12, 12), new Leading(104, 12, 12)));
-		add(getProvincia(), new Constraints(new Leading(313, 104, 10, 10), new Leading(134, 12, 12)));
-		add(getCodiceFiscale(), new Constraints(new Leading(108, 110, 12, 12), new Leading(72, 10, 10)));
-		add(getTelefono(), new Constraints(new Leading(108, 309, 12, 12), new Leading(175, 12, 12)));
-		add(getCellulare(), new Constraints(new Leading(108, 309, 12, 12), new Leading(211, 12, 12)));
-		add(getEMail(), new Constraints(new Leading(108, 308, 12, 12), new Leading(247, 12, 12)));
-		add(getFax(), new Constraints(new Leading(108, 308, 12, 12), new Leading(283, 12, 12)));
+		
 		add(getJLabel0(), new Constraints(new Leading(7, 10, 10), new Leading(16, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(7, 12, 12), new Leading(46, 12, 12)));
 		add(getJLabel3(), new Constraints(new Leading(7, 12, 12), new Leading(108, 12, 12)));
-		add(getComune(), new Constraints(new Leading(108, 112, 12, 12), new Leading(140, 12, 12)));
 		add(getJLabel4(), new Constraints(new Leading(7, 12, 12), new Leading(144, 12, 12)));
 		add(getCap(), new Constraints(new Leading(315, 108, 10, 10), new Leading(104, 12, 12)));
 		add(getJLabel5(), new Constraints(new Leading(256, 10, 10), new Leading(108, 12, 12)));
@@ -331,20 +386,73 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		add(getJLabel7(), new Constraints(new Leading(7, 12, 12), new Leading(177, 12, 12)));
 		add(getJLabel9(), new Constraints(new Leading(7, 12, 12), new Leading(247, 12, 12)));
 		add(getJLabel10(), new Constraints(new Leading(7, 12, 12), new Leading(285, 12, 12)));
-		add(getInterno(), new Constraints(new Leading(496, 101, 10, 10), new Leading(102, 12, 12)));
-		add(getJLabel23(), new Constraints(new Leading(437, 10, 10), new Leading(100, 22, 12, 12)));
-		add(getRagioneSociale(), new Constraints(new Leading(108, 309, 12, 12), new Leading(317, 12, 12)));
-		add(getJLabel20(), new Constraints(new Leading(7, 12, 12), new Leading(319, 12, 12)));
-		add(getPartitaIVA(), new Constraints(new Leading(108, 308, 12, 12), new Leading(353, 12, 12)));
-		add(getJLabel21(), new Constraints(new Leading(7, 12, 12), new Leading(357, 12, 12)));
-		add(getIndirizzoFiscale(), new Constraints(new Leading(108, 308, 12, 12), new Leading(389, 12, 12)));
-		add(getJLabel22(), new Constraints(new Leading(7, 12, 12), new Leading(391, 12, 12)));
-		add(getBModifica(), new Constraints(new Leading(110, 10, 10), new Leading(436, 10, 10)));
-		add(getBannulla(), new Constraints(new Leading(348, 12, 12), new Leading(436, 12, 12)));
-		setSize(632, 515);
+		add(getBModifica(), new Constraints(new Leading(112, 10, 10), new Leading(458, 10, 10)));
+		add(getJLabel22(), new Constraints(new Leading(12, 12, 12), new Leading(416, 12, 12)));
+		add(getJLabel21(), new Constraints(new Leading(12, 12, 12), new Leading(378, 12, 12)));
+		add(getJLabel20(), new Constraints(new Leading(12, 12, 12), new Leading(336, 12, 12)));
+		add(getCodiceFiscale(), new Constraints(new Leading(125, 110, 10, 10), new Leading(72, 12, 12)));
+		add(getNome(), new Constraints(new Leading(125, 110, 12, 12), new Leading(44, 12, 12)));
+		add(getCognome(), new Constraints(new Leading(125, 110, 12, 12), new Leading(14, 12, 12)));
+		add(getDomicilio(), new Constraints(new Leading(123, 110, 10, 10), new Leading(104, 12, 12)));
+		add(getComune(), new Constraints(new Leading(123, 112, 12, 12), new Leading(140, 12, 12)));
+		add(getTelefono(), new Constraints(new Leading(123, 309, 12, 12), new Leading(176, 12, 12)));
+		add(getCellulare(), new Constraints(new Leading(123, 309, 12, 12), new Leading(209, 12, 12)));
+		add(getEMail(), new Constraints(new Leading(123, 308, 12, 12), new Leading(247, 12, 12)));
+		add(getFax(), new Constraints(new Leading(124, 308, 12, 12), new Leading(281, 12, 12)));
+		add(getProvincia(), new Constraints(new Leading(334, 84, 10, 10), new Leading(135, 12, 12)));
+		add(getRagioneSociale(), new Constraints(new Leading(125, 309, 12, 12), new Leading(332, 12, 12)));
+		add(getPartitaIVA(), new Constraints(new Leading(125, 308, 12, 12), new Leading(374, 12, 12)));
+		add(getIndirizzoFiscale(), new Constraints(new Leading(125, 308, 12, 12), new Leading(412, 12, 12)));
+		add(getBannulla(), new Constraints(new Leading(444, 10, 10), new Leading(458, 12, 12)));
+		add(getJSeparator0(), new Constraints(new Leading(12, 627, 10, 10), new Leading(314, 10, 12, 12)));
+		add(getBPersonaDiRiferimento(), new Constraints(new Leading(451, 12, 12), new Leading(411, 12, 12)));
+		add(getInterno(), new Constraints(new Leading(507, 101, 10, 10), new Leading(102, 12, 12)));
+		add(getJLabel23(), new Constraints(new Leading(446, 10, 10), new Leading(100, 22, 12, 12)));
+			add(getPersonaDiRiferimento(), new Constraints(new Leading(451, 171, 12, 12), new Leading(369, 12, 12)));
+		add(getJLabel11(), new Constraints(new Leading(453, 166, 12, 12), new Leading(337, 12, 12)));
+		setSize(690, 530);
+	}
+	
+	private JSeparator getJSeparator0() {
+		if (jSeparator0 == null) {
+			jSeparator0 = new JSeparator();
+		}
+		return jSeparator0;
+	}
+	
+	private JLabel getJLabel11() {
+		if (jLabel11 == null) {
+			jLabel11 = new JLabel();
+			jLabel11.setText("Persona di riferimento:");
+		}
+		return jLabel11;
+	}
+	
+	private JButton getBPersonaDiRiferimento() {
+		if (bPersonaDiRiferimento == null) {
+			bPersonaDiRiferimento = new JButton();
+			bPersonaDiRiferimento.setText("Aggiungi persona di riferimento");
+			bPersonaDiRiferimento.setEnabled(false);
+			bPersonaDiRiferimento.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent event) {
+					bPersonaDiRiferimentoMouseMouseClicked(event);
+				}
+			});
+		}
+		return bPersonaDiRiferimento;
 	}
 
-
+	private JComboBox getPersonaDiRiferimento() {
+		if (personaDiRiferimento == null) {
+			personaDiRiferimento = new JComboBox();
+			personaDiRiferimento.setModel(new DefaultComboBoxModel(new Object[] {}));
+			personaDiRiferimento.setDoubleBuffered(false);
+			personaDiRiferimento.setBorder(null);
+		}
+		return personaDiRiferimento;
+	}
+	
 	private JLabel getJLabel23() {
 		if (jLabel23 == null) {
 			jLabel23 = new JLabel();

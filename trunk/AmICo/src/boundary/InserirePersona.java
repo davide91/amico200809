@@ -87,7 +87,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	 	   }
 		   else if (datiP instanceof DatiPersonaGiuridica)
 		   {
-			   
+			   boolean interrotto = false;
 				   String pi=((DatiPersonaGiuridica)datiP).getpIva().getPartIva();
 			   
 				    int i;
@@ -101,24 +101,24 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 				        {
 				            JOptionPane.showMessageDialog(this, "La partita IVA contiene dei caratteri non ammessi:\n"
 				            + "la partita IVA dovrebbe contenere solo cifre.\n");
+				            interrotto = true;
 				            break;
 				        }
 				    }
 				    
+				    if(!interrotto)
+				     GP.inserisciDatiPersona(datiP);
 		   }
-		   else GP.inserisciDatiPersona(datiP);
-			   
-		   
 	}
 	
 	public void ammissibile(Boolean b) {
 		if(b){
-			JOptionPane.showMessageDialog(this, "persona inserita");
+			JOptionPane.showMessageDialog(this, "Persona Inserita");
 			GP.procedi(true);
 			this.dispose();
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "persona non inserita");
+			JOptionPane.showMessageDialog(this, "Persona non inserita");
 			GP.procedi(false);
 		}
 	}
@@ -170,10 +170,9 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		for (Persona p : personeFisiche.getPersone())
 				x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
 		
-		
 		personaDiRiferimento.setModel(x);
-		
 	}
+	
 	private void radioPFMouseMouseClicked(MouseEvent event)
 	{
 		ragioneSociale.setEditable(false);
@@ -216,7 +215,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		provincia.setEditable(false);
 		cellulare.setEditable(false);
 		interno.setEditable(false);
-	//	conRiferimento = true;
 		personaDiRiferimento.setEnabled(true);
 	}
 
@@ -226,8 +224,8 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		this.dispose();
 	}
 	
-	private void bokMouseMouseClicked(MouseEvent event) {
-
+	private void bokMouseMouseClicked(MouseEvent event) 
+	{
 		if(radioPF.isSelected())
 		{
 			DatiPersonaFisica datiP=new DatiPersonaFisica();
@@ -244,55 +242,38 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 			datiP.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
 			inserisciDatiPersona(datiP);
 		}
-		else if(conRiferimento)
+		else if(radioPG.isSelected())
 		{
-			DatiPersonaFisica pRiferimento = new DatiPersonaFisica();
-			pRiferimento.setFax(fax.getText());
-			Email mail =new Email(eMail.getText());
-			pRiferimento.setMail(mail);
-			pRiferimento.setTel(telefono.getText());
-			pRiferimento.setNome(nome.getText());
-			pRiferimento.setCognome(cognome.getText());
-			pRiferimento.setCell(cellulare.getText());
-			CodiceFiscale cf=new CodiceFiscale();
-			cf.setCodiceFis(codiceFiscale.getText());
-			pRiferimento.setCf(cf);
-			pRiferimento.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
-		
-			if(GP.inserisciPersonaDiRiferimento(pRiferimento))
+			
+			DatiPersonaGiuridica datiPG=new DatiPersonaGiuridica();
+			
+			if(conRiferimento) // è stata inserita una nuova persona usando il pulsante
 			{
-				DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
-			//	datiP.setFax(fax.getText());
-			//	Email mail =new Email(eMail.getText());
-			//	datiP.setMail(mail);
-			//	datiP.setTel(telefono.getText());
-				datiP.setpIva(new PartitaIva(partitaIVA.getText()));
-				datiP.setRagioneSociale(ragioneSociale.getText());
-				Indirizzo i=new Indirizzo();
-				i.setVia(indirizzoFiscale.getText());
-				datiP.setIndFiscale(i);
-				inserisciDatiPersona(datiP);
+				DatiPersonaFisica pRiferimento = new DatiPersonaFisica();
+				pRiferimento.setFax(fax.getText());
+				Email mail =new Email(eMail.getText());
+				pRiferimento.setMail(mail);
+				pRiferimento.setTel(telefono.getText());
+				pRiferimento.setNome(nome.getText());
+				pRiferimento.setCognome(cognome.getText());
+				pRiferimento.setCell(cellulare.getText());
+				CodiceFiscale cf=new CodiceFiscale();
+				cf.setCodiceFis(codiceFiscale.getText());
+				pRiferimento.setCf(cf);
+				pRiferimento.setDomicilio(new Indirizzo(domicilio.getText(),interno.getText(),comune.getText(),(Provincia)provincia.getSelectedItem(),cap.getText()) );
+				
+				GP.inserisciPersonaDiRiferimento(pRiferimento);
 			}
-			else
-				JOptionPane.showMessageDialog(this, "Persona di Riferimento non Inserita");
-		}
-		else
-		{
-			GP.inserisciPersonaDiRiferimento((PersonaFisica)personeFisiche.getPersone().get(personaDiRiferimento.getSelectedIndex()));
-			
-			DatiPersonaGiuridica datiP=new DatiPersonaGiuridica();
-			//	datiP.setFax(fax.getText());
-			//	Email mail =new Email(eMail.getText());
-			//	datiP.setMail(mail);
-			//	datiP.setTel(telefono.getText());
-				datiP.setpIva(new PartitaIva(partitaIVA.getText()));
-				datiP.setRagioneSociale(ragioneSociale.getText());
-				Indirizzo i=new Indirizzo();
-				i.setVia(indirizzoFiscale.getText());
-				datiP.setIndFiscale(i);
-				inserisciDatiPersona(datiP);
-			
-			
+			else{
+				GP.inserisciPersonaDiRiferimento((PersonaFisica)personeFisiche.getPersone().get(personaDiRiferimento.getSelectedIndex()));
+			}
+				
+			datiPG.setpIva(new PartitaIva(partitaIVA.getText()));
+			datiPG.setRagioneSociale(ragioneSociale.getText());
+			Indirizzo i=new Indirizzo();
+			i.setVia(indirizzoFiscale.getText());
+			datiPG.setIndFiscale(i);
+			inserisciDatiPersona(datiPG);
 		}
 	}
 	
@@ -360,6 +341,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	private JSeparator jSeparator0;
 	private JComboBox personaDiRiferimento;
 	private JLabel jLabel11;
+	
 	private void initComponents() {
 		setTitle("Inserire Nuova Persona");
 		setFont(new Font("Dialog", Font.PLAIN, 12));
