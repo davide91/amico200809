@@ -101,7 +101,7 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 			saldo.setBackground(Color.green);
 		else saldo.setBackground(Color.white);
 		
-		dm.setDataVector(new String[][]{},new String[]{"Importo(�)","Tipo","Data","Motivazione"});	
+		dm.setDataVector(new String[][]{},new String[]{"Importo(euro)","Tipo","Data","Motivazione"});	
 
 		for(MovimentoCassa m :m_cassa.getMovimentiDiCassa())
 		{	if(m.getRelativoAVoce()!=null)
