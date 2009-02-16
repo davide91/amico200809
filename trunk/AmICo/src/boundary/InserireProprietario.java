@@ -67,7 +67,7 @@ public class InserireProprietario extends JFrame {
 			if(p instanceof PersonaFisica)
 				x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
 				else if(p instanceof PersonaGiuridica)
-					x.addElement(((PersonaGiuridica)p).getDati().getpIva().getPartIva());
+					x.addElement(((PersonaGiuridica)p).getDati().getRagioneSociale());
 		}
 		persona.setModel(x);
 	}
@@ -178,7 +178,7 @@ public class InserireProprietario extends JFrame {
 					if(p instanceof PersonaFisica)
 						x.addElement(((PersonaFisica)p).getDati().getNome()+" "+((PersonaFisica)p).getDati().getCognome());
 						else if(p instanceof PersonaGiuridica)
-							x.addElement(((PersonaGiuridica)p).getDati().getpIva().getPartIva());
+							x.addElement(((PersonaGiuridica)p).getDati().getRagioneSociale());
 				}
 				persona.setModel(x);
 			}

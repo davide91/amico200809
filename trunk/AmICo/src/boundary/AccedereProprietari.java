@@ -131,7 +131,7 @@ public class AccedereProprietari extends JFrame {
 		    				new JRadioButton() });
 		    	else if(perso  instanceof PersonaGiuridica)
 		    		dm.addRow(new Object[]{
-		    				((PersonaGiuridica)perso).getDati().getpIva().getPartIva(),
+		    				((PersonaGiuridica)perso).getDati().getRagioneSociale(),
 		    				"",
 		    				quo,
 		    				new JRadioButton() });
@@ -172,7 +172,6 @@ public class AccedereProprietari extends JFrame {
 			        	   proprietari.setPersone(x);
 			        	   aggiornaTabella(null,0);
 			        	   getBAggiungiProprietario().setEnabled(true);
-			        	   
 			           }
 			}
 		}

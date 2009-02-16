@@ -121,20 +121,4 @@ public final class SplashScreen extends Frame {
     }
     private Image fImage;
   }
-  
-  /**
-  * Developer test harness shows the splash screen for a fixed length of 
-  * time, without launching the full application.
-  */
-  public static void main(String[] args){
-    SplashScreen splashScreen = new SplashScreen("images/mappe-3d.jpg");
-    splashScreen.splash();
-    try {
-      Thread.sleep(3000);
-    }
-    catch(InterruptedException ex) {
-      System.out.println(ex);
-    }
-    System.exit(0);
-  }
 }
