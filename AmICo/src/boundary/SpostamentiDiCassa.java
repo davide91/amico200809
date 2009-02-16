@@ -119,6 +119,8 @@ public class SpostamentiDiCassa extends JPanel {
 		add(getBChiudiBilancio(), new Constraints(new Leading(266, 212, 12, 12), new Leading(421, 12, 12)));
 		add(getBTerminaEsercizio(), new Constraints(new Leading(508, 202, 10, 10), new Leading(421, 12, 12)));
 		add(getBMettiInEsercizio(), new Constraints(new Leading(508, 202, 12, 12), new Leading(379, 12, 12)));
+		incassi.setEnabled(false);
+		spese.setEnabled(false);
 		setSize(805, 516);
 	}
 

@@ -21,6 +21,7 @@ import datatype.PagamentoScaduto;
 import datatype.SpeseDaPagare;
 import datatype.list.Avvisi;
 import datatype.list.Pagamenti;
+import enumeration.TipoVoce;
 
 public class CalcoloAvvisi {
 
@@ -164,13 +165,16 @@ public class CalcoloAvvisi {
 			while(vociIter.hasNext())
 			{
 				DatiVoceBilancio dati = vociIter.next().getDati();
-				totaleImporti.somma(dati.getImporto());
+				if(dati.getTipo() == TipoVoce.spesa)
+					totaleImporti.somma(dati.getImporto());
+				else
+					totaleImporti.somma(dati.getImporto().ritornaNegativo());
 			}
 		}
 		
-		if (totaleImporti.getEuro() > totaleCasse.getEuro())
+		if (totaleImporti.recuperaValore() > totaleCasse.recuperaValore())
 		{
-			Euro diff = new Euro(totaleImporti.getEuro()-totaleCasse.getEuro());
+			Euro diff = new Euro(totaleImporti.recuperaValore()-totaleCasse.recuperaValore());
 			m_avvisi.add(new BilancioStatoAllerta(diff));
 		}
 
