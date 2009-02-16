@@ -2,12 +2,15 @@ package executor;
 
 import java.util.Iterator;
 
-import calculator.Formattatore;
-
+import store.POJO.Bilancio;
+import store.POJO.Cassa;
+import store.POJO.MovimentoCassa;
+import store.POJO.PianoPagamenti;
+import store.POJO.VoceBilancio;
 import boundary.AccedereCassa;
 import boundary.AccedereCondominioAperto;
 import boundary.DriverFileSystem;
-import boundary.RegistraMovimento;
+import calculator.Formattatore;
 import datatype.DatiMovimentoCassa;
 import datatype.DatiPianoPagamenti;
 import datatype.Euro;
@@ -17,11 +20,6 @@ import enumeration.FormatoFile;
 import enumeration.StatiGestoreCassa;
 import enumeration.StatoBilancio;
 import enumeration.TipoReportCassa;
-import store.POJO.Bilancio;
-import store.POJO.Cassa;
-import store.POJO.MovimentoCassa;
-import store.POJO.PianoPagamenti;
-import store.POJO.VoceBilancio;
 
 public class GestoreCassa implements BaseExecutor {
 
@@ -86,6 +84,7 @@ public class GestoreCassa implements BaseExecutor {
 		return new Report();
 	}
 
+	@SuppressWarnings("unused")
 	private DatiMovimentoCassa preparaProspetto(PianoPagamenti piano, int numRata)
 	{
 		DatiPianoPagamenti datiPiano = piano.getDati();
@@ -96,6 +95,7 @@ public class GestoreCassa implements BaseExecutor {
 		return datiMovimento;
 	}
 	
+	@SuppressWarnings("unused")
 	private DatiMovimentoCassa preparaProspetto(VoceBilancio voce)
 	{
 		DatiMovimentoCassa datiMovimento = new DatiMovimentoCassa();

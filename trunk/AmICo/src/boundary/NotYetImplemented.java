@@ -1,14 +1,11 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -44,6 +41,7 @@ public class NotYetImplemented extends JPanel {
 		return jLabel0;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
