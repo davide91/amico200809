@@ -41,9 +41,7 @@ public class RegistraMovimento extends JFrame {
 	private boolean ciSono=false;
 	
 	public RegistraMovimento(AccedereCassa ac) {
-		
 		AC=ac;
-		
 		initComponents();
 		setLocationRelativeTo(null);
 		setTitle("Registrando movimento");
@@ -52,12 +50,9 @@ public class RegistraMovimento extends JFrame {
 	
 	public void aggiornaVociBilancio(VociBilancio voci) {
 		this.voci=voci;
-		
-		
 		buttonGroup = new ButtonGroup();
 		int count=0;
 
-		
 		DefaultTableModel dm = new DefaultTableModel();
 		
 		dm.setDataVector(new String[][]{},new String[]{ "Nome Voce","Importo","Seleziona" });
@@ -93,7 +88,6 @@ public class RegistraMovimento extends JFrame {
 		{
 			this.bConferma.setEnabled(false);
 		}
-		
 	}
 	
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
@@ -137,11 +131,10 @@ public class RegistraMovimento extends JFrame {
 	private JTextField motivazione;
 	private JTable vocibilancio;
 	private JScrollPane jScrollPane0;
-//	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
 	public RegistraMovimento() {
 		initComponents();
 	}
-
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
@@ -160,7 +153,6 @@ public class RegistraMovimento extends JFrame {
 		}
 		return jScrollPane0;
 	}
-
 
 	private JTable getVocibilancio() {
 		if (vocibilancio == null) {
@@ -188,14 +180,12 @@ public class RegistraMovimento extends JFrame {
 		return vocibilancio;
 	}
 
-
 	private JTextField getMotivazione() {
 		if (motivazione == null) {
 			motivazione = new JTextField();
 		}
 		return motivazione;
 	}
-
 
 	private JLabel getJLabel0() {
 		if (jLabel0 == null) {
@@ -204,7 +194,6 @@ public class RegistraMovimento extends JFrame {
 		}
 		return jLabel0;
 	}
-
 
 	private JButton getBConferma() {
 		if (bConferma == null) {
@@ -220,7 +209,6 @@ public class RegistraMovimento extends JFrame {
 		return bConferma;
 	}
 
-
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
@@ -234,39 +222,4 @@ public class RegistraMovimento extends JFrame {
 		}
 		return bAnnulla;
 	}
-
-/**
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
-
-	
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				RegistraMovimento frame = new RegistraMovimento();
-				frame.setTitle("RegistraMovimento");
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
- */
-
-
 }

@@ -1,21 +1,18 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Bilateral;
@@ -205,7 +202,6 @@ public class AccederePreferenze extends JPanel {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
 			jTextField0.setMaximumSize(new Dimension(600, 400));
-		//	Field tasso interessi mora
 			jTextField0.setText(""+preferenze.getInteressiMora());
 		}
 		return jTextField0;
@@ -214,7 +210,6 @@ public class AccederePreferenze extends JPanel {
 	private JTextField getJTextField1() {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
-			//soglia minima cassa
 			jTextField1.setText(""+preferenze.getSogliaMinimaCassa().toString());
 		}
 		return jTextField1;
@@ -228,6 +223,7 @@ public class AccederePreferenze extends JPanel {
 		return jSpinner0;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -239,28 +235,4 @@ public class AccederePreferenze extends JPanel {
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 */
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("Preferenze");
-				AccederePreferenze content = new AccederePreferenze();
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
-
 }

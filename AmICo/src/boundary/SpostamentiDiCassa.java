@@ -22,7 +22,6 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.VoceBilancio;
 import datatype.list.VociBilancio;
-import enumeration.StatoBilancio;
 import enumeration.TipoVoce;
 
 /**
@@ -66,8 +65,6 @@ public class SpostamentiDiCassa extends JPanel {
 
 				else
 					dmSpese.addRow(new Object[]{v.getDati().getTitolo(),v.getDati().getImporto().toString()});
-
-
 			}
 		}
 		
@@ -77,8 +74,7 @@ public class SpostamentiDiCassa extends JPanel {
 		
 	
 		spese.setAutoCreateRowSorter(true);
-		incassi.setAutoCreateRowSorter(true);
-		
+		incassi.setAutoCreateRowSorter(true);	
 	}
 
 	private void bEliminaVoceBilancioMouseMouseClicked(MouseEvent event) {
@@ -94,8 +90,6 @@ public class SpostamentiDiCassa extends JPanel {
 	private void bTerminaEsercizioMouseMouseClicked(MouseEvent event) {
 		ABA.terminaEsercizioBilancio();
 	}
-	
-	
 	
 	private static final long serialVersionUID = 1L;
 	private JLabel jLabel0;
@@ -155,6 +149,7 @@ public class SpostamentiDiCassa extends JPanel {
 		}
 		return bTerminaEsercizio;
 	}
+	
 	private JScrollPane getJScrollPane1() {
 		if (jScrollPane1 == null) {
 			jScrollPane1 = new JScrollPane();
@@ -225,20 +220,6 @@ public class SpostamentiDiCassa extends JPanel {
 		return bChiudiBilancio;
 	}
 
-/*	private JButton getBModificaVoceBilancio() {
-		if (bModificaVoceBilancio == null) {
-			bModificaVoceBilancio = new JButton();
-			bModificaVoceBilancio.setText("Modifica voce bilancio");
-			bModificaVoceBilancio.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					bModificaVoceBilancioMouseMouseClicked(event);
-				}
-			});
-		}
-		return bModificaVoceBilancio;
-	}
-*/
 	private JButton getBEliminaVoceBilancio() {
 		if (bEliminaVoceBilancio == null) {
 			bEliminaVoceBilancio = new JButton();
@@ -299,6 +280,4 @@ public class SpostamentiDiCassa extends JPanel {
 		}
 		return jLabel0;
 	}
-
-
 }

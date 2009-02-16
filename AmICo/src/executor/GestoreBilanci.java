@@ -2,8 +2,6 @@ package executor;
 
 import java.util.GregorianCalendar;
 
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
 import store.POJO.Bilancio;
 import store.POJO.Condominio;
 import store.POJO.VoceBilancio;
@@ -124,7 +122,6 @@ public class GestoreBilanci implements BaseExecutor {
 	
 	public void operazioneAnnullata() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void operazioneTerminata() {
@@ -133,12 +130,7 @@ public class GestoreBilanci implements BaseExecutor {
 			ABA.fatto();
 			state=StatiGestoreBilancio.bilancioAperto;
 			break;
-
-		case base:
-			//GestoreCondominioAperto.
-			break;
 		}
-		
 	}
 
 	public void procedi(boolean b) {
@@ -245,5 +237,4 @@ public class GestoreBilanci implements BaseExecutor {
 	private Report preparaReportBilancio(){
 		return null;
 	}
-
 }

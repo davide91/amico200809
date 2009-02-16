@@ -130,10 +130,7 @@ public class TestSet02_TuttePersone extends TestCase {
 		
 		//inizialmente il DB contiene una persona
 		assertEquals(2, persone.recuperaPersone().size());
-		
-		//Dati con i quali confronteremo la persona recuperata
-		DatiPersonaGiuridica dpg = new DatiPersonaGiuridica(new PartitaIva("34676253809"),"HoRagionaIO",(new Indirizzo("adua","3","Francavilla Bisio",Provincia.AL,"15060")),"432-5647322",new Email("ciccio@demente.it"),"0287-09825");
-			
+				
 		//recuperiamo la persona Fisica
 		Persona pf = persone.recuperaPersone().get(0);
 		//recuperiamo la persona Giuridica
@@ -150,10 +147,9 @@ public class TestSet02_TuttePersone extends TestCase {
 		}
 	}
 	
-/*		public void testPERSONE_EliminazionePersonaFisica()
+		public void testPERSONE_EliminazionePersonaFisica()
 	{
 		tp = new TuttePersone();
-		Persone persone = tp.recuperaPersone();
 		
 		//inizialmente il DB ha una persona
 		assertEquals(2, tp.recuperaPersone().recuperaPersone().size());
@@ -181,5 +177,4 @@ public class TestSet02_TuttePersone extends TestCase {
 		
 		assertEquals(0, tp.recuperaPersone().recuperaPersone().size());
 	}
-	*/
 }

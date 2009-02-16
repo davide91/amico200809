@@ -164,7 +164,7 @@ public class Bilancio {
 		return false;
 	}
 	
-	//sommo l'importo di ogni voce di bilancio // non presente nel class diagram
+	//sommo l'importo di ogni voce di bilancio 
 	public float saldo()
 	{
 		float ret = (float)0.0;
@@ -186,7 +186,6 @@ public class Bilancio {
 		
 		return null;
 	}
-
 	
 	@Override
 	public boolean equals(Object other) {

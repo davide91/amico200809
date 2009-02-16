@@ -27,7 +27,6 @@ public class DatiPersona {
 	
 	public EsitoControlloDati controlla()
 	{
-		//return null; cambiato da federico
 		return new DatiCorretti();
 	}
 

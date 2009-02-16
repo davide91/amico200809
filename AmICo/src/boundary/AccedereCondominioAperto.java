@@ -2,12 +2,10 @@
 package boundary;
 
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
@@ -40,7 +36,6 @@ import datatype.Avviso;
 import datatype.BilancioStatoAllerta;
 import datatype.CassaSottoSogliaMinima;
 import datatype.CondominiMorosi;
-import datatype.DatiCondominio;
 import datatype.DatiPagamento;
 import datatype.DatiVoceBilancio;
 import datatype.EsitoEliminabile;
@@ -60,8 +55,10 @@ import executor.GestoreCondominioAperto;
  */
 public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
+	@SuppressWarnings("unused")
 	private Condominio condominio;
 	private GestoreCondominioAperto GCA;
+	@SuppressWarnings("unused")
 	private Avvisi avvisiCorrenti;
 	private StatiAccedereCondominioAperto state;
 	
@@ -125,6 +122,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		 });   
 	}
 
+	@SuppressWarnings("unused")
 	private void chiudiDaFinestra() {
 		this.chiudiCondominio();
 		this.dispose();
@@ -325,6 +323,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		return jMenuItem0;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -372,7 +371,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	private void bpagamentiMouseMouseClicked(MouseEvent event) {
 		pannello.removeAll();
-		//this.passaAPagamenti();
 		pannello.add(new NotYetImplemented());
 		pannello.revalidate();
 		pannello.repaint();
@@ -384,7 +382,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		pannello.add(new NotYetImplemented());
 		pannello.revalidate();
 		pannello.repaint();
-		// TODO
 	}
 
 	private void barchiviobilanciMouseMouseClicked(MouseEvent event) {
@@ -392,7 +389,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		pannello.add(new NotYetImplemented());
 		pannello.revalidate();
 		pannello.repaint();
-		// TODO
 	}
 
 	private void beliminacondominioMouseMouseClicked(MouseEvent event) {
@@ -413,8 +409,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		this.GCA=GCA;
 	}
 
-
-
 	public void ammissibile(Boolean b) {
 		if(b)
 		{
@@ -427,7 +421,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 	
 	public void ammissibile(EsitoEliminabile esito){
-		//AMM.richiediConferma(esito);
 		state=StatiAccedereCondominioAperto.attesaConfermaEliminazione;
 	}
 
@@ -443,7 +436,7 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 
 	public void fatto() {
 		if (state==StatiAccedereCondominioAperto.chiusuraCondominio){
-			//AMM.mostra(condominioChiuso);
+
 		}
 		else state=StatiAccedereCondominioAperto.base;
 	}
@@ -654,9 +647,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	public void passaPreferenze(Preferenze p){
 		// TODO
 	}
-
-	/*public void faiReportCondominio(TipoReportCondominio trc,FormatoFile ff){	
-	}*/
 	
 	public void chiudiCondominio(){
 		GCA.chiudiCondominio();
@@ -664,7 +654,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	}
 	
 	public void esportaCondominio(){	
-		//GCA.esportaCondominio(); TODO
 		state=StatiAccedereCondominioAperto.esportazioneCondominio;
 	}
 	

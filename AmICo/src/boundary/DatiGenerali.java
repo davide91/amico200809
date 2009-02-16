@@ -1,15 +1,12 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -154,6 +151,7 @@ public class DatiGenerali extends JPanel {
 		return identificatore;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -165,6 +163,4 @@ public class DatiGenerali extends JPanel {
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-
 }

@@ -44,8 +44,7 @@ public class InserireProprietario extends JFrame {
 		this.setTitle("Inserire proprietario");
 		this.setVisible(true);
 	}
-	
-	
+		
 	public InserireProprietario(AccedereProprietari2 ap,Persone p) {
 		persone=p;
 		AP2=ap;
@@ -72,7 +71,6 @@ public class InserireProprietario extends JFrame {
 		}
 		persona.setModel(x);
 	}
-	
 
 	private void bInserisciMouseMouseClicked(MouseEvent event) {
 		if(click)
@@ -97,7 +95,6 @@ public class InserireProprietario extends JFrame {
 		}
 	}
 
-
 	private void bAnnullaMouseMouseClicked(MouseEvent event) {
 		if(click)
 		{
@@ -109,7 +106,6 @@ public class InserireProprietario extends JFrame {
 		}
 	}
 
-
 	private void bInserisciNuovaPersonaMouseMouseClicked(MouseEvent event) {
 		if(click)
 		{
@@ -120,7 +116,7 @@ public class InserireProprietario extends JFrame {
 				AP2.inserisciNuovaPersona();
 		}
 	}
-
+	
 	private static final long serialVersionUID = 1L;
 	private JComboBox persona;
 	private JTextField quota;
@@ -153,7 +149,6 @@ public class InserireProprietario extends JFrame {
 	   		 }); 
 		
 	}
-
 
 	private JLabel getJLabel1() {
 		if (jLabel1 == null) {
@@ -207,7 +202,6 @@ public class InserireProprietario extends JFrame {
 		return bInserisciNuovaPersona;
 	}
 
-
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
@@ -221,7 +215,6 @@ public class InserireProprietario extends JFrame {
 		}
 		return bAnnulla;
 	}
-
 
 	private JButton getBInserisci() {
 		if (bInserisci == null) {
@@ -237,14 +230,10 @@ public class InserireProprietario extends JFrame {
 		return bInserisci;
 	}
 
-
 	private JTextField getQuota() {
 		if (quota == null) {
 			quota = new JTextField();
 		}
 		return quota;
 	}
-
-
-
 }

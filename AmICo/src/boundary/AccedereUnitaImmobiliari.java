@@ -48,7 +48,6 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	private ButtonGroup group;
 	
 
-	
 	public AccedereUnitaImmobiliari() {
 		initComponents();
 		state=StatiAccedereUnitaImmobiliari.base;
@@ -81,7 +80,6 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	
 	public void specificaProprieta(Persone nuovePersone, Percentuali nuoveQuote) {
 		state = StatiAccedereUnitaImmobiliari.controlloProprieta;
-		//GCA.passaProprieta(nuovePersone, nuoveQuote);
 	}
 	
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
@@ -163,14 +161,12 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 	}
 
 	public void ko() {
-		//GCA.procedi(false);
 		JOptionPane.showMessageDialog(this, "operazione annullata dall'utente");
 		finito();
 		state=StatiAccedereUnitaImmobiliari.base;
 	}
 
 	public void ok() {
-
 		GCA.procedi(true);
 		JOptionPane.showMessageDialog(this, "Proprieta' modificata");
 		finito();
@@ -194,8 +190,7 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 			JOptionPane.showMessageDialog(this, "Selezionare prima l'unita");
 	}
 	
-	
-	
+
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JScrollPane jScrollPane0;
@@ -281,41 +276,11 @@ public class AccedereUnitaImmobiliari extends JPanel implements BaseBoundary,Acc
 
 	public void aggiornaPersona(Persona persona) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public boolean proprietaOK(Persone persone, Percentuali quote) {
 		state = StatiAccedereUnitaImmobiliari.attesaConferma;
 		GCA.passaProprieta(persone, quote);
-	//	GCA.operazioneTerminata();
-	//	this.setVisible(true);
-		
-		
 		return false;
 	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("AccedereUnitaImmobiliari");
-				AccedereUnitaImmobiliari content = new AccedereUnitaImmobiliari();
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
- */
-
 }

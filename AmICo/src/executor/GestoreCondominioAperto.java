@@ -152,20 +152,11 @@ public class GestoreCondominioAperto implements BaseExecutor {
 		m_gestoreCassa = new GestoreCassa(m_condominio.recuperaCassa(),m_accedereCondominioAperto);
 		m_state = StatiGestoreCondominioAperto.gestioneCassa;
 	}
-	
-/*	public void generaReport(TipoReportCondominio tipoReportCondominio, FormatoFile formatoFile) {
-	
-		
-	}
-	*/
-	
+
 	public void passaADatiCondomini() {
 		m_state = StatiGestoreCondominioAperto.gestioneDatiCondomini;
-		//recupero di nuovo il condominio
 		m_condominio = TuttiCondomini.getInstance().recuperaCondominio(m_condominio.getDatiC().getId());
 		m_accederePersone = new AccederePersone(this, m_condominio.recuperaCondomini(),m_accedereCondominioAperto);
-		
-		/* FIXME : executor VS UI */
 		m_accedereCondominioAperto.getPannello().add(m_accederePersone);
 	}
 	
@@ -185,30 +176,10 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	
 	public void passaATabelleMillesimali()
 	{
-		/* FIXME : utilizzato nel design 3.6.3 ... chi l'ha commentato e perché ?
-		m_accedereTabelleMillesimali = new AccedereTabelleMillesimali(this, 
-				m_condominio.recuperaTabelleMillesimali(), 
-				m_condominio.recuperaUnitaImmobiliari());
-		*/
 		m_state = StatiGestoreCondominioAperto.gestioneTabelleMillesimali;
 	}
 	
-	/* TODO: 
-	 * TipoReportCondominio ?
-	 * Report ?
-	 *
-	private Report preparaReportCondominio(TipoReportCondominio tipoReportCondominio) {
-		
-	}
-	*/
-	
 	public void passaAUnitaImmobiliari() {
-		
-	/* FIXME : previsto nel design 3.6.3 -> commentato, ma perchè?	
-	 * m_accedereUnitaImmobiliari = 	
-			new AccedereUnitaImmobiliari(this, m_condominio.recuperaUnitaImmobiliari());
-			
-	*/
 		m_accedereCondominioAperto.setVisible(false);
 		m_state = StatiGestoreCondominioAperto.gestioneUnitaImmmobiliari;
 	}
@@ -242,8 +213,7 @@ public class GestoreCondominioAperto implements BaseExecutor {
 				break;
 			}
 			TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
-			
-			/* FIXME : Linea non presente dal design 3.5.4 */
+
 			AmICo.getInstance().aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 			
 			GestoreCondomini.getInstance().operazioneTerminata();
@@ -262,5 +232,4 @@ public class GestoreCondominioAperto implements BaseExecutor {
 	{
 		m_accedereCondominioAperto.setVisible(b);
 	}
-	
 }

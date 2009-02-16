@@ -1,8 +1,6 @@
 //VS4E -- DO NOT REMOVE THIS LINE!
 package boundary;
 
-// questa classe si dovrebbe chiamare AccedereCondomini ma per motivi di ambiguita' si e' cambiato in AccederePersone
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -128,7 +126,6 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	}
 
 	public boolean proprietaOK(Persone persone, Percentuali quote) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -146,7 +143,6 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 		
 		if(i==group.getButtonCount())
 			JOptionPane.showMessageDialog(this, "Selezionare persona");
-			
 	}
 	
 	
@@ -207,7 +203,6 @@ public class AccederePersone extends JPanel implements BaseBoundary, AccedentiPe
 	    
 	    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 	    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
-		
 	}
 	
 	

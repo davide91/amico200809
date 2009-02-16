@@ -193,7 +193,6 @@ public class AccedereProprietari2 extends JFrame {
 					JOptionPane.showMessageDialog(this, "Selezionare prima il proprietario");
 			}
 		}
-		
 	}
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
@@ -277,7 +276,6 @@ public class AccedereProprietari2 extends JFrame {
 		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 
 		}
-
 		return table;
 	}
 
@@ -288,8 +286,6 @@ public class AccedereProprietari2 extends JFrame {
 		}
 		return nomeUnita;
 	}
-
-
 
 	private JButton getBRimuoviProprietario() {
 		if (bRimuoviProprietario == null) {
@@ -305,7 +301,6 @@ public class AccedereProprietari2 extends JFrame {
 		return bRimuoviProprietario;
 	}
 
-
 	private JButton getBAggiungiProprietario() {
 		if (bAggiungiProprietario == null) {
 			bAggiungiProprietario = new JButton();
@@ -319,7 +314,6 @@ public class AccedereProprietari2 extends JFrame {
 		}
 		return bAggiungiProprietario;
 	}
-
 
 	private JButton getBOK() {
 		if (bOK == null) {
@@ -335,7 +329,6 @@ public class AccedereProprietari2 extends JFrame {
 		return bOK;
 	}
 
-
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
 			bAnnulla = new JButton();
@@ -350,7 +343,6 @@ public class AccedereProprietari2 extends JFrame {
 		return bAnnulla;
 	}
 
-
 	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
@@ -363,7 +355,5 @@ public class AccedereProprietari2 extends JFrame {
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-
 }
 

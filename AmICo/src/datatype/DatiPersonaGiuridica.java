@@ -28,7 +28,7 @@ public class DatiPersonaGiuridica extends DatiPersona {
 
 	@Override
 	public EsitoControlloDati controlla()
-	{	//definire il metodo in base a specifiche
+	{
 		boolean codOK = pIva.controlla();
 		boolean mailOK = mail.controllaEMail();
 		
@@ -100,6 +100,4 @@ public class DatiPersonaGiuridica extends DatiPersona {
 	public void setIndFiscale(Indirizzo indFiscale) {
 		this.indFiscale = indFiscale;
 	}
-	
-	
 }

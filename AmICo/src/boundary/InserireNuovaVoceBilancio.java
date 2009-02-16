@@ -3,19 +3,16 @@ package boundary;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -25,7 +22,6 @@ import org.dyno.visual.swing.layouts.Leading;
 import datatype.Data;
 import datatype.DatiVoceBilancio;
 import datatype.Euro;
-
 import enumeration.TipoVoce;
 import executor.GestoreBilanci;
 
@@ -35,6 +31,7 @@ import executor.GestoreBilanci;
  */
 public class InserireNuovaVoceBilancio extends JDialog {
 
+	@SuppressWarnings("unused")
 	private GestoreBilanci GB;
 	private AccedereBilancioAperto ABA;
 	
@@ -56,8 +53,6 @@ public class InserireNuovaVoceBilancio extends JDialog {
 		setTitle("Inserire Nuova Voce Bilancio");
 	}
 	
-	
-	
 	private void bOkMouseMouseClicked(MouseEvent event) {
 		try{
 			DatiVoceBilancio dati = new DatiVoceBilancio();
@@ -68,15 +63,13 @@ public class InserireNuovaVoceBilancio extends JDialog {
 			dati.setTipo((TipoVoce)tipo.getSelectedItem());
 			dati.setTitolo(titolo.getText());
 			
-			if(d.controllaData())	
+			if((Integer.parseInt(mese.getText())-1)>=0 && (Integer.parseInt(mese.getText())-1)<=11 && Data.controllaData(Integer.parseInt(giorno.getText()), Integer.parseInt(mese.getText())-1))
 			{
 				ABA.inserisciVoceBilancio(dati);
 				this.dispose();
 			}
 			else
 				JOptionPane.showMessageDialog(this, "Data errata! Controllare");
-			
-			
 		}
 		catch(NumberFormatException nfe)
 		{
@@ -88,7 +81,6 @@ public class InserireNuovaVoceBilancio extends JDialog {
 		ABA.annulla();
 		this.dispose();
 	}
-
 	
 	private static final long serialVersionUID = 1L;
 	private JButton bAnnulla;
@@ -286,6 +278,7 @@ public class InserireNuovaVoceBilancio extends JDialog {
 		return bAnnulla;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -297,24 +290,4 @@ public class InserireNuovaVoceBilancio extends JDialog {
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				InserireNuovaVoceBilancio frame = new InserireNuovaVoceBilancio();
-				frame.setTitle("InserireNuovaVoceBilancio");
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
-*/
 }

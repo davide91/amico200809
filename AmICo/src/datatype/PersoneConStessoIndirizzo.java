@@ -15,5 +15,4 @@ public class PersoneConStessoIndirizzo extends EsitoControlloDatiPersona {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

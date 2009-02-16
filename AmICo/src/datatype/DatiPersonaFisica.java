@@ -73,7 +73,7 @@ public class DatiPersonaFisica extends DatiPersona{
 	
 	@Override
 	public EsitoControlloDati controlla()
-	{	//definire il metodo in base a specifiche
+	{	
 		boolean codOK = cf.controlla();
 		boolean mailOK = mail.controllaEMail();
 		

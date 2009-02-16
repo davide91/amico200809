@@ -352,8 +352,4 @@ public class InserireNuovoCondominio extends JFrame implements BaseBoundary {
 		}
 		return via;
 	}
-
-	
-
-	
 }

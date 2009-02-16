@@ -3,10 +3,7 @@
  */
 package test.testStore;
 
-import java.sql.Date;
-
-import org.hibernate.Session;
-
+import junit.framework.TestCase;
 import store.TuttePersone;
 import store.TuttiCondomini;
 import store.POJO.Bilancio;
@@ -19,7 +16,6 @@ import store.POJO.PersonaFisica;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import store.POJO.VoceBilancio;
-import store.util.HibernateUtil;
 import datatype.CodiceFiscale;
 import datatype.Data;
 import datatype.DatiBilancio;
@@ -33,12 +29,9 @@ import datatype.Email;
 import datatype.Euro;
 import datatype.Indirizzo;
 import datatype.Preferenze;
-import datatype.list.Condomini;
 import datatype.list.Millesimi;
-import datatype.list.Persone;
-import datatype.list.PersoneFisiche;
 import datatype.list.Percentuali;
-import datatype.list.UnitaImmobiliari;
+import datatype.list.Persone;
 import enumeration.CategoriaCatastale;
 import enumeration.DestinazioneUso;
 import enumeration.Provincia;
@@ -46,7 +39,6 @@ import enumeration.StatoBilancio;
 import enumeration.StatoCondominio;
 import enumeration.TipoBilancio;
 import enumeration.TipoVoce;
-import junit.framework.TestCase;
 
 /**
  * @author bruno

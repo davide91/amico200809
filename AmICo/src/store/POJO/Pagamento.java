@@ -104,5 +104,4 @@ public class Pagamento {
 	public void setEseguito_da(Persona eseguito_da) {
 		this.eseguito_da = eseguito_da;
 	}
-	
 }

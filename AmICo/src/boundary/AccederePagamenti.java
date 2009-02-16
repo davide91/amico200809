@@ -5,6 +5,7 @@ import executor.GestorePagamenti;
 
 public class AccederePagamenti implements BaseBoundary {
 	
+	@SuppressWarnings("unused")
 	private GestorePagamenti m_gestorePagamenti;
 
 	public AccederePagamenti(GestorePagamenti gestorePagamenti) 

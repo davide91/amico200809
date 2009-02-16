@@ -67,7 +67,6 @@ public class Avvio  {
 		fSplashScreen = new SplashScreen("images/splash-AmICo.jpg");
 		fSplashScreen.splash();
 	}
-	  
 
 	  /**
 		 * Removes the splash screen.

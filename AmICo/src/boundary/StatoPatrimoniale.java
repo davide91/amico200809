@@ -28,7 +28,6 @@ import org.dyno.visual.swing.layouts.Leading;
 
 import store.POJO.VoceBilancio;
 import datatype.list.VociBilancio;
-import enumeration.StatoBilancio;
 import enumeration.TipoVoce;
 
 /**
@@ -115,9 +114,6 @@ public class StatoPatrimoniale extends JPanel {
 			JOptionPane.showMessageDialog(this, "Selezionare prima la voce desiderata");
 	}
 
-//	private void bModificaVoceBilancioMouseMouseClicked(MouseEvent event) {
-//	}
-
 	private void chiudiMouseMouseClicked(MouseEvent event) {
 		ABA.chiudi();
 	}
@@ -129,7 +125,6 @@ public class StatoPatrimoniale extends JPanel {
 	private void bTerminaEsercizioMouseMouseClicked(MouseEvent event) {
 		ABA.terminaEsercizioBilancio();
 	}
-	
 	
 	private static final long serialVersionUID = 1L;
 	private JLabel jLabel0;
@@ -273,14 +268,9 @@ public class StatoPatrimoniale extends JPanel {
 			    };   
 			    jTableAttivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 			    jTableAttivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
-
 			}
-			
-			
-			
 			return jTableAttivo;
 		}
-	 
 	 
 	 private JTable getJTable1() {
 			if (jTablePassivo == null) {
@@ -304,14 +294,11 @@ public class StatoPatrimoniale extends JPanel {
 			    jTablePassivo.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
 			    jTablePassivo.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 
-			}
-			
-			
-			
+			}	
 			return jTablePassivo;
 		}
 	 
-	 private JSeparator getJSeparator1() {
+	private JSeparator getJSeparator1() {
 		if (jSeparator1 == null) {
 			jSeparator1 = new JSeparator();
 		}
@@ -343,44 +330,4 @@ public class StatoPatrimoniale extends JPanel {
 		}
 		return jLabel0;
 	}
-/**
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
-
-	
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("StatoPatrimoniale");
-				StatoPatrimoniale content = new StatoPatrimoniale();
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
- 
-*/
-
-
-
 }

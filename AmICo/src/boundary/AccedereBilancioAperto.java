@@ -12,7 +12,6 @@ import datatype.DatiVoceBilancio;
 import datatype.RapportoPagamenti;
 import datatype.list.VociBilancio;
 import enumeration.StatiAccedereBilancioAperto;
-import enumeration.StatoBilancio;
 import executor.GestoreBilanci;
 
 /**
@@ -149,15 +148,16 @@ public class AccedereBilancioAperto implements BaseBoundary{
 		}
 
 		public void annulla() {
+			state = StatiAccedereBilancioAperto.base;
 			ACA.setVisible(true);
-			
+			JOptionPane.showMessageDialog(tab, "Voce bilancio non inserita");
 		}
 
 		public void fallito() {
 			switch(state)
 			{
 				case mettiInEsercizio:
-					JOptionPane.showMessageDialog(tab, "Bilancio gia'  in esercizio");
+					JOptionPane.showMessageDialog(tab, "Bilancio gia' in esercizio");
 					state = StatiAccedereBilancioAperto.base;
 				break;
 			}
@@ -179,17 +179,17 @@ public class AccedereBilancioAperto implements BaseBoundary{
 
 		public void finito() {
 			// TODO Auto-generated method stub
-			
 		}
 
 		public void ko() {
-			GB.procedi(false);//da attesaConfermaInserimentoDati a base
+			GB.procedi(false);
 			if(INVB!=null)
 				INVB.dispose();
+			ACA.setVisible(true);
 		}
 
 		public void ok() {
-			GB.procedi(true);//da attesaConfermaInserimentoDati a base
+			GB.procedi(true);
 			ACA.setVisible(true);
 		}
 
@@ -213,6 +213,7 @@ public class AccedereBilancioAperto implements BaseBoundary{
 				state = StatiAccedereBilancioAperto.base;
 			}	
 		}
+		
 		public void inserisciVoceBilancio(DatiVoceBilancio datiVoceBilancio)
 		{
 			GB.inserisciVoceBilancio(datiVoceBilancio);
@@ -223,5 +224,4 @@ public class AccedereBilancioAperto implements BaseBoundary{
 			state = StatiAccedereBilancioAperto.verificaEliminazione;
 			GB.eliminaVoceBilancio(vb);
 		}
-		
 }

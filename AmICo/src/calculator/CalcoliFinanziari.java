@@ -7,7 +7,6 @@ import store.POJO.Bilancio;
 import store.POJO.VoceBilancio;
 import datatype.Euro;
 import datatype.RapportoPagamenti;
-import enumeration.TipoBilancio;
 import enumeration.TipoVoce;
 
 
@@ -19,7 +18,6 @@ public class CalcoliFinanziari {
 		return new Euro((float)euro.getEuro()*giorni*interessi);
 	}
 	
-	// ritorna RapportoPagamenti
 	public static RapportoPagamenti calcolaSpeseDaPagare(Bilancio bilancio)
 	{
 		RapportoPagamenti r = new RapportoPagamenti();

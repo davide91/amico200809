@@ -17,7 +17,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,7 +54,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		
 		setLocationRelativeTo(null);
 		setVisible(true);
-		this.setTitle("inserimento tabella millesimale");
+		this.setTitle("Inserimento Tabella Millesimale");
 		m=new Millesimi();
 	}
 
@@ -63,27 +62,13 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		initComponents();
 	}
 
-	/*
-	public void inserisciMillesimi(Millesimi millesimi){
-		if (millesimi.somma()==1000){
-			state=StatiAccedereTabelleMillesimali.attesaControlloMillesimi;
-			GestoreCondomini.getInstance().passaTabellaMillesimaleProprieta(millesimi);
-			
-		}
-	}
-	*/
-
 	public void ammissibile(Boolean b) {
 		if (b){
-			//AMM.richiestaConferma();
 			state=StatiAccedereTabelleMillesimali.attesaConfermaMillesimi;
-			
 		}
 		else {
-			//AMM.mostra(NomeTabellaNonUnico);
 			state=StatiAccedereTabelleMillesimali.base;
 		}
-		
 	}
 
 	public void annulla() {
@@ -93,12 +78,10 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 
 	public void fallito() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void fatto() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void finito() {
@@ -108,17 +91,14 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 	public void ko() {
 		switch (state) {
 		case attesaConfermaInserimento:
-		//	GestoreCondomini.getInstance().modificaTabellaMillesimale(tabellaMillesimale, datiTabella.getDescrizione(), )
 			break;
 		case attesaConfermaMillesimi:
 			GestoreCondomini.getInstance().procedi(false);
-			//AMM.mostra(TabellaMillesimaleInseritaKO);
 			break;
 		default:
 			break;
 		}
 		state=StatiAccedereTabelleMillesimali.base;
-		
 	}
 
 	public void ok() {
@@ -128,7 +108,6 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 
 	private void continuaMouseMouseClicked(MouseEvent event)
 	{
-		//ArrayList<Float> lista = new ArrayList<Float>();
 		Millesimi lista = new Millesimi();
 		
 		for (int i=0;i<unita.getImmobili().size();i++)
@@ -159,14 +138,14 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 			
 				int c = JOptionPane.showConfirmDialog(this, "La somma delle tabelle risulta "+m.somma()+". \n Inserire?", "richiesta", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
-				GestoreCondomini.getInstance().procedi(c==0);
-				//else GestoreCondomini.getInstance().procedi(false);
-				this.dispose();
+				if(c==0)
+				{
+					GestoreCondomini.getInstance().procedi(true);
+					this.dispose();
+				}
 			}
 		}
-	else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
-			
-		
+		else JOptionPane.showMessageDialog(this, "la somma deve fare 1000 invece di "+m.somma());
 	}
 	
 	private void annullaMouseMouseClicked(MouseEvent event)
@@ -313,6 +292,7 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 		return tabella;
 	}
 
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
@@ -324,23 +304,4 @@ public class InserisciTabellaMillesimaleProprieta extends JFrame implements Base
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
-	
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new InserisciTabellaMillesimaleProprieta(new UnitaImmobiliari());
-
-			}
-		});
-	}
- */
-	 
 }
