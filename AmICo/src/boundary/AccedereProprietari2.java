@@ -143,7 +143,7 @@ public class AccedereProprietari2 extends JFrame {
 		    	else if(perso  instanceof PersonaGiuridica)
 		    	{
 		    		dm.addRow(new Object[]{
-		    				((PersonaGiuridica)perso).getDati().getpIva().getPartIva(),
+		    				((PersonaGiuridica)perso).getDati().getRagioneSociale(),
 		    				"",
 		    				quo,
 		    				new JRadioButton() });
@@ -167,7 +167,6 @@ public class AccedereProprietari2 extends JFrame {
 			IP=new InserireProprietario(this,persone);
 		}
 	}
-
 
 	@SuppressWarnings("unchecked")
 	private void bRimuoviProprietarioMouseMouseClicked(MouseEvent event) {
@@ -318,7 +317,7 @@ public class AccedereProprietari2 extends JFrame {
 	private JButton getBOK() {
 		if (bOK == null) {
 			bOK = new JButton();
-			bOK.setText("Conferma");
+			bOK.setText("Modifica");
 			bOK.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent event) {

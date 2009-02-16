@@ -11,9 +11,6 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -63,9 +60,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 	private StatiAccedereCondominioAperto state;
 	
 	private static final long serialVersionUID = 1L;
-	private JMenuItem jMenuItem0;
-	private JMenu jMenu0;
-	private JMenuBar jMenuBar0;
 	private JButton bdaticondominio;
 	private JButton bdaticondomini;
 	private JButton bbilanci;
@@ -111,7 +105,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 		add(getAvvisi(), new Constraints(new Leading(208, 531, 10, 10), new Leading(76, 68, 54, 315)));
 		add(getScrittaavvisi(), new Constraints(new Leading(119, 41, 10, 10), new Leading(92, 36, 54, 315)));
 		add(getPannello(), new Constraints(new Leading(50,800, 10, 10), new Bilateral(155, 42, 10)));
-		setJMenuBar(getJMenuBar0());
 		setSize(874, 750);
 		
 		this.addWindowListener(new WindowAdapter() {  
@@ -295,32 +288,6 @@ public class AccedereCondominioAperto extends JFrame implements BaseBoundary{
 			});
 		}
 		return bdaticondominio;
-	}
-
-	private JMenuBar getJMenuBar0() {
-		if (jMenuBar0 == null) {
-			jMenuBar0 = new JMenuBar();
-			jMenuBar0.add(getJMenu0());
-		}
-		return jMenuBar0;
-	}
-
-	private JMenu getJMenu0() {
-		if (jMenu0 == null) {
-			jMenu0 = new JMenu();
-			jMenu0.setText("File");
-			jMenu0.setOpaque(false);
-			jMenu0.add(getJMenuItem0());
-		}
-		return jMenu0;
-	}
-
-	private JMenuItem getJMenuItem0() {
-		if (jMenuItem0 == null) {
-			jMenuItem0 = new JMenuItem();
-			jMenuItem0.setText("esci");
-		}
-		return jMenuItem0;
 	}
 
 	@SuppressWarnings("unused")
