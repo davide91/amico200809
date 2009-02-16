@@ -43,7 +43,6 @@ public class InserireNuovoBilancio extends JFrame {
 		jRadioButtonConsuntivo.setSelected(true);
 	}
 	
-	
 	private void bOkMouseMouseClicked(MouseEvent event) {
 		DatiBilancio dati=new DatiBilancio();
 		dati.setDescrizione(descrizione.getText());
@@ -83,6 +82,7 @@ public class InserireNuovoBilancio extends JFrame {
 	private JButton bAnnulla;
 	private JRadioButton jRadioButtonPreventivo;
 	private JRadioButton jRadioButtonConsuntivo;
+	@SuppressWarnings("unused")
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public InserireNuovoBilancio() {
 		initComponents();
@@ -104,11 +104,9 @@ public class InserireNuovoBilancio extends JFrame {
 		setSize(396, 352);
 	}
 
-
 	private void initBGroup() {
 		bGroup = new ButtonGroup();
 	}
-
 
 	private JRadioButton getJRadioButtonConsuntivo() {
 		if (jRadioButtonConsuntivo == null) {
@@ -119,7 +117,6 @@ public class InserireNuovoBilancio extends JFrame {
 		return jRadioButtonConsuntivo;
 	}
 
-
 	private JRadioButton getJRadioButtonPreventivo() {
 		if (jRadioButtonPreventivo == null) {
 			jRadioButtonPreventivo = new JRadioButton();
@@ -128,7 +125,6 @@ public class InserireNuovoBilancio extends JFrame {
 		}
 		return jRadioButtonPreventivo;
 	}
-
 
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
@@ -213,26 +209,4 @@ public class InserireNuovoBilancio extends JFrame {
 		}
 		return jLabel0;
 	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				InserireNuovoBilancio frame = new InserireNuovoBilancio();
-				frame.setTitle("InserireNuovoBilancio");
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
- */
-
-
 }

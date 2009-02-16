@@ -66,8 +66,7 @@ public class GestoreCassa implements BaseExecutor {
 	public void passaVoceBilancio(VoceBilancio voceBilancio, DatiMovimentoCassa dati)
 	{
 		this.voceBilancio = voceBilancio;
-		m_datiMovimento = dati; // riga aggiunta da federico
-	//	m_datiMovimento = preparaProspetto(voceBilancio);
+		m_datiMovimento = dati; 
 		m_state = StatiGestoreCassa.attesaConferma;
 		m_accedereCassa.aggiornaProspetto(m_datiMovimento);
 	}
@@ -89,12 +88,6 @@ public class GestoreCassa implements BaseExecutor {
 
 	private DatiMovimentoCassa preparaProspetto(PianoPagamenti piano, int numRata)
 	{
-		/* FIXME : Da ricontrollare
-		 * context preparaProspetto(pianoPagamento: PianoPagamento, numRata: intero) : DatiMovimentoCassa
-		 * let p = pianoPagamento.dati in 
-		 *   return create(DatiMovimentoCassa(p.importo * p.percentuali.at(numRata)))
-		 */
-		
 		DatiPianoPagamenti datiPiano = piano.getDati();
 		DatiMovimentoCassa datiMovimento = new DatiMovimentoCassa();
 		Euro importo = new Euro(datiPiano.getImporto().getEuro() * datiPiano.getPercentuali() * (float)numRata);
@@ -105,28 +98,16 @@ public class GestoreCassa implements BaseExecutor {
 	
 	private DatiMovimentoCassa preparaProspetto(VoceBilancio voce)
 	{
-		/* FIXME : Da ricontrollare
-		 * context preparaProspetto(voce: VoceBilancio) : DatiMovimentoCassa
-		 *   return creaDatiMovimentoCassa(voce.importo)
-		 */
-		
 		DatiMovimentoCassa datiMovimento = new DatiMovimentoCassa();
 		datiMovimento.setImportoMovimento(voce.getDati().getImporto());
 		return datiMovimento;
 	}
 	
 	public void operazioneAnnullata() {
-		// Inutilizzata
+		
 	}
 
 	public void operazioneTerminata() {
-		
-		/* FIXME :
-		 * Richiesto un sigleton per GCA (GCA NON HA SINGLETON!)
-		 *
-		 * GestoreCondominioAperto.getInstance().operazioneTerminata();
-		 * 
-		 */
 		
 	}
 
@@ -149,7 +130,7 @@ public class GestoreCassa implements BaseExecutor {
 		}
 	}
 	
-	//fatto da federico
+	
 	public void registraMovimentoCassa()
 	{		
 		Iterator<Bilancio> bilancioIter = m_cassa.getCondominio().getBilanci().iterator();
@@ -158,9 +139,6 @@ public class GestoreCassa implements BaseExecutor {
 		Iterator<VoceBilancio> voceIter; 
 		while(bilancioIter.hasNext())
 		{
-		//	if (bilancioIter.next().getDati().getStato() != StatoBilancio.inEsercizio)
-		//		continue;
-			
 			voceIter = bilancioIter.next().getVoci().iterator();
 
 			
@@ -175,5 +153,4 @@ public class GestoreCassa implements BaseExecutor {
 		m_accedereCassa.aggiornaVociBilancio(voci);
 		m_state = StatiGestoreCassa.attesaCausale;
 	}
-
 }

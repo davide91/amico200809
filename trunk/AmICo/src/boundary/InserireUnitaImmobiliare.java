@@ -106,7 +106,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 		{
 			JOptionPane.showMessageDialog(this, "Formato metratura errato! Utilizzare solo cifre \n Utilizzare il formato XXX.YY ");
 		}
-	
 	}
 	
 	private void annullaMouseMouseClicked(MouseEvent event) {
@@ -153,8 +152,6 @@ public class InserireUnitaImmobiliare extends JFrame{
 	   			dispose();
 	   		 	}  
 	   		 }); 
-		
-		
 	}
 
 	private JComboBox getCategoria() {
@@ -227,9 +224,4 @@ public class InserireUnitaImmobiliare extends JFrame{
 		}
 		return id;
 	}
-
-	
-
 }
-
-

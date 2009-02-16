@@ -338,8 +338,4 @@ public class AccedereProprietari extends JFrame {
 		}
 		return bAnnulla;
 	}
-
-
-	
-
 }

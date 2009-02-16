@@ -55,11 +55,8 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	state = StatiConfermaUnitaImmobiliari.base;
 		initComponents();
 		initGroup();
-		//persone=   new Persone();// provvisorio TODO
 		this.INC=INC;
-
 		persone=p;
-
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setTitle("Inserimento unita' immobiliari");
@@ -81,10 +78,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		if (proprietaOK(persone, percentuali)){
 			state=StatiConfermaUnitaImmobiliari.attesaConfermaProprieta;
 			GestoreCondomini.getInstance().passaProprieta(persone, percentuali);
-			//AMM.richiestaConferma();
-		}
-		else {
-			//AMM.mostra(proprietaKO);
 		}
 	}
 
@@ -97,8 +90,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	public void aggiornaUnitaImmobiliari(UnitaImmobiliari unita)
 	{
 		int cont=0;
-		
-		
+
 		this.unitaImmobiliari=unita;
 		initGroup();
 		if(unita != null)
@@ -197,7 +189,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	
 	public void aggiornaPersona(Persona persona) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	private void bContinuaMouseMouseClicked(MouseEvent event) {
@@ -215,7 +206,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 
 	public void bInserisciUnitaImmobiliareMouseMouseClicked(MouseEvent event) {
 		state = StatiConfermaUnitaImmobiliari.attesaConfermaDatiUnitaImmobiliare;
-		//INC.inserisciUnitaImmobiliare();
 		IUI = new InserireUnitaImmobiliare(this/*,persone*/);
 		this.setVisible(false);
 	}
@@ -229,8 +219,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	        	   GestoreCondomini.getInstance().eliminaUnitaImmobiliare((String)dm.getValueAt(i, 0));//GestoreCondomini.getInstance().eliminaUnitaImmobiliare(unitaImmobiliari.getImmobili().get(i).getDatiUnitaImmobiliare());
 	}
 	
-
-	
 	private JTable table;
 	private JScrollPane jScrollPane0;
 	private JButton bContinua;
@@ -239,7 +227,6 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 	private static final long serialVersionUID = 1L;
 	private JButton bEliminaUnita;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	
 	
 	private void initComponents() {
 		setLayout(new GroupLayout());
@@ -389,11 +376,7 @@ public class ConfermaUnitaImmobiliari extends JFrame implements AccedentiPersone
 		case inserimentoProprietari:
 				state = StatiConfermaUnitaImmobiliari.base;
 			break;
-	/*	case base:
-			INC.annulla();	
-			this.dispose();
-			break;
-	*/	default:
+		default:
 			INC.annulla();
 			this.dispose();
 		break;

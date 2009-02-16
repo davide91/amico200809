@@ -1,14 +1,11 @@
 package executor;
 
 import java.io.File;
-import java.net.URL;
-import java.util.Set;
 
 import store.TuttePersone;
 import store.TuttiCondomini;
 import store.POJO.Condominio;
 import store.POJO.Persona;
-import store.POJO.Proprieta;
 import store.POJO.TabellaMillesimale;
 import store.POJO.UnitaImmobiliare;
 import boundary.AmICo;
@@ -20,12 +17,9 @@ import calculator.FormatoAmICo;
 import datatype.DatiCondominio;
 import datatype.DatiTabellaMillesimale;
 import datatype.DatiUnitaImmobiliare;
-import datatype.list.Condomini;
 import datatype.list.Millesimi;
 import datatype.list.Percentuali;
 import datatype.list.Persone;
-import datatype.list.TabelleMillesimali;
-import datatype.list.UnitaImmobiliari;
 import enumeration.StatiGestoreCondominio;
 
 public class GestoreCondomini implements BaseExecutor {
@@ -43,8 +37,10 @@ public class GestoreCondomini implements BaseExecutor {
 	private Condominio m_condominio;
 	private DatiCondominio m_datiCondominio;
 	private DriverFileSystem m_driverFS;
+	@SuppressWarnings("unused")
 	private GestoreCondominioAperto m_gestoreCondominioAperto;
 	private InserireNuovoCondominio m_inserireNuovoCondominio;
+	@SuppressWarnings("unused")
 	private InserisciTabellaMillesimaleProprieta m_inserisciTabelleMillesimali;
 	private StatiGestoreCondominio m_state;
 	private ConfermaUnitaImmobiliari m_confermaUnitaImmobiliari;
@@ -71,7 +67,6 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	private boolean condominioGiaInserito(DatiCondominio datiCondominio) {
-		//siccome l'ID condominio e' univoco anche sul DB risulat che il condominio e' gia'� inserito anche se ha solo l'id uguale
 		for ( Condominio condominio : TuttiCondomini.getInstance().recuperaCondomini().getCondomini() )
 			if (condominio.recuperaDatiCondominio().equals(datiCondominio) || condominio.recuperaDatiCondominio().getId().equals(datiCondominio.getId()))
 				return true;
@@ -83,12 +78,6 @@ public class GestoreCondomini implements BaseExecutor {
 		if (m_state == StatiGestoreCondominio.gestoreCondomini)
 			Avvio.esciDaAmICo();
 	}
-	
-	/****** FIXME : NON PRESENTE NEL DESIGN 3.6.3 
-	public void finito() {
-		m_state = StatiGestoreCondominio.inserimentoTabellaMillesimaleProprieta;
-	}
-	*******/
 	
 	public void importaCondominio(String path) {
 		m_driverFS.leggi(path, (BaseExecutor)this);
@@ -131,8 +120,6 @@ public class GestoreCondomini implements BaseExecutor {
 				m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
 			break;
 		}
-		
-	
 	}
 	
 	public void operazioneTerminata() {
@@ -159,8 +146,7 @@ public class GestoreCondomini implements BaseExecutor {
 		m_gestoreCondominioAperto = new GestoreCondominioAperto(m_condominio);
 		m_amico.fatto();
 		m_amico.aggiornaCondomini(TuttiCondomini.getInstance().recuperaCondomini());
-		m_state = StatiGestoreCondominio.condominioAperto;
-			
+		m_state = StatiGestoreCondominio.condominioAperto;	
 	}
 	
 	public void passaDatiCondominio(DatiCondominio datiCondominio) {
@@ -174,7 +160,7 @@ public class GestoreCondomini implements BaseExecutor {
 		}
 	}
 	
-	// non c'e' nel design serve per eliminare unita' imoobiliare in creazione
+	// non c'e' nel design, serve per eliminare unita' imoobiliare in creazione
 	public void eliminaUnitaImmobiliare(String dati)
 	{
 		for (UnitaImmobiliare ui : m_condominio.getUnitaImmobiliari())
@@ -225,10 +211,7 @@ public class GestoreCondomini implements BaseExecutor {
 	public void passaTabellaMillesimaleProprieta(DatiTabellaMillesimale datiTabellaMillesimale, Millesimi millesimi) 
 	{
 		m_tabellaMillesimaleProprieta = new TabellaMillesimale(datiTabellaMillesimale, millesimi);
-		
-		// FIXME : Non presente nel design 3.6.3
 		m_inserireNuovoCondominio.ammissibile(true);
-		
 		m_state = StatiGestoreCondominio.attesaConfermaTabellaMillesimale;
 	}
 	
@@ -243,11 +226,7 @@ public class GestoreCondomini implements BaseExecutor {
 				m_condominio = new Condominio();
 				TuttiCondomini.getInstance().inserisciCondominio(m_condominio);
 				m_condominio.modificaDati(m_datiCondominio);
-
-				/* Riga non presente nel design 3.5.4*/
 				m_inserireNuovoCondominio.fatto();
-				
-			//	inserisciUnitaImmobiliare();
 				m_confermaUnitaImmobiliari = new ConfermaUnitaImmobiliari(m_inserireNuovoCondominio, 
 						TuttePersone.getInstance().recuperaPersone());	
 				}
@@ -255,7 +234,6 @@ public class GestoreCondomini implements BaseExecutor {
 			case attesaConfermaTabellaMillesimale :
 				if ( !procedere ) {
 					m_state = StatiGestoreCondominio.gestoreCondomini;
-				//	TuttiCondomini.getInstance().eliminaCondominio(m_condominio);
 					break;
 				}
 				m_condominio.inserisciTabellaMillesimale(m_tabellaMillesimaleProprieta);
@@ -280,7 +258,6 @@ public class GestoreCondomini implements BaseExecutor {
 	}
 	
 	private boolean unitaImmobiliareGiaInserita(DatiUnitaImmobiliare datiUnitaImmobliare) {	 	
-		//siccome l'id è univoco sul db consiedero l'unità già inserita anche se ha solo l'id uguale
 		for ( UnitaImmobiliare unit : m_condominio.recuperaUnitaImmobiliari().getImmobili())
 			if ( unit.getDatiUnitaImmobiliare().equals(datiUnitaImmobliare) || unit.getDatiUnitaImmobiliare().getId().equals(datiUnitaImmobliare.getId()))
 				return true;

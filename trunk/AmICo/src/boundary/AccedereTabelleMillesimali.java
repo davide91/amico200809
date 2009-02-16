@@ -180,22 +180,19 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		return jTable0;
 	}
 
-	
-	
-
-	
-	
 	public void inserisciTabellaMillesimale(DatiTabellaMillesimale DTM,Millesimi millesimi){
 		state=StatiAccedereTabelleMillesimali.attesaMillesimi;
 		GCA.inserisciTabellaMillesimale(DTM, millesimi);
 		InseriscitabellaMillesimale.ammissibile(true);
 		
 	}
+	
 	public void modificaTabellaMillesimale(TabellaMillesimale TM , String descrizione, Millesimi millesimi)
 	{
 		GCA.modificaTabellaMillesimale(TM, descrizione, millesimi);
 		InseriscitabellaMillesimale.ammissibile(true);
 	}
+	
 	public void aggiornaTabelleMillesimali(TabelleMillesimali TM)
 	{
 		this.tabelleMillesimali=TM;
@@ -221,7 +218,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 		GCA.procedi(b);
 	}
 	
-
 	public void ammissibile(Boolean b) {
 		if (b){
 			state=StatiAccedereTabelleMillesimali.attesaConfermaMillesimi;
@@ -231,7 +227,6 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 			state=StatiAccedereTabelleMillesimali.base;
 			InseriscitabellaMillesimale.ammissibile(false);
 		}
-		
 	}
 
 	public void annulla() {
@@ -241,12 +236,10 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 
 	public void fallito() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void fatto() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void finito() {
@@ -264,16 +257,12 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 			break;
 		}
 		state=StatiAccedereTabelleMillesimali.base;
-		
 	}
 
 	public void ok() {
 		GCA.procedi(true);
-	
 		state=StatiAccedereTabelleMillesimali.base;
 	}
-
-	
 	
 	private void listaListSelectionValueChanged(ListSelectionEvent event) {// TODO da testare
 		
@@ -295,9 +284,7 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 				
 				jTable0.setModel(dm);
 			}
-		}
-		
-			
+		}	
 	}
 
 	private void binseriscitabellaMouseMouseClicked(MouseEvent event) {
@@ -315,7 +302,4 @@ public class AccedereTabelleMillesimali extends JPanel implements BaseBoundary{
 				InseriscitabellaMillesimale = new InserisciModificaTabellaMillesimale(this,unita,t,GCA);
 			}
 	}
-	
-
-
 }

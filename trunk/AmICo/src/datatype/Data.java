@@ -68,67 +68,67 @@ public class Data {
 			return false;
 	}
 	
-	public boolean controllaData()
+	public static boolean controllaData(int giorno, int mese)
 	{
-			switch(m_data.get(GregorianCalendar.MONTH))
+			switch(mese)
 			{
 				case 0: //gennaio
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+					if(giorno>=1 && giorno<=31)
 						return true;
 					break;
 			
 				case 1:	//febbraio
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=29)
+					if(giorno>=1 && giorno<=29)
 						return true;
 					break;
 			
 				case 2:	//marzo
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+					if(giorno>=1 && giorno<=31)
 						return true;
 					break;
 					
 				case 3:	//aprile
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+					if(giorno>=1 && giorno<=30)
 						return true;
 					break;
 			
 				case 4:	//maggio
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+					if(giorno>=1 && giorno<=31)
 						return true;
 					break;
 				
 				case 5:	//giugno
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+					if(giorno>=1 && giorno<=30)
 						return true;
 					break;
 				
 				case 6:	//luglio
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+					if(giorno>=1 && giorno<=31)
 						return true;
 					break;
 				
 				case 7:	//agosto
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+					if(giorno>=1 && giorno<=31)
 						return true;
 					break;
 				
 				case 8:	//settembre
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+					if(giorno>=1 && giorno<=30)
 						return true;
 					break;
 				
 				case 9:	//ottobre
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+					if(giorno>=1 && giorno<=31)
 						return true;
 					break;
 				
 				case 10:	//novembre
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=30)
+					if(giorno>=1 && giorno<=30)
 						return true;
 					break;
 				
 				case 11:	//dicembre
-					if(m_data.get(GregorianCalendar.DAY_OF_MONTH)>=1 && m_data.get(GregorianCalendar.DAY_OF_MONTH)<=31)
+					if(giorno>=1 && giorno<=31)
 						return true;
 					break;
 				

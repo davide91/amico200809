@@ -34,13 +34,6 @@ public class CalcoloAvvisi {
 	
 		
 		m_avvisi = new Avvisi();
-
-		/*
-		 * PagamentiScaduti
-		 * PagamentiInScadenza
-		 * CondominiMorosi
-		 * 
-		 */
 		
 		Pagamenti pagamenti = m_condominio.recuperaPagamenti();
 		Iterator<Pagamento> pagamentiIter = pagamenti.getPagamenti().iterator();
@@ -152,14 +145,11 @@ public class CalcoloAvvisi {
 		if (!daPagare.isEmpty())
 			m_avvisi.add(daPagare);
 		
-		/*
-		 * TODO :
-		 * 
+		/* 
 		 * BilancioStatoAllerta
 		 * 
 		 * Possibile significato : 
 		 * la somma degli importi non contabilizzati da pagare è superiore alla somma delle casse
-		 * 
 		 */
 		
 		bilancioIter = m_condominio.getBilanci().iterator();
@@ -186,5 +176,4 @@ public class CalcoloAvvisi {
 
 		return m_avvisi;
 	}
-	
 }

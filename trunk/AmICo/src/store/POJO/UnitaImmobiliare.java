@@ -67,31 +67,6 @@ public class UnitaImmobiliare {
 
 	public void modificaProprieta(Persone pers, Percentuali quote)
 	{
-	/*	if(pers.getPersone().size() != quote.getListaQuote().size())
-			throw new NoSuchElementException();
-	
-		session = HibernateUtil.getSessionFactory().getCurrentSession();	
-		session.beginTransaction();
-		
-			quoteDiPossesso.clear();
-			
-			for (int i=0;i< pers.getPersone().size();i++) {
-				Proprieta prop = new Proprieta();
-				prop.setProprietario(pers.getPersone().get(i));  // aggiungo il proprietario
-				prop.setQuota(quote.getListaQuote().get(i)); 	//aggiungo la quota
-				prop.setUnitaImmobiliare(this); 				//aggiungo l'unità immobiliare
-				pers.getPersone().get(i).getProprieta().add(prop);
-				session.persist(prop);
-				quoteDiPossesso.add(prop);
-			}
-			
-	
-		session.update(this);
-		session.getTransaction().commit();
-	*/	
-		
-		
-		
 		if(pers.getPersone().size() != quote.getListaQuote().size())
 			throw new NoSuchElementException();
 		
@@ -104,8 +79,7 @@ public class UnitaImmobiliare {
 				
 				if(!(this.condominio.recuperaCondomini().getPersone().contains(pers.getPersone().get(i))))
 					condominio.inserisciPersonaNoCommit(pers.getPersone().get(i));
-				//	condominio.getPersone().add(pers.getPersone().get(i));
-				
+					
 				Proprieta prop = new Proprieta();
 				prop.setProprietario(pers.getPersone().get(i));  // aggiungo il proprietario
 				prop.setQuota(quote.getListaQuote().get(i)); 	//aggiungo la quota
@@ -117,7 +91,6 @@ public class UnitaImmobiliare {
 					if (p.getUnitaImmobiliare().equals(this)) {
 						pers.getPersone().get(i).getProprieta().remove(p);
 						pers.getPersone().get(i).getProprieta().add(prop);
-						//session.update(pers.getPersone().get(i));
 						found = true;
 					}
 				}
@@ -146,11 +119,6 @@ public class UnitaImmobiliare {
 	 return true;
 	}
 
-/*	@Override
-	public int hashCode() {
-	 return this.getDatiUnitaImmobiliare().hashCode();
-	}
-	*/
 	
   @Override
 	public int hashCode() {
@@ -166,7 +134,6 @@ public class UnitaImmobiliare {
 		return result;
 	}
   
-	
 	public long getId() {
 		return id;
 	}

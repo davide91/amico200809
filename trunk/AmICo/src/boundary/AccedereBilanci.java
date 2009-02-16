@@ -58,7 +58,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 			else {
 				ko();
 			}
-			
 		}
 		else
 		{
@@ -68,12 +67,10 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 
 	public void annulla() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void fallito() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void fatto() {
@@ -82,7 +79,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 
 	public void finito() {
 		GB.operazioneTerminata();
-		
 	}
 
 	public void ko() {
@@ -126,6 +122,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	private void listaListSelectionValueChanged(ListSelectionEvent event)
 	{
 	}
+	
 	@SuppressWarnings("deprecation")
 	private void bApriBilancioMouseMouseClicked(MouseEvent event) {
 		for (Bilancio b : bilanci.getBilanci()) {
@@ -142,9 +139,7 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 		}
 	}
 
-/*	private void bChiudiBilancioMouseMouseClicked(MouseEvent event) {	
-	}
-*/
+
 	private void bRedigereBilancioMouseMouseClicked(MouseEvent event) {
 		ACA.setVisible(false);
 		new InserireNuovoBilancio(this,ACA);
@@ -155,12 +150,12 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 	private JList listaBilanci;
 	private JScrollPane jScrollPane0;
 	private JButton bApriBilancio;
-//	private JButton bChiudiBilancio;
+
 	private JSeparator jSeparator0;
 	private JButton bRedigereBilancio;
 	private JLabel jLabel0;
 	private JLabel jLabel1;
-//	private JButton jButton0;
+
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJLabel1(), new Constraints(new Leading(22, 428, 10, 10), new Leading(37, 12, 12)));
@@ -168,20 +163,10 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 		add(getBRedigereBilancio(), new Constraints(new Leading(419, 147, 12, 12), new Leading(347, 12, 12)));
 		add(getJSeparator0(), new Constraints(new Leading(12, 607, 12, 12), new Leading(325, 9, 12, 12)));
 		add(getJScrollPane0(), new Constraints(new Leading(22, 293, 10, 10), new Leading(57, 250, 12, 12)));
-	//	add(getBMettiInEsercizio(), new Constraints(new Leading(421, 146, 12, 12), new Leading(253, 39, 10, 10)));
-	//	add(getBTerminaBilancio(), new Constraints(new Leading(421, 146, 12, 12), new Leading(147, 10, 10)));
 		add(getBApriBilancio(), new Constraints(new Leading(419, 146, 12, 12), new Leading(90, 10, 10)));
 		setSize(635, 456);
 	}
 
-/*	private JButton getBMettiInEsercizio() {
-		if (jButton0 == null) {
-			jButton0 = new JButton();
-			jButton0.setText("<html><body>Metti In <br>Esercizio</body></html>");
-		}
-		return jButton0;
-	}
-*/
 	private JLabel getJLabel1() {
 		if (jLabel1 == null) {
 			jLabel1 = new JLabel();
@@ -219,20 +204,6 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 		return jSeparator0;
 	}
 
-/*	private JButton getBTerminaBilancio() {
-		if (bChiudiBilancio == null) {
-			bChiudiBilancio = new JButton();
-			bChiudiBilancio.setText("<html><body>Termina Esercizio<br> Bilancio</body></html>");
-			bChiudiBilancio.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent event) {
-					bChiudiBilancioMouseMouseClicked(event);
-				}
-			});
-		}
-		return bChiudiBilancio;
-	}
-*/
 	private JButton getBApriBilancio() {
 		if (bApriBilancio == null) {
 			bApriBilancio = new JButton();
@@ -270,29 +241,4 @@ public class AccedereBilanci extends JPanel implements BaseBoundary {
 		}
 		return listaBilanci;
 	}
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	 
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("AccedereBilanci");
-				AccedereBilanci content = new AccedereBilanci();
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
-*/
-
 }

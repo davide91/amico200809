@@ -56,6 +56,4 @@ public class Millesimo {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	
 }

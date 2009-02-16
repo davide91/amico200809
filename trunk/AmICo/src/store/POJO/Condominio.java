@@ -339,5 +339,4 @@ public class Condominio {
 	public void setPersone(Set<Persona> persone) {
 		this.persone = persone;
 	}
-
 }

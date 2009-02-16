@@ -72,7 +72,6 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 	}
 
 	public void selezioneFile(Path path) {
-	//	GestoreCondomini.getInstance().importaCondominio(path);
 		state=StatiAmICo.selezionePath;
 	}
 
@@ -101,8 +100,6 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 			break;
 		}
 		state=StatiAmICo.base;
-		
-
 	}
 
 	public void fatto() {
@@ -121,8 +118,6 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 			break;
 		}
 		state=StatiAmICo.base;
-		
-
 	}
 
 	public void finito() {
@@ -336,8 +331,6 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
 		else JOptionPane.showMessageDialog(this, "devi selezionare un condominio");
     }//GEN-LAST:event_bapriActionPerformed
 
-  
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bEsci;
     private javax.swing.JButton bapri;
@@ -357,5 +350,4 @@ public class AmICo extends javax.swing.JFrame implements BaseBoundary {
     private javax.swing.JPanel logoPanel;
     private ImagePanel logoImage;
     // End of variables declaration//GEN-END:variables
-
 }

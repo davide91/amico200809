@@ -24,10 +24,8 @@ import store.POJO.MovimentoCassa;
 import store.POJO.VoceBilancio;
 import datatype.DatiMovimentoCassa;
 import datatype.list.VociBilancio;
-import enumeration.StatiInserireNuovoCondominio;
 import enumeration.TipoVoce;
 import executor.GestoreCassa;
-import executor.GestoreCondomini;
 
 /**
  * @author Federico
@@ -160,12 +158,12 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 
 	public void ko() {
 		m_gestoreCassa.procedi(false);
-		JOptionPane.showMessageDialog(this, "operazione annullata dall'utente");
+		JOptionPane.showMessageDialog(this, "Operazione annullata dall'utente");
 	}
 
 	public void ok() {
 		m_gestoreCassa.procedi(true);
-		JOptionPane.showMessageDialog(this, "operazione terminata");
+		JOptionPane.showMessageDialog(this, "Operazione terminata");
 	}
 	
 	public void passaVoceBilancio(VoceBilancio voce, DatiMovimentoCassa dati)
@@ -191,7 +189,6 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 	private JLabel scritta;
 	private JTextField saldo;
 	private JButton bReportCassa;
-//	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getBReportCassa(), new Constraints(new Leading(350, 135, 10, 10), new Leading(8, 12, 12)));
@@ -245,12 +242,6 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 				}
 			});
 			table.setEnabled(false);
-			/*
-			table.setModel(dm);
-			table.getColumn("Data").setCellRenderer(ccr);
-			table.getColumn("Tipo").setCellRenderer(ccr);
-			table.getColumn("Importo").setCellRenderer(ccr);
-			table.getColumn("Motivazione").setCellRenderer(ccr);*/
 		}
 		return table;
 	}
@@ -268,42 +259,4 @@ public class AccedereCassa extends JPanel implements BaseBoundary  {
 		}
 		return bRegistraMovimento;
 	}
-/*
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
-
-
-
-	/**
-	 * Main entry of the class.
-	 * Note: This class is only created so that you can easily preview the result at runtime.
-	 * It is not expected to be managed by the designer.
-	 * You can modify it as you like.
-	
-	public static void main(String[] args) {
-		installLnF();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("AccedereCassa");
-				AccedereCassa content = new AccedereCassa();
-				content.setPreferredSize(content.getSize());
-				frame.add(content, BorderLayout.CENTER);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
- */
 }

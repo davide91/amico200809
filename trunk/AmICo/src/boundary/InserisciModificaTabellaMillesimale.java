@@ -103,8 +103,8 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 				else
 				{
 					ATM.procedi(false);
-						JOptionPane.showMessageDialog(this, "Tabella Immobiliare Non Inserita");
-						GCA.visibile(true);
+					JOptionPane.showMessageDialog(this, "Tabella Immobiliare Non Inserita");
+					GCA.visibile(true);
 				}
 			}
 			else
@@ -136,14 +136,11 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 	}
 
 	public void finito() {
-	//	GestoreCondomini.getInstance().operazioneTerminata();
+	
 	}
 
 	public void ko() {
 		switch (state) {
-		case attesaConfermaInserimento:
-		//	GestoreCondomini.getInstance().modificaTabellaMillesimale(tabellaMillesimale, datiTabella.getDescrizione(), )
-			break;
 		case attesaConfermaMillesimi:
 			GestoreCondomini.getInstance().procedi(false);
 			break;
@@ -151,11 +148,9 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 			break;
 		}
 		state=StatiAccedereTabelleMillesimali.base;
-		
 	}
 
 	public void ok() {
-	//	GestoreCondomini.getInstance().procedi(true);
 		state=StatiAccedereTabelleMillesimali.base;
 	}
 
@@ -207,7 +202,6 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		ATM.finito();
 		this.dispose();
 	}
-
 	
 	private static final long serialVersionUID = 1L;
 	private JTable tabella;
@@ -276,8 +270,6 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		}
 		return descrizione;
 	}
-	
-	
 
 	private JButton getBAnnulla() {
 		if (bAnnulla == null) {
@@ -349,8 +341,4 @@ public class InserisciModificaTabellaMillesimale extends JFrame implements BaseB
 		}
 		return tabella;
 	}
-	
-	
 }
-
-	

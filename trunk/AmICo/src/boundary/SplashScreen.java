@@ -73,7 +73,8 @@ public final class SplashScreen extends Frame {
       System.out.println("Cannot track image load.");
     }
 
-    SplashWindow splashWindow = new SplashWindow(this,fImage);
+    @SuppressWarnings("unused")
+	SplashWindow splashWindow = new SplashWindow(this,fImage);
   }
   
   

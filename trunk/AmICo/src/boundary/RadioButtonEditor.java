@@ -19,6 +19,7 @@ import javax.swing.JTable;
  * @author Federico
  *
  */
+@SuppressWarnings("serial")
 public class RadioButtonEditor extends    DefaultCellEditor
 implements ItemListener {
 	  private JRadioButton button;
@@ -43,5 +44,4 @@ implements ItemListener {
 	  public void itemStateChanged(ItemEvent e) {
 	    super.fireEditingStopped();
 	  }
-
-	}
+}

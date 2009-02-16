@@ -169,7 +169,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		
 		bPersonaDiRiferimento.setEnabled(false);
 		personaDiRiferimento.setEnabled(false);
-		
 		cognome.setEditable(true);
 		nome.setEditable(true);
 		codiceFiscale.setEditable(true);
@@ -191,7 +190,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	}
 
 	public void ammissibile(EsitoControlloDatiPersona 	controlloDati) {
-		//AMM.richiediConferma(controlloDati);
+	
 	}
 	
 	public void ammissibile(Boolean b) {
@@ -251,7 +250,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 	public void aggiornaPersone() {
 		DefaultComboBoxModel x=new DefaultComboBoxModel();
 		
-		@SuppressWarnings("unused")
 		int selectedIndex =0;
 		int index=-1;
 		for (Persona p : personeFisiche.getPersone())
@@ -289,7 +287,7 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 			
 			DatiPersonaGiuridica datiPG=new DatiPersonaGiuridica();
 			
-			if(conRiferimento) // è stata inserita una nuova persona usando il pulsante
+			if(conRiferimento) 
 			{
 				DatiPersonaFisica pRiferimento = new DatiPersonaFisica();
 				pRiferimento.setFax(fax.getText());
@@ -326,7 +324,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		this.dispose();
 		
 	}
-	
 
 	private static final long serialVersionUID = 1L;
 	private JTextField nome;
@@ -620,7 +617,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 				public void mouseClicked(MouseEvent event) {
 					bannullaMouseMouseClicked(event);
 				}
-
 			});
 		}
 		return bannulla;
@@ -636,7 +632,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 				public void mouseClicked(MouseEvent event) {
 					bModificaMouseMouseClicked(event);
 				}
-
 			});
 		}
 		return bModifica;
@@ -716,7 +711,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		return domicilio;
 	}
 
-
 	private JTextField getCognome() {
 		if (cognome == null) {
 			cognome = new JTextField();
@@ -739,7 +733,6 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 		return nome;
 	}
 
-
 	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
@@ -752,5 +745,4 @@ public class ModificarePersona extends JFrame implements BaseBoundary{
 					+ " on this platform:" + e.getMessage());
 		}
 	}
-
 }

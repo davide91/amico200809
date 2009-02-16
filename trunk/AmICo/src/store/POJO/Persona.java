@@ -89,19 +89,8 @@ public class Persona {
 	}
 
 	public void unlink(Proprieta p) {
-		// TODO Auto-generated method stub
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 			proprieta.remove(p);
-		//session.update(this);
 	}
-	
-/*	public void aggiungiProprieta(Proprieta prop) {
-		session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-			this.proprieta.add(prop);
-		session.update(this);
-		//session.getTransaction().commit(); //chiamata da un metodo con sessione già aperta, se lo chiudo eccezione
-	}
-*/
 }

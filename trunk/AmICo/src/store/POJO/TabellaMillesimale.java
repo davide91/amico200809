@@ -42,13 +42,6 @@ public class TabellaMillesimale {
 		for (Millesimo m : mille.getListaMillesimi()) {
 			millesimi.add(m);
 		}
-		
-	/*	for (int i=0;i< mille.getListaMillesimi().size();i++) {
-			Millesimo mill = new Millesimo();
-			mill.setQuota(mille.getListaMillesimi().get(i).getQuota());
-			millesimi.add(mill);
-		}
-		*/
 	}
 
 	public void creaTabellaProprietaGenerale(Millesimi mille)
@@ -69,15 +62,6 @@ public class TabellaMillesimale {
 			for (Millesimo m : mille.getListaMillesimi()) {
 				millesimi.add(m);
 			}
-			
-	/*	siccome nel millesimo ho anche l'unità immobiliare
-	 * 
-	 * 	for (int i=0;i< mille.getListaMillesimi().size();i++) {
-				Millesimo mill = new Millesimo();
-				mill.setQuota(mille.getListaMillesimi().get(i).getQuota());
-				millesimi.add(mill);
-			}
-	*/	
 		session.update(this);
 		session.getTransaction().commit();
 	}

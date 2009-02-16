@@ -49,7 +49,6 @@ public class GestorePersone implements BaseExecutor {
 	 
 	}
 	
-	
 	public void inserisciDatiPersona(DatiPersona datiP){
 		datiPersona=datiP;
 		state=StatiGestorePersone.attesaConfermaInserimento;
@@ -66,10 +65,9 @@ public class GestorePersone implements BaseExecutor {
 	
 	public void inserisciPersona(AccedentiPersone richiedente){
 		
-		RICH=richiedente;
+		RICH=richiedente;	
 		state=StatiGestorePersone.inserimentoPersona;
 		IP=new InserirePersona(TP.recuperaPersone());
-
 	}
 	
 	public void modificaDatiPersona(DatiPersona datiP) {
@@ -83,7 +81,6 @@ public class GestorePersone implements BaseExecutor {
 		}
 	}
 	
-	
 	public void modificaPersona(AccedentiPersone richiedente, Persona persona,AccedereCondominioAperto aca) {
 		RICH=richiedente;
 		personaMod=persona;
@@ -95,7 +92,6 @@ public class GestorePersone implements BaseExecutor {
 		
 	}
 
-	
 	private boolean personaGiaInserita(DatiPersona datiP) {
 		Persone pf = TuttePersone.getInstance().recuperaPersone();
 		
@@ -134,7 +130,6 @@ public class GestorePersone implements BaseExecutor {
 	
 	public void operazioneTerminata() {
 		//  Auto-generated method stub
-		
 	}
 
 	public void procedi(boolean b) {
@@ -153,7 +148,7 @@ public class GestorePersone implements BaseExecutor {
 				IP.fatto();
 			}
 			else IP.fallito();	
-			RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
+			RICH.aggiornaPersone(TP.recuperaPersone()); 
 			
 			break;
 		case attesaConfermaModifica:
@@ -171,7 +166,7 @@ public class GestorePersone implements BaseExecutor {
 				MP.fatto();
 			}
 			else MP.fallito();
-			RICH.aggiornaPersone(TP.recuperaPersone()); //lo fa in entrambi i casi
+			RICH.aggiornaPersone(TP.recuperaPersone());
 		
 			break;
 		}
@@ -213,6 +208,3 @@ public class GestorePersone implements BaseExecutor {
 			personaRiferimento = riferimento.getDati();
 	}
 }
-	
-	
-

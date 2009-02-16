@@ -45,15 +45,7 @@ public class GestorePagamenti implements BaseExecutor {
 	{
 		m_bilancio = bilancio;
 		m_datiPP = dati;
-		
-		/* FIXME
-		 * Dalla SM :
-		 * self.ripartizione = 	condominio.recuperaTabelleMillesimali->select(nome = "Proprietà")
-		 * 
-		 * Seguono voli pindarici per l'implementazione
-		 * 
-		 */
-		
+	
 		Iterator<TabellaMillesimale> tabIter = m_condominio.recuperaTabelleMillesimali().getTabelle().iterator();
 		
 		while (tabIter.hasNext())
@@ -64,13 +56,7 @@ public class GestorePagamenti implements BaseExecutor {
 				break;
 			}
 		}
-		
-		/*
-		 * Fine dei voli pindarici
-		 */
-		
 		m_accederePagamenti.ammissibile(true);
-		
 	}
 	
 	public void generaPianoPagamentiStraordinario(Bilancio bilancio, DatiPianoPagamenti dati, TabellaMillesimale tabella)
@@ -106,7 +92,6 @@ public class GestorePagamenti implements BaseExecutor {
 	
 	public void inserisciFraseAdHoc(String frase)
 	{
-		// Non si sa mai :)
 		if ( m_documento == null ) return;
 		
 		m_documento.inserisciFrase(frase);
@@ -114,15 +99,12 @@ public class GestorePagamenti implements BaseExecutor {
 	}
 
 	public void operazioneAnnullata() {
-		// Inutilizzato nel design 3.6.3
 		
 	}
 	
 	public void operazioneTerminata() {
 		if ( m_state == StatiGestorePagamenti.gestorePagamenti )
 		{
-			// FIXME : GCA non ha singleton O_O
-			// GestoreCondominioAperto.fatto();
 			return;
 		}
 		
@@ -162,14 +144,11 @@ public class GestorePagamenti implements BaseExecutor {
 		case attesaConfermaPianoPagamentiStraordinari :
 			PianoPagamentiStraordinario pianoPStraordinario = 
 				new PianoPagamentiStraordinario();
-			// FIXME : Prima inserire e poi modificare ?
 			pianoPStraordinario.creaPianoPagamenti(m_datiPP, m_ripartizione);
 			m_bilancio.inserisciPianoPagamenti(pianoPStraordinario);
 			break;
 		case attesaConfermaDocumentoSollecito :
 			docFile = Formattatore.converti(m_documento, m_formato);
-			// FIXME : al posto di m_defaultSavePath la SM indica 'default' che probabilmente intende 
-			// essere un path di default per il salvataggio dei file
 			DriverFileSystem.getInstance().salva(docFile, m_defaultSavePath, this);
 			m_state = StatiGestorePagamenti.creazioneDocumentoSollecito;
 			break;
@@ -185,7 +164,4 @@ public class GestorePagamenti implements BaseExecutor {
 			break;
 		}
 	}
-
-	
-	
 }

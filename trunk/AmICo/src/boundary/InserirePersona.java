@@ -73,7 +73,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 
 	public void ko() {
 		GP.procedi(false);
-		//AMM.mostra(PersonaInseritaKO);
 	}
 	
 	public void inserisciDatiPersona(DatiPersona datiP) {
@@ -127,6 +126,7 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		
 		
 	}
+	
 	public void  annulla() {
 		GP.annullato();
 	}
@@ -279,10 +279,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 	
 
 	protected void bPersonaDiRiferimentoMouseMouseClicked(MouseEvent event) {
-		
-		/*ragioneSociale.setEditable(false);
-		partitaIVA.setEditable(false);
-		indirizzoFiscale.setEditable(false);*/
 		bPersonaDiRiferimento.setEnabled(false);
 		personaDiRiferimento.setEnabled(false);
 		cognome.setEditable(true);
@@ -294,11 +290,10 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		provincia.setEnabled(true);
 		cellulare.setEditable(true);
 		interno.setEditable(true);
-		telefono.setEnabled(true);
-		fax.setEnabled(true);
-		eMail.setEnabled(true);
+		telefono.setEditable(true);
+		fax.setEditable(true);
+		eMail.setEditable(true);
 		conRiferimento=true;
-		
 	}
 
 	
@@ -458,7 +453,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return jLabel22;
 	}
 
-
 	private JLabel getJLabel21() {
 		if (jLabel21 == null) {
 			jLabel21 = new JLabel();
@@ -466,7 +460,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return jLabel21;
 	}
-
 
 	private JLabel getJLabel20() {
 		if (jLabel20 == null) {
@@ -476,7 +469,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return jLabel20;
 	}
 
-
 	private JLabel getJLabel10() {
 		if (jLabel10 == null) {
 			jLabel10 = new JLabel();
@@ -484,7 +476,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return jLabel10;
 	}
-
 
 	private JLabel getJLabel9() {
 		if (jLabel9 == null) {
@@ -494,7 +485,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return jLabel9;
 	}
 
-
 	private JLabel getJLabel8() {
 		if (jLabel8 == null) {
 			jLabel8 = new JLabel();
@@ -502,7 +492,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return jLabel8;
 	}
-
 
 	private JLabel getJLabel7() {
 		if (jLabel7 == null) {
@@ -512,7 +501,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return jLabel7;
 	}
 
-
 	private JLabel getJLabel6() {
 		if (jLabel6 == null) {
 			jLabel6 = new JLabel();
@@ -520,7 +508,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return jLabel6;
 	}
-
 
 	private JLabel getJLabel5() {
 		if (jLabel5 == null) {
@@ -530,7 +517,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return jLabel5;
 	}
 
-
 	private JLabel getJLabel4() {
 		if (jLabel4 == null) {
 			jLabel4 = new JLabel();
@@ -539,14 +525,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return jLabel4;
 	}
 
-
 	private JTextField getComune() {
 		if (comune == null) {
 			comune = new JTextField();
 		}
 		return comune;
 	}
-
 
 	private JTextField getCap() {
 		if (cap == null) {
@@ -555,7 +539,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return cap;
 	}
 
-
 	private JLabel getJLabel3() {
 		if (jLabel3 == null) {
 			jLabel3 = new JLabel();
@@ -563,7 +546,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return jLabel3;
 	}
-
 
 	private JLabel getJLabel2() {
 		if (jLabel2 == null) {
@@ -582,7 +564,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return jLabel1;
 	}
 
-
 	private JLabel getJLabel0() {
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
@@ -590,7 +571,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return jLabel0;
 	}
-
 
 	private JButton getBannulla() {
 		if (bannulla == null) {
@@ -605,7 +585,6 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return bannulla;
 	}
-
 
 	private JButton getBok() {
 		if (bok == null) {
@@ -636,14 +615,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return partitaIVA;
 	}
 
-
 	private JTextField getRagioneSociale() {
 		if (ragioneSociale == null) {
 			ragioneSociale = new JTextField();
 		}
 		return ragioneSociale;
 	}
-
 
 	private JTextField getFax() {
 		if (fax == null) {
@@ -652,14 +629,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return fax;
 	}
 
-
 	private JTextField getEMail() {
 		if (eMail == null) {
 			eMail = new JTextField();
 		}
 		return eMail;
 	}
-
 
 	private JTextField getCellulare() {
 		if (cellulare == null) {
@@ -668,14 +643,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return cellulare;
 	}
 
-
 	private JTextField getTelefono() {
 		if (telefono == null) {
 			telefono = new JTextField();
 		}
 		return telefono;
 	}
-
 
 	private JComboBox getProvincia() {
 		if (provincia == null) {
@@ -687,14 +660,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return provincia;
 	}
 
-
 	private JTextField getDomicilio() {
 		if (domicilio == null) {
 			domicilio = new JTextField();
 		}
 		return domicilio;
 	}
-
 
 	private JTextField getCognome() {
 		if (cognome == null) {
@@ -703,14 +674,12 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		return cognome;
 	}
 
-
 	private JTextField getCodiceFiscale() {
 		if (codiceFiscale == null) {
 			codiceFiscale = new JTextField();
 		}
 		return codiceFiscale;
 	}
-
 
 	private JRadioButton getRadioPG() {
 		if (radioPG == null) {
@@ -746,5 +715,4 @@ public class InserirePersona extends JFrame implements BaseBoundary{
 		}
 		return nome;
 	}
-
 }
