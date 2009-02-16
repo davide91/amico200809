@@ -80,69 +80,77 @@ public class AccedereProprietari extends JFrame {
 	
 	public void aggiornaTabella(Persona pers, float quota)
 	{
-		int cont=0;
-		click=true;
-		
-		if(quota!=0 && pers!=null)
+		if(!proprietari.getPersone().contains(pers))
 		{
-			proprietari.inserisciPersona(pers);
-			quote.inserisciReale(quota);
+			int cont=0;
+			click=true;
 			
-			getBRimuoviProprietario().setEnabled(true);
-		}
+			if(quota!=0 && pers!=null)
+			{
+				proprietari.inserisciPersona(pers);
+				quote.inserisciReale(quota);
+				
+				getBRimuoviProprietario().setEnabled(true);
+			}
+			
+			if(quote.somma()==100) {
+				aggiungibile=false;
+				getBOK().setEnabled(true);
+				getBAggiungiProprietario().setEnabled(false);
+			}
+			else
+			{
+				aggiungibile=true;
+				getBOK().setEnabled(false);
+				getBAggiungiProprietario().setEnabled(true);
+			}
 		
-		if(quote.somma()==100) {
-			aggiungibile=false;
-			getBOK().setEnabled(true);
-			getBAggiungiProprietario().setEnabled(false);
+			initGroup();
+			
+			Iterator<Persona> p =this.proprietari.getPersone().iterator();
+			Persona perso;
+			
+			Iterator<Float> q=this.quote.getListaQuote().iterator();
+			float quo;
+				somma.setText("Al 100% manca "+ (100-quote.somma())+"%");
+				DefaultTableModel dm = new DefaultTableModel();
+				
+			    dm.setDataVector(
+			      new Object[][]{},
+			      new Object[]{"Nome","Cognome","Quota","Seleziona"}
+			      );
+	
+			    while(p.hasNext())
+			    {
+			    	perso=p.next();
+			    	quo = q.next();
+			    	cont++;
+			    	if(perso instanceof PersonaFisica)
+			    		dm.addRow(new Object[]{
+			    				((PersonaFisica)perso).getDati().getNome(),
+			    				((PersonaFisica)perso).getDati().getCognome(),
+			    				quo,
+			    				new JRadioButton() });
+			    	else if(perso  instanceof PersonaGiuridica)
+			    		dm.addRow(new Object[]{
+			    				((PersonaGiuridica)perso).getDati().getRagioneSociale(),
+			    				"",
+			    				quo,
+			    				new JRadioButton() });
+			    		
+			    }
+			    for(int i=0;i<cont;i++)
+			    	group.add((JRadioButton)dm.getValueAt(i,3));
+	
+			    table.setModel(dm);
+			    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
+			    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 		}
 		else
 		{
-			aggiungibile=true;
-			getBOK().setEnabled(false);
-			getBAggiungiProprietario().setEnabled(true);
+			JOptionPane.showMessageDialog(this, "Proprietario gia' inserito");
+			click=true;
 		}
-	
-		initGroup();
-		
-		Iterator<Persona> p =this.proprietari.getPersone().iterator();
-		Persona perso;
-		
-		Iterator<Float> q=this.quote.getListaQuote().iterator();
-		float quo;
-			somma.setText("Al 100% manca "+ (100-quote.somma())+"%");
-			DefaultTableModel dm = new DefaultTableModel();
-			
-		    dm.setDataVector(
-		      new Object[][]{},
-		      new Object[]{"Nome","Cognome","Quota","Seleziona"}
-		      );
-
-		    while(p.hasNext())
-		    {
-		    	perso=p.next();
-		    	quo = q.next();
-		    	cont++;
-		    	if(perso instanceof PersonaFisica)
-		    		dm.addRow(new Object[]{
-		    				((PersonaFisica)perso).getDati().getNome(),
-		    				((PersonaFisica)perso).getDati().getCognome(),
-		    				quo,
-		    				new JRadioButton() });
-		    	else if(perso  instanceof PersonaGiuridica)
-		    		dm.addRow(new Object[]{
-		    				((PersonaGiuridica)perso).getDati().getRagioneSociale(),
-		    				"",
-		    				quo,
-		    				new JRadioButton() });
-		    		
-		    }
-		    for(int i=0;i<cont;i++)
-		    	group.add((JRadioButton)dm.getValueAt(i,3));
-
-		    table.setModel(dm);
-		    table.getColumn("Seleziona").setCellRenderer(new RadioButtonRenderer());
-		    table.getColumn("Seleziona").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 	}
 
 	private void bAggiungiProprietarioMouseMouseClicked(MouseEvent event) {
@@ -175,11 +183,10 @@ public class AccedereProprietari extends JFrame {
 			           }
 			}
 		}
-		
 	}
 
 	private void bOKMouseMouseClicked(MouseEvent event) {
-		if(click)
+		if(click && bOK.isEnabled())
 		{
 			if (quote.somma()==100.0){
 				CUI.proprietaOK(proprietari, quote);
@@ -190,14 +197,12 @@ public class AccedereProprietari extends JFrame {
 		}
 	}
 
-
 	private void bAnnulla() {
 			GestoreCondomini.getInstance().operazioneAnnullata();
 			CUI.setVisible(true);
 			CUI.annulla();
 			this.dispose();
 	}
-
 
 	private static final long serialVersionUID = 1L;
 	private JButton bAnnulla;

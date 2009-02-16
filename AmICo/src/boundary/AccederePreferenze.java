@@ -152,7 +152,7 @@ public class AccederePreferenze extends JPanel {
 	private void ko() {
 		preferenze = oldPreferenze;
 		jTextField0.setText(""+preferenze.getInteressiMora());
-		jTextField1.setText(""+preferenze.getSogliaMinimaCassa().getEuro());
+		jTextField1.setText(""+preferenze.getSogliaMinimaCassa().recuperaValore());
 		jSpinner0.setValue(preferenze.getRitardoAmmesso());
 	}
 
