@@ -88,7 +88,7 @@ public class UnitaImmobiliare {
 				boolean found = false;
 				
 				for (Proprieta p : pers.getPersone().get(i).getProprieta()) {
-					if (p.getUnitaImmobiliare().equals(this)) {
+					if (p.getUnitaImmobiliare().equals(this) && !p.equals(prop)) {
 						pers.getPersone().get(i).getProprieta().remove(p);
 						pers.getPersone().get(i).getProprieta().add(prop);
 						found = true;
